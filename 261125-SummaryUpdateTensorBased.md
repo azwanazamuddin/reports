@@ -63,8 +63,12 @@ graph TD
     Init[Start: Home] --> Agents
     Agents -->|End of Day| Result[Trajectories]
 
-    style Choice fill:#555,stroke:#555,stroke-width:2px
+    style Choice fill:#555,stroke:#333,stroke-width:2px
 ```
+
+---
+
+## 2. Implementation Details
 
 ### Phase 1: Forward Pass (Reachability Analysis)
 
@@ -79,7 +83,7 @@ The algorithm uses a **Level-Synchronous BFS** with **Time Buckets** to ensure c
     *   **GATHER**: Collect all state tensors scheduled for time $t$.
     *   **MERGE**: Concatenate and deduplicate using `torch.unique`. This merges paths arriving at the same state from different origins.
     *   **EXPAND**: Use `GPUStateExpansionKernel` to generate all valid actions and next states in parallel.
-    *   **SCATTER**: Schedule resulting `next_states` into future time buckets based on their arrival time ($t + \text{duration} + \text{travel\_time}$).
+    *   **SCATTER**: Schedule resulting `next_states` into future time buckets based on their arrival time ($t + \text{duration} + \text{travel time}$).
 
 **Key Components**:
 *   **State Tensor**: States are packed into `(N, 8)` integer tensors: `[Time, Zone, Activity, Duration, Mode, CarInUse, MotoInUse, History]`
@@ -118,7 +122,7 @@ Simulates $N$ agents (e.g., 1,000) in parallel on the GPU.
 
 ---
 
-## 2. Mathematical Formulation
+## 3. Mathematical Formulation
 
 ### Tensor State Representation
 
@@ -182,7 +186,7 @@ $$
 
 ---
 
-## 3. Results and Calibration
+## 4. Results and Calibration
 
 ### Calibration Metrics (1,000 Agents)
 
@@ -207,3 +211,9 @@ The Tensor-based GPU implementation provides significant speedups:
 | **Forward Pass** | ~78s | ~10-15s | **~5-8x** |
 | **Backward Induction** | ~45s | ~2-5s | **~10-20x** |
 | **Simulation (1k)** | ~120s | ~5s | **~24x** |
+
+---
+
+**Document Status**: Updated 2025-11-26
+**Implementation**: Tensor-based GPU optimization complete
+**Next Steps**: Large-scale validation and parameter tuning
