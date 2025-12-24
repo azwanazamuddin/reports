@@ -22,6 +22,11 @@ This engineering optimization maps directly to the concept of **Probabilistic Bi
 - **Concept**: Two states are bisimilar if they have identical future transition probabilities and rewards.
 - **Application**: By merging states that differ only by "Home Zone" but share all other attributes (Time, Current Zone, History), we perform a rigorous state aggregation that preserves exact dynamics.
 
+### 2.4 Limitations
+The current Universal Graph implementation has a key constraint:
+- **Single Home Zone Scope**: It effectively merges states across different *Home Zones*, but it does **not** yet account for variability in **Work Zones** or **School Zones**.
+- **Implication**: Agents must share the same fixed `mandatory_sequence` (e.g., same Work Zone, same School Zone) to share a graph. We cannot yet "merge all possible" work/school combinations into a single universal graph. This means a separate graph is still required for each unique combination of mandatory destinations.
+
 ## 3. Backward Induction (BI) Optimization
 
 While the Universal Graph solved the forward pass bottleneck, Backward Induction still needed to be run separately for each home zone (to account for different terminal conditions).
