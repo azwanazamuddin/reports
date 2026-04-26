@@ -36,12 +36,24 @@ related:
 
 ### 1.1 Motivation
 
-<!-- Activity-based travel demand modeling; computational gap in DDCMs at city scale; Västberg et al. (2020) benchmark; consequence: planners fall back to sequential static models. -->
+<!-- 5-move hourglass structure: societal (Move 1) → why timing/chaining (Move 2) → DDCM promise (Move 3) → computational barrier (Move 4, hourglass waist) → this thesis establishes feasibility. -->
 
 TODO:
-- **Have:** `MASTER_THESIS_OUTLINE.md` §1.1 framing; `260419 - Master Thesis Progress.md` §1 bullets.
-- **Need:** One concrete policy example (e.g. Higashi-Hiroshima transport-demand context); Västberg (2020) benchmark citation resolved to `@vastberg...`.
-- **Write:** ~2 pages. Policy case for activity-based demand → narrow to DDCMs → Västberg (2020) 10 s/agent / 1,000 CPU-day benchmark → "planners fall back to sequential static" consequence.
+- **Have:** `MASTER_THESIS_OUTLINE.md` §1.1 now structured as 4-move runway into the waist.
+- **Need:** One concrete Higashihiroshima policy example to anchor Move 1 locally (e.g. peak-hour congestion on Route 2, or ageing population transit access in outer zones).
+- **Write:** ~2 pages following the 4-move structure below:
+
+**Move 1 — Societal (½ page)**
+Cities face welfare trade-offs in transport policy — congestion pricing, emissions, ageing populations, autonomous mobility. Planners need models that both predict behavioural response and measure welfare impact in monetary terms. Aggregate four-step models answer neither. [Cite: Vickrey 1969; Eliasson et al. 2009]
+
+**Move 2 — Why timing and chaining (½ page)**
+Policies work through *when* people travel and *which trips they chain*. Static models fail for three reasons (de Palma & Fosgerau 2011): departure time is endogenous; scheduling costs equal travel-time costs (empirically 0.5–1.5× value of time, Small 1982); time-varying policies have no static analogue. Trip-chaining — work, child drop-off, shopping — compounds the problem. [Cite: de Palma & Fosgerau 2011; Vickrey 1969 (bottleneck model); Small 1982 (schedule delay cost magnitudes — NOT Vickrey)]
+
+**Move 3 — DDCM promise (½ page)**
+Dynamic Discrete Choice Models (DDCMs) for activity-based travel demand (Västberg et al. 2020) answer both questions jointly: behavioural realism through dynamic utility maximisation, and a welfare measure through the log-sum value function (McFadden 1981; Small & Rosen 1981) — "a toll costs each household ¥X ± ¥Y per day". The model continues to be actively developed (McCarthy, Karlström & Västberg 2025). [Cite: Västberg et al. 2020; McFadden 1981; Small & Rosen 1981; McCarthy et al. 2025]
+
+**Move 4 — Computational barrier (½ page)**
+Exact computation requires backward induction through every reachable state. The state space grows exponentially: at Higashihiroshima scale, 146 million theoretical states, ~69 hours and 6.7 TB memory naive. At realistic city scale, Västberg et al. (2020) report ~1,000 CPU-days. Practitioners approximate — but approximation silently corrupts the welfare measure. This thesis demonstrates exact computation is achievable: reachability pruning reduces the state space by >99%, and GPU-accelerated backward induction completes in under 2 seconds at 1.5 million states. [Cite: Västberg et al. 2020]
 
 ### 1.2 The Two Barriers
 
@@ -59,28 +71,30 @@ TODO:
 
 | # | Objective |
 |---|-----------|
-| O1 | Develop a scalable computational framework for large-scale DDCMs using reachability-based state pruning and GPU-accelerated dynamic programming. |
-| O2 | Implement and evaluate a sampling-based estimation pipeline for activity-based DDCMs; characterise its performance and identify fundamental limitations. |
+| O1 | Develop a scalable computational framework for exact inference in activity-based DDCMs through reachability-based state pruning, sparse graph representation, and GPU-accelerated backward induction. |
+| O2 | Demonstrate that city-scale DDCM is solvable exactly: implement NFXP estimation to convergence, recover coherent utility parameters, and characterise the identification structure of the estimated model. |
 
-*O1 resolves Barrier 1. O2 addresses Barrier 2 partially, identifies remaining gaps, and motivates future work (PhD).*
+*O1 resolves Barrier 1. O2 resolves the core of Barrier 2 at master's scope — NFXP converges and parameters are recovered. Remaining open items (sandwich SEs, welfare gradient SE(CV)) are Phase B, documented in §5.6 as future work motivating the PhD.*
 
 ### 1.4 Scope and Contributions
 
 - Geographic scope: Higashihiroshima, Japan (144 zones)
-- Data: N=200 persons (pilot) / N=3331 valid (K=8 model), person-trip travel survey
-- Hardware: NVIDIA GTX 1080 Ti (commodity GPU)
+- Data: N=1,368 workers (current estimation subset), person-trip travel survey; full sample N≈3,000+ (pending expansion)
+- Hardware: NVIDIA RTX 5090 32 GB (GPU estimation)
 
 **Master contributions:**
 
-1. First integration of reachability analysis with DDCM backward induction.
-2. GPU-accelerated DP via CSR sparse graph format.
-3. RMDP abstraction reducing per-agent graph cost.
-4. Empirical characterisation of identification limits in sampling-based DDCM estimation.
+1. **DAG framing** — DDCM as a Directed Acyclic Graph, enabling GPU-parallel level-by-level backward induction and shared-graph population handling.
+2. **Reachability pruning** — forward BFS with Hägerstrand space-time prism constraints: 145M → 1.5M states (99% reduction), stored as CSR; exact, no approximation.
+3. **μ(t) utility profiles** — time-varying marginal-utility specification (Supernak 1992; Joh et al. 2003) replacing hard time windows: activity timing and trip-making emerge from preference gradients, not model rules.
+4. **Analytical gradient + NFXP estimation** — exact ∂ℓ/∂θ via second backward-induction pass; NFXP to convergence on city-scale data; identification analysis characterising the c_change likelihood ridge.
+
+**Note:** RMDP abstraction was explored and dropped (see §4.5). The population-handling solution is the shared universal graph per activity-sequence group with individual constraints as masks (Contributions 1–2 jointly).
 
 TODO:
-- **Have:** Scope bullets (geography, data, hardware) and four contribution bullets already listed.
-- **Need:** Decision — does the final thesis use classic Västberg utility or the μ(t) reframing from `260419` §3.3? Affects contribution wording and cross-chapter consistency.
-- **Write:** 1–2 paragraphs linking the four contributions to Objectives (1–3 → O1; 4 → O2) and framing them as a pipeline: reachability (§4.2) → sparse graph (§4.3) → GPU BI (§4.4) → RMDP (§4.5), feeding Ch. 5 estimation, which exposes contribution 4.
+- **Have:** Four contribution bullets resolved above.
+- **Need:** None — utility spec decision resolved as μ(t).
+- **Write:** 1–2 paragraphs linking the four contributions to Objectives (C1+C2+C3 → O1; C4 → O2) and framing them as a pipeline: DAG framing (§4.1) → reachability (§4.2) → sparse graph (§4.3) → GPU BI (§4.4) → μ(t) spec (§3.3), feeding Ch. 5 estimation.
 
 ### 1.5 Thesis Structure
 
@@ -113,12 +127,12 @@ TODO:
 
 ### 2.3 DDCMs in Transport
 
-<!-- Recursive logit (Fosgerau, Frejinger & Karlström 2013); Västberg et al. (2020) as direct predecessor (state space, utility, sampling methods 1 & 2, computational limits); Västberg (2024) duration-dependent utility. -->
+<!-- Recursive logit (Fosgerau, Frejinger & Karlström 2013); Västberg et al. (2020) as direct predecessor (state space, utility, sampling methods 1 & 2, computational limits); McCarthy, Karlström & Västberg (2025) as most recent development — confirms research program is active and computational barrier remains open. -->
 
 TODO:
-- **Have:** `@vastbergDynamicDiscreteChoice2020.md` paper note in `2 - Source Notes/Papers/`; Västberg (2024) notes; Fosgerau, Frejinger & Karlström (2013) recursive-logit reference.
+- **Have:** `@vastbergDynamicDiscreteChoice2020.md` paper note; McCarthy et al. (2025) full paper at `ddcm-core/ddcm_duration.md`; Fosgerau, Frejinger & Karlström (2013) recursive-logit reference.
 - **Need:** Short summary of recursive logit to position Västberg (2020) against it.
-- **Write:** ~3 pages. Dedicate ~1.5 pages to Västberg (2020): state space, utility spec, Methods 1 & 2, computational limits that motivate Ch. 4. Closest section to the contribution.
+- **Write:** ~3 pages. Dedicate ~1.5 pages to Västberg (2020): state space, utility spec, Methods 1 & 2, computational limits that motivate Ch. 4. Add one paragraph on McCarthy et al. (2025) — confirms the KTH group is still actively developing SCAPER but the core computational barrier is unsolved. Closest section to the contribution.
 
 ### 2.4 Approaches to the Computational Curse
 
@@ -182,10 +196,14 @@ TODO:
 
 <!-- u_travel, u_activity, u_start; staying vs moving step utility. Västberg (2020) base with duration-dependent extension. -->
 
+**Decision resolved: μ(t) is the thesis utility specification.** Classic Västberg schedule-delay penalties + hard time windows are described in §2.3 as the predecessor model. This thesis uses the μ(t) temporal profile framework.
+
+**K=10 parameter set** (δ, α, β, β₁_shop, β₀_shop, β₁_leis, β₀_leis, c_change, μ_home, θ_travel). Full equations and profile types in `ddcm_slides/slides.md` §μ(t) and `260419` §3.3.
+
 TODO:
-- **Have:** u_travel / u_activity / u_start equations from `MASTER_THESIS_OUTLINE.md` §3.3; μ(t) reframing in `260419` §3.3.
-- **Need:** **Decision pending** — classic Västberg spec vs μ(t) reframing. Affects §5 and §6.
-- **Write:** ~3 pages. Equations in display math with parameter glosses. Distinguish staying vs moving step utility clearly.
+- **Have:** Full μ(t) spec in `260419` §3.3; parameter table in `ddcm_slides/slides.md`.
+- **Need:** None — spec is resolved.
+- **Write:** ~3 pages. Four subsections: Home (flat floor), Work/School (piecewise δ/α/β), Shop/Leisure (P_open Gaussian-mixture), Travel (θ_travel scale). Display equations for each profile type. Close with the behavioural anchors (c_change and μ_home jointly set trip frequency). Grounded in Supernak (1992) and Joh et al. (2003) — do NOT frame as Västberg extension.
 
 ### 3.4 Data Description
 
@@ -247,14 +265,18 @@ TODO:
 - **Need:** None.
 - **Write:** ~3 pages. Include Algorithm 2. Explain gather → vectorised Q → scatter-reduce (logsumexp). Use "commodity GPU" in prose; move hardware brand details to Appendix C (writing-style rule).
 
-### 4.5 RMDP Abstraction for Agent Heterogeneity
+### 4.5 Shared Universal Graph and Population Handling
 
-<!-- Problem: 144 home zones = 144 graphs. Insight: shared feasibility rules; home-zone is a role binding. Relational MDP: one universal graph, bind HOME_ZONE at runtime. Result: 144 → 1 graph. -->
+<!-- The RMDP abstraction track was explored and dropped (see 260419 §2, "What was dropped"). Current solution: shared universal DAG per activity-sequence group; individual constraints (home zone, work zone, diary windows) applied as masks at simulation time. -->
+
+The naive approach builds one graph per agent (N separate graphs). The insight: agents of the same activity-sequence type (e.g. "worker with car") share the same feasibility rules and the same DAG structure. Individual constraints — home zone, diary time windows — are applied as **masks at simulation time**, not baked into the graph. Result: **one graph per activity-sequence group** covers the entire population. Four groups cover the Higashi-Hiroshima population.
+
+**Note on RMDP.** A Relational MDP abstraction (Boutilier et al. 2001) with role-binding (HOME_ZONE as a runtime parameter) was explored as a more general formulation. It was dropped in favour of the simpler shared-graph-per-group approach: the RMDP formalism added theoretical overhead without changing the computational result. §2.6 describes RMDP theory as background context; this section describes the implemented solution.
 
 TODO:
-- **Have:** Role-binding insight in `MASTER_THESIS_OUTLINE.md` §4.5.
-- **Need:** Short formalism for the role-binding operator.
-- **Write:** ~2 pages. Frame the 144→144 naive problem, state the insight, report 144→1 graph. Note BI runs once; bindings apply at simulation time.
+- **Have:** Shared-graph insight documented in `260419` §2 and §3.1; 4-group population structure in city-scale simulation.
+- **Need:** Formal definition of activity-sequence group; enumeration of the 4 groups used for Higashi-Hiroshima.
+- **Write:** ~1.5 pages. Frame the naive N-graphs problem, state the shared-graph insight, define the 4 groups, note masks. Keep RMDP as a brief footnote — do not build a section around it.
 
 ### 4.6 Optional Approximations
 
@@ -288,7 +310,7 @@ TODO:
 
 ## Chapter 5. Estimation — Baseline and Identification Analysis (~18 pages)
 
-> **Status:** Phase A complete (NFXP r14 converged 2026-03-31, K=8, N=3331, LL=−159,560.31). Phase B pending (sandwich SEs, welfare ∂V̄/∂θ, MaxEnt-IRL verification).
+> **Status:** Phase A in progress (K=10, N=1,368 workers, BFGS + analytical gradient; best ℓ = −28,708.6, ‖∇ℓ‖∞ = 0.78 — partial convergence; c_change identification ridge under investigation). Phase B pending (sandwich SEs, welfare ∂V̄/∂θ, MaxEnt-IRL verification).
 
 ### 5.1 Estimation Problem Setup
 
@@ -304,18 +326,39 @@ TODO:
 <!-- V̄ at reference θ₀; sample R=50 alternative paths via softmax(u+V̄); McFadden-corrected LL optimised with alternatives fixed. -->
 
 TODO:
-- **Have:** Method 2 algorithm in `MASTER_THESIS_OUTLINE.md` §5.2; McFadden (1978) reference.
+- **Have:** Method 2 algorithm in `MASTER_THESIS_OUTLINE.md` §5.2; McFadden (1981) correction reference.
 - **Need:** McFadden correction derivation written out for Appendix A.2.
 - **Write:** ~3 pages. Algorithm step-by-step. Close with caveats (frozen V̄ bias, sampling variance) that motivate NFXP (§5.3).
 
-### 5.3 NFXP Implementation (r14)
+### 5.3 NFXP Implementation (K=10, μ(t))
 
-<!-- GPU pipeline (K=8, N=3331): 30-min graph load (208.9 GB RAM, 35 groups); ~3.4s BI/group; ~208s/iter; Powell optimiser (gradient-free, handles GPU noise floor 0.012); 244 iters × 208s ≈ 14 h. Parameter estimates table (WORK 0.131, SCHOOL 0.113, SHOPPING +0.022, LEISURE 0.064, CHILD_DROPOFF −0.084, CHILD_PICKUP 0.131, HOME 0.100, CHANGE 0.000). Convergence: r12 → r13 → r14 (LL=−159,560.31). -->
+<!-- Current spec: K=10 μ(t), N=1,368 workers, 29 activity-sequence groups, BFGS with analytical gradient. ~22–31 min/iter (~5.9M states/group, ~7 GB GPU). Partial convergence as of April 2026: best LL=−28,708.6, ‖∇ℓ‖∞=0.78, c_change hit lower bound. See 260419 §7 and ddcm_slides/slides.md. -->
+
+**Pipeline.** Outer BFGS over K=10 parameters; inner backward induction on the pruned DAG for V̄(s;θ) and log-likelihood evaluation. Gradient via **analytical differentiation of the Bellman recursion** (Fosgerau et al. 2013): a second BI pass propagates ∂V̄/∂θ backward at the same cost order as the inner BI — exact, no finite differences.
+
+**Current estimation status (April 2026, best checkpoint iter 19):**
+
+| Parameter | Description | θ̂ |
+|---|---|---|
+| δ | On-schedule utility (per min) | 0.0266 |
+| α | Earliness penalty rate | 0.00102 |
+| β | Lateness penalty rate | 0.00300 |
+| β₁_shop | Shop P_open sensitivity | 0.281 |
+| β₀_shop | Shop base utility | −0.871 |
+| β₁_leis | Leisure P_open sensitivity | 0.353 |
+| β₀_leis | Leisure base utility | −0.162 |
+| c_change | Activity-switching cost | **−2.500 ⚠ bound** |
+| μ_home | Home floor utility | 0.102 |
+| θ_travel | Travel disutility scale | 2.00 |
+
+Best ℓ = −28,708.6 · ‖∇ℓ‖∞ = 0.78 (threshold 0.001) · **partial convergence** — BFGS terminated at iter 35 with precision-loss message; c_change pinned at lower bound. δ and μ_home carry the expected positive signs.
+
+> **Status:** ⏳ Estimation pending full convergence. See §5.5 for identification diagnosis and §5.6 for pending items.
 
 TODO:
-- **Have:** r14 parameter-estimate table (WORK 0.131, SCHOOL 0.113, SHOPPING +0.022, LEISURE 0.064, CHILD_DROPOFF −0.084, CHILD_PICKUP 0.131, HOME 0.100, CHANGE 0.000); convergence history r12→r13→r14, LL=−159,560.31; pipeline timings (~3.4 s BI/group, ~208 s/iter, ~14 h total).
-- **Need:** None.
-- **Write:** ~4 pages. Three subsections: (a) pipeline + Powell choice (*why* Powell: GPU noise floor 0.012 hides small gradients); (b) K=8 estimate table with interpretations; (c) convergence narrative. Qualitative framing first, numbers after. Hardware details to Appendix C.
+- **Have:** K=10 parameter table from `260419` §7.2; pipeline description from `260419` §7.1 and `ddcm_slides/slides.md`.
+- **Need:** Final converged parameter table (pending c_change resolution).
+- **Write:** ~4 pages. Three subsections: (a) pipeline + BFGS + analytical gradient (why analytical: exact and same cost as inner BI); (b) current estimates with status; (c) convergence narrative. Replace this table with final converged estimates when available. Hardware details to Appendix C.
 
 ### 5.4 Behavioural Simulation Results
 
@@ -328,18 +371,24 @@ TODO:
 
 ### 5.5 Identification Analysis
 
-<!-- Novel contribution. Gradient diagnostic at θ*: -->
+<!-- K=10 μ(t) estimation: c_change identification ridge. Source: 260419 §7.3–7.4. -->
 
-- **Finding 1 — Gradient scale disparity (286× ratio).** |∂LL/∂θ_activity| ~ 700–2400 vs |∂LL/∂θ_mode| ~ 5–8 → derivative-free optimisers terminate before mode constants converge.
-- **Finding 2 — Mode diversity mismatch.** Observed vs alternative shares for CAR, TRAIN, BICYCLE; train_time=0 sentinel bug fix; residual car under-representation.
-- **Finding 3 — Household car sharing not captured.** 72.1% non-car-owners, 37.5% of whom use car (household-level access not in individual data).
+**Observed behaviour in current run.** $c_\text{change}$ is pinned at its lower bound (−2.500) from early iterations; the gradient w.r.t. $c_\text{change}$ remained negative throughout. BFGS plateaued for 13 consecutive iterations at $\ell \approx -28{,}709$ before the *"desired error not necessarily achieved due to precision loss"* termination at iter 35. Activity parameters ($\delta$, $\alpha$, $\beta$, activity intercepts) barely moved from warm-start values. $\theta_\text{travel}$ ran off to 2.0, roughly double the MNL-aligned prior.
 
-**Structural interpretation.** Mode constants not recoverable from N=200 individual paths: near-zero within-person mode variation; mode-constant identification needs cross-person variation under controlled conditions; LL landscape near-degenerate in mode-constant directions. **Implication:** data structure limitation, not model limitation. Fixing mode constants at reference values does not bias activity parameters.
+**Suspected identification ridge.** The likelihood has a **shallow ridge along the $c_\text{change}$ direction**. Because $c_\text{change}$ enters twice per trip (once per leg of each activity switch), it controls trip frequency regardless of activity utility. When $|c_\text{change}|$ is large, inertia reproduces any observed schedule, absorbing the data's information about activity utilities into the switching cost — making those parameters weakly identified. This is an **identification issue, not an optimiser issue**: multi-start BFGS, tighter tolerances, or different step rules cannot fix a flat ridge.
+
+**Three-step diagnosis (in progress):**
+
+1. **Score-sign check.** Compute $\partial\ell/\partial c_\text{change}$ over a range of $c_\text{change}$ values; determine whether the gradient ever changes sign. If observed trip count exceeds predicted trip count at every reasonable $c_\text{change}$, the gradient is negative by construction and identification fails on structural grounds. Cost: design work only — no extra compute.
+2. **Profile-likelihood sweep** over $c_\text{change} \in \{-2.5, -2.0, -1.5, -1.0, -0.5, -0.3, 0\}$: seven warm-started BFGS runs (≈1–2 h each) at fixed $c_\text{change}$ values. Directly visualises the ridge. If $\ell$ is flat across this range, $c_\text{change}$ is not separately identified. If $\ell$ has a clear peak, that value is the concentrated MLE.
+3. **Paper-ready fallback:** fix $c_\text{change}$ at the MNL switching-cost prior (−0.3) and estimate the remaining 9 parameters. Yields a fully identified submodel, presented honestly as *"conditioning on the MNL switching-cost prior."* One overnight run.
+
+**Structural interpretation.** If the ridge is confirmed, it is a **model-scope limitation** for the current data: the survey records individual trips but not the time-varying identity of co-travellers or chained-activity patterns that would separately pin the switching cost. Fixing $c_\text{change}$ does not bias the activity-utility parameters — it removes a degenerate basin from the search space and restores identifiability of the remaining nine parameters.
 
 TODO:
-- **Have:** Three findings with numbers (286× gradient ratio; mode-diversity mismatch CAR 63.2%/15.0%, TRAIN 13.2%/48.4% pre-fix; household car-share 72.1% non-owners / 37.5% using car).
-- **Need:** Gradient-diagnostic procedure written formally for Appendix A.3.
-- **Write:** ~4 pages — **novel empirical contribution** of the thesis. One subsection per finding with figure/table. Finding 3 needs careful framing: honest "data structure limitation", not "model failure".
+- **Have:** Observed run behaviour and ridge diagnosis from `260419` §7.3–7.4; three-step plan.
+- **Need:** Results of score-sign check (step 1) and profile-likelihood sweep (step 2) — expected within 2–3 weeks.
+- **Write:** ~3 pages. Lead with the observed run behaviour (table of per-iteration LL if available), then explain the ridge mechanism, then present the diagnosis steps and results once available. Close with the structural interpretation — frame as model-scope limitation, not estimation failure.
 
 ### 5.6 Standard Errors and Welfare ⏳ Pending
 
@@ -355,7 +404,7 @@ TODO:
 
 ### 5.7 NFXP: What Was Eliminated vs What Remains
 
-<!-- Comparison table: frozen V̄ bias (eliminated), sampling variance (eliminated), McFadden correction (no longer needed), mode non-identification (unchanged — K=8 timing-pref spec bypasses), analytic gradient (gap), SEs (pending), welfare (pending). Motivates PhD Chapter 6. -->
+<!-- Comparison table: frozen V̄ bias (eliminated), sampling variance (eliminated), McFadden correction (no longer needed), analytic gradient (implemented — Phase A), SEs (pending — Phase B0), welfare ∂V̄/∂θ (pending — Phase B1), MaxEnt-IRL check (pending — Phase B2). Motivates PhD Chapter 6. -->
 
 TODO:
 - **Have:** Comparison-table rows in `MASTER_THESIS_OUTLINE.md` §5.7.
@@ -368,25 +417,27 @@ TODO:
 
 ### 6.1 Summary of Contributions
 
-- **Contribution 1 (Computational).** Reachability-based state-space pruning + GPU-accelerated DP: 146M → 1.5M states, 6.7 TB → 6.5 GB, 69 h → 105 s (~2,400×). Sparse graph + RMDP generalise to any finite-horizon DDCM with similar structure.
-- **Contribution 2 (Empirical).** First end-to-end GPU NFXP estimation for a city-scale activity-based DDCM converged at 1.5M-state scale (K=8, N=3331, LL=−159,560.31). Individual timing windows eliminate need for explicit mode-change penalties. Behavioural simulation confirms sign-coherent recovery. SEs and welfare pending (Phase B).
+- **Contribution 1 — DDCM as a DAG (Theoretical Framework).** Reformulated activity-based DDCM as computation on a time-ordered directed acyclic graph. Each time level is an independent layer; backward induction is a forward pass over the DAG. This framing makes GPU parallelism structurally natural and opens the door to the two PhD-direction bridges (GNN and RL).
+- **Contribution 2 — Reachability-Based State-Space Pruning (Computational).** Forward BFS with Hägerstrand space-time prism constraints removes states no feasible itinerary can reach. Applied to a 144-zone Higashi-Hiroshima network: 145M → 1.5M states (99% reduction), 6.7 TB → 6.5 GB memory, ~69 h → ~105 s wall time. Stored as a CSR sparse graph; one universal DAG per activity-sequence group, with individual reachability as a mask.
+- **Contribution 3 — μ(t) Smooth Utility Profiles (Behavioural Specification).** Replaced hard time-window rules with continuous marginal-utility profiles μₐ(t), grounded in Supernak (1992) and Joh et al. (2003). K=10 parameters; activity timing, duration, and trip chaining emerge endogenously from preference comparison. Simulated agents reproduce work peak timing, leisure spreading, and home dominance without any hard scheduling rules.
+- **Contribution 4 — Analytical Gradient + NFXP (Estimation).** Implemented the analytical score ∂ℓ/∂θ via a second backward-induction pass (Fosgerau et al. 2013), replacing finite differences or derivative-free search. Outer BFGS drives convergence; each gradient evaluation costs 2× BI, not 20×. Current run (K=10, N=1,368 workers): partial convergence at ℓ = −28,708.6 with c_change identification issue under active diagnosis.
 
 TODO:
-- **Have:** Contribution 1 and 2 bullet summaries.
-- **Need:** None.
-- **Write:** ~2 pages. One paragraph per contribution — what was achieved, how, why it matters. Do not re-state full numbers (those belong in Ch. 4/5).
+- **Have:** Four contribution bullets, aligned with April 2026 presentation and `260419`.
+- **Need:** Final converged estimates (pending c_change resolution) to update C4 status line.
+- **Write:** ~2 pages. One paragraph per contribution — what was achieved, how, why it matters. Do not re-state full numbers (those belong in Ch. 4/5). Note explicitly that RMDP was explored during framework design and dropped in favour of the shared-graph-per-group approach.
 
 ### 6.2 Limitations
 
-- N=200 small for a model with 24+ parameters; behavioural validation is qualitative.
-- Constrained estimation (transport parameters fixed) loses mode-preference information.
-- GPU implementation is NVIDIA-bound; portability limited.
-- RMDP assumes exchangeable roles; does not capture within-zone heterogeneity.
+- N=1,368 workers; behavioural simulation and model validation are qualitative at this stage. Welfare estimates pending SE computation.
+- Transport LOS parameters (travel time, cost) are locally estimated from Higashi-Hiroshima MNL mode choice data (unpublished); treated as fixed in NFXP estimation — constrained estimation loses mode-preference variance.
+- GPU implementation targets CUDA (NVIDIA RTX 5090); portability to AMD or Apple hardware requires kernel re-implementation.
+- $c_\text{change}$ identification: switching cost is not separately identified from activity utilities under the current survey structure; diagnosis and paper-ready fallback are in progress (§5.5).
 
 TODO:
-- **Have:** Four limitation bullets.
+- **Have:** Four limitation bullets, updated to K=10/current status.
 - **Need:** None.
-- **Write:** ~2 pages. Honest framing — each limitation as *scope*, not fatal flaw. Data-structure limitation (N=200, household car-sharing) is most substantive; give it a dedicated paragraph rather than a single bullet.
+- **Write:** ~2 pages. Honest framing — each limitation as *scope*, not fatal flaw. The c_change identification issue is the most substantive; give it a dedicated paragraph, framing it as a data-structure limitation (no within-person mode-switching variation to pin the cost) rather than a model failure.
 
 ### 6.3 Future Work: Toward Scalable Welfare-Preserving Estimation (PhD Direction)
 
@@ -394,10 +445,10 @@ TODO:
 
 **Remaining gaps motivating the PhD:**
 
-1. No analytic gradient → Powell only; Newton-Raphson with exact Fisher information would be more efficient.
-2. No welfare SE(CV) → requires ∂V̄/∂θ (Phase B1) and sandwich SEs (Phase B0).
-3. NFXP ~14 h → Phase C targets a welfare-preserving algorithm orders of magnitude faster.
-4. Bridge 1 verified theoretically; empirical verification at 1.5M-state scale still needed (Phase B2).
+1. Welfare SEs not yet computed: sandwich SEs require ∂V̄/∂θ (Phase B1, one extra BI pass ≈1.5 s) and SE sandwich matrix (Phase B0 — debug run needed). Without these, CV confidence intervals are unavailable.
+2. NFXP iteration cost ~22–31 min: each BFGS step requires two full backward-induction passes over 1.5M states. Acceptable at K=10 but will not scale to the full population (N≈3,000+) or to policy-counterfactual sensitivity analysis.
+3. Bridge 1 (Ermon 2015: MaxEnt IRL ≡ logit DDC) verified theoretically; empirical verification at 1.5M-state scale with the DDCM likelihood still needed (Phase B2). Until verified, Structural-IRL remains grounded in theory alone.
+4. Structural-IRL algorithm not yet built: Phase C is the PhD research direction — a welfare-preserving faster-than-NFXP algorithm derived from the two bridges (GNN backward pass via Bridge 2; MaxEnt RL objective via Bridge 1) with Z(θ) = exp(V̄(s₀;θ)) kept intact as a hard constraint.
 
 TODO:
 - **Have:** Four remaining-gaps list; Bridge 1 (Ermon 2015) and Bridge 2 (Dudzik & Veličković 2022) references.
@@ -418,8 +469,8 @@ TODO:
 ### Appendix A. Mathematical Derivations
 
 - A.1 Logit Bellman equation derivation
-- A.2 McFadden (1978) correction for sampled alternatives
-- A.3 Gradient diagnostic procedure (numerical Jacobian)
+- A.2 McFadden (1981) correction for sampled alternatives
+- A.3 c_change identification diagnostic: score-sign check and profile-likelihood sweep
 
 ### Appendix B. Data Description
 
@@ -450,7 +501,7 @@ TODO:
 
 **Computational Methods.** Hägerstrand (1970); Oyama & Hato (2019); Boutilier, Reiter & Price (2001); Powell (2007).
 
-**Estimation Theory.** McFadden (1978); Su & Judd (2012); Fosgerau, Paulsen & Rasmussen (2022); Adusumilli & Eckardt (2025).
+**Estimation Theory.** McFadden (1981); Su & Judd (2012); Fosgerau, Paulsen & Rasmussen (2022); Adusumilli & Eckardt (2025).
 
 Full reference list: `3 - Permanent Notes/research-plan/MASTER_THESIS_OUTLINE.md` § References.
 
