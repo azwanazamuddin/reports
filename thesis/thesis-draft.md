@@ -152,21 +152,12 @@ TODO:
 - **Need:** Short paper summary per row (especially Adusumilli & Eckardt 2025 TD, Fosgerau et al. 2024 PUM).
 - **Write:** ~3 pages. Build the comparison table first (method | key paper | approach | limitation), then prose per row. Close with the gap Ch. 5 confronts and the PhD resolves.
 
-### 2.6 Relational MDPs
-
-<!-- Boutilier, Reiter & Price (2001); role abstraction; application to spatial heterogeneity. -->
-
-TODO:
-- **Have:** Boutilier, Reiter & Price (2001) reference.
-- **Need:** None.
-- **Write:** ~1.5 pages. Keep short — just enough to ground §4.5.
-
-### 2.7 Research Gap Summary
+### 2.6 Research Gap Summary
 
 <!-- Short table mapping each gap to the thesis chapter that addresses it. -->
 
 TODO:
-- **Have:** Nothing — depends on §2.1–§2.6.
+- **Have:** Nothing — depends on §2.1–§2.5.
 - **Need:** Stable content in §2.1–§2.6.
 - **Write:** ~0.5 page. Table: Gap | Addressed in | How. Write last.
 
@@ -271,7 +262,7 @@ TODO:
 
 The naive approach builds one graph per agent (N separate graphs). The insight: agents of the same activity-sequence type (e.g. "worker with car") share the same feasibility rules and the same DAG structure. Individual constraints — home zone, diary time windows — are applied as **masks at simulation time**, not baked into the graph. Result: **one graph per activity-sequence group** covers the entire population. Four groups cover the Higashi-Hiroshima population.
 
-**Note on RMDP.** A Relational MDP abstraction (Boutilier et al. 2001) with role-binding (HOME_ZONE as a runtime parameter) was explored as a more general formulation. It was dropped in favour of the simpler shared-graph-per-group approach: the RMDP formalism added theoretical overhead without changing the computational result. §2.6 describes RMDP theory as background context; this section describes the implemented solution.
+**Note on RMDP.** A Relational MDP abstraction (Boutilier et al. 2001) with role-binding (HOME_ZONE as a runtime parameter) was explored as a more general formulation. It was dropped in favour of the simpler shared-graph-per-group approach: the RMDP formalism added theoretical overhead without changing the computational result.
 
 TODO:
 - **Have:** Shared-graph insight documented in `260419` §2 and §3.1; 4-group population structure in city-scale simulation.
