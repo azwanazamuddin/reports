@@ -3,7 +3,7 @@ title: DDCM Research Reports
 type: index
 status: active
 created: 2026-04-19
-updated: 2026-04-21
+updated: 2026-04-27
 tags: [ddcm, reports, landing]
 ---
 
@@ -71,6 +71,7 @@ Per-meeting discussion docs. Update `thesis/thesis-draft.md` before each meeting
 | Date | Meeting Doc | Slides | Event / context |
 |---|---|---|---|
 | 2026-04-19 | [Master Thesis Progress (M2, April 2026)](meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md) | [April_Seminar_Presentation.pdf](meetings/2026-spring/presentations/April_Seminar_Presentation.pdf) | M2 mid-semester progress presentation. Framework, μ(t), results, estimation diagnosis. |
+| 2026-04-27 | [Research Progress (M2, Apr 27, 2026)](meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md) | — | Weekly progress. Gradient bug fixes (forbidden_masks, zone ID), c_change ridge diagnosis, cumulative utility diagnostic planned; JSPS/thesis writing updates. |
 
 Thesis draft (research overview document): [`thesis/thesis-draft.md`](thesis/thesis-draft.md).
 
