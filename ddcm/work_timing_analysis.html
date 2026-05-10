@@ -700,69 +700,48 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════════
-     §10  SOLUTIONS
+     §10  CANDIDATE DIRECTIONS
 ═══════════════════════════════════════════════════════════════════ -->
 <div class="card">
-  <h2><span class="section-num">10</span> Options to Fix Work Timing</h2>
+  <h2><span class="section-num">10</span> Candidate Directions — Under Discussion</h2>
+
+  <p style="color:var(--subtext);font-size:0.9rem;margin-bottom:16px">
+    The following are candidate ideas, not a decided plan. Each has unresolved trade-offs
+    that require supervisory discussion before any direction is committed.
+  </p>
 
   <div class="two-col">
     <div>
       <div class="alert alert-green">
-        <strong>Option A: Hard timing windows (re-estimate)</strong><br>
-        Re-enable hard time windows in <code>ConstraintMasks._build_time_window_masks()</code>
-        to block WORK starts outside a narrow window around t<sub>s</sub> (e.g., ±30 min).
-        Then re-estimate all parameters with this constraint active.
+        <strong>Candidate A: Non-flat HOME utility</strong><br>
+        Currently μ<sub>home</sub> is a constant per minute throughout the day.
+        If HOME utility decreases over the morning (agents grow "restless"),
+        the model would naturally push departures earlier without touching the WORK specification.
         <br><br>
-        ✅ Internally consistent<br>
-        ✅ Forces δ to be identified against timing<br>
-        ❌ Requires full re-estimation (~4–8h GPU)
+        Requires: new time-varying μ<sub>home</sub>(t) specification + re-estimation.<br>
+        Open question: what functional form? How to identify the slope from data?
       </div>
     </div>
     <div>
       <div class="alert alert-blue">
-        <strong>Option B: Accept as model limitation</strong><br>
-        Document that K=9 with soft-only timing produces late work starts. The model correctly
-        reproduces mode shares and activity sequences; timing is driven by mandatory_seq
-        rather than utility gradients.
+        <strong>Candidate B: Non-flat WORK on-schedule utility</strong><br>
+        Currently δ is a constant on-schedule reward. A time-varying δ(t) — higher
+        near t<sub>s</sub>, declining away from it — could attract agents toward the
+        observed departure window more strongly than the current flat profile.
         <br><br>
-        ✅ No code changes<br>
-        ✅ Honest about model capability<br>
-        ❌ Simulation validation fails on timing
-      </div>
-    </div>
-    <div>
-      <div class="alert alert-purple">
-        <strong>Option C: Peaked utility at t<sub>s</sub></strong><br>
-        Replace the flat δ on-schedule utility with a peaked profile (maximum at t<sub>s</sub>,
-        decreasing as agent deviates). This is the "ideal arrival time" specification from
-        Ben-Akiva &amp; Lerman (1985). Requires re-specification and re-estimation.
-        <br><br>
-        ✅ Theoretically motivated<br>
-        ❌ New model, harder to identify
-      </div>
-    </div>
-    <div>
-      <div class="alert alert-red">
-        <strong>Option D: A3 diagnostic (fix c_change)</strong><br>
-        Fix c_change = −0.30 (HH MNL prior), re-estimate 9 free parameters.
-        This may allow δ to converge to a higher value, potentially fixing timing.
-        From the existing investigation plan (pending).
-        <br><br>
-        ✅ Already planned<br>
-        ✅ Targeted diagnostic<br>
-        ❌ Doesn't directly address δ vs μ<sub>home</sub> identification
+        Requires: new δ(t) specification + re-estimation.<br>
+        Open question: peaked or monotone? Risk of collinearity with α and β.
       </div>
     </div>
   </div>
 
   <div class="finding">
-    <div class="finding-icon">💡</div>
+    <div class="finding-icon">🗣</div>
     <div class="finding-text">
-      <strong>Recommended path</strong>
-      Run the A3 diagnostic (Option D) first — it's already planned and will reveal whether
-      fixing c_change lets δ converge above μ<sub>home</sub>. If A3 doesn't fix timing,
-      implement Option A (hard windows + re-estimation). Option B is the fallback for
-      the paper if time is limited.
+      <strong>No direction decided</strong>
+      Both candidates have unresolved trade-offs around functional form and identification.
+      The right path depends on which utility re-specification is theoretically defensible.
+      Needs supervisory discussion.
     </div>
   </div>
 </div>
@@ -824,7 +803,7 @@
       </tr>
       <tr>
         <td>What is the fix?</td>
-        <td>Re-estimate with hard timing windows OR run A3 diagnostic (fix c_change)</td>
+        <td>Under discussion — candidate directions are non-flat HOME utility or non-flat WORK on-schedule utility. No direction decided.</td>
       </tr>
     </tbody>
   </table>

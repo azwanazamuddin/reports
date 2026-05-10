@@ -23,7 +23,7 @@ related:
 
 1. **K=10 estimation results and the work-start timing gap.** The full NFXP estimation has converged with all 10 parameters statistically significant (LL = −19,187). However, behavioral validation reveals that the model predicts agents begin work at approximately 14:51, whereas the observed average is approximately 8:30. I want to discuss whether this gap indicates a utility function misspecification that must be resolved before Phase B (welfare infrastructure), and what approach to take.
 
-2. **JSPS proposal writing.** The 6-move hourglass narrative is finalized and all required citations are confirmed in the vault. I want to receive feedback on the overall argument and any content to expand or trim before final writing.
+2. **JSPS proposal writing.** The 6-move hourglass narrative structure and citation list are in place, but the proposal is not yet finalized — the prose is still too dense and needs to be made more compact to leave room for illustrations. I want feedback on which parts to condense and where illustrations would be most effective.
 
 ---
 
@@ -43,7 +43,7 @@ related:
 
 **Literature reviews.** I completed 11 new literature reviews, covering papers for JSPS proposal Moves 1–3 and background for Phase B. These are listed in Section 8.
 
-**JSPS proposal outline.** The 6-move hourglass narrative structure is finalized. All papers cited in Moves 1–5 are now in the vault with full literature review notes. The LaTeX proposal is on Overleaf: [JSPS DC Proposal (read-only)](https://www.overleaf.com/read/bvjwznrzzrmp#d856a7)
+**JSPS proposal outline.** The 6-move hourglass narrative structure and citation list are complete. All papers cited in Moves 1–5 are in the vault with full literature review notes. The proposal itself, however, is not yet finalized — the current draft is too text-heavy and needs revision to make it more compact and to free up space for illustrations. The LaTeX source is on Overleaf: [JSPS DC Proposal (read-only)](https://www.overleaf.com/read/bvjwznrzzrmp#d856a7)
 
 **Thesis writing approach.** The `3 - Permanent Notes/reports/thesis` folder is now for research plans, writing notes, and TODOs only. Actual thesis writing has moved to Overleaf: [Thesis (read-only)](https://www.overleaf.com/read/tfvtfgnpjrrg#125dbf)
 
@@ -78,15 +78,15 @@ related:
 
 **Reasoning:** This is structurally analogous to the c_change identification problem from earlier in estimation. Just as constant-marginal-utility SHOP/LEIS had no satiation mechanism to stop over-chaining, the current morning utility structure has no mechanism to make early departure attractive. A time-of-day preference component, or a richer representation of the morning congestion window, could address this.
 
-**Alternatives I considered:** (a) Add a time-of-day attractiveness shifter for the commute-to-work morning period. (b) Revise how travel times are represented in the morning peak. (c) Accept the timing gap as a known limitation and proceed with Phase B, documenting it clearly in any paper. Option (c) is the fastest path forward, but risks building a welfare measure on a model that is qualitatively wrong on the most directly observable behavior.
+**Alternatives I considered:** Both directions below are tentative and need more discussion before any commitment is made. (a) Make the HOME utility non-flat: currently μ_home is constant per minute throughout the day, but if it decreases over the morning it would naturally push agents out of home earlier. (b) Make the WORK on-schedule utility non-flat: a time-varying δ(t) that is higher closer to t_s and declines away from it could more strongly attract agents toward the observed departure window than the current flat δ. I am not confident about either and want to discuss further before going in any direction.
 
 ### On discussion item 2 — JSPS proposal
 
-**Current thought:** The 6-move hourglass is coherent and all citations are in place. The main remaining challenge is space: Moves 1–3 (background) must be tight enough to leave adequate room for Moves 4–5, where the originality of the contribution lies. Currently the document has detailed content for every move; the writing task is condensing, not expanding.
+**Current thought:** The 6-move hourglass argument is coherent and the citations are confirmed. The problem is density: the current draft fills every available line with text, leaving no room for illustrations. An illustration of the hourglass structure itself, or a diagram showing the two bridges (Bridge 1: MaxEnt IRL ≡ logit DDCM; Bridge 2: BI ≡ semiring message-passing), would communicate the core idea faster than prose — but only if text is cut to make space for them.
 
-**Reasoning:** The JSPS committee evaluates (a) societal and academic significance, (b) originality, and (c) feasibility. Moves 1–2 address (a); Move 5 (welfare preservation criterion, Structural-IRL) addresses (b); the master thesis result (>99% state pruning, exact GPU BI) addresses (c). The bridge connector between Moves 4 and 5 is the hardest to write concisely but is the most distinctive part of the argument.
+**Reasoning:** The JSPS committee evaluates (a) societal and academic significance, (b) originality, and (c) feasibility. Moves 1–2 address (a); Move 5 (welfare preservation criterion, Structural-IRL) addresses (b); the master thesis result (>99% state pruning, exact GPU BI) addresses (c). Illustrations placed at Moves 4–5 would sharpen (b) and (c) significantly, but they require compressing the background moves — especially Move 2's three-point list and the bridge connector paragraph.
 
-**Alternatives I considered:** (a) Trim Move 1 to one sentence and expand Move 5. (b) Collapse Move 2's three-point list to one sentence if the figure is reinstated. (c) Write the proposal in Japanese throughout — pending confirmation of language requirements.
+**Alternatives I considered:** (a) Cut Move 1 to two sentences and use the space for a bridge diagram at Move 5. (b) Replace Move 2's three-point list with a single sentence plus a small timing-cost figure. (c) Keep the current text-heavy draft and drop illustrations entirely — but this risks the proposal reading as dense and hard to follow at a glance.
 
 ---
 
@@ -94,7 +94,7 @@ related:
 
 - **Timing gap vs. Phase B priority.** I cannot determine on my own what degree of behavioral fit is required before the welfare measure is reliable. If the model mispredicts work-start timing by ~6 hours, any Phase B welfare estimate for a peak-hour congestion policy could be systematically wrong. Fixing the utility structure means another full estimation cycle — potentially weeks. I need the supervisor's judgment on whether Phase B can proceed with the current model (with the limitation documented), or whether the utility structure must be corrected first.
 
-- **JSPS page allocation.** I cannot determine the right balance between accessible societal motivation (Moves 1–2) and technical depth (Move 4–5) without knowing the committee's expected reading focus. A transport economics committee would expect more Move 2 detail; a computational or CS-oriented committee would expect more Move 5 depth.
+- **JSPS compaction and illustrations.** I cannot determine on my own which paragraphs can be cut without weakening the argument, nor where illustrations would be most persuasive given the page limit. The current draft is too dense to accommodate figures. I need the supervisor's view on which moves to shorten and whether a bridge diagram or a timing figure would be worth the space cost.
 
 ---
 
