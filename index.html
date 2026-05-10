@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DDCM Research Reports — Azwan Nazamuddin</title>
+<style>
+  :root {
+    --bg: #F7F8FA;
+    --card: #FFFFFF;
+    --border: #E4E7EC;
+    --text: #1A1D23;
+    --subtext: #6B7280;
+    --accent: #4338CA;
+    --accent-light: #EEF2FF;
+    --accent2: #0F766E;
+    --accent2-light: #F0FDFA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #1E3A5F 100%);
+    color: #fff;
+    padding: 52px 24px 44px;
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; }
+  header h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  header .subtitle { font-size: 1rem; opacity: 0.75; margin-bottom: 18px; }
+  header .links { display: flex; gap: 10px; flex-wrap: wrap; }
+  header .links a {
+    color: rgba(255,255,255,0.8); font-size: 0.82rem;
+    text-decoration: none; padding: 4px 13px;
+    border: 1px solid rgba(255,255,255,0.22); border-radius: 20px;
+    transition: background 0.15s;
+  }
+  header .links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+  /* ── Main layout ── */
+  main { max-width: 860px; margin: 0 auto; padding: 36px 20px 80px; }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--subtext);
+    margin: 36px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── About card ── */
+  .about-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px 28px;
+  }
+  .about-card p { color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; }
+  .about-card p:last-child { margin-bottom: 0; }
+  .bottleneck { margin: 14px 0 14px 18px; font-size: 0.9rem; color: var(--subtext); }
+  .bottleneck li { margin-bottom: 6px; }
+  .bottleneck strong { color: var(--text); }
+
+  /* ── Contribution table ── */
+  .contrib-table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 0.88rem; }
+  .contrib-table th {
+    background: #F1F3F9; color: #374151; font-weight: 600;
+    padding: 8px 14px; text-align: left; border-bottom: 2px solid var(--border);
+  }
+  .contrib-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .contrib-table tr:last-child td { border-bottom: none; }
+  .contrib-table .num { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .contrib-table .piece { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+  .result-pill {
+    display: inline-block; margin-top: 14px;
+    background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;
+    border-radius: 6px; padding: 8px 16px; font-size: 0.85rem; font-weight: 500;
+  }
+  .result-pill strong { color: #064E3B; }
+
+  /* ── Report card ── */
+  .report-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 22px; margin-bottom: 10px;
+    display: flex; align-items: flex-start; gap: 16px;
+    text-decoration: none; color: inherit;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); border-color: var(--accent); }
+  .report-icon {
+    width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+  }
+  .report-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 3px; }
+  .report-card:hover .report-title { color: var(--accent); }
+  .report-desc { font-size: 0.84rem; color: var(--subtext); }
+  .report-meta { margin-top: 8px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+  .tag {
+    font-size: 0.7rem; font-weight: 600; padding: 2px 8px;
+    background: #F3F4F6; color: #374151; border-radius: 10px;
+  }
+  .tag-html { background: var(--accent-light); color: var(--accent); }
+  .date { font-size: 0.77rem; color: #9CA3AF; }
+
+  /* ── Meeting list ── */
+  .meeting-list { display: flex; flex-direction: column; gap: 1px; }
+  .meeting-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 14px; border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: background 0.12s;
+  }
+  .meeting-row:hover { background: var(--card); }
+  .meeting-date { font-size: 0.79rem; color: var(--subtext); white-space: nowrap; min-width: 86px; }
+  .meeting-title { font-size: 0.88rem; flex: 1; }
+  .meeting-row:hover .meeting-title { color: var(--accent); }
+  .meeting-context { font-size: 0.76rem; color: #9CA3AF; white-space: nowrap; }
+  .semester-badge {
+    font-size: 0.68rem; font-weight: 700; padding: 2px 7px;
+    border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-spring { background: #FEF3C7; color: #92400E; }
+  .badge-fall   { background: #DBEAFE; color: #1E40AF; }
+
+  .thesis-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 10px; font-size: 0.84rem; color: var(--accent);
+    text-decoration: none; padding: 6px 0;
+  }
+  .thesis-link:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center; font-size: 0.79rem; color: #9CA3AF;
+    padding: 20px; border-top: 1px solid var(--border);
+  }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>DDCM Research Reports</h1>
+    <div class="subtitle">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</div>
+    <div class="links">
+      <a href="https://github.com/azwanazamuddin" target="_blank">GitHub</a>
+      <a href="https://github.com/azwanazamuddin/ddcm" target="_blank">ddcm repo</a>
+      <a href="thesis/thesis-draft.md">Thesis Draft</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── About ── -->
+  <div class="section-label">About</div>
+  <div class="about-card">
+    <p>
+      I am building a <strong>computational framework that makes activity-based DDCM estimation
+      tractable at city scale</strong>, and re-specifying its utility function so that
+      <strong>activity timing emerges from preferences</strong> rather than from hard-coded rules.
+    </p>
+    <p>Two bottlenecks in activity-based demand modelling:</p>
+    <ul class="bottleneck">
+      <li><strong>State-space explosion</strong> — a single city has ~145 million states
+        (time × zone × activity × duration × mode × history).
+        Estimating on that is a 1000-CPU-day / 6.7 TB problem.</li>
+      <li><strong>Timing is usually assumed, not estimated</strong> — classic specs bolt hard time
+        windows onto the model ("work happens 6am–10pm"), so behaviour is partly an
+        <em>input</em>, not an <em>output</em>.</li>
+    </ul>
+    <table class="contrib-table">
+      <thead>
+        <tr><th>#</th><th>Contribution</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="piece">DDCM as a DAG</td>
+          <td>Time only moves forward → no cycles. Backward induction is a reverse topological
+            sort, so a GPU processes each time level in one batched kernel.</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="piece">Reachability pruning</td>
+          <td>Forward BFS with Hägerstrand space-time-prism constraints keeps only reachable states.
+            145M → 1.5M (~1%), no approximation.</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="piece">μ(t) utility</td>
+          <td>Each activity gets a time-varying marginal-utility profile μₐ(t).
+            Trip-making emerges from the gradient. Timing becomes an output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="result-pill">
+      End-to-end: <strong>~69 hours → 105 seconds</strong> (~2,400×) ·
+      memory <strong>6.7 TB → 6.5 GB</strong> · 144-zone Higashi-Hiroshima network
+    </div>
+  </div>
+
+  <!-- ── DDCM Implementation Reports ── -->
+  <div class="section-label">DDCM Implementation Reports</div>
+
+  <a class="report-card" href="ddcm/work_timing_analysis.html">
+    <div class="report-icon">📊</div>
+    <div>
+      <div class="report-title">Work Timing Analysis — K=9 NFXP</div>
+      <div class="report-desc">
+        Why simulated work start is ~14:51 vs observed ~8:30.
+        Interactive utility plots, parameter sliders, and simulation validation (N=934 agents).
+      </div>
+      <div class="report-meta">
+        <span class="tag tag-html">Interactive HTML</span>
+        <span class="tag">K=9 NFXP</span>
+        <span class="tag">μ(t) utility</span>
+        <span class="date">2026-05-10</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- ── M2 Spring 2026 ── -->
+  <div class="section-label">Lab Meeting Reports — M2 Spring 2026</div>
+
+  <div class="meeting-list">
+    <a class="meeting-row" href="meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md">
+      <span class="meeting-date">2026-04-27</span>
+      <span class="meeting-title">Research Progress (M2, Apr 27, 2026)</span>
+      <span class="meeting-context">gradient bug fixes, c_change diagnosis, JSPS updates</span>
+      <span class="semester-badge badge-spring">M2 Spring</span>
+    </a>
+    <a class="meeting-row" href="meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md">
+      <span class="meeting-date">2026-04-19</span>
+      <span class="meeting-title">Master Thesis Progress (M2, April 2026)</span>
+      <span class="meeting-context">framework, μ(t), results, estimation diagnosis</span>
+      <span class="semester-badge badge-spring">M2 Spring</span>
+    </a>
+  </div>
+
+  <a class="thesis-link" href="thesis/thesis-draft.md">→ Rolling thesis draft (updated before each meeting)</a>
+
+  <!-- ── M1 Fall 2025 ── -->
+  <div class="section-label">Lab Meeting Reports — M1 Fall 2025 (Archive)</div>
+
+  <div class="meeting-list">
+    <a class="meeting-row" href="meetings/2025-fall/260127%20-%20Progress%20on%20validation%20plan.md">
+      <span class="meeting-date">2026-01-27</span>
+      <span class="meeting-title">Progress on Validation Plan</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/260107%20-%20RMDP%20Theory%20and%20Implementation.md">
+      <span class="meeting-date">2026-01-07</span>
+      <span class="meeting-title">RMDP Theory and Implementation</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251224%20-%20Universal%20Graph%20and%20BI%20Optimization.md">
+      <span class="meeting-date">2025-12-24</span>
+      <span class="meeting-title">Universal Graph and BI Optimization</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251215%20-%20Progress%20on%20documentation%2C%20re-framework%20the%20algorithm.md">
+      <span class="meeting-date">2025-12-15</span>
+      <span class="meeting-title">Progress on Documentation, Re-framework the Algorithm</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251126%20-%20SummaryUpdateTensorBased.md">
+      <span class="meeting-date">2025-11-26</span>
+      <span class="meeting-title">Tensor-Based Summary Update</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251109%20-%20SMASO-X-Presentation-Summary.md">
+      <span class="meeting-date">2025-11-09</span>
+      <span class="meeting-title">SMASO-X Presentation Summary</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251104%20-%20Readings%20%26%20Implementation%20Plans.md">
+      <span class="meeting-date">2025-11-04</span>
+      <span class="meeting-title">Readings and Implementation Plans</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+    <a class="meeting-row" href="meetings/2025-fall/251015%20-%20Ideas%20on%20TD%20Estimation%20on%20DDCM.md">
+      <span class="meeting-date">2025-10-15</span>
+      <span class="meeting-title">Ideas on TD Estimation on DDCM</span>
+      <span class="semester-badge badge-fall">M1 Fall</span>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab ·
+  <a href="https://github.com/azwanazamuddin/reports">source</a>
+</footer>
+
+</body>
+</html>
