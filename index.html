@@ -135,6 +135,16 @@
     text-decoration: none; padding: 6px 0;
   }
   .thesis-link:hover { text-decoration: underline; }
+  .meeting-links { display: flex; gap: 8px; align-items: center; }
+  .pill-link {
+    font-size: 0.72rem; font-weight: 600; padding: 2px 9px;
+    border-radius: 10px; text-decoration: none; white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .pill-link:hover { opacity: 0.75; }
+  .pill-web  { background: var(--accent-light); color: var(--accent); }
+  .pill-pdf  { background: #FEF2F2; color: #B91C1C; }
+  .pill-github { background: #F3F4F6; color: #374151; }
 
   /* ── Footer ── */
   footer {
@@ -232,18 +242,28 @@
   <div class="section-label">Lab Meeting Reports — M2 Spring 2026</div>
 
   <div class="meeting-list">
-    <a class="meeting-row" href="meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md">
+
+    <div class="meeting-row">
       <span class="meeting-date">2026-04-27</span>
       <span class="meeting-title">Research Progress (M2, Apr 27, 2026)</span>
       <span class="meeting-context">gradient bug fixes, c_change diagnosis, JSPS updates</span>
       <span class="semester-badge badge-spring">M2 Spring</span>
-    </a>
-    <a class="meeting-row" href="meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md">
+      <span class="meeting-links">
+        <a class="pill-link pill-web" href="meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).html" target="_blank">Web</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2026-04-19</span>
       <span class="meeting-title">Master Thesis Progress (M2, April 2026)</span>
       <span class="meeting-context">framework, μ(t), results, estimation diagnosis</span>
       <span class="semester-badge badge-spring">M2 Spring</span>
-    </a>
+      <span class="meeting-links">
+        <a class="pill-link pill-web" href="meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).html" target="_blank">Web</a>
+        <a class="pill-link pill-pdf" href="meetings/2026-spring/presentations/April_Seminar_Presentation.pdf" target="_blank">Slides</a>
+      </span>
+    </div>
+
   </div>
 
   <a class="thesis-link" href="thesis/thesis-draft.md">→ Rolling thesis draft (updated before each meeting)</a>
@@ -252,46 +272,79 @@
   <div class="section-label">Lab Meeting Reports — M1 Fall 2025 (Archive)</div>
 
   <div class="meeting-list">
-    <a class="meeting-row" href="meetings/2025-fall/260127%20-%20Progress%20on%20validation%20plan.md">
+
+    <div class="meeting-row">
       <span class="meeting-date">2026-01-27</span>
       <span class="meeting-title">Progress on Validation Plan</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/260107%20-%20RMDP%20Theory%20and%20Implementation.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/260127%20-%20Progress%20on%20validation%20plan.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2026-01-07</span>
       <span class="meeting-title">RMDP Theory and Implementation</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251224%20-%20Universal%20Graph%20and%20BI%20Optimization.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/260107%20-%20RMDP%20Theory%20and%20Implementation.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-12-24</span>
       <span class="meeting-title">Universal Graph and BI Optimization</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251215%20-%20Progress%20on%20documentation%2C%20re-framework%20the%20algorithm.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251224%20-%20Universal%20Graph%20and%20BI%20Optimization.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-12-15</span>
       <span class="meeting-title">Progress on Documentation, Re-framework the Algorithm</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251126%20-%20SummaryUpdateTensorBased.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251215%20-%20Progress%20on%20documentation%2C%20re-framework%20the%20algorithm.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-11-26</span>
       <span class="meeting-title">Tensor-Based Summary Update</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251109%20-%20SMASO-X-Presentation-Summary.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251126%20-%20SummaryUpdateTensorBased.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-11-09</span>
       <span class="meeting-title">SMASO-X Presentation Summary</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251104%20-%20Readings%20%26%20Implementation%20Plans.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251109%20-%20SMASO-X-Presentation-Summary.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-11-04</span>
       <span class="meeting-title">Readings and Implementation Plans</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
-    <a class="meeting-row" href="meetings/2025-fall/251015%20-%20Ideas%20on%20TD%20Estimation%20on%20DDCM.md">
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251104%20-%20Readings%20%26%20Implementation%20Plans.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="meeting-row">
       <span class="meeting-date">2025-10-15</span>
       <span class="meeting-title">Ideas on TD Estimation on DDCM</span>
       <span class="semester-badge badge-fall">M1 Fall</span>
-    </a>
+      <span class="meeting-links">
+        <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251015%20-%20Ideas%20on%20TD%20Estimation%20on%20DDCM.md" target="_blank">GitHub</a>
+      </span>
+    </div>
+
   </div>
 
 </main>
