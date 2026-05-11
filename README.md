@@ -28,6 +28,10 @@ reports/
 │   └── thesis-template.md                    blank thesis draft
 ├── thesis/                                ← rolling Master thesis draft
 │   └── thesis-draft.md                       single source of truth — update before each meeting
+├── slides/                                ← interactive presentation decks (Slidev, built static HTML)
+│   └── ddcm/                                 main DDCM research deck — rebuild with: slidev build --base /reports/slides/ddcm/
+├── ddcm/                                  ← standalone HTML reports
+│   └── work_timing_analysis.html
 ├── meetings/                              ← per-meeting discussion docs
 │   ├── 2025-fall/                            M1 Fall 2025 (archive)
 │   │   ├── *.md                              meeting docs
@@ -37,6 +41,16 @@ reports/
 │       ├── figures/*.png                     figures used in meeting docs
 │       └── presentations/*.pdf               slide exports for that semester
 ```
+
+**Updating the slides deck:** The `slides/ddcm/` folder is a built Slidev output (not source). To rebuild after editing `4 - Projects/ddcm/ddcm_slides/slides.md`:
+
+```bash
+cd "4 - Projects/ddcm/ddcm_slides"
+npx slidev build --base /reports/slides/ddcm/
+rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/ddcm/"
+```
+
+Then commit and push the updated `slides/ddcm/` folder in the reports repo.
 
 **Two documents per meeting** (HIIRM convention):
 
