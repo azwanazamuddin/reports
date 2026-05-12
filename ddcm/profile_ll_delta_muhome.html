@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2D Profile LL: δ × μ_home — DDCM K=10</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #fff; --border: #e0e4ea;
+    --text: #1a2332; --subtext: #607080; --accent: #3949ab;
+    --red: #c62828; --green: #2e7d32; --orange: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.93rem; line-height: 1.6; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+  header { border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 28px; }
+  header h1 { font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+  header .meta { color: var(--subtext); font-size: 0.82rem; margin-top: 4px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-bottom: 22px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .card h2 { font-size: 1.05rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-num { background: var(--accent); color: #fff; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; flex-shrink: 0; }
+  .card h3 { font-size: 0.95rem; font-weight: 600; color: #37474f; margin: 14px 0 8px; }
+  p { margin-bottom: 8px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+  .plot-box { width: 100%; border-radius: 6px; overflow: hidden; }
+  .eq-block { background: #f0f2f5; border-left: 3px solid var(--accent); border-radius: 4px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 10px 0; line-height: 1.8; }
+  .alert { border-radius: 6px; padding: 11px 14px; margin: 10px 0; font-size: 0.88rem; }
+  .alert-red    { background: #ffebee; border-left: 3px solid var(--red);    color: #b71c1c; }
+  .alert-green  { background: #e8f5e9; border-left: 3px solid var(--green);  color: #1b5e20; }
+  .alert-blue   { background: #e3f2fd; border-left: 3px solid #1565c0;       color: #0d47a1; }
+  .alert-amber  { background: #fff8e1; border-left: 3px solid #f57f17;       color: #e65100; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-red   { background:#ffcdd2; color:#c62828; }
+  .badge-green { background:#c8e6c9; color:#2e7d32; }
+  .badge-blue  { background:#bbdefb; color:#1565c0; }
+  .kv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+  .kv-box { background: #f5f7fa; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .kv-box .label { font-size: 0.78rem; color: var(--subtext); margin-bottom: 2px; }
+  .kv-box .val { font-size: 1.2rem; font-weight: 700; }
+  .controls { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .ctrl-group { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; }
+  select, input[type=range] { accent-color: var(--accent); }
+  select { padding: 3px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; font-size: 0.88rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: right; }
+  th { background: #f0f2f5; font-weight: 600; }
+  td.label-col { text-align: left; font-weight: 600; color: var(--subtext); }
+  td.highlight { background: #fff9c4; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div style="margin-bottom:16px; font-size:0.83rem;">
+  <a href="investigation_overview.html" style="color:#3949ab; text-decoration:none; font-weight:600;">
+    ← Back to Investigation Overview
+  </a>
+  <span style="color:#b71c1c; background:#ffebee; border-radius:4px; padding:2px 8px; margin-left:12px; font-size:0.78rem;">
+    ⚠ Root cause updated — see overview. U<sub>obs</sub> δ-invariance was caused by zone bug in graph construction, not mandatory sequence mechanism.
+  </span>
+</div>
+
+<header>
+  <h1>2D Profile Log-Likelihood: δ × μ<sub>home</sub></h1>
+  <div class="meta">
+    K=10 NFXP · Group 008 (08:00–16:00) · 44 persons (top-3 home zones) ·
+    All other parameters fixed at MLE · Scan date 2026-05-12
+  </div>
+</header>
+
+<!-- §1 Key Findings -->
+<div class="card">
+  <h2><span class="section-num">1</span> Key Findings</h2>
+  <div class="kv-grid">
+    <div class="kv-box">
+      <div class="label">Grid maximum</div>
+      <div class="val" style="color:var(--green)">δ = μ<sub>home</sub> = 0.01</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">LL = −1491 (corner)</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">MLE point (nearest grid)</div>
+      <div class="val" style="color:var(--red)">δ=0.039, μ<sub>home</sub>=0.068</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">LL ≈ −1847</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">ΔLL (MLE vs corner)</div>
+      <div class="val" style="color:var(--orange)">−356 nats</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">over 44 persons</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Surface shape</div>
+      <div class="val" style="font-size:1rem">Monotone ↘</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">no interior peak</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:14px;">
+    <strong>Main finding:</strong> The 2D profile LL surface has <em>no interior maximum</em>.
+    LL decreases monotonically as either δ or μ<sub>home</sub> increases, with the grid maximum
+    at the smallest values tested. The MLE is not placed at μ<sub>home</sub> > δ because the
+    data <em>prefers</em> that ordering — it is placed there by constraints from other parameters
+    (α, β, β<sub>shop</sub>, β<sub>leis</sub>, c_change) that are held fixed in this scan.
+  </div>
+
+  <div class="two-col" style="margin-top:16px;">
+    <div>
+      <h3>Why LL is monotone in this scan</h3>
+      <p>
+        LL(θ) = U<sub>obs</sub>(θ) − V(s<sub>0</sub>; θ).
+        In this scan, U<sub>obs</sub> is <strong>invariant to δ</strong> — the matched observed-path
+        utility does not respond to δ at all (see §4). Only μ<sub>home</sub> shifts U<sub>obs</sub>
+        upward through home-step utilities.
+      </p>
+      <p>
+        Meanwhile V(s<sub>0</sub>) grows with <em>both</em> δ and μ<sub>home</sub> because
+        more attractive activities inflate the log-partition function. Since V(s<sub>0</sub>)
+        grows faster than U<sub>obs</sub> as δ increases, LL falls.
+      </p>
+    </div>
+    <div>
+      <h3>What this means for identification</h3>
+      <p>
+        δ is <strong>not identified</strong> from the observed path utility in this group — its
+        signature is entirely in V(s<sub>0</sub>), the denominator. The optimizer pins δ through
+        a balance with α (earliness), β (lateness), and mode-choice terms that are not visible in
+        this 2D scan. Fixing those parameters at MLE values removes the identifying variation,
+        making the surface look monotone.
+      </p>
+      <div class="alert alert-blue" style="margin-top:8px; font-size:0.85rem;">
+        <strong>Implication:</strong> The fact that μ<sub>home</sub> &gt; δ at the MLE is a consequence
+        of the other 8 parameters' optimal values, not a direct preference in the (δ, μ<sub>home</sub>) subspace.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- §2 Intuition -->
+<div class="card">
+  <h2><span class="section-num">2</span> Intuitive Explanation</h2>
+
+  <!-- The bet analogy -->
+  <div style="background:#f5f7ff; border-radius:8px; padding:16px 18px; margin-bottom:18px;">
+    <div style="font-weight:700; font-size:0.95rem; color:var(--accent); margin-bottom:8px;">The LL formula as a bet</div>
+    <p>
+      Think of LL = U<sub>obs</sub> − V(s<sub>0</sub>) as measuring how well an observed day competes against the best possible day.
+    </p>
+    <ul style="margin:8px 0 0 18px; font-size:0.9rem; line-height:1.9;">
+      <li><strong>U<sub>obs</sub></strong> — what the agent actually earned on their observed day (sum of step utilities along the observed path).</li>
+      <li><strong>V(s<sub>0</sub>)</strong> — what the <em>best possible day</em> looks like under the current parameters (the log-partition function from backward induction).</li>
+    </ul>
+    <p style="margin-top:8px;">
+      MLE finds parameters where people's actual days look as good as possible <em>relative to</em> what they could have done.
+      A large gap (U<sub>obs</sub> ≪ V) means the model thinks people could have done much better — bad fit.
+    </p>
+  </div>
+
+  <!-- Three-block intuition -->
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:18px;">
+
+    <div style="background:#e8f5e9; border-radius:8px; padding:14px 16px;">
+      <div style="font-weight:700; color:#2e7d32; margin-bottom:6px;">① Why LL is monotone in δ — structural, not an artifact</div>
+      <p style="font-size:0.875rem;">
+        U<sub>obs</sub> is <em>completely invariant</em> to δ (see ② below). So as δ rises, only V(s<sub>0</sub>) moves — it grows because work looks more attractive, inflating the "best possible day." LL = U<sub>obs</sub> − V always falls.
+      </p>
+      <p style="font-size:0.875rem; margin-top:8px;">
+        <strong>This is structural, not an artifact of fixing other params.</strong>
+        No matter what the other 8 parameters are, U<sub>obs</sub> will never respond to δ,
+        and V(s<sub>0</sub>) will always grow with δ. The monotone slope in δ is unavoidable in this model.
+      </p>
+    </div>
+
+    <div style="background:#fff3e0; border-radius:8px; padding:14px 16px;">
+      <div style="font-weight:700; color:#e65100; margin-bottom:6px;">② Why LL is monotone in μ<sub>home</sub> — also structural</div>
+      <p style="font-size:0.875rem;">
+        As μ<sub>home</sub> rises, both U<sub>obs</sub> and V(s<sub>0</sub>) grow — but V grows faster.
+        Why? V tracks the <em>optimal</em> path's home fraction; U<sub>obs</sub> tracks the <em>observed</em> path's home fraction.
+        Observed persons spend some time on shopping, travel, leisure — the model sees those as suboptimal when home is very attractive. So V always pulls ahead.
+      </p>
+      <p style="font-size:0.875rem; margin-top:8px;">
+        Fixing other params changes <em>how steep</em> the slope is (e.g. negative β<sub>0,shop</sub> = −0.795 makes shopping unattractive, steepening the home dominance), but not its <em>direction</em>.
+        The monotone slope in μ<sub>home</sub> is robust across reasonable param values.
+      </p>
+    </div>
+
+    <div style="background:#e3f2fd; border-radius:8px; padding:14px 16px;">
+      <div style="font-weight:700; color:#1565c0; margin-bottom:6px;">③ The δ-invariant U<sub>obs</sub> — the key anomaly</div>
+      <p style="font-size:0.875rem;">
+        Changing δ from 0.01 to 0.14 moves U<sub>obs</sub> by exactly <strong>zero</strong> for all persons.
+        This happens because work steps are handled by the <em>mandatory sequence</em> mechanism —
+        they sit outside the discretionary CSR graph that the observed-path utility lookup queries.
+        <code>find_observed_edge</code> returns <code>None</code> for WORK transitions and skips them.
+      </p>
+      <p style="font-size:0.875rem; margin-top:8px;">
+        Consequence: <strong>δ enters LL only through V(s<sub>0</sub>)</strong> — the denominator.
+        In the full 10D optimization, α, β, and mode-choice terms create an indirect signal that pins δ at 0.0408.
+        But in this 2D scan those forces are frozen, leaving only the denominator signal → δ always wants to be as small as possible.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Breakeven diagonal note -->
+  <div class="alert alert-amber">
+    <strong>Why the surface has no kink at the breakeven diagonal (δ = μ<sub>home</sub>):</strong>
+    The breakeven is a <em>behavioural</em> threshold — below it, agents prefer home over work in the simulation.
+    But the <em>likelihood</em> surface is smooth across it because logit choice probabilities are continuous in parameters.
+    The MLE can sit on either side of the diagonal without any discontinuity in the objective.
+    The LL "does not know" the breakeven exists; only the forward simulation does.
+  </div>
+</div>
+
+<!-- §3 LL Surface -->
+<div class="card">
+  <h2><span class="section-num">3</span> LL Surface: Heatmap &amp; Contour</h2>
+  <p style="color:var(--subtext); font-size:0.88rem; margin-bottom:12px;">
+    Hover for exact values. Red star = MLE (δ=0.0408, μ<sub>home</sub>=0.0617).
+    Dashed line = δ = μ<sub>home</sub> breakeven. All other parameters fixed at MLE.
+  </p>
+  <div class="two-col">
+    <div>
+      <div style="font-weight:600; font-size:0.88rem; margin-bottom:6px;">Heatmap (absolute LL)</div>
+      <div class="plot-box" id="plot-heatmap" style="height:380px;"></div>
+    </div>
+    <div>
+      <div style="font-weight:600; font-size:0.88rem; margin-bottom:6px;">Contour (ΔLL from grid max)</div>
+      <div class="plot-box" id="plot-contour" style="height:380px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- §3 1D Slices -->
+<div class="card">
+  <h2><span class="section-num">4</span> Interactive 1D Slices</h2>
+  <p style="color:var(--subtext); font-size:0.88rem; margin-bottom:14px;">
+    Select a fixed value for one parameter and see how LL varies along the other.
+  </p>
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>Fix <strong>μ<sub>home</sub></strong> at index</label>
+      <select id="sel-mh-idx">
+        <option value="0">0.0100</option>
+        <option value="1">0.0244</option>
+        <option value="2">0.0389</option>
+        <option value="3">0.0533</option>
+        <option value="4" selected>0.0678 (≈ MLE)</option>
+        <option value="5">0.0822</option>
+        <option value="6">0.0967</option>
+        <option value="7">0.1111</option>
+        <option value="8">0.1256</option>
+        <option value="9">0.1400</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>Fix <strong>δ</strong> at index</label>
+      <select id="sel-d-idx">
+        <option value="0">0.0100</option>
+        <option value="1">0.0244</option>
+        <option value="2" selected>0.0389 (≈ MLE)</option>
+        <option value="3">0.0533</option>
+        <option value="4">0.0678</option>
+        <option value="5">0.0822</option>
+        <option value="6">0.0967</option>
+        <option value="7">0.1111</option>
+        <option value="8">0.1256</option>
+        <option value="9">0.1400</option>
+      </select>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div style="font-weight:600; font-size:0.88rem; margin-bottom:6px;">LL(δ) | μ<sub>home</sub> fixed</div>
+      <div class="plot-box" id="plot-slice-d" style="height:300px;"></div>
+    </div>
+    <div>
+      <div style="font-weight:600; font-size:0.88rem; margin-bottom:6px;">LL(μ<sub>home</sub>) | δ fixed</div>
+      <div class="plot-box" id="plot-slice-mh" style="height:300px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- §4 LL Decomposition -->
+<div class="card">
+  <h2><span class="section-num">5</span> LL Decomposition: U<sub>obs</sub> vs V(s<sub>0</sub>)</h2>
+  <p style="color:var(--subtext); font-size:0.88rem; margin-bottom:12px;">
+    LL = U<sub>obs</sub> − V(s<sub>0</sub>). This decomposes the surface into the numerator (observed-path utility)
+    and denominator (log-partition / value function). The key anomaly — <strong>U<sub>obs</sub> does not respond to δ</strong> — is visible here.
+  </p>
+
+  <div class="alert alert-amber" style="margin-bottom:16px;">
+    <strong>Structural finding:</strong> U<sub>obs</sub> is <em>identical</em> for all δ values at the same μ<sub>home</sub>.
+    δ appears nowhere in the observed-path utility for these 44 persons.
+    This means the work-activity edges are either unmatched or their Δt × δ contribution is exactly zero
+    (e.g., matched paths contain no on-schedule WORK steps, or WORK steps use a fixed utility not parameterised by δ in the matched edges).
+    Consequence: δ enters LL <em>only</em> through V(s<sub>0</sub>), making it identified solely
+    from the denominator — a very weak signal.
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>Show slice along</label>
+      <select id="sel-decomp-axis">
+        <option value="delta">vary δ (fix μ<sub>home</sub>)</option>
+        <option value="muhome">vary μ<sub>home</sub> (fix δ)</option>
+      </select>
+    </div>
+    <div class="ctrl-group" id="ctrl-decomp-fixed">
+      <label>Fixed μ<sub>home</sub></label>
+      <select id="sel-decomp-fixed-idx">
+        <option value="0">0.0100</option>
+        <option value="1">0.0244</option>
+        <option value="2">0.0389</option>
+        <option value="3">0.0533</option>
+        <option value="4" selected>0.0678 (≈ MLE)</option>
+        <option value="5">0.0822</option>
+        <option value="6">0.0967</option>
+        <option value="7">0.1111</option>
+        <option value="8">0.1256</option>
+        <option value="9">0.1400</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="plot-box" id="plot-decomp" style="height:360px;"></div>
+</div>
+
+<!-- §5 LL Table -->
+<div class="card">
+  <h2><span class="section-num">6</span> Full LL Grid (Sum over 44 persons)</h2>
+  <p style="color:var(--subtext); font-size:0.85rem; margin-bottom:10px;">
+    Rows = μ<sub>home</sub>, Columns = δ. Highlighted cell = nearest grid point to MLE.
+  </p>
+  <div style="overflow-x:auto;">
+  <table id="ll-table"></table>
+  </div>
+</div>
+
+<!-- §6 Interpretation -->
+<div class="card">
+  <h2><span class="section-num">7</span> Interpretation &amp; Next Steps</h2>
+  <div class="two-col">
+    <div>
+      <h3>Why δ ended up below μ<sub>home</sub> at MLE</h3>
+      <ol style="margin: 0 0 0 18px; font-size:0.9rem; line-height:1.9;">
+        <li>
+          <strong>δ is identified from V(s<sub>0</sub>), not U<sub>obs</sub>.</strong>
+          With no work-step signal in U<sub>obs</sub>, the optimizer can set δ freely
+          without changing the numerator. It is pinned by α, β, and mode-choice terms.
+        </li>
+        <li>
+          <strong>μ<sub>home</sub> is identified from U<sub>obs</sub>.</strong>
+          Home steps dominate the observed path. The optimizer pushes μ<sub>home</sub>
+          up to fit the long observed home durations. δ gets pulled down as a side effect
+          (both inflate V, so they trade off against each other).
+        </li>
+        <li>
+          <strong>The breakeven (δ = μ<sub>home</sub>) is not a special LL boundary.</strong>
+          The surface has no kink or change of slope at the diagonal — the LL is smooth across
+          the breakeven line. The observed data does not identify which side of the breakeven is correct.
+        </li>
+      </ol>
+    </div>
+    <div>
+      <h3>What would fix the identification</h3>
+      <div class="alert alert-green" style="margin-bottom:10px;">
+        <strong>Option A — Hard work timing window.</strong>
+        If work departure is constrained to [06:00–10:00], observed on-time departures
+        directly identify δ > μ<sub>home</sub>. The data does this implicitly; the model does not enforce it.
+      </div>
+      <div class="alert alert-blue" style="margin-bottom:10px;">
+        <strong>Option B — Duration-dependent HOME utility (satiation).</strong>
+        If μ<sub>home</sub>(τ) declines with time spent at home, long home durations no longer
+        push μ<sub>home</sub> up uniformly. This breaks the flat collinearity in the
+        (δ, μ<sub>home</sub>) subspace.
+      </div>
+      <div class="alert alert-amber">
+        <strong>Option C — Constrain δ &gt; μ<sub>home</sub>.</strong>
+        Impose the structural prior that on-schedule work must beat home. This is a valid
+        theoretical constraint (otherwise work is never voluntarily chosen). Adds one
+        inequality constraint to the NFXP optimisation.
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="color:var(--subtext); font-size:0.78rem; text-align:center; margin-top:20px; border-top:1px solid var(--border); padding-top:14px;">
+  Group 008 · 44 persons · K=10 MLE (2026-05-05) · Report 2026-05-12
+</footer>
+
+</div><!-- /page -->
+
+<script>
+// ── Data ─────────────────────────────────────────────────────────────────────
+const D_VALS  = [0.01, 0.02444, 0.03889, 0.05333, 0.06778, 0.08222, 0.09667, 0.11111, 0.12556, 0.14];
+const MH_VALS = [0.01, 0.02444, 0.03889, 0.05333, 0.06778, 0.08222, 0.09667, 0.11111, 0.12556, 0.14];
+
+// LL[mh_idx][d_idx]  (rows = mu_home, cols = delta)
+const LL = [
+  [-1491.2, -1540.1, -1605.2, -1690.4, -1802.0, -2042.8, -2405.1, -2783.6, -3173.7, -3575.4],
+  [-1509.8, -1550.6, -1606.0, -1679.8, -1783.9, -2040.4, -2392.6, -2759.4, -3138.1, -3528.4],
+  [-1555.9, -1590.8, -1634.6, -1696.0, -1793.0, -2057.0, -2396.5, -2750.9, -3117.8, -3496.5],
+  [-1626.6, -1657.3, -1693.7, -1741.4, -1835.3, -2093.3, -2415.7, -2756.5, -3111.0, -3477.8],
+  [-1786.2, -1814.7, -1847.3, -1889.4, -1964.8, -2161.6, -2453.4, -2776.6, -3117.3, -3471.8],
+  [-2108.6, -2134.8, -2163.5, -2196.6, -2240.0, -2320.3, -2522.4, -2814.6, -3137.8, -3478.6],
+  [-2445.0, -2469.7, -2495.9, -2524.6, -2557.8, -2601.2, -2681.5, -2883.8, -3176.0, -3499.2],
+  [-2782.8, -2806.5, -2831.2, -2857.4, -2886.1, -2919.3, -2962.6, -3043.0, -3245.3, -3537.5],
+  [-3121.4, -3144.4, -3168.0, -3192.7, -3219.0, -3247.7, -3280.8, -3324.2, -3404.6, -3606.9],
+  [-3460.6, -3483.0, -3506.0, -3529.7, -3554.4, -3580.6, -3609.3, -3642.4, -3685.8, -3766.2],
+];
+
+// U_obs[mh_idx] — constant across delta!
+const U_OBS_BY_MH = [171.7, 689.3, 1207.0, 1724.6, 2242.2, 2759.8, 3277.5, 3795.1, 4312.7, 4830.3];
+
+// V_s0[mh_idx][d_idx]
+const V = [
+  [1662.9, 1711.9, 1776.9, 1862.1, 1973.7, 2214.5, 2576.8, 2955.3, 3345.5, 3747.1],
+  [2199.1, 2239.9, 2295.3, 2369.1, 2473.2, 2729.8, 3082.0, 3448.7, 3827.4, 4217.7],
+  [2762.8, 2797.8, 2841.5, 2902.9, 3000.0, 3263.9, 3603.5, 3957.9, 4324.7, 4703.5],
+  [3351.2, 3381.9, 3418.3, 3466.0, 3559.9, 3817.9, 4140.3, 4481.1, 4835.6, 5202.4],
+  [4028.5, 4056.9, 4089.5, 4131.6, 4207.0, 4403.9, 4695.6, 5018.8, 5359.6, 5714.1],
+  [4868.4, 4894.6, 4923.3, 4956.4, 5000.0, 5080.1, 5282.3, 5574.4, 5897.6, 6238.4],
+  [5722.5, 5747.2, 5773.4, 5802.1, 5835.2, 5878.6, 5959.0, 6161.3, 6453.5, 6776.6],
+  [6577.9, 6601.6, 6626.3, 6652.5, 6681.2, 6714.3, 6757.7, 6838.1, 7040.4, 7332.6],
+  [7434.1, 7457.1, 7480.7, 7505.4, 7531.7, 7560.4, 7593.5, 7636.9, 7717.3, 7919.6],
+  [8290.9, 8313.3, 8336.3, 8359.9, 8384.7, 8410.9, 8439.6, 8472.8, 8516.1, 8596.5],
+];
+
+const MLE_D  = 0.0408;
+const MLE_MH = 0.0617;
+const LL_MAX = -1491.2;
+
+// Label formatters
+const fd = v => v.toFixed(4);
+const MH_LABELS = MH_VALS.map(fd);
+const D_LABELS  = D_VALS.map(fd);
+
+// ── Shared layout helpers ─────────────────────────────────────────────────────
+const cfg = { responsive: true, displayModeBar: false };
+
+function beLineXY() {
+  const mn = Math.max(D_VALS[0], MH_VALS[0]);
+  const mx = Math.min(D_VALS[D_VALS.length-1], MH_VALS[MH_VALS.length-1]);
+  return { x: [mn, mx], y: [mn, mx] };
+}
+
+// ── §2 Heatmap ────────────────────────────────────────────────────────────────
+(function() {
+  const dLabels  = D_VALS.map(v => `δ=${fd(v)}`);
+  const mhLabels = MH_VALS.map(v => `μ=${fd(v)}`);
+
+  const hmTrace = {
+    type: 'heatmap',
+    z: LL,
+    x: D_VALS, y: MH_VALS,
+    colorscale: 'Viridis',
+    colorbar: { title: { text:'LL', side:'right' }, thickness: 14 },
+    hovertemplate: 'δ=%{x:.4f}<br>μ_home=%{y:.4f}<br>LL=%{z:.1f}<extra></extra>',
+  };
+  const beL = beLineXY();
+  const beLine = {
+    type:'scatter', mode:'lines',
+    x: beL.x, y: beL.y,
+    line: { color:'white', dash:'dash', width:2 },
+    name: 'δ = μ_home',
+    hoverinfo: 'skip',
+  };
+  const mleStar = {
+    type:'scatter', mode:'markers',
+    x:[MLE_D], y:[MLE_MH],
+    marker: { symbol:'star', size:14, color:'red', line:{ color:'white', width:1 } },
+    name:'MLE', hovertemplate:'MLE<br>δ=0.0408, μ=0.0617<extra></extra>',
+  };
+  const layout = {
+    margin:{l:60,r:20,t:20,b:60},
+    xaxis:{ title:'δ', tickformat:'.4f', tickvals:D_VALS },
+    yaxis:{ title:'μ_home', tickformat:'.4f', tickvals:MH_VALS },
+    showlegend:true, legend:{ x:0.01, y:0.99, bgcolor:'rgba(0,0,0,0.4)', font:{color:'white',size:10} },
+    hovermode:'closest',
+  };
+  Plotly.newPlot('plot-heatmap', [hmTrace, beLine, mleStar], layout, cfg);
+})();
+
+// ── §2 Contour ────────────────────────────────────────────────────────────────
+(function() {
+  const deltaLL = LL.map(row => row.map(v => v - LL_MAX));
+
+  const cTrace = {
+    type:'contour',
+    z: deltaLL,
+    x: D_VALS, y: MH_VALS,
+    colorscale: 'RdYlGn',
+    reversescale: false,
+    contours: { coloring:'heatmap', showlabels:true, labelfont:{size:9} },
+    colorbar: { title:{ text:'ΔLL', side:'right' }, thickness:14 },
+    hovertemplate:'δ=%{x:.4f}<br>μ=%{y:.4f}<br>ΔLL=%{z:.1f}<extra></extra>',
+  };
+  const beL = beLineXY();
+  const beLine = { type:'scatter', mode:'lines', x:beL.x, y:beL.y,
+    line:{ color:'black', dash:'dash', width:1.5 }, name:'δ=μ_home', hoverinfo:'skip' };
+  const mleStar = { type:'scatter', mode:'markers', x:[MLE_D], y:[MLE_MH],
+    marker:{ symbol:'star', size:14, color:'red', line:{color:'white',width:1} }, name:'MLE',
+    hovertemplate:'MLE<br>δ=0.0408, μ=0.0617<extra></extra>' };
+  const bestDot = { type:'scatter', mode:'markers', x:[D_VALS[0]], y:[MH_VALS[0]],
+    marker:{ symbol:'circle', size:10, color:'cyan' }, name:'Grid max',
+    hovertemplate:'Grid max (δ=0.01, μ=0.01)<extra></extra>' };
+  const layout = {
+    margin:{l:60,r:20,t:20,b:60},
+    xaxis:{ title:'δ', tickformat:'.4f', tickvals:D_VALS },
+    yaxis:{ title:'μ_home', tickformat:'.4f', tickvals:MH_VALS },
+    showlegend:true, legend:{ x:0.01, y:0.99, bgcolor:'rgba(255,255,255,0.8)', font:{size:10} },
+  };
+  Plotly.newPlot('plot-contour', [cTrace, beLine, mleStar, bestDot], layout, cfg);
+})();
+
+// ── §3 1D Slices ──────────────────────────────────────────────────────────────
+function drawSliceD() {
+  const mhIdx = parseInt(document.getElementById('sel-mh-idx').value);
+  const mhVal = MH_VALS[mhIdx];
+  const llRow = LL[mhIdx];
+  const trace = {
+    type:'scatter', mode:'lines+markers',
+    x: D_VALS, y: llRow,
+    line:{ color:'#3949ab', width:2.5 }, marker:{ size:6 },
+    hovertemplate:'δ=%{x:.4f}<br>LL=%{y:.1f}<extra></extra>',
+  };
+  const layout = {
+    margin:{l:56,r:16,t:16,b:52},
+    xaxis:{ title:'δ', tickformat:'.3f' },
+    yaxis:{ title:'Sum LL' },
+    shapes:[
+      { type:'line', xref:'x', yref:'paper', x0:MLE_D, x1:MLE_D, y0:0, y1:1,
+        line:{color:'red', dash:'dot', width:1.5} },
+      { type:'line', xref:'x', yref:'paper', x0:mhVal, x1:mhVal, y0:0, y1:1,
+        line:{color:'gray', dash:'dash', width:1} },
+    ],
+    annotations:[
+      { x:MLE_D, y:0.95, xref:'x', yref:'paper', text:'MLE δ', showarrow:false,
+        font:{color:'red',size:9}, xanchor:'left' },
+      { x:mhVal, y:0.85, xref:'x', yref:'paper', text:`μ=${fd(mhVal)} (breakeven)`,
+        showarrow:false, font:{color:'gray',size:9}, xanchor:'left' },
+    ],
+    title:{ text:`μ_home = ${fd(mhVal)} fixed`, font:{size:11}, x:0.5 },
+    hovermode:'x unified',
+  };
+  Plotly.react('plot-slice-d', [trace], layout, cfg);
+}
+
+function drawSliceMH() {
+  const dIdx = parseInt(document.getElementById('sel-d-idx').value);
+  const dVal = D_VALS[dIdx];
+  const llCol = LL.map(row => row[dIdx]);
+  const trace = {
+    type:'scatter', mode:'lines+markers',
+    x: MH_VALS, y: llCol,
+    line:{ color:'#e65100', width:2.5 }, marker:{ size:6 },
+    hovertemplate:'μ=%{x:.4f}<br>LL=%{y:.1f}<extra></extra>',
+  };
+  const layout = {
+    margin:{l:56,r:16,t:16,b:52},
+    xaxis:{ title:'μ_home', tickformat:'.3f' },
+    yaxis:{ title:'Sum LL' },
+    shapes:[
+      { type:'line', xref:'x', yref:'paper', x0:MLE_MH, x1:MLE_MH, y0:0, y1:1,
+        line:{color:'red', dash:'dot', width:1.5} },
+      { type:'line', xref:'x', yref:'paper', x0:dVal, x1:dVal, y0:0, y1:1,
+        line:{color:'gray', dash:'dash', width:1} },
+    ],
+    annotations:[
+      { x:MLE_MH, y:0.95, xref:'x', yref:'paper', text:'MLE μ', showarrow:false,
+        font:{color:'red',size:9}, xanchor:'left' },
+      { x:dVal, y:0.85, xref:'x', yref:'paper', text:`δ=${fd(dVal)} (breakeven)`,
+        showarrow:false, font:{color:'gray',size:9}, xanchor:'left' },
+    ],
+    title:{ text:`δ = ${fd(dVal)} fixed`, font:{size:11}, x:0.5 },
+    hovermode:'x unified',
+  };
+  Plotly.react('plot-slice-mh', [trace], layout, cfg);
+}
+
+document.getElementById('sel-mh-idx').addEventListener('change', drawSliceD);
+document.getElementById('sel-d-idx').addEventListener('change', drawSliceMH);
+drawSliceD(); drawSliceMH();
+
+// ── §4 Decomposition ─────────────────────────────────────────────────────────
+function drawDecomp() {
+  const axis  = document.getElementById('sel-decomp-axis').value;
+  const fIdx  = parseInt(document.getElementById('sel-decomp-fixed-idx').value);
+
+  let x, uArr, vArr, llArr, xLabel, fixLabel;
+  if (axis === 'delta') {
+    x = D_VALS; xLabel = 'δ';
+    uArr  = D_VALS.map(() => U_OBS_BY_MH[fIdx]);
+    vArr  = V[fIdx];
+    llArr = LL[fIdx];
+    fixLabel = `μ_home = ${fd(MH_VALS[fIdx])} fixed`;
+  } else {
+    x = MH_VALS; xLabel = 'μ_home';
+    uArr  = MH_VALS.map((_, i) => U_OBS_BY_MH[i]);
+    vArr  = V.map(row => row[fIdx]);
+    llArr = LL.map(row => row[fIdx]);
+    fixLabel = `δ = ${fd(D_VALS[fIdx])} fixed`;
+  }
+
+  const tU = { type:'scatter', mode:'lines+markers', name:'U_obs (observed-path utility)',
+    x, y:uArr, line:{color:'#1565c0', width:2, dash: axis==='delta' ? 'dot' : 'solid'},
+    marker:{size:5}, hovertemplate:`${xLabel}=%{x:.4f}<br>U_obs=%{y:.1f}<extra></extra>` };
+  const tV = { type:'scatter', mode:'lines+markers', name:'V(s₀) [log-partition]',
+    x, y:vArr, line:{color:'#e65100', width:2},
+    marker:{size:5}, hovertemplate:`${xLabel}=%{x:.4f}<br>V(s₀)=%{y:.1f}<extra></extra>` };
+  const tLL = { type:'scatter', mode:'lines+markers', name:'LL = U_obs − V(s₀)',
+    x, y:llArr, line:{color:'black', width:2.5},
+    marker:{size:6}, hovertemplate:`${xLabel}=%{x:.4f}<br>LL=%{y:.1f}<extra></extra>` };
+
+  const note = axis === 'delta'
+    ? '<b>U_obs is flat</b> — δ does not appear in observed-path utility'
+    : 'U_obs rises linearly — home steps dominate observed paths';
+
+  const layout = {
+    margin:{l:60,r:16,t:40,b:52},
+    xaxis:{ title:xLabel, tickformat:'.3f' },
+    yaxis:{ title:'Value (summed over 44 persons)' },
+    legend:{ x:0.02, y:0.02, bgcolor:'rgba(255,255,255,0.85)' },
+    title:{ text:`${fixLabel}`, font:{size:11}, x:0.5 },
+    annotations:[{
+      x:0.5, y:1.05, xref:'paper', yref:'paper', showarrow:false,
+      text:note, font:{size:10, color:'#555'}, xanchor:'center',
+    }],
+    hovermode:'x unified',
+  };
+  Plotly.react('plot-decomp', [tU, tV, tLL], layout, cfg);
+}
+
+document.getElementById('sel-decomp-axis').addEventListener('change', () => {
+  const axis = document.getElementById('sel-decomp-axis').value;
+  document.querySelector('#ctrl-decomp-fixed label').textContent =
+    axis === 'delta' ? 'Fixed μ_home' : 'Fixed δ';
+  drawDecomp();
+});
+document.getElementById('sel-decomp-fixed-idx').addEventListener('change', drawDecomp);
+drawDecomp();
+
+// ── §5 Table ──────────────────────────────────────────────────────────────────
+(function() {
+  const tbl = document.getElementById('ll-table');
+  // header row
+  let html = '<thead><tr><th class="label-col">μ\\δ</th>';
+  D_VALS.forEach(d => { html += `<th>${fd(d)}</th>`; });
+  html += '</tr></thead><tbody>';
+  LL.forEach((row, mi) => {
+    html += `<tr><td class="label-col">${fd(MH_VALS[mi])}</td>`;
+    row.forEach((val, di) => {
+      // Highlight nearest grid point to MLE (mhIdx≈4, dIdx≈2)
+      const near = (mi === 4 && di === 2);
+      html += `<td${near ? ' class="highlight"' : ''}>${val.toFixed(0)}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  tbl.innerHTML = html;
+})();
+</script>
+</body>
+</html>

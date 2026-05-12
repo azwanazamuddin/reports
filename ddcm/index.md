@@ -3,7 +3,7 @@ title: DDCM Implementation Reports
 type: index
 status: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-12
 tags: [ddcm, reports, implementation]
 ---
 
@@ -19,7 +19,9 @@ Reports are generated in the `ddcm` repo and published here.
 
 | Report | Topic | Date |
 |--------|-------|------|
-| [work_timing_analysis.html](work_timing_analysis.html) | K=9 NFXP: why simulated work start is ~14:51 vs observed ~8:30; interactive utility plots + simulation validation (N=934) | 2026-05-10 |
+| [investigation_overview.html](investigation_overview.html) | **Root cause investigation**: zone-matching bug caused δ to be unidentified in all prior runs (v1–v5); fix implemented; re-estimation running | 2026-05-12 |
+| [profile_ll_delta_muhome.html](profile_ll_delta_muhome.html) | K=10 profile LL scan (δ × μ_home): confirms U_obs was δ-invariant (symptom of zone bug); interactive heatmap + slices | 2026-05-12 |
+| [work_timing_analysis.html](work_timing_analysis.html) | K=10 NFXP: why simulated work start is ~14:51 vs observed ~8:30; interactive utility plots + simulation validation (N=934) | 2026-05-10 |
 
 ---
 

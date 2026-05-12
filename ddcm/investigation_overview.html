@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DDCM Estimation Bug — Root Cause Investigation</title>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #fff; --border: #e0e4ea;
+    --text: #1a2332; --subtext: #607080;
+    --accent: #3949ab; --accent2: #1565c0;
+    --red: #c62828; --green: #2e7d32; --orange: #e65100;
+    --amber: #f57f17;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.93rem; line-height: 1.65; }
+  .page { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #3949ab 100%);
+    color: #fff; padding: 40px 32px 32px; margin-bottom: 36px;
+    border-radius: 0 0 12px 12px;
+  }
+  header h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; }
+  header .sub { opacity: 0.85; font-size: 1rem; margin-bottom: 14px; }
+  header .meta { font-size: 0.8rem; opacity: 0.65; }
+  .status-pill {
+    display: inline-block; background: #43a047; color: #fff;
+    border-radius: 20px; padding: 4px 14px; font-size: 0.8rem;
+    font-weight: 600; margin-top: 12px; letter-spacing: 0.02em;
+  }
+
+  /* ── Cards ── */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .card h2 { font-size: 1.05rem; font-weight: 700; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid #e8eaf6; }
+  .section-num { background: var(--accent); color: #fff; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; flex-shrink: 0; }
+  .card h3 { font-size: 0.9rem; font-weight: 700; color: #37474f; margin: 16px 0 6px; }
+  p { margin-bottom: 8px; }
+
+  /* ── Alerts ── */
+  .alert { border-radius: 6px; padding: 11px 14px; margin: 10px 0; font-size: 0.88rem; }
+  .alert-red    { background: #ffebee; border-left: 3px solid var(--red);    color: #b71c1c; }
+  .alert-green  { background: #e8f5e9; border-left: 3px solid var(--green);  color: #1b5e20; }
+  .alert-blue   { background: #e3f2fd; border-left: 3px solid var(--accent2); color: #0d47a1; }
+  .alert-amber  { background: #fff8e1; border-left: 3px solid var(--amber);  color: #7f5000; }
+
+  /* ── KV grid ── */
+  .kv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin: 14px 0; }
+  .kv-box { background: #f5f7fa; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .kv-box .label { font-size: 0.75rem; color: var(--subtext); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kv-box .val { font-size: 1.15rem; font-weight: 700; }
+  .kv-box .note { font-size: 0.75rem; color: var(--subtext); margin-top: 2px; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 28px; margin: 16px 0; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #c5cae9; }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -22px; top: 5px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .tl-item.tl-red::before  { background: var(--red); box-shadow: 0 0 0 2px var(--red); }
+  .tl-item.tl-green::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+  .tl-item.tl-amber::before { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .tl-date { font-size: 0.75rem; color: var(--subtext); font-weight: 600; margin-bottom: 2px; }
+  .tl-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; }
+  .tl-body { font-size: 0.87rem; color: #455a64; }
+
+  /* ── Two-col ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── Zone bug diagram ── */
+  .zone-diagram { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0; align-items: center; margin: 18px 0; }
+  .zone-box { border-radius: 8px; padding: 16px; text-align: center; }
+  .zone-box .zb-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; }
+  .zone-box .zb-item { font-size: 0.8rem; padding: 4px 6px; border-radius: 4px; margin: 3px 0; }
+  .zone-arrow { font-size: 1.6rem; color: var(--subtext); text-align: center; }
+
+  /* ── Code block ── */
+  .code-diff { background: #1e1e2e; border-radius: 8px; padding: 16px 18px; font-family: 'Cascadia Code', 'Courier New', monospace; font-size: 0.82rem; line-height: 1.8; overflow-x: auto; margin: 12px 0; }
+  .code-diff .del { color: #f38ba8; }
+  .code-diff .add { color: #a6e3a1; }
+  .code-diff .cmt { color: #6c7086; font-style: italic; }
+  .code-diff .neu { color: #cdd6f4; }
+  .code-diff .file { color: #89b4fa; font-weight: 600; font-size: 0.78rem; margin-bottom: 4px; }
+
+  /* ── Report links ── */
+  .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  @media (max-width: 700px) { .report-grid { grid-template-columns: 1fr; } }
+  .report-card {
+    border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px;
+    text-decoration: none; color: var(--text); display: block;
+    transition: box-shadow 0.15s, border-color 0.15s;
+    background: #fff;
+  }
+  .report-card:hover { box-shadow: 0 4px 14px rgba(57,73,171,.15); border-color: var(--accent); }
+  .report-card .rc-tag { font-size: 0.72rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .report-card .rc-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 6px; color: var(--accent2); }
+  .report-card .rc-desc { font-size: 0.82rem; color: var(--subtext); line-height: 1.5; }
+  .report-card .rc-caveat { font-size: 0.78rem; color: #b71c1c; margin-top: 8px; background: #ffebee; border-radius: 4px; padding: 5px 8px; }
+
+  /* ── Compare table ── */
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 12px 0; }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; }
+  th { background: #f0f2f5; font-weight: 700; color: var(--accent); text-align: left; }
+  td.good { background: #e8f5e9; color: #1b5e20; font-weight: 600; }
+  td.bad  { background: #ffebee; color: #b71c1c; font-weight: 600; }
+
+  /* ── Fix badge ── */
+  .fix-list { margin: 12px 0; }
+  .fix-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; border-radius: 8px; background: #f5f7fa; border: 1px solid var(--border); margin-bottom: 8px; }
+  .fix-item .fi-file { font-family: 'Courier New', monospace; font-size: 0.78rem; font-weight: 700; color: var(--accent2); min-width: 280px; }
+  .fix-item .fi-desc { font-size: 0.85rem; color: #37474f; }
+
+  /* ── Status bar ── */
+  .status-bar { background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; gap: 16px; }
+  .pulse { width: 12px; height: 12px; border-radius: 50%; background: #43a047; flex-shrink: 0; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>DDCM Estimation — Root Cause Investigation</h1>
+  <div class="sub">Why did δ (work schedule utility) converge to near-zero? A zone-matching bug in graph construction.</div>
+  <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-12</div>
+  <div class="status-pill">✓ Bug fixed · Re-estimation running (v6)</div>
+</header>
+
+<!-- ── §0 Executive Summary ── -->
+<div class="card">
+  <h2><span class="section-num">0</span> Executive Summary (Meeting Brief)</h2>
+
+  <div class="kv-grid">
+    <div class="kv-box">
+      <div class="label">Symptom</div>
+      <div class="val" style="color:var(--red); font-size:0.95rem;">δ → 0.0408</div>
+      <div class="note">Work utility near-zero at MLE; μ<sub>home</sub> > δ → agents prefer home over work</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Workers affected</div>
+      <div class="val" style="color:var(--red);">701 / 702</div>
+      <div class="note">Only 1 worker had WORK steps matched in v5 estimation</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">U<sub>obs</sub> WORK contribution</div>
+      <div class="val" style="color:var(--red);">0%</div>
+      <div class="note">WORK steps silently dropped from all observed paths</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">After fix (test group)</div>
+      <div class="val" style="color:var(--green);">98.6%</div>
+      <div class="note">Step match rate; WORK states at all 144 zones</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Root cause</div>
+      <div class="val" style="font-size:0.82rem; font-weight:700;">Zone bug in graph builder</div>
+      <div class="note">Graph built with Person 0's zone only; others excluded</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Re-estimation</div>
+      <div class="val" style="color:var(--green); font-size:0.9rem;">Running (v6)</div>
+      <div class="note">Launched 2026-05-12, ~60 min Phase 1</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:4px;">
+    <strong>Bottom line:</strong> All previous NFXP runs (v1–v5) estimated a model where workers'
+    observed WORK activities were <em>invisible to the likelihood</em>. The work schedule parameter δ
+    was effectively unidentified — it only entered LL through V(s<sub>0</sub>), never through
+    U<sub>obs</sub>. The converged value δ = 0.0408 is an artifact of this misspecification,
+    not a genuine behavioral estimate.
+  </div>
+</div>
+
+<!-- ── §1 Investigation Timeline ── -->
+<div class="card">
+  <h2><span class="section-num">1</span> Investigation Timeline</h2>
+  <div class="timeline">
+
+    <div class="tl-item tl-red">
+      <div class="tl-date">2026-04-20</div>
+      <div class="tl-title">Anomaly flagged: c_change drifts to −∞</div>
+      <div class="tl-body">Full K=10 NFXP (v4, 2000 persons) converged to δ=0.0408 and c_change → −∞.
+        Trip over-prediction: ~25 simulated trips/day vs. ~3 observed.
+        Root cause investigation opened.
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2026-04-22 – 04-30</div>
+      <div class="tl-title">Tier B1 tests and profile LL scan</div>
+      <div class="tl-body">Three choice-set constraint tests all failed to fix c_change identification.
+        Profile LL scan on group 008 (44 workers) reveals U<sub>obs</sub> is <em>completely
+        invariant to δ</em> — changing δ from 0.01 to 0.14 moves U<sub>obs</sub> by zero.
+        See <a href="profile_ll_delta_muhome.html">profile_ll_delta_muhome.html</a>.
+      </div>
+    </div>
+
+    <div class="tl-item tl-red">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">Root cause found: zone-matching bug in graph construction</div>
+      <div class="tl-body">Inspection of group 008's saved graph metadata: 7,921 WORK states, all in
+        CZONE_106 (Person 0's zone). 98 of 99 workers work at different zones → their WORK steps
+        never match the graph → silently dropped from U<sub>obs</sub>.
+        Bug present in <em>all 27 worker groups</em> across all prior estimation runs.
+      </div>
+    </div>
+
+    <div class="tl-item tl-amber">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">Fix designed and implemented (zone-agnostic mandatory sequence)</div>
+      <div class="tl-body">Build the shared group graph with mandatory_sequence = [(WORK, <em>None</em>)]
+        so WORK states are generated at <em>all</em> zones. Zone-specific constraint replaced by
+        zone-agnostic (any zone is valid). WORK utility in K=10 is purely time-based — zone enters
+        only through travel cost, already priced in TRAVEL edges. Semantically sound.
+      </div>
+    </div>
+
+    <div class="tl-item tl-green">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">Fix tested and validated</div>
+      <div class="tl-body">Test script on 15 workers (3 unique work zones): 1,148,678 WORK states
+        across 144 zones (PASS), 98.6% step match rate (PASS), V(s<sub>0</sub>) finite for all
+        home zones (PASS). Fresh estimation (v6) launched.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── §2 Root Cause Detail ── -->
+<div class="card">
+  <h2><span class="section-num">2</span> Root Cause: The Zone Bug</h2>
+
+  <h3>How graph groups are built</h3>
+  <p>Persons are grouped by <strong>activity type + timing window</strong> (28 groups with
+    <code>--scheduling-preferences --timing-round 60</code>). Each group shares one state-action graph
+    built by the forward pass. Because graphs are expensive to build (~150s each), they are built once
+    and reused across all NFXP iterations.</p>
+
+  <h3>The bug: Person 0's zone used for the whole group</h3>
+  <div class="zone-diagram">
+    <div class="zone-box" style="background:#ffebee; border:1px solid #ef9a9a;">
+      <div class="zb-title" style="color:var(--red);">What the graph had<br>(buggy)</div>
+      <div class="zb-item" style="background:#ef9a9a; color:#7f0000;">WORK @ CZONE_106 ✓</div>
+      <div class="zb-item" style="background:#ffcdd2; color:#b71c1c;">WORK @ CZONE_20 ✗</div>
+      <div class="zb-item" style="background:#ffcdd2; color:#b71c1c;">WORK @ CZONE_64 ✗</div>
+      <div class="zb-item" style="background:#ffcdd2; color:#b71c1c;">WORK @ CZONE_59 ✗</div>
+      <div class="zb-item" style="background:#ffcdd2; color:#b71c1c;">WORK @ … (141 more) ✗</div>
+      <div style="font-size:0.76rem; margin-top:8px; color:#b71c1c;">7,921 WORK states total<br>all in Person 0's zone</div>
+    </div>
+    <div class="zone-arrow">→</div>
+    <div class="zone-box" style="background:#e8f5e9; border:1px solid #a5d6a7;">
+      <div class="zb-title" style="color:var(--green);">What the graph needs<br>(fixed)</div>
+      <div class="zb-item" style="background:#a5d6a7; color:#1b5e20;">WORK @ CZONE_106 ✓</div>
+      <div class="zb-item" style="background:#a5d6a7; color:#1b5e20;">WORK @ CZONE_20 ✓</div>
+      <div class="zb-item" style="background:#a5d6a7; color:#1b5e20;">WORK @ CZONE_64 ✓</div>
+      <div class="zb-item" style="background:#a5d6a7; color:#1b5e20;">WORK @ CZONE_59 ✓</div>
+      <div class="zb-item" style="background:#a5d6a7; color:#1b5e20;">WORK @ all 144 zones ✓</div>
+      <div style="font-size:0.76rem; margin-top:8px; color:#2e7d32;">~1.15M WORK states total<br>across all 144 zones</div>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <strong>Why it was silent:</strong> The observed-path matching step (<code>encode_observed_steps</code>)
+    looks up each step in the graph by hash. When a WORK state at the wrong zone is not found, it
+    returns <code>None</code> and skips that step — no error, no warning. The LL computation simply
+    excludes those steps from U<sub>obs</sub>.
+  </div>
+
+  <h3>Impact on the likelihood</h3>
+  <div class="two-col" style="margin-top:10px;">
+    <div style="background:#f5f7fa; border-radius:8px; padding:14px 16px;">
+      <div style="font-weight:700; font-size:0.88rem; margin-bottom:8px; color:var(--red);">With bug (v1–v5)</div>
+      <div style="font-family:'Courier New',monospace; background:#fff; border-radius:4px; padding:8px 10px; font-size:0.82rem; margin-bottom:8px;">
+        LL = U<sub>obs</sub>(HOME + SHOP + LEIS) − V(s<sub>0</sub>; δ, …)
+      </div>
+      <p style="font-size:0.83rem;">U<sub>obs</sub> has no WORK terms → δ only appears in V(s<sub>0</sub>),
+        the denominator. LL always decreases as δ increases → optimizer pushes δ to smallest value
+        consistent with α/β constraints. Result: δ = 0.0408 (near-zero, unstable).</p>
+    </div>
+    <div style="background:#f5f7fa; border-radius:8px; padding:14px 16px;">
+      <div style="font-weight:700; font-size:0.88rem; margin-bottom:8px; color:var(--green);">With fix (v6)</div>
+      <div style="font-family:'Courier New',monospace; background:#fff; border-radius:4px; padding:8px 10px; font-size:0.82rem; margin-bottom:8px;">
+        LL = U<sub>obs</sub>(HOME + <strong>WORK</strong> + SHOP + LEIS) − V(s<sub>0</sub>; δ, …)
+      </div>
+      <p style="font-size:0.83rem;">U<sub>obs</sub> now includes WORK step utilities → δ shifts
+        <em>both</em> U<sub>obs</sub> and V(s<sub>0</sub>). The LL surface has a proper interior
+        maximum in δ — genuine identification from observed work episodes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── §3 Why Earlier Runs Still "Converged" ── -->
+<div class="card">
+  <h2><span class="section-num">3</span> Why Earlier Runs Still "Converged"</h2>
+  <p>Despite the bug, L-BFGS-B found a stationary point every time. This is expected — the LL is
+    still smooth and bounded even with WORK steps missing. The optimizer converged to a genuine
+    stationary point of the <em>wrong objective</em>.</p>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <h3>What the optimizer was actually fitting</h3>
+      <ul style="font-size:0.86rem; padding-left:18px; line-height:2;">
+        <li>702 workers treated as <em>de facto non-workers</em> (no WORK in U<sub>obs</sub>)</li>
+        <li>723 non-workers correctly fitted (HOME + SHOP + LEIS only)</li>
+        <li>δ identified only indirectly via V(s<sub>0</sub>) interaction with α, β</li>
+        <li>β<sub>shop</sub>, β<sub>leis</sub>, c_change, μ<sub>home</sub> estimated from non-work activity patterns</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What the converged values mean</h3>
+      <ul style="font-size:0.86rem; padding-left:18px; line-height:2;">
+        <li><strong>δ = 0.0408</strong> — artifact; not identified from WORK observations</li>
+        <li><strong>μ<sub>home</sub> = 0.0617 > δ</strong> — consequence of δ being pushed low</li>
+        <li><strong>c_change → −∞</strong> — downstream: workers "over-choosing" travel to correct the model</li>
+        <li><strong>β<sub>shop</sub>, β<sub>leis</sub></strong> — may be more reliable (non-workers correct)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-blue" style="margin-top:4px;">
+    <strong>Note on simulated vs observed comparison:</strong>
+    Simulated workers <em>did</em> show WORK activity in previous behavioral validation — but all simulated workers commuted to CZONE_106 (Person 0's zone), not their actual work zones. Activity-type shares looked plausible but zones and travel times were wrong.
+  </div>
+</div>
+
+<!-- ── §4 The Fix ── -->
+<div class="card">
+  <h2><span class="section-num">4</span> The Fix (4 Code Changes)</h2>
+
+  <div class="fix-list">
+    <div class="fix-item">
+      <div class="fi-file">estimation/tensor_sampler.py</div>
+      <div class="fi-desc">Build zone-agnostic mandatory sequence: <code>[(WORK, None)]</code> instead of
+        <code>[(WORK, person_0_zone)]</code>. Generates WORK states at all 144 zones in the forward pass.</div>
+    </div>
+    <div class="fix-item">
+      <div class="fi-file">model/mandatory_sequence_utils.py</div>
+      <div class="fi-desc">Allow <code>None</code> zone in sequence constraint check:
+        <code>(required_zone is None) OR (action.destination_zone == required_zone)</code>.
+        Zone=None means any zone is valid.</div>
+    </div>
+    <div class="fix-item">
+      <div class="fi-file">planning/gpu_constraint_filter.py</div>
+      <div class="fi-desc">Sentinel −1 for zone-agnostic slots in GPU tensor lookup.
+        <code>zone_ok = (required_zones &lt; 0) | (action_zone == required_zones)</code>.
+        Fixed for both tensor (GPU) and numpy (CPU) code paths.</div>
+    </div>
+    <div class="fix-item">
+      <div class="fi-file">planning/graph_builder_tensor.py</div>
+      <div class="fi-desc">Fix int32 overflow in CSR <code>row_ptr</code>: zone-agnostic graphs produce
+        ~2.23B edges, exceeding INT32_MAX (2.15B). Auto-select int64 when edge count exceeds 2B.</div>
+    </div>
+  </div>
+
+  <div class="code-diff">
+    <div class="file">estimation/tensor_sampler.py — the one-line fix</div>
+    <div class="del">- mandatory_seq = persons_group[0]['mandatory_sequence']</div>
+    <div class="add">+ _raw_seq = persons_group[0]['mandatory_sequence']</div>
+    <div class="add">+ mandatory_seq = [(act, None) for act, zone in _raw_seq] if _raw_seq else _raw_seq</div>
+    <div class="cmt"># Zone=None → WORK states generated at all zones, not just Person 0's zone</div>
+  </div>
+
+  <h3>Test results (15 workers, 3 unique work zones)</h3>
+  <table>
+    <thead><tr><th>Check</th><th>Before fix</th><th>After fix</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>WORK states in graph</td>
+        <td class="bad">7,921 states (1 zone)</td>
+        <td class="good">1,148,678 states (144 zones)</td>
+        <td class="good">PASS</td>
+      </tr>
+      <tr>
+        <td>Observed step match rate</td>
+        <td class="bad">~2.5% (WORK steps missing)</td>
+        <td class="good">98.6%</td>
+        <td class="good">PASS</td>
+      </tr>
+      <tr>
+        <td>Workers with WORK matched</td>
+        <td class="bad">1 / 99 (Person 0 only)</td>
+        <td class="good">3 / 3 (all in test group)</td>
+        <td class="good">PASS</td>
+      </tr>
+      <tr>
+        <td>V(s<sub>0</sub>) finite</td>
+        <td class="bad">Finite but wrong (wrong zones)</td>
+        <td class="good">Finite for all home zones</td>
+        <td class="good">PASS</td>
+      </tr>
+      <tr>
+        <td>Graph size</td>
+        <td>5.76M states / 1.81B edges</td>
+        <td>7.07M states / 2.23B edges</td>
+        <td>~23% larger</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── §5 Current Status ── -->
+<div class="card">
+  <h2><span class="section-num">5</span> Current Estimation Status</h2>
+
+  <div class="status-bar">
+    <div class="pulse"></div>
+    <div>
+      <strong>v6 estimation running</strong> — launched 2026-05-12 15:16 ·
+      Log: <code>estimation_results/nfxp_v6_zone_fix_20260512.log</code>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+  <table>
+    <thead><tr><th>Run</th><th>Persons</th><th>Groups</th><th>Zone bug</th><th>Workers with WORK in U<sub>obs</sub></th><th>δ at convergence</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>v4</strong> (Apr 2026)</td>
+        <td>1,527</td>
+        <td>5 (by activity type)</td>
+        <td class="bad">Yes</td>
+        <td class="bad">0 / 702</td>
+        <td class="bad">0.0408 (artifact)</td>
+      </tr>
+      <tr>
+        <td><strong>v5</strong> (May 2026)</td>
+        <td>1,527 (skip-phase1)</td>
+        <td>28 (timing windows)</td>
+        <td class="bad">Yes</td>
+        <td class="bad">~1 / 702</td>
+        <td class="bad">0.0408 (artifact)</td>
+      </tr>
+      <tr>
+        <td><strong>v6</strong> (running)</td>
+        <td>200</td>
+        <td>28 (timing windows)</td>
+        <td class="good">Fixed</td>
+        <td class="good">~136 / 136 (all workers)</td>
+        <td class="good">TBD — first genuine estimate</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="alert alert-blue" style="margin-top:12px;">
+    <strong>Phase 1 estimate:</strong> ~60 min to rebuild all 28 graphs (zone-agnostic, 7M states / 2.2B edges each).
+    Each NFXP iteration: ~6–10 min (BI on 28 cached graphs). Monitor:
+    <code>tail -f estimation_results/nfxp_v6_zone_fix_20260512.log | grep -E 'Group:|TensorSampler|Iteration|LL'</code>
+  </div>
+</div>
+
+<!-- ── §6 Detailed Reports ── -->
+<div class="card">
+  <h2><span class="section-num">6</span> Detailed Investigation Reports</h2>
+  <div class="report-grid">
+    <a class="report-card" href="profile_ll_delta_muhome.html">
+      <div class="rc-tag">Profile LL Analysis</div>
+      <div class="rc-title">2D Profile LL: δ × μ<sub>home</sub></div>
+      <div class="rc-desc">Scans the LL surface over (δ, μ<sub>home</sub>) for group 008.
+        Confirms U<sub>obs</sub> is completely invariant to δ. Interactive heatmap, contour, and 1D slices.</div>
+      <div class="rc-caveat">⚠ Written before root cause found. Attributed δ-invariance to
+        "mandatory sequence outside CSR graph" — the real cause is the zone bug (§2 above).
+        The symptom description is correct; the mechanism explanation is outdated.</div>
+    </a>
+    <a class="report-card" href="work_timing_analysis.html">
+      <div class="rc-tag">Behavioral Analysis</div>
+      <div class="rc-title">Work Timing: Why Agents Delay Work</div>
+      <div class="rc-desc">Analysis of simulated vs. observed work start times using the (buggy) v4/v5 estimates.
+        Shows μ<sub>home</sub> > δ as the mechanism for late work departure.
+        Context for understanding what the corrected estimation should change.</div>
+      <div class="rc-caveat">⚠ Based on v4/v5 estimates with zone bug. Work timing results will change after v6 converges.</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- .page -->
+</body>
+</html>
