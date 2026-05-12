@@ -127,7 +127,7 @@
 
 <header>
   <h1>DDCM Estimation — Root Cause Investigation</h1>
-  <div class="sub">Why did δ converge to near-zero? Two bugs identified and fixed. (c_change was a separate earlier issue — already resolved by forbidden_mask fix.)</div>
+  <div class="sub">Why did δ converge to near-zero? Root cause: zone-matching bug made WORK utility invisible in U<sub>obs</sub>. Workers-only sample also applied as correct methodology. (c_change was a separate earlier issue — already resolved.)</div>
   <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-12</div>
   <div class="status-pill">✓ Both bugs fixed · Workers-only re-estimation running (v6)</div>
 </header>
@@ -163,9 +163,9 @@
       <div class="note">Graph built with Person 0's zone only; WORK steps of all other workers dropped</div>
     </div>
     <div class="kv-box">
-      <div class="label">Root cause 2</div>
-      <div class="val" style="font-size:0.82rem; font-weight:700;">Non-worker data biases δ</div>
-      <div class="note">Non-worker V(s₀) includes hypothetical WORK paths; U_obs has none → systematic downward pull on δ</div>
+      <div class="label">Secondary issue</div>
+      <div class="val" style="font-size:0.82rem; font-weight:700;">Non-workers excluded (methodology)</div>
+      <div class="note">9 non-workers in v5 had minor impact; zone bug alone was sufficient. Workers-only is correct by design regardless.</div>
     </div>
     <div class="kv-box">
       <div class="label">Re-estimation</div>
@@ -183,11 +183,11 @@
   </div>
 
   <div class="alert alert-red" style="margin-top:8px;">
-    <strong>Bottom line (δ investigation):</strong> All NFXP runs (v1–v5) had <em>two compounding biases on δ</em>.
-    (1) The zone bug made WORK steps invisible in U<sub>obs</sub> for 701/702 workers.
-    (2) Non-worker data created a monotone downward pull on δ through V(s<sub>0</sub>),
-    because non-worker graphs include hypothetical WORK paths but their observed paths never have WORK.
-    Both push δ toward zero. Fix: zone-agnostic graph + workers-only sample.
+    <strong>Bottom line:</strong> The only valid prior estimate is v5 (δ=0.0408, not valid).
+    The primary cause is the <strong>zone bug</strong> — WORK states only existed for Person 0's zone,
+    making U<sub>obs</sub> completely δ-invariant for all workers.
+    Non-worker exclusion (<code>--workers-only</code>) is correct methodology but was a <em>minor</em>
+    secondary factor in v5 (9 persons out of ~600). Fix: zone-agnostic graph construction.
   </div>
 </div>
 
@@ -262,12 +262,13 @@
 
     <div class="tl-item tl-red">
       <div class="tl-date">2026-05-12</div>
-      <div class="tl-title">Second bias discovered: non-worker data pulls δ downward</div>
-      <div class="tl-body">Non-worker forward pass includes hypothetical WORK paths → δ inflates V(s<sub>0</sub>)
-        for non-workers. But non-workers' observed paths have zero WORK steps → δ has no effect on
-        U<sub>obs</sub> for non-workers. Result: LL<sub>non-worker</sub> is <em>monotone decreasing in δ</em>
-        — 724 non-workers systematically pull δ toward zero, compounding the zone bug.
-        v5 included 9 non-workers; v4 included 723 non-workers.
+      <div class="tl-title">Methodology fix: exclude non-workers from estimation sample</div>
+      <div class="tl-body">Non-workers' V(s<sub>0</sub>) includes hypothetical WORK paths (δ affects it),
+        but their U<sub>obs</sub> has no WORK steps → LL<sub>non-worker</sub> is monotone decreasing in δ.
+        In v5, only 9 non-workers were present out of ~600 persons — <em>minor numerical impact</em>,
+        with the zone bug being the dominant suppressor.
+        Still, excluding non-workers is the correct approach by study design (matching Vastberg 2020):
+        we are estimating work-activity preferences, so the sample should only include persons who actually work.
       </div>
     </div>
 
@@ -466,31 +467,33 @@
   </div>
 
   <div class="alert alert-red" style="margin-top:16px; font-size:0.9rem;">
-    <strong>⚠ Last converged estimate (v5, δ=0.0408) had BOTH bugs active.</strong>
-    The zone bug made WORK utility invisible in U<sub>obs</sub> — and even though v5 only had 9 non-workers,
-    each non-worker contributes a <em>monotone decreasing</em> LL term in δ (their V(s<sub>0</sub>) grows with δ, U<sub>obs</sub> does not).
-    Both biases push δ toward zero. The δ=0.0408 value is <strong>not a valid estimate</strong>.
+    <strong>⚠ Only v5 converged — and it had the zone bug active.</strong>
+    v4 crashed with OOM and never produced a valid estimate.
+    v5 converged (18 iterations, LL=−19,187.07) but with zone-specific graphs: WORK steps were invisible in U<sub>obs</sub>
+    for all workers → δ had no numerator signal → pushed toward zero.
+    The 9 non-workers in v5 were a minor methodological issue; the zone bug alone was sufficient to suppress δ.
+    δ=0.0408 is <strong>not a valid estimate</strong>.
   </div>
 
   <div style="margin-top:16px;">
   <table>
-    <thead><tr><th>Run</th><th>Persons</th><th>Sample</th><th>Zone bug</th><th>Non-worker bias</th><th>δ at convergence</th></tr></thead>
+    <thead><tr><th>Run</th><th>Persons</th><th>Outcome</th><th>Zone bug</th><th>Non-worker issue</th><th>δ result</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>v4</strong> (Apr 2026)</td>
         <td>1,527</td>
-        <td>All (723 non-workers)</td>
+        <td class="bad">Crashed — OOM<br><small>No valid estimate</small></td>
         <td class="bad">Yes</td>
-        <td class="bad">Yes — 723 non-workers</td>
-        <td class="bad">0.0408 (artifact)</td>
+        <td class="bad">Yes (many non-workers)</td>
+        <td class="bad">N/A — crashed</td>
       </tr>
       <tr style="background:#fff3f3; border-left:4px solid var(--red);">
-        <td><strong>v5 ★ last converged</strong><br><small style="color:var(--red); font-weight:700;">Both bugs active</small></td>
-        <td>1,527 (reused v4 graphs)</td>
-        <td>All (9 non-workers included)</td>
-        <td class="bad">Yes — zone-specific graphs</td>
-        <td class="bad">Yes — 9 non-workers pull δ↓<br><small>Each non-worker: LL monotone ↓ in δ</small></td>
-        <td class="bad"><strong>0.0408 — artifact</strong><br><small>Not a valid estimate</small></td>
+        <td><strong>v5 ★ only converged run</strong><br><small style="color:var(--red); font-weight:700;">Zone bug active</small></td>
+        <td>~600 persons (reused v4 graphs)</td>
+        <td class="bad">Converged (18 iter)<br><small>Hessian crashed post-opt</small></td>
+        <td class="bad">Yes — zone-specific graphs<br><small>All workers' U<sub>obs</sub> δ-invariant</small></td>
+        <td style="color:#888;">Minor — 9 non-workers<br><small>Zone bug was dominant cause</small></td>
+        <td class="bad"><strong>0.0408 — artifact</strong><br><small>Zone bug suppressed δ</small></td>
       </tr>
       <tr>
         <td><strong>v6</strong> (running)</td>
