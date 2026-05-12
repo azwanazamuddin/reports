@@ -127,9 +127,9 @@
 
 <header>
   <h1>DDCM Estimation — Root Cause Investigation</h1>
-  <div class="sub">Why did δ (work schedule utility) converge to near-zero? A zone-matching bug in graph construction.</div>
+  <div class="sub">Why did δ converge to near-zero? Two bugs identified and fixed. (c_change was a separate earlier issue — already resolved by forbidden_mask fix.)</div>
   <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-12</div>
-  <div class="status-pill">✓ Bug fixed · Re-estimation running (v6)</div>
+  <div class="status-pill">✓ Both bugs fixed · Workers-only re-estimation running (v6)</div>
 </header>
 
 <!-- ── §0 Executive Summary ── -->
@@ -158,23 +158,36 @@
       <div class="note">Step match rate; WORK states at all 144 zones</div>
     </div>
     <div class="kv-box">
-      <div class="label">Root cause</div>
+      <div class="label">Root cause 1</div>
       <div class="val" style="font-size:0.82rem; font-weight:700;">Zone bug in graph builder</div>
-      <div class="note">Graph built with Person 0's zone only; others excluded</div>
+      <div class="note">Graph built with Person 0's zone only; WORK steps of all other workers dropped</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Root cause 2</div>
+      <div class="val" style="font-size:0.82rem; font-weight:700;">Non-worker data biases δ</div>
+      <div class="note">Non-worker V(s₀) includes hypothetical WORK paths; U_obs has none → systematic downward pull on δ</div>
     </div>
     <div class="kv-box">
       <div class="label">Re-estimation</div>
       <div class="val" style="color:var(--green); font-size:0.9rem;">Running (v6)</div>
-      <div class="note">Launched 2026-05-12, ~60 min Phase 1</div>
+      <div class="note">Workers-only · zone-agnostic · analytical gradient · launched 2026-05-12</div>
     </div>
   </div>
 
-  <div class="alert alert-red" style="margin-top:4px;">
-    <strong>Bottom line:</strong> All previous NFXP runs (v1–v5) estimated a model where workers'
-    observed WORK activities were <em>invisible to the likelihood</em>. The work schedule parameter δ
-    was effectively unidentified — it only entered LL through V(s<sub>0</sub>), never through
-    U<sub>obs</sub>. The converged value δ = 0.0408 is an artifact of this misspecification,
-    not a genuine behavioral estimate.
+  <div class="alert" style="background:#e8f5e9; border-color:#a5d6a7; margin-top:4px;">
+    <strong>Note on c_change:</strong> The earlier c_change → −∞ problem was a <em>separate issue</em>,
+    already fixed before this investigation by adding <code>forbidden_mask</code> to
+    <code>BackwardInduction.run()</code> (blocks non-home HOME states). After that fix, c_change
+    converged to −0.301. This investigation is specifically about <strong>why δ remained near-zero</strong>
+    even after the c_change fix.
+  </div>
+
+  <div class="alert alert-red" style="margin-top:8px;">
+    <strong>Bottom line (δ investigation):</strong> All NFXP runs (v1–v5) had <em>two compounding biases on δ</em>.
+    (1) The zone bug made WORK steps invisible in U<sub>obs</sub> for 701/702 workers.
+    (2) Non-worker data created a monotone downward pull on δ through V(s<sub>0</sub>),
+    because non-worker graphs include hypothetical WORK paths but their observed paths never have WORK.
+    Both push δ toward zero. Fix: zone-agnostic graph + workers-only sample.
   </div>
 </div>
 
@@ -183,19 +196,35 @@
   <h2><span class="section-num">1</span> Investigation Timeline</h2>
   <div class="timeline">
 
+    <div class="tl-item tl-green">
+      <div class="tl-date">2026-04-20 (earlier)</div>
+      <div class="tl-title">✓ Resolved: c_change → −∞ fixed by <code>forbidden_mask</code> in BI</div>
+      <div class="tl-body">
+        <strong>Root cause:</strong> <code>BackwardInduction.run()</code> was never passed the
+        <code>forbidden_mask</code> argument in any pipeline call. Without it, HOME activity was
+        legal at <em>every zone</em> — agents could do aimless cross-zone HOME loops at zero cost,
+        producing ~25 simulated trips/day vs ~3 observed. c_change was the only lever to suppress
+        these HOME loops → drifted to −∞.<br>
+        <strong>Fix:</strong> Pass <code>forbidden_mask</code> (blocks non-home HOME states with V=−∞)
+        to BI in 4 pipeline locations. After fix, profile LL has a clean interior argmax and
+        c_change converged to <strong>−0.301</strong> (close to HH MNL prior of −0.3). ✓ Resolved.
+        <br><em>This is a separate, earlier issue — NOT the subject of this investigation.</em>
+      </div>
+    </div>
+
     <div class="tl-item tl-red">
       <div class="tl-date">2026-04-20</div>
-      <div class="tl-title">Anomaly flagged: c_change drifts to −∞</div>
-      <div class="tl-body">Full K=10 NFXP (v4, 2000 persons) converged to δ=0.0408 and c_change → −∞.
-        Trip over-prediction: ~25 simulated trips/day vs. ~3 observed.
-        Root cause investigation opened.
+      <div class="tl-title">New anomaly: δ still near-zero (0.0408) after c_change fix</div>
+      <div class="tl-body">After the forbidden_mask fix, c_change converged to −0.301 (sensible).
+        But δ remained at 0.0408 — WORK marginal utility near-zero, meaning μ<sub>home</sub> > δ
+        and agents prefer staying home over going to work. This is the bug this investigation addresses.
       </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-date">2026-04-22 – 04-30</div>
-      <div class="tl-title">Tier B1 tests and profile LL scan</div>
-      <div class="tl-body">Three choice-set constraint tests all failed to fix c_change identification.
+      <div class="tl-title">Tier B1 tests and profile LL scan — δ investigation begins</div>
+      <div class="tl-body">Three choice-set constraint tests all failed to fix δ identification.
         Profile LL scan on group 008 (44 workers) reveals U<sub>obs</sub> is <em>completely
         invariant to δ</em> — changing δ from 0.01 to 0.14 moves U<sub>obs</sub> by zero.
         See <a href="profile_ll_delta_muhome.html">profile_ll_delta_muhome.html</a>.
@@ -224,10 +253,30 @@
 
     <div class="tl-item tl-green">
       <div class="tl-date">2026-05-12</div>
-      <div class="tl-title">Fix tested and validated</div>
+      <div class="tl-title">Zone fix tested and validated</div>
       <div class="tl-body">Test script on 15 workers (3 unique work zones): 1,148,678 WORK states
         across 144 zones (PASS), 98.6% step match rate (PASS), V(s<sub>0</sub>) finite for all
-        home zones (PASS). Fresh estimation (v6) launched.
+        home zones (PASS).
+      </div>
+    </div>
+
+    <div class="tl-item tl-red">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">Second bias discovered: non-worker data pulls δ downward</div>
+      <div class="tl-body">Non-worker forward pass includes hypothetical WORK paths → δ inflates V(s<sub>0</sub>)
+        for non-workers. But non-workers' observed paths have zero WORK steps → δ has no effect on
+        U<sub>obs</sub> for non-workers. Result: LL<sub>non-worker</sub> is <em>monotone decreasing in δ</em>
+        — 724 non-workers systematically pull δ toward zero, compounding the zone bug.
+        v5 included 9 non-workers; v4 included 723 non-workers.
+      </div>
+    </div>
+
+    <div class="tl-item tl-green">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">Fix 2: workers-only sample · v6 launched</div>
+      <div class="tl-body">Added <code>--workers-only</code> flag to drop non-workers before grouping.
+        v6 launched: 2000 persons → 793 workers (734 non-workers removed, 48%), 109 timing-window groups (min-group-size=5),
+        zone-agnostic graphs, analytical gradient, warm start from v5 checkpoint.
       </div>
     </div>
 
@@ -318,7 +367,7 @@
       <ul style="font-size:0.86rem; padding-left:18px; line-height:2;">
         <li><strong>δ = 0.0408</strong> — artifact; not identified from WORK observations</li>
         <li><strong>μ<sub>home</sub> = 0.0617 > δ</strong> — consequence of δ being pushed low</li>
-        <li><strong>c_change → −∞</strong> — downstream: workers "over-choosing" travel to correct the model</li>
+        <li><strong>c_change = −0.301</strong> — already fixed separately by <code>forbidden_mask</code> in BI; not affected by zone bug</li>
         <li><strong>β<sub>shop</sub>, β<sub>leis</sub></strong> — may be more reliable (non-workers correct)</li>
       </ul>
     </div>
@@ -411,37 +460,44 @@
   <div class="status-bar">
     <div class="pulse"></div>
     <div>
-      <strong>v6 estimation running</strong> — launched 2026-05-12 15:16 ·
-      Log: <code>estimation_results/nfxp_v6_zone_fix_20260512.log</code>
+      <strong>v6 estimation running</strong> — launched 2026-05-12 16:40 · workers-only ·
+      Log: <code>estimation_results/nfxp_v6_workersonly_20260512.log</code>
     </div>
+  </div>
+
+  <div class="alert alert-red" style="margin-top:16px; font-size:0.9rem;">
+    <strong>⚠ Last converged estimate (v5, δ=0.0408) had BOTH bugs active.</strong>
+    The zone bug made WORK utility invisible in U<sub>obs</sub> — and even though v5 only had 9 non-workers,
+    each non-worker contributes a <em>monotone decreasing</em> LL term in δ (their V(s<sub>0</sub>) grows with δ, U<sub>obs</sub> does not).
+    Both biases push δ toward zero. The δ=0.0408 value is <strong>not a valid estimate</strong>.
   </div>
 
   <div style="margin-top:16px;">
   <table>
-    <thead><tr><th>Run</th><th>Persons</th><th>Groups</th><th>Zone bug</th><th>Workers with WORK in U<sub>obs</sub></th><th>δ at convergence</th></tr></thead>
+    <thead><tr><th>Run</th><th>Persons</th><th>Sample</th><th>Zone bug</th><th>Non-worker bias</th><th>δ at convergence</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>v4</strong> (Apr 2026)</td>
         <td>1,527</td>
-        <td>5 (by activity type)</td>
+        <td>All (723 non-workers)</td>
         <td class="bad">Yes</td>
-        <td class="bad">0 / 702</td>
+        <td class="bad">Yes — 723 non-workers</td>
         <td class="bad">0.0408 (artifact)</td>
       </tr>
-      <tr>
-        <td><strong>v5</strong> (May 2026)</td>
-        <td>1,527 (skip-phase1)</td>
-        <td>28 (timing windows)</td>
-        <td class="bad">Yes</td>
-        <td class="bad">~1 / 702</td>
-        <td class="bad">0.0408 (artifact)</td>
+      <tr style="background:#fff3f3; border-left:4px solid var(--red);">
+        <td><strong>v5 ★ last converged</strong><br><small style="color:var(--red); font-weight:700;">Both bugs active</small></td>
+        <td>1,527 (reused v4 graphs)</td>
+        <td>All (9 non-workers included)</td>
+        <td class="bad">Yes — zone-specific graphs</td>
+        <td class="bad">Yes — 9 non-workers pull δ↓<br><small>Each non-worker: LL monotone ↓ in δ</small></td>
+        <td class="bad"><strong>0.0408 — artifact</strong><br><small>Not a valid estimate</small></td>
       </tr>
       <tr>
         <td><strong>v6</strong> (running)</td>
-        <td>200</td>
-        <td>28 (timing windows)</td>
+        <td>793 workers (734 removed, 48%)</td>
+        <td>Workers-only</td>
         <td class="good">Fixed</td>
-        <td class="good">~136 / 136 (all workers)</td>
+        <td class="good">Fixed — 734 non-workers excluded</td>
         <td class="good">TBD — first genuine estimate</td>
       </tr>
     </tbody>
@@ -449,9 +505,9 @@
   </div>
 
   <div class="alert alert-blue" style="margin-top:12px;">
-    <strong>Phase 1 estimate:</strong> ~60 min to rebuild all 28 graphs (zone-agnostic, 7M states / 2.2B edges each).
-    Each NFXP iteration: ~6–10 min (BI on 28 cached graphs). Monitor:
-    <code>tail -f estimation_results/nfxp_v6_zone_fix_20260512.log | grep -E 'Group:|TensorSampler|Iteration|LL'</code>
+    <strong>v6 settings:</strong> 2000 persons → 793 workers (734 non-workers removed, 48%) · 109 groups (min-group-size=5) ·
+    zone-agnostic mandatory sequence · analytical gradient · BFGS · warm start from v5 checkpoint.
+    Monitor: <code>tail -f estimation_results/nfxp_v6_workersonly_20260512.log | grep -E 'Group:|TensorSampler|LL'</code>
   </div>
 </div>
 
