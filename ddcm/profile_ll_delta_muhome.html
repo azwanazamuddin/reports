@@ -58,7 +58,7 @@
     ← Back to Investigation Overview
   </a>
   <span style="color:#b71c1c; background:#ffebee; border-radius:4px; padding:2px 8px; margin-left:12px; font-size:0.78rem;">
-    ⚠ Root cause updated — see overview. U<sub>obs</sub> δ-invariance was caused by zone bug in graph construction, not mandatory sequence mechanism.
+    ⚠ Diagnostic run on buggy v4/v5 estimates. This scan was the clue that led to finding the zone bug — see overview for the full story.
   </span>
 </div>
 
@@ -185,17 +185,18 @@
     </div>
 
     <div style="background:#e3f2fd; border-radius:8px; padding:14px 16px;">
-      <div style="font-weight:700; color:#1565c0; margin-bottom:6px;">③ The δ-invariant U<sub>obs</sub> — the key anomaly</div>
+      <div style="font-weight:700; color:#1565c0; margin-bottom:6px;">③ The δ-invariant U<sub>obs</sub> — the clue that exposed the zone bug</div>
       <p style="font-size:0.875rem;">
-        Changing δ from 0.01 to 0.14 moves U<sub>obs</sub> by exactly <strong>zero</strong> for all persons.
-        This happens because work steps are handled by the <em>mandatory sequence</em> mechanism —
-        they sit outside the discretionary CSR graph that the observed-path utility lookup queries.
-        <code>find_observed_edge</code> returns <code>None</code> for WORK transitions and skips them.
+        Changing δ from 0.01 to 0.14 moves U<sub>obs</sub> by exactly <strong>zero</strong> for all 44 persons.
+        This is the anomaly that triggered the root cause investigation.
+        The cause: the graph was built using <strong>only Person 0's work zone</strong> as the WORK zone.
+        Workers at any other zone had their observed WORK steps silently dropped from U<sub>obs</sub>
+        (no matching state found). With no WORK steps in U<sub>obs</sub>, δ has no numerator signal.
       </p>
       <p style="font-size:0.875rem; margin-top:8px;">
-        Consequence: <strong>δ enters LL only through V(s<sub>0</sub>)</strong> — the denominator.
-        In the full 10D optimization, α, β, and mode-choice terms create an indirect signal that pins δ at 0.0408.
-        But in this 2D scan those forces are frozen, leaving only the denominator signal → δ always wants to be as small as possible.
+        This is <strong>not a structural property of the model</strong> — it is a data-construction bug.
+        After the zone-agnostic fix in v6, WORK states are built at all 144 zones, so observed WORK
+        steps will match and U<sub>obs</sub> will respond to δ as expected.
       </p>
     </div>
 
@@ -288,13 +289,11 @@
     and denominator (log-partition / value function). The key anomaly — <strong>U<sub>obs</sub> does not respond to δ</strong> — is visible here.
   </p>
 
-  <div class="alert alert-amber" style="margin-bottom:16px;">
-    <strong>Structural finding:</strong> U<sub>obs</sub> is <em>identical</em> for all δ values at the same μ<sub>home</sub>.
-    δ appears nowhere in the observed-path utility for these 44 persons.
-    This means the work-activity edges are either unmatched or their Δt × δ contribution is exactly zero
-    (e.g., matched paths contain no on-schedule WORK steps, or WORK steps use a fixed utility not parameterised by δ in the matched edges).
-    Consequence: δ enters LL <em>only</em> through V(s<sub>0</sub>), making it identified solely
-    from the denominator — a very weak signal.
+  <div class="alert alert-red" style="margin-bottom:16px;">
+    <strong>Key anomaly (now explained):</strong> U<sub>obs</sub> is <em>identical</em> for all δ values — δ has zero effect on the observed-path utility for these 44 persons.
+    Root cause: the graph was built with WORK states only in Person 0's zone. Workers at other zones had their WORK steps
+    silently unmatched and dropped from U<sub>obs</sub>. This is a graph construction bug, not a model property.
+    After the zone-agnostic fix (v6), U<sub>obs</sub> will properly include WORK step utilities, and δ will be identified from the numerator.
   </div>
 
   <div class="controls">
@@ -341,44 +340,47 @@
   <h2><span class="section-num">7</span> Interpretation &amp; Next Steps</h2>
   <div class="two-col">
     <div>
-      <h3>Why δ ended up below μ<sub>home</sub> at MLE</h3>
+      <h3>Why δ ended up below μ<sub>home</sub> at MLE (now understood)</h3>
       <ol style="margin: 0 0 0 18px; font-size:0.9rem; line-height:1.9;">
         <li>
-          <strong>δ is identified from V(s<sub>0</sub>), not U<sub>obs</sub>.</strong>
-          With no work-step signal in U<sub>obs</sub>, the optimizer can set δ freely
-          without changing the numerator. It is pinned by α, β, and mode-choice terms.
+          <strong>Zone bug: U<sub>obs</sub> had no WORK signal for δ.</strong>
+          Because WORK states were only built for Person 0's zone, all other workers'
+          observed WORK steps were silently dropped. The optimizer had no numerator signal
+          for δ — it could only be pushed indirectly through V(s<sub>0</sub>), ending up near-zero.
         </li>
         <li>
-          <strong>μ<sub>home</sub> is identified from U<sub>obs</sub>.</strong>
-          Home steps dominate the observed path. The optimizer pushes μ<sub>home</sub>
-          up to fit the long observed home durations. δ gets pulled down as a side effect
-          (both inflate V, so they trade off against each other).
+          <strong>Non-worker bias: monotone downward pull.</strong>
+          Non-workers' V(s<sub>0</sub>) grows with δ (hypothetical WORK paths in the graph),
+          but their U<sub>obs</sub> has no WORK steps. Each non-worker contributes a term
+          that is monotone decreasing in δ, pulling it toward zero.
         </li>
         <li>
-          <strong>The breakeven (δ = μ<sub>home</sub>) is not a special LL boundary.</strong>
-          The surface has no kink or change of slope at the diagonal — the LL is smooth across
-          the breakeven line. The observed data does not identify which side of the breakeven is correct.
+          <strong>μ<sub>home</sub> &gt; δ is a consequence, not a preference.</strong>
+          With δ artificially suppressed, μ<sub>home</sub> dominated. This is not what the
+          data prefers — it is what the bug forced. The v6 estimates (zone-agnostic + workers-only)
+          will tell us the true relationship.
         </li>
       </ol>
     </div>
     <div>
-      <h3>What would fix the identification</h3>
+      <h3>What actually fixed it — two bugs, now resolved</h3>
       <div class="alert alert-green" style="margin-bottom:10px;">
-        <strong>Option A — Hard work timing window.</strong>
-        If work departure is constrained to [06:00–10:00], observed on-time departures
-        directly identify δ > μ<sub>home</sub>. The data does this implicitly; the model does not enforce it.
+        <strong>Fix 1 — Zone-agnostic graph construction.</strong>
+        Build the group graph with <code>mandatory_sequence = [(WORK, None)]</code> so WORK states
+        are generated at all 144 zones, not just Person 0's zone.
+        After this fix, observed WORK steps match states in the graph → U<sub>obs</sub> responds to δ → proper identification.
       </div>
-      <div class="alert alert-blue" style="margin-bottom:10px;">
-        <strong>Option B — Duration-dependent HOME utility (satiation).</strong>
-        If μ<sub>home</sub>(τ) declines with time spent at home, long home durations no longer
-        push μ<sub>home</sub> up uniformly. This breaks the flat collinearity in the
-        (δ, μ<sub>home</sub>) subspace.
+      <div class="alert alert-green" style="margin-bottom:10px;">
+        <strong>Fix 2 — Workers-only estimation sample.</strong>
+        Exclude non-workers from the sample. Non-workers' V(s<sub>0</sub>) grows with δ (hypothetical WORK paths),
+        but their U<sub>obs</sub> never has WORK steps → monotone downward pull on δ.
+        With workers-only, every person in the LL sum has observed WORK steps, giving δ a proper numerator signal.
       </div>
-      <div class="alert alert-amber">
-        <strong>Option C — Constrain δ &gt; μ<sub>home</sub>.</strong>
-        Impose the structural prior that on-schedule work must beat home. This is a valid
-        theoretical constraint (otherwise work is never voluntarily chosen). Adds one
-        inequality constraint to the NFXP optimisation.
+      <div class="alert alert-blue">
+        <strong>Status — v6 re-estimation running.</strong>
+        Both fixes are in production. v6 launched 2026-05-12 with 793 workers, 109 timing-window groups,
+        zone-agnostic graphs, analytical gradient, warm start from v5 checkpoint.
+        Expected to converge tomorrow morning. The scan on this page will be re-run on v6 estimates to confirm proper identification.
       </div>
     </div>
   </div>
