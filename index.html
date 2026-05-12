@@ -266,13 +266,14 @@
     <div>
       <div class="report-title">Profile LL Scan — δ × μ_home (K=10)</div>
       <div class="report-desc">
-        K=10 profile likelihood heatmap over δ and μ_home. Confirms U<sub>obs</sub> was δ-invariant
-        (symptom of zone bug) — the LL surface is flat along the δ axis. Interactive heatmap and slices.
+        K=10 profile likelihood heatmap over δ and μ_home. The flat δ axis was the diagnostic clue
+        that exposed the zone bug — U<sub>obs</sub> was completely δ-invariant because WORK steps
+        were silently dropped. Interactive heatmap and slices.
       </div>
       <div class="report-meta">
         <span class="tag tag-html">Interactive HTML</span>
         <span class="tag">K=10 NFXP</span>
-        <span class="tag" style="background:#FEF3C7; color:#92400E;">Buggy estimates (v1–v5)</span>
+        <span class="tag" style="background:#FEF3C7; color:#92400E;">Diagnostic (v5 estimates)</span>
         <span class="date">2026-05-12</span>
       </div>
     </div>
@@ -285,12 +286,13 @@
       <div class="report-desc">
         Why simulated work start is ~14:51 vs observed ~8:30.
         Interactive utility plots, parameter sliders, and simulation validation (N=934 agents).
-        <em>Based on v4/v5 estimates — zone bug active; results will change after v6 converges.</em>
+        <em>Based on v5 estimates (zone bug active) — shows how the model behaves mechanically;
+        timing results will change after v6 converges.</em>
       </div>
       <div class="report-meta">
         <span class="tag tag-html">Interactive HTML</span>
         <span class="tag">K=10 NFXP</span>
-        <span class="tag" style="background:#FEF3C7; color:#92400E;">Buggy estimates (v4/v5)</span>
+        <span class="tag" style="background:#FEF3C7; color:#92400E;">v5 estimates (zone bug)</span>
         <span class="date">2026-05-10</span>
       </div>
     </div>

@@ -371,12 +371,13 @@
                     <div class="finding-text">
                         <strong>Simulation is correct — but the parameters are artifacts</strong>
                         The 14:51 work start is the model's mathematically optimal behaviour
-                        <em>given the v4/v5 estimates</em>. Because μ<sub>home</sub> = 0.0617
+                        <em>given the v5 estimates</em>. Because μ<sub>home</sub> = 0.0617
                         &gt; δ = 0.0408, agents earn more per minute at home than at work.
                         However, δ = 0.0408 is <strong>not a valid estimate</strong> —
-                        it was suppressed to near-zero by two bugs in the estimation pipeline
-                        (zone-matching bug + non-worker data bias). The 14:51 work start
-                        is a symptom of those bugs, not a finding about behaviour.
+                        it was suppressed to near-zero by the zone-matching bug (primary cause):
+                        WORK states were only built for Person 0's zone, so observed WORK steps
+                        were silently dropped from U<sub>obs</sub> for all other workers.
+                        The 14:51 work start is a symptom of that bug, not a finding about behaviour.
                     </div>
                 </div>
 
@@ -389,11 +390,12 @@
                 </p>
 
                 <div class="alert alert-red">
-                    <strong>Context:</strong> δ was suppressed by two compounding estimation bugs.
-                    (1) Zone-matching bug: WORK states were only built for Person 0's zone →
-                    observed WORK steps silently dropped from U<sub>obs</sub> for 701/702 workers →
-                    δ had no numerator signal. (2) Non-worker bias: non-workers pulled δ toward zero
-                    through V(s<sub>0</sub>). Both bugs are now fixed in v6.
+                    <strong>Root cause:</strong> Zone-matching bug in graph construction —
+                    WORK states were only built for Person 0's zone, so observed WORK steps
+                    were silently dropped from U<sub>obs</sub> for 701/702 workers.
+                    δ had no numerator signal and was pushed toward zero by V(s<sub>0</sub>).
+                    Non-workers are also excluded from v6 as correct methodology (workers-only study design),
+                    though their impact in v5 was minor (9 out of ~600 persons).
                     See <a href="investigation_overview.html" style="color:inherit; font-weight:600;">Investigation Overview</a> for full details.
                 </div>
 
@@ -417,14 +419,14 @@
                 </h2>
                 <p>
                     NFXP, L-BFGS-B, N=825 workers, 28 groups by (t<sub>s</sub>,
-                    t<sub>e</sub>), LL = −19,187.07. Converged in v5 run
-                    (2026-04-15). Transport parameters fixed at HH MNL estimates.
+                    t<sub>e</sub>), LL = −19,187.07. v5 is the only converged run
+                    (v4 crashed with OOM mid-optimization). Transport parameters fixed at HH MNL estimates.
                 </p>
                 <div class="alert alert-red" style="font-size:0.88rem; margin-bottom:4px;">
-                    <strong>⚠ These are v4/v5 estimates with two active bugs.</strong>
-                    δ = 0.0408 is an artifact — suppressed by the zone-matching bug and non-worker bias.
+                    <strong>⚠ v5 estimate — zone bug active.</strong>
+                    δ = 0.0408 is an artifact of the zone-matching bug (WORK steps invisible in U<sub>obs</sub>).
                     All parameters below are shown for diagnostic reference only.
-                    v6 (both bugs fixed) is running; estimates will be updated when it converges.
+                    v6 (zone-agnostic + workers-only) is running; estimates will be updated when it converges.
                 </div>
 
                 <div class="two-col">
@@ -451,7 +453,7 @@
                                             >0.0408</strong
                                         >
                                     </td>
-                                    <td>< μ_home ← root cause</td>
+                                    <td>< μ_home ← artifact of zone bug</td>
                                 </tr>
                                 <tr>
                                     <td>[1]</td>
@@ -511,7 +513,7 @@
                                             >0.0617</strong
                                         >
                                     </td>
-                                    <td>> δ ← root cause</td>
+                                    <td>> δ ← consequence of zone bug</td>
                                 </tr>
                                 <tr>
                                     <td>[9]</td>
@@ -588,13 +590,12 @@
                 </p>
 
                 <div class="alert alert-red" style="margin-bottom: 16px">
-                    <strong>Simulation limitations visible below:</strong> mode
+                    <strong>Results based on v5 estimates (zone bug active):</strong> mode
                     shares (Bicycle over-predicted, Train under-predicted),
                     activity time shares (WORK heavily under-predicted), and
-                    work start time (~14:51 vs ~8:30) all reflect the μ<sub
-                        >home</sub
-                    >
-                    &gt; δ model limitation.
+                    work start time (~14:51 vs ~8:30) all reflect δ being
+                    artificially suppressed by the zone-matching bug — not a structural model limitation.
+                    Results will change after v6 converges.
                 </div>
 
                 <!-- Row 1: Mode shares + Activity shares + Trips -->
@@ -1722,37 +1723,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Is the 14:51 work start a bug?</td>
+                            <td>Is the 14:51 work start a simulation bug?</td>
                             <td>
-                                <span class="badge badge-red">NO</span> It is
-                                the model's correct optimal behavior under
-                                estimated parameters
+                                <span class="badge badge-red">NO</span> The simulation
+                                is mechanically correct — it reflects the optimal policy
+                                given the v5 parameters
                             </td>
                         </tr>
                         <tr>
-                            <td>Is this a model limitation?</td>
+                            <td>Is this a model specification problem?</td>
                             <td>
-                                <span class="badge badge-red">YES</span> μ<sub
-                                    >home</sub
-                                >
-                                &gt; δ → agents always delay work; soft timing
-                                insufficient
+                                <span class="badge badge-green">NO</span> The model
+                                specification is sound. δ was suppressed by an
+                                estimation bug (zone-matching), not a utility design flaw.
                             </td>
                         </tr>
                         <tr>
-                            <td>Can we fix it without re-estimation?</td>
+                            <td>Was it an estimation bug?</td>
                             <td>
-                                <span class="badge badge-red">NO</span> Adding
-                                hard windows only to simulation creates model
-                                inconsistency
+                                <span class="badge badge-red">YES</span> Zone-matching
+                                bug: WORK states only built for Person 0's zone →
+                                WORK steps silently dropped from U<sub>obs</sub> for all other workers
                             </td>
                         </tr>
                         <tr>
                             <td>What is the fix?</td>
                             <td>
-                                Under discussion — candidate directions are
-                                non-flat HOME utility or non-flat WORK
-                                on-schedule utility. No direction decided.
+                                <span class="badge badge-green">DONE</span> Zone-agnostic
+                                graph construction (<code>mandatory_seq = [(WORK, None)]</code>).
+                                v6 running with fix applied — results expected tomorrow morning.
                             </td>
                         </tr>
                     </tbody>
