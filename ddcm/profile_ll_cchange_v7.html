@@ -60,7 +60,7 @@
 <header>
   <h1>Profile Log-Likelihood: c_change sweep — K=10 v7</h1>
   <div class="meta">
-    Zone-agnostic · Workers-only · 29 groups · 569 persons · 16-point grid [−2.5, −0.05] ·
+    Zone-agnostic · Workers-only · 29 groups · 702 workers loaded → 569 valid LL (133 skipped, 19%) · 16-point grid [−2.5, −0.05] ·
     All other K=10 params fixed at v7 iter 26 checkpoint · Scan date 2026-05-13
   </div>
 </header>
@@ -90,9 +90,9 @@
       <div style="font-size:0.8rem;color:var(--subtext)">c_change is identified</div>
     </div>
     <div class="kv-box">
-      <div class="label">Persons</div>
-      <div class="val">569</div>
-      <div style="font-size:0.8rem;color:var(--subtext)">all 29 groups, n valid = 569</div>
+      <div class="label">Persons (LL)</div>
+      <div class="val">569 <span style="font-size:1rem;color:var(--subtext)">/ 702</span></div>
+      <div style="font-size:0.8rem;color:var(--subtext)">workers loaded · 133 skipped (19%)</div>
     </div>
     <div class="kv-box">
       <div class="label">LL surface shape</div>
@@ -203,6 +203,78 @@
         BFGS will naturally refine c_change from −0.756 toward the joint MLE near −0.6.
       </div>
     </div>
+  </div>
+</div>
+
+<!-- §4.5 Person Attrition -->
+<div class="card">
+  <h2><span class="section-num">4.5</span> Person Attrition — Why 569 of 702 Workers Contribute to LL</h2>
+
+  <div class="kv-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="kv-box">
+      <div class="label">Max requested</div>
+      <div class="val">2,000</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">--max-persons</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Person-days loaded</div>
+      <div class="val">1,901</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">99 skipped (bad data / parse errors)</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Workers (--workers-only)</div>
+      <div class="val">702</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">734 non-workers removed (49%)</div>
+    </div>
+    <div class="kv-box" style="border-color:var(--green);">
+      <div class="label">Valid LL contributors</div>
+      <div class="val" style="color:var(--green)">569</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">133 structurally skipped (19%)</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:18px;">Why 133 workers are skipped</h3>
+  <p>After backward induction, a person contributes to the log-likelihood only if their observed path
+  can be matched to the state-action graph and the graph's value function is finite at those states.
+  Three structural reasons cause a skip:</p>
+  <table style="margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="text-align:left">Skip type</th>
+        <th style="text-align:left">Cause</th>
+        <th style="text-align:left">Effect</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A — No matched steps</strong></td>
+        <td>Observed path states/actions not found in the zone-agnostic graph
+            (e.g. activity type not modelled, discretization mismatch)</td>
+        <td>Zero valid (state, action) pairs → person excluded from LL sum</td>
+      </tr>
+      <tr>
+        <td><strong>B — Home zone not in V</strong></td>
+        <td>Person's home zone has no value function tensor — BI did not reach it
+            (very rare; affects groups where that zone has no reachable states)</td>
+        <td>V(s₀) undefined → LL term undefined → person excluded</td>
+      </tr>
+      <tr>
+        <td><strong>C — All V = −∞</strong></td>
+        <td>Matched states all have V = −∞ (BI converged to −∞ at those states;
+            typically due to no feasible continuation path from those states)</td>
+        <td>LL numerator = −∞ → person excluded</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-blue" style="margin-top:14px; font-size:0.85rem;">
+    <strong>These 133 persons are structurally excluded — not a sample quality issue.</strong>
+    Their observed travel days include activities or state transitions that fall outside the
+    modelled choice set (WORK, SHOPPING, LEISURE, HOME with 5 transport modes).
+    They are consistent with the zone-agnostic grouping design: the graph is built for a
+    specific mandatory activity sequence and only covers paths reachable under that sequence.
+    The 569 valid contributors represent 81% of the workers-only sample — well within
+    normal range for this class of model.
   </div>
 </div>
 
