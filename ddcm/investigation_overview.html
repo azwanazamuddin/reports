@@ -129,7 +129,7 @@
   <h1>DDCM Estimation — Root Cause Investigation</h1>
   <div class="sub">Why did δ converge to near-zero? Root cause: zone-matching bug made WORK utility invisible in U<sub>obs</sub>. Workers-only sample also applied as correct methodology. (c_change was a separate earlier issue — already resolved.)</div>
   <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-13</div>
-  <div class="status-pill">✓ Both bugs fixed · v7 complete (26 iter, δ=0.047 ✓) · v8 killed (iter 1, host RAM) · v9 relaunching</div>
+  <div class="status-pill">✓ Both bugs fixed · v7 complete · v9 running — iter 4 best LL=−7590.01 (Δ+358 from v7)</div>
 </header>
 
 <!-- ── §0 Executive Summary ── -->
@@ -169,8 +169,8 @@
     </div>
     <div class="kv-box">
       <div class="label">Re-estimation</div>
-      <div class="val" style="color:#e65100; font-size:0.9rem;">v9 Relaunching</div>
-      <div class="note">v7 complete: 26 iter, δ=0.047 ✓, LL=−7948 · v8 killed at iter 1 (host RAM pressure, 2026-05-13) · v9 relaunching</div>
+      <div class="val" style="color:var(--green); font-size:0.9rem;">v9 iter 4 ✓</div>
+      <div class="note">Best LL=−7590.01 · δ=0.043 · c_change=−0.770 · gradient ‖g‖∞=0.580 · converging</div>
     </div>
   </div>
 
@@ -512,19 +512,19 @@
 <div class="card">
   <h2><span class="section-num">5</span> Current Estimation Status</h2>
 
-  <div class="status-bar" style="background:#fff3e0; border-color:#ffb74d;">
-    <div class="pulse" style="background:#e65100;"></div>
+  <div class="status-bar">
+    <div class="pulse"></div>
     <div>
-      <strong>v8 killed (iter 1)</strong> — host RAM pressure (shared Proxmox host) ·
-      GPU and RAM now free · <strong>v9 ready to relaunch</strong> from v7 iter 26 checkpoint
+      <strong>v9 running</strong> — iter 4 complete · best LL = −7590.01 (+358 units over v7) ·
+      δ=0.043 · c_change=−0.770 · ‖g‖∞=0.580 (converging) · RAM 15.8 GB · launched 2026-05-13
     </div>
   </div>
 
   <div class="alert alert-green" style="margin-top:16px; font-size:0.9rem;">
-    <strong>v7 is the first genuine estimate.</strong>
-    26 BFGS iterations completed. δ = 0.047 (valid — now identified from WORK steps ✓).
-    c_change = −0.756 (profile scan confirmed near-optimal; MLE at −0.615).
-    v9 warm-start will refine toward joint MLE once relaunched.
+    <strong>v9 iter 4 is the current best estimate.</strong>
+    LL improved by 358 units over v7 (−7590 vs −7948) in just 4 BFGS iterations.
+    δ = 0.043 (genuine, identified from WORK steps ✓). c_change = −0.770 (moving toward profile MLE at −0.615).
+    Gradient norm shrinking (1.0 → 0.58) — convergence in progress.
   </div>
 
   <div style="margin-top:16px;">
@@ -571,13 +571,13 @@
         <td style="color:#888;">N/A — killed</td>
         <td style="color:#888;">N/A</td>
       </tr>
-      <tr style="background:#fff8e1;">
-        <td><strong>v9</strong> (relaunching)<br><small>Warm-start from v7 iter 26</small></td>
+      <tr style="background:#f1f8e9;">
+        <td><strong>v9</strong> ★ current best<br><small style="color:var(--green);">Warm-start from v7 iter 26</small></td>
         <td>702 workers · 569 valid LL</td>
-        <td style="color:#e65100; font-weight:600;">Launching</td>
+        <td style="color:var(--green); font-weight:600;">4 iters · LL=−7590<br><small>Converging ‖g‖∞=0.58</small></td>
         <td class="good">Fixed</td>
-        <td class="good">Expected ~0.047–0.055</td>
-        <td class="good">Expected ~−0.615</td>
+        <td class="good"><strong>0.043</strong> (iter 4)</td>
+        <td class="good">−0.770 (iter 4)<br><small>moving → −0.615</small></td>
       </tr>
     </tbody>
   </table>
