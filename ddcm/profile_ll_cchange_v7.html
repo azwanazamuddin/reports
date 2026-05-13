@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile LL: c_change — DDCM K=10 v7</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #fff; --border: #e0e4ea;
+    --text: #1a2332; --subtext: #607080; --accent: #3949ab;
+    --red: #c62828; --green: #2e7d32; --orange: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.93rem; line-height: 1.6; }
+  .page { max-width: 1060px; margin: 0 auto; padding: 28px 20px 60px; }
+  header { border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 28px; }
+  header h1 { font-size: 1.45rem; font-weight: 700; color: var(--accent); }
+  header .meta { color: var(--subtext); font-size: 0.82rem; margin-top: 4px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-bottom: 22px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .card h2 { font-size: 1.05rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-num { background: var(--accent); color: #fff; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.78rem; flex-shrink: 0; }
+  .card h3 { font-size: 0.95rem; font-weight: 600; color: #37474f; margin: 14px 0 8px; }
+  p { margin-bottom: 8px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+  .plot-box { width: 100%; border-radius: 6px; overflow: hidden; }
+  .eq-block { background: #f0f2f5; border-left: 3px solid var(--accent); border-radius: 4px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 10px 0; line-height: 1.8; }
+  .alert { border-radius: 6px; padding: 11px 14px; margin: 10px 0; font-size: 0.88rem; }
+  .alert-red    { background: #ffebee; border-left: 3px solid var(--red);    color: #b71c1c; }
+  .alert-green  { background: #e8f5e9; border-left: 3px solid var(--green);  color: #1b5e20; }
+  .alert-blue   { background: #e3f2fd; border-left: 3px solid #1565c0;       color: #0d47a1; }
+  .alert-amber  { background: #fff8e1; border-left: 3px solid #f57f17;       color: #e65100; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-red   { background:#ffcdd2; color:#c62828; }
+  .badge-green { background:#c8e6c9; color:#2e7d32; }
+  .badge-blue  { background:#bbdefb; color:#1565c0; }
+  .kv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+  .kv-box { background: #f5f7fa; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .kv-box .label { font-size: 0.78rem; color: var(--subtext); margin-bottom: 2px; }
+  .kv-box .val { font-size: 1.2rem; font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: right; }
+  th { background: #f0f2f5; font-weight: 600; }
+  td.label-col { text-align: left; font-weight: 600; color: var(--subtext); }
+  td.highlight-peak { background: #c8e6c9; font-weight: 700; color: #1b5e20; }
+  td.highlight-ckpt { background: #fff9c4; font-weight: 700; }
+  td.highlight-hh   { background: #fff3e0; font-weight: 700; color: #e65100; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div style="margin-bottom:16px; font-size:0.83rem;">
+  <a href="investigation_overview.html" style="color:#3949ab; text-decoration:none; font-weight:600;">
+    ← Back to Investigation Overview
+  </a>
+</div>
+
+<header>
+  <h1>Profile Log-Likelihood: c_change sweep — K=10 v7</h1>
+  <div class="meta">
+    Zone-agnostic · Workers-only · 29 groups · 569 persons · 16-point grid [−2.5, −0.05] ·
+    All other K=10 params fixed at v7 iter 26 checkpoint · Scan date 2026-05-13
+  </div>
+</header>
+
+<!-- §1 Key Findings -->
+<div class="card">
+  <h2><span class="section-num">1</span> Key Findings</h2>
+  <div class="kv-grid">
+    <div class="kv-box">
+      <div class="label">Profile MLE (grid peak)</div>
+      <div class="val" style="color:var(--green)">−0.6154</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">LL = −7946.94</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">v7 checkpoint (iter 26)</div>
+      <div class="val" style="color:#f57f17">−0.7558</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">LL = −7948.54  (Δ = −1.6)</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">HH MNL prior</div>
+      <div class="val" style="color:var(--red)">−0.3010</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">LL = −8046.87  (Δ = −99.9)</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Identification</div>
+      <div class="val" style="color:var(--green); font-size:1rem">Interior max ✓</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">c_change is identified</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">Persons</div>
+      <div class="val">569</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">all 29 groups, n valid = 569</div>
+    </div>
+    <div class="kv-box">
+      <div class="label">LL surface shape</div>
+      <div class="val" style="font-size:1rem">Unimodal</div>
+      <div style="font-size:0.8rem;color:var(--subtext)">sharp right, gentle left</div>
+    </div>
+  </div>
+
+  <div class="alert alert-green" style="margin-top:14px;">
+    <strong>Main finding:</strong> c_change has a clear interior maximum at −0.615 —
+    the parameter <em>is identified</em> from the data. BFGS stopped at −0.756 (1.6 LL units below profile peak),
+    a mild undershoot that a warm-started continuation will correct. The HH MNL prior (−0.301) is
+    firmly rejected by the data (99.9 LL units below peak across 569 persons).
+  </div>
+</div>
+
+<!-- §2 Profile LL Chart -->
+<div class="card">
+  <h2><span class="section-num">2</span> Profile LL vs c_change</h2>
+  <p style="color:var(--subtext); font-size:0.85rem; margin-bottom:12px;">
+    All 9 other K=10 parameters fixed at v7 iter 26 checkpoint. One full backward induction per grid point per group.
+  </p>
+  <div class="plot-box" id="plot-main"></div>
+</div>
+
+<!-- §3 Data Table -->
+<div class="card">
+  <h2><span class="section-num">3</span> Grid Values</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:left">c_change</th>
+        <th>LL</th>
+        <th>ΔLL from peak</th>
+        <th>n persons</th>
+        <th style="text-align:left">Note</th>
+      </tr>
+    </thead>
+    <tbody id="tbl-body"></tbody>
+  </table>
+</div>
+
+<!-- §4 Interpretation -->
+<div class="card">
+  <h2><span class="section-num">4</span> Interpretation</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Why c_change is identified here but not in K=10 v4/v5</h3>
+      <p>
+        Previous runs (before the zone-agnostic fix) built WORK states only at Person 0's zone.
+        Workers at any other zone had their observed WORK steps silently dropped from U<sub>obs</sub>.
+        With WORK steps missing, the LL numerator had no penalty for excessive trip-chaining,
+        and c_change drifted to −∞ to suppress V(s<sub>0</sub>).
+      </p>
+      <p>
+        After the zone-agnostic fix (v6/v7), WORK states are built at all 144 zones.
+        U<sub>obs</sub> now captures the actual switching costs on observed paths — creating
+        a genuine signal in both numerator and denominator. This produces the well-defined peak here.
+      </p>
+    </div>
+    <div>
+      <h3>Why BFGS stopped at −0.756 instead of −0.615</h3>
+      <p>
+        The gap is only <strong>1.6 LL units</strong> across 569 persons (0.003 nats/person).
+        BFGS with gradient clipping (norm ≤ 5) iterates in rescaled steps — when the full
+        gradient vector is large, all components are proportionally shrunk. Near a ridge
+        (c_change is correlated with delta and beta1_leis), the clipped steps can overshoot
+        and settle in a nearby sub-optimal basin.
+      </p>
+      <p>
+        Warm-starting from the checkpoint gives BFGS a clean slate with the correct Hessian
+        approximation rebuilt from scratch, allowing it to converge to the joint MLE in the
+        c_change ∈ [−0.7, −0.5] region.
+      </p>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:16px;">
+    <div>
+      <h3>LL surface asymmetry</h3>
+      <p>
+        The right side (c_change → 0) drops far more steeply than the left.
+        At c_change = −0.05, LL = −8337 — nearly as bad as c_change = −2.5.
+        Near-zero switching costs allow the model to chain trips freely, inflating V(s<sub>0</sub>)
+        while U<sub>obs</sub> gains little (observed persons already face real switching costs).
+      </p>
+      <div class="eq-block">
+        c_change near 0:  V(s₀) ↑↑ (cheap chaining attractive)
+        c_change ≪ 0:    V(s₀) ↑  (trips expensive, fewer chains)
+        Peak at −0.615:  U_obs − V(s₀) maximised
+      </div>
+    </div>
+    <div>
+      <h3>Fixed-params caveat</h3>
+      <p>
+        This is a <em>profile</em> LL — 9 params fixed at v7 iter 26 values, only c_change swept.
+        The joint MLE may differ slightly because c_change co-moves with delta (work utility),
+        beta1_leis, and beta0_shop in the full optimization.
+      </p>
+      <p>
+        Nevertheless, the profile peak (−0.615) is a strong prior for the warm-start.
+        The 1D profile surface being unimodal and well-separated from the HH prior confirms
+        identification is not fragile.
+      </p>
+      <div class="alert alert-blue" style="margin-top:8px; font-size:0.85rem;">
+        <strong>Next step:</strong> Restart NFXP warm-started from v7 iter 26 checkpoint.
+        BFGS will naturally refine c_change from −0.756 toward the joint MLE near −0.6.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- §5 Fixed Params at Checkpoint -->
+<div class="card">
+  <h2><span class="section-num">5</span> Fixed Parameters (v7 Iter 26 Checkpoint)</h2>
+  <p style="color:var(--subtext); font-size:0.85rem; margin-bottom:12px;">
+    All parameters below were held constant throughout the scan. Only c_change was swept.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:left">Parameter</th>
+        <th>Value</th>
+        <th style="text-align:left">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label-col">delta</td><td>0.04739</td><td style="text-align:left">WORK/SCHOOL on-schedule marginal utility (per min)</td></tr>
+      <tr><td class="label-col">alpha</td><td>0.001581</td><td style="text-align:left">Earliness penalty rate</td></tr>
+      <tr><td class="label-col">beta</td><td>0.003045</td><td style="text-align:left">Lateness penalty rate</td></tr>
+      <tr><td class="label-col">beta1_shop</td><td>0.3563</td><td style="text-align:left">SHOPPING attractiveness × P_open sensitivity</td></tr>
+      <tr><td class="label-col">beta0_shop</td><td>−0.3464</td><td style="text-align:left">SHOPPING base marginal utility (per min)</td></tr>
+      <tr><td class="label-col">beta1_leis</td><td>0.1814</td><td style="text-align:left">LEISURE attractiveness × P_open sensitivity</td></tr>
+      <tr><td class="label-col">beta0_leis</td><td>−0.2189</td><td style="text-align:left">LEISURE base marginal utility (per min)</td></tr>
+      <tr><td class="label-col">mu_home</td><td>0.0</td><td style="text-align:left">HOME marginal utility (per min) — at data-driven zero</td></tr>
+      <tr><td class="label-col">theta_travel</td><td>0.9093</td><td style="text-align:left">Travel disutility scalar (1.0 = HH MNL baseline)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────
+const data = [
+  { c: -2.5000,    ll: -8387.28 },
+  { c: -2.3115,    ll: -8332.69 },
+  { c: -2.1231,    ll: -8278.36 },
+  { c: -1.9346,    ll: -8224.37 },
+  { c: -1.7462,    ll: -8171.06 },
+  { c: -1.5577,    ll: -8118.81 },
+  { c: -1.3692,    ll: -8068.48 },
+  { c: -1.1808,    ll: -8021.62 },
+  { c: -0.9923,    ll: -7981.17 },
+  { c: -0.8038,    ll: -7952.75 },
+  { c: -0.7558,    ll: -7948.54, tag: 'checkpoint' },
+  { c: -0.6154,    ll: -7946.94, tag: 'peak'       },
+  { c: -0.4269,    ll: -7983.18 },
+  { c: -0.3010,    ll: -8046.87, tag: 'hh_prior'   },
+  { c: -0.2385,    ll: -8095.42 },
+  { c: -0.0500,    ll: -8337.55 },
+];
+
+const peakLL   = -7946.94;
+const ckptCC   = -0.7558;
+const peakCC   = -0.6154;
+const hhCC     = -0.3010;
+
+// ── Plot ─────────────────────────────────────────────────────────────────
+const xs = data.map(d => d.c);
+const ys = data.map(d => d.ll);
+
+const traceLine = {
+  x: xs, y: ys, mode: 'lines+markers',
+  line: { color: '#3949ab', width: 2.5 },
+  marker: { size: 7, color: '#3949ab' },
+  name: 'Profile LL',
+  hovertemplate: 'c_change = %{x:.4f}<br>LL = %{y:.2f}<extra></extra>',
+};
+
+const tracePeak = {
+  x: [peakCC], y: [peakLL], mode: 'markers',
+  marker: { size: 14, color: '#2e7d32', symbol: 'star', line: { width: 2, color: '#1b5e20' } },
+  name: `Profile peak (${peakCC})`,
+  hovertemplate: `Profile peak<br>c_change = ${peakCC}<br>LL = ${peakLL}<extra></extra>`,
+};
+
+const traceCkpt = {
+  x: [ckptCC], y: [-7948.54], mode: 'markers',
+  marker: { size: 12, color: '#f57f17', symbol: 'diamond', line: { width: 2, color: '#e65100' } },
+  name: `v7 checkpoint (${ckptCC})`,
+  hovertemplate: `v7 checkpoint<br>c_change = ${ckptCC}<br>LL = -7948.54<extra></extra>`,
+};
+
+const layout = {
+  height: 420,
+  margin: { t: 20, b: 60, l: 80, r: 20 },
+  xaxis: {
+    title: 'c_change',
+    gridcolor: '#e8eaf0', zeroline: false,
+  },
+  yaxis: {
+    title: 'Total log-likelihood (569 persons)',
+    gridcolor: '#e8eaf0',
+  },
+  shapes: [
+    { type: 'line', x0: peakCC, x1: peakCC, y0: 0, y1: 1, yref: 'paper',
+      line: { color: '#2e7d32', dash: 'dot', width: 1.8 } },
+    { type: 'line', x0: ckptCC, x1: ckptCC, y0: 0, y1: 1, yref: 'paper',
+      line: { color: '#f57f17', dash: 'dash', width: 1.8 } },
+    { type: 'line', x0: hhCC,   x1: hhCC,   y0: 0, y1: 1, yref: 'paper',
+      line: { color: '#c62828', dash: 'dash', width: 1.5 } },
+  ],
+  annotations: [
+    { x: peakCC, y: peakLL + 12, text: `peak<br>${peakCC}`, showarrow: false,
+      font: { color: '#2e7d32', size: 11 }, xanchor: 'center' },
+    { x: ckptCC - 0.04, y: -7948.54 + 12, text: `checkpoint<br>${ckptCC}`, showarrow: false,
+      font: { color: '#e65100', size: 11 }, xanchor: 'right' },
+    { x: hhCC + 0.04, y: -8046.87 - 60, text: `HH prior<br>${hhCC}`, showarrow: false,
+      font: { color: '#c62828', size: 11 }, xanchor: 'left' },
+  ],
+  legend: { orientation: 'h', y: -0.18 },
+  paper_bgcolor: '#fff', plot_bgcolor: '#fff',
+};
+
+Plotly.newPlot('plot-main', [traceLine, tracePeak, traceCkpt], layout, { responsive: true });
+
+// ── Table ─────────────────────────────────────────────────────────────────
+const tbody = document.getElementById('tbl-body');
+data.forEach(d => {
+  const deltaLL = (d.ll - peakLL).toFixed(2);
+  let rowClass = '';
+  let noteStr = '';
+  if (d.tag === 'peak') {
+    rowClass = 'highlight-peak';
+    noteStr = '← profile MLE (peak)';
+  } else if (d.tag === 'checkpoint') {
+    rowClass = 'highlight-ckpt';
+    noteStr = '← v7 iter 26 checkpoint';
+  } else if (d.tag === 'hh_prior') {
+    rowClass = 'highlight-hh';
+    noteStr = '← HH MNL prior';
+  }
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="label-col ${rowClass}">${d.c.toFixed(4)}</td>
+    <td class="${rowClass}">${d.ll.toFixed(2)}</td>
+    <td class="${rowClass}">${deltaLL}</td>
+    <td class="${rowClass}">569</td>
+    <td style="text-align:left" class="${rowClass}">${noteStr}</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</div>
+</body>
+</html>
