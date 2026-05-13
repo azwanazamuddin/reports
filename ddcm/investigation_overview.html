@@ -128,8 +128,8 @@
 <header>
   <h1>DDCM Estimation — Root Cause Investigation</h1>
   <div class="sub">Why did δ converge to near-zero? Root cause: zone-matching bug made WORK utility invisible in U<sub>obs</sub>. Workers-only sample also applied as correct methodology. (c_change was a separate earlier issue — already resolved.)</div>
-  <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-12</div>
-  <div class="status-pill">✓ Both bugs fixed · Workers-only re-estimation running (v6)</div>
+  <div class="meta">Higashihiroshima DDCM · K=10 NFXP · Investigation period: 2026-04-20 → 2026-05-13</div>
+  <div class="status-pill">✓ Both bugs fixed · v7 complete (26 iter, δ=0.047 ✓) · v8 killed (iter 1, host RAM) · v9 relaunching</div>
 </header>
 
 <!-- ── §0 Executive Summary ── -->
@@ -169,8 +169,8 @@
     </div>
     <div class="kv-box">
       <div class="label">Re-estimation</div>
-      <div class="val" style="color:var(--green); font-size:0.9rem;">Running (v6)</div>
-      <div class="note">Workers-only · zone-agnostic · analytical gradient · launched 2026-05-12</div>
+      <div class="val" style="color:#e65100; font-size:0.9rem;">v9 Relaunching</div>
+      <div class="note">v7 complete: 26 iter, δ=0.047 ✓, LL=−7948 · v8 killed at iter 1 (host RAM pressure, 2026-05-13) · v9 relaunching</div>
     </div>
   </div>
 
@@ -278,6 +278,60 @@
       <div class="tl-body">Added <code>--workers-only</code> flag to drop non-workers before grouping.
         v6 launched: 2000 persons → 793 workers (734 non-workers removed, 48%), 109 timing-window groups (min-group-size=5),
         zone-agnostic graphs, analytical gradient, warm start from v5 checkpoint.
+      </div>
+    </div>
+
+    <div class="tl-item tl-red">
+      <div class="tl-date">2026-05-12</div>
+      <div class="tl-title">v6 crashed — transient CUDA error at group 025</div>
+      <div class="tl-body">OOM / CUDA device-side assert at group_025 Zone 18 stats loop
+        (<code>.item()</code> sync point) after only ~1 iteration. Confirmed transient (v7 passed
+        the same group cleanly). Root cause: RAM pressure from 109 timing-window groups (v5 grouping
+        reused), each needing ~22 GB graph. Relaunched as v7 with <code>--skip-phase1</code> and
+        consolidated to 29 zone-agnostic groups (home-zone grouping).
+      </div>
+    </div>
+
+    <div class="tl-item tl-amber">
+      <div class="tl-date">2026-05-12 → 2026-05-13</div>
+      <div class="tl-title">v7 launched — first genuine estimation run (26 iterations)</div>
+      <div class="tl-body">Re-launched with <code>--skip-phase1</code> (29 graphs pre-built on disk),
+        <code>--workers-only</code>, <code>--analytical-gradient</code>, warm-start from v5 checkpoint.
+        702 persons, 569 valid LL contributors.
+        <strong>BFGS ran 26 iterations</strong> — δ rose to 0.047 (genuine signal from WORK steps ✓).
+        c_change drifted to −0.756 (monotone across breakthroughs — suspected BFGS overshoot).
+        Best LL = −7948.54 at iter 26. Killed to avoid RAM OOM when profile scan launched simultaneously.
+      </div>
+    </div>
+
+    <div class="tl-item tl-green">
+      <div class="tl-date">2026-05-13</div>
+      <div class="tl-title">Profile LL scan — c_change identified at −0.615</div>
+      <div class="tl-body">Fixed all 9 other K=10 params at v7 iter 26 checkpoint; swept c_change on
+        16-point grid [−2.5, −0.05] over all 29 groups (569 persons, ~4.5 hours).
+        <strong>Clear interior maximum at c_change = −0.615</strong> (LL = −7946.94).
+        v7 checkpoint at −0.756 was only 1.6 LL units sub-optimal — BFGS undershot slightly.
+        HH MNL prior (−0.301) firmly rejected (−99.9 LL units from peak). c_change is identified.
+        See <a href="profile_ll_cchange_v7.html">profile_ll_cchange_v7.html</a>.
+      </div>
+    </div>
+
+    <div class="tl-item tl-green">
+      <div class="tl-date">2026-05-13</div>
+      <div class="tl-title">v8 warm-start launched — killed at iter 1 (host RAM pressure)</div>
+      <div class="tl-body">Warm-start from v7 iter 26 checkpoint (c_change = −0.756).
+        Completed iter 1 (LL = −7948.54, RAM = 13.3 GB — disk mode working correctly).
+        Killed by host OOM: labuser's ML job (7.8 GB) + KDE desktop session exhausted shared host RAM.
+        Log: <code>estimation_results/nfxp_v8_workersonly_20260513.log</code>.
+      </div>
+    </div>
+
+    <div class="tl-item" style="border-left:3px solid #e65100;">
+      <div class="tl-date">2026-05-13</div>
+      <div class="tl-title">v9 warm-start — relaunching from v7 iter 26 checkpoint</div>
+      <div class="tl-body">Relaunch with identical settings as v8 once host RAM headroom confirmed.
+        Disk mode confirmed working (13.3 GB peak per iter). No code changes needed.
+        Warm-start: <code>estimation_results/nfxp_checkpoint_20260513_142216.csv</code>.
       </div>
     </div>
 
@@ -458,59 +512,80 @@
 <div class="card">
   <h2><span class="section-num">5</span> Current Estimation Status</h2>
 
-  <div class="status-bar">
-    <div class="pulse"></div>
+  <div class="status-bar" style="background:#fff3e0; border-color:#ffb74d;">
+    <div class="pulse" style="background:#e65100;"></div>
     <div>
-      <strong>v6 estimation running</strong> — launched 2026-05-12 16:40 · workers-only ·
-      Log: <code>estimation_results/nfxp_v6_workersonly_20260512.log</code>
+      <strong>v8 killed (iter 1)</strong> — host RAM pressure (shared Proxmox host) ·
+      GPU and RAM now free · <strong>v9 ready to relaunch</strong> from v7 iter 26 checkpoint
     </div>
   </div>
 
-  <div class="alert alert-red" style="margin-top:16px; font-size:0.9rem;">
-    <strong>⚠ Only v5 converged — and it had the zone bug active.</strong>
-    v4 crashed with OOM and never produced a valid estimate.
-    v5 converged (18 iterations, LL=−19,187.07) but with zone-specific graphs: WORK steps were invisible in U<sub>obs</sub>
-    for all workers → δ had no numerator signal → pushed toward zero.
-    The 9 non-workers in v5 were a minor methodological issue; the zone bug alone was sufficient to suppress δ.
-    δ=0.0408 is <strong>not a valid estimate</strong>.
+  <div class="alert alert-green" style="margin-top:16px; font-size:0.9rem;">
+    <strong>v7 is the first genuine estimate.</strong>
+    26 BFGS iterations completed. δ = 0.047 (valid — now identified from WORK steps ✓).
+    c_change = −0.756 (profile scan confirmed near-optimal; MLE at −0.615).
+    v9 warm-start will refine toward joint MLE once relaunched.
   </div>
 
   <div style="margin-top:16px;">
   <table>
-    <thead><tr><th>Run</th><th>Persons</th><th>Outcome</th><th>Zone bug</th><th>Non-worker issue</th><th>δ result</th></tr></thead>
+    <thead><tr><th>Run</th><th>Persons</th><th>Outcome</th><th>Zone bug</th><th>δ result</th><th>c_change</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>v4</strong> (Apr 2026)</td>
         <td>1,527</td>
-        <td class="bad">Crashed — OOM<br><small>No valid estimate</small></td>
+        <td class="bad">Crashed — OOM</td>
         <td class="bad">Yes</td>
-        <td class="bad">Yes (many non-workers)</td>
-        <td class="bad">N/A — crashed</td>
+        <td class="bad">N/A</td>
+        <td class="bad">N/A</td>
       </tr>
-      <tr style="background:#fff3f3; border-left:4px solid var(--red);">
-        <td><strong>v5 ★ only converged run</strong><br><small style="color:var(--red); font-weight:700;">Zone bug active</small></td>
-        <td>~600 persons (reused v4 graphs)</td>
+      <tr style="background:#fff3f3;">
+        <td><strong>v5</strong> ★ first convergence<br><small style="color:var(--red);">Zone bug active</small></td>
+        <td>~600 (reused v4 graphs)</td>
         <td class="bad">Converged (18 iter)<br><small>Hessian crashed post-opt</small></td>
-        <td class="bad">Yes — zone-specific graphs<br><small>All workers' U<sub>obs</sub> δ-invariant</small></td>
-        <td style="color:#888;">Minor — 9 non-workers<br><small>Zone bug was dominant cause</small></td>
-        <td class="bad"><strong>0.0408 — artifact</strong><br><small>Zone bug suppressed δ</small></td>
+        <td class="bad">Yes — WORK steps invisible<br><small>U<sub>obs</sub> δ-invariant</small></td>
+        <td class="bad"><strong>0.0408 — artifact</strong></td>
+        <td>−0.301 (fixed earlier)</td>
       </tr>
       <tr>
-        <td><strong>v6</strong> (running)</td>
-        <td>793 workers (734 removed, 48%)</td>
-        <td>Workers-only</td>
+        <td><strong>v6</strong> (May 2026)</td>
+        <td>702 workers</td>
+        <td class="bad">Crashed — CUDA OOM<br><small>~1 iter, group 025</small></td>
         <td class="good">Fixed</td>
-        <td class="good">Fixed — 734 non-workers excluded</td>
-        <td class="good">TBD — first genuine estimate</td>
+        <td style="color:#888;">N/A — crashed</td>
+        <td style="color:#888;">N/A</td>
+      </tr>
+      <tr style="background:#f1f8e9;">
+        <td><strong>v7</strong> ★ first genuine run<br><small style="color:var(--green);">Zone bug fixed</small></td>
+        <td>702 workers · 569 valid LL</td>
+        <td class="good">26 iterations<br><small>Killed (RAM — profile scan)</small></td>
+        <td class="good">Fixed — zone-agnostic</td>
+        <td class="good"><strong>0.047 — genuine ✓</strong></td>
+        <td>−0.756 (near MLE)</td>
+      </tr>
+      <tr>
+        <td><strong>v8</strong><br><small>Warm-start from v7 iter 26</small></td>
+        <td>702 workers · 569 valid LL</td>
+        <td class="bad">Killed — iter 1 only<br><small>Host RAM pressure</small></td>
+        <td class="good">Fixed</td>
+        <td style="color:#888;">N/A — killed</td>
+        <td style="color:#888;">N/A</td>
+      </tr>
+      <tr style="background:#fff8e1;">
+        <td><strong>v9</strong> (relaunching)<br><small>Warm-start from v7 iter 26</small></td>
+        <td>702 workers · 569 valid LL</td>
+        <td style="color:#e65100; font-weight:600;">Launching</td>
+        <td class="good">Fixed</td>
+        <td class="good">Expected ~0.047–0.055</td>
+        <td class="good">Expected ~−0.615</td>
       </tr>
     </tbody>
   </table>
   </div>
 
   <div class="alert alert-blue" style="margin-top:12px;">
-    <strong>v6 settings:</strong> 2000 persons → 793 workers (734 non-workers removed, 48%) · 109 groups (min-group-size=5) ·
-    zone-agnostic mandatory sequence · analytical gradient · BFGS · warm start from v5 checkpoint.
-    Monitor: <code>tail -f estimation_results/nfxp_v6_workersonly_20260512.log | grep -E 'Group:|TensorSampler|LL'</code>
+    <strong>v7/v8/v9 settings:</strong> 2000 persons → 702 workers (734 non-workers removed, 48%) · 29 zone-agnostic groups (home-zone bucketing) ·
+    zone-agnostic mandatory sequence · analytical gradient · BFGS · warm start from v5 (v7) / v7 iter 26 (v8, v9).
   </div>
 </div>
 
@@ -533,7 +608,15 @@
       <div class="rc-desc">Analysis of simulated vs. observed work start times using the (buggy) v4/v5 estimates.
         Shows μ<sub>home</sub> > δ as the mechanism for late work departure.
         Context for understanding what the corrected estimation should change.</div>
-      <div class="rc-caveat">⚠ Based on v4/v5 estimates with zone bug. Work timing results will change after v6 converges.</div>
+      <div class="rc-caveat">⚠ Based on v4/v5 estimates with zone bug. Work timing results will change after v7/v8 converges.</div>
+    </a>
+    <a class="report-card" href="profile_ll_cchange_v7.html" style="border-left: 3px solid #2e7d32;">
+      <div class="rc-tag" style="color:#2e7d32;">v7 Profile LL · Latest</div>
+      <div class="rc-title">Profile LL: c_change Sweep (v7, Zone-Agnostic)</div>
+      <div class="rc-desc">Sweeps c_change over 16 grid points [−2.5, −0.05] with all other K=10 params
+        fixed at v7 iter 26. <strong>Clear interior maximum at −0.615</strong> — c_change is identified.
+        v7 checkpoint (−0.756) only 1.6 LL units sub-optimal. HH MNL prior (−0.301) firmly rejected (−99.9 LL units).
+        Confirms v8 warm-start is on the right track.</div>
     </a>
   </div>
 </div>

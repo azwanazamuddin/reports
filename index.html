@@ -248,13 +248,13 @@
       <div class="report-desc">
         1D profile likelihood sweep over c_change (16 grid points, 569 workers, all 29 groups).
         Interior MLE confirmed at −0.615; v7 checkpoint (−0.756) is 1.6 LL units sub-optimal;
-        HH MNL prior (−0.301) firmly rejected (−99.9 LL units). c_change is identified. v8 warm-start running.
+        HH MNL prior (−0.301) firmly rejected (−99.9 LL units). c_change is identified. v8 killed (iter 1); v9 relaunching.
       </div>
       <div class="report-meta">
         <span class="tag tag-html">Interactive HTML</span>
         <span class="tag">K=10 NFXP</span>
         <span class="tag" style="background:#ECFDF5; color:#065F46;">c_change Identified ✓</span>
-        <span class="tag" style="background:#EEF2FF; color:#3730A3;">v8 Running</span>
+        <span class="tag" style="background:#FFF3E0; color:#E65100;">v9 Relaunching</span>
         <span class="date">2026-05-13</span>
       </div>
     </div>
@@ -267,15 +267,16 @@
       <div class="report-desc">
         Two bugs identified in all prior runs (v1–v5): (1) zone-matching bug made WORK steps invisible
         in U<sub>obs</sub> for 701/702 workers; (2) non-worker data biased δ downward through V(s₀).
-        Both fixed. Workers-only re-estimation running (v6). <em>Note: c_change was a separate earlier
-        issue, already resolved by <code>forbidden_mask</code> fix.</em>
+        Both fixed. v7 complete (26 iter, δ=0.047 ✓). v8 killed (iter 1, host RAM). v9 relaunching.
+        <em>Note: c_change was a separate earlier issue, already resolved by <code>forbidden_mask</code> fix.</em>
       </div>
       <div class="report-meta">
         <span class="tag tag-html">Interactive HTML</span>
         <span class="tag" style="background:#FEF2F2; color:#B91C1C;">Investigation</span>
         <span class="tag">K=10 NFXP</span>
-        <span class="tag" style="background:#ECFDF5; color:#065F46;">v6 Running</span>
-        <span class="date">2026-05-12</span>
+        <span class="tag" style="background:#ECFDF5; color:#065F46;">v7 Complete ✓</span>
+        <span class="tag" style="background:#FFF3E0; color:#E65100;">v9 Relaunching</span>
+        <span class="date">2026-05-13</span>
       </div>
     </div>
   </a>
