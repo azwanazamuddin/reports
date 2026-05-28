@@ -1,28 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Research Reports — Azwan Nazamuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
+  /* ── Design tokens (al-folio palette) ── */
   :root {
-    --bg: #F7F8FA;
-    --card: #FFFFFF;
-    --border: #E4E7EC;
-    --text: #1A1D23;
-    --subtext: #6B7280;
+    --bg: #ffffff;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.1);
+    --text: #000000;
+    --subtext: #828282;
     --accent: #4338CA;
     --accent-light: #EEF2FF;
-    --accent2: #0F766E;
-    --accent2-light: #F0FDFA;
+    --tag-bg: #f3f4f6;
+    --tag-text: #374151;
+    --footer-bg: #1c1c1d;
+    --footer-text: #d4d4d4;
+    --footer-link: #ffffff;
   }
+  [data-theme="dark"] {
+    --bg: #1c1c1d;
+    --card: #212529;
+    --border: #424246;
+    --text: #d4d4d4;
+    --subtext: #9CA3AF;
+    --accent: #2698ba;
+    --accent-light: rgba(38,152,186,0.15);
+    --tag-bg: #2d3239;
+    --tag-text: #d4d4d4;
+    --footer-bg: #111112;
+    --footer-text: #9CA3AF;
+    --footer-link: #d4d4d4;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.75;
     font-size: 15px;
+    transition: background 0.2s, color 0.2s;
   }
 
   /* ── Header ── */
@@ -31,7 +55,10 @@
     color: #fff;
     padding: 52px 24px 44px;
   }
-  .header-inner { max-width: 860px; margin: 0 auto; }
+  .header-inner {
+    max-width: 930px; margin: 0 auto;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  }
   header h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
   header .subtitle { font-size: 1rem; opacity: 0.75; margin-bottom: 18px; }
   header .links { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -43,132 +70,173 @@
   }
   header .links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
+  /* ── Dark mode toggle ── */
+  .theme-toggle {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.18); }
+
   /* ── Main layout ── */
-  main { max-width: 860px; margin: 0 auto; padding: 36px 20px 80px; }
+  main { max-width: 930px; margin: 0 auto; padding: 36px 20px 80px; }
 
   /* ── Section label ── */
   .section-label {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--subtext);
-    margin: 36px 0 14px;
+    margin: 40px 0 16px;
     display: flex; align-items: center; gap: 10px;
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* ── About card ── */
   .about-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 24px 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 24px 28px;
   }
-  .about-card p { color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; }
+  .about-card p { color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; font-weight: 300; }
   .about-card p:last-child { margin-bottom: 0; }
   .bottleneck { margin: 14px 0 14px 18px; font-size: 0.9rem; color: var(--subtext); }
-  .bottleneck li { margin-bottom: 6px; }
-  .bottleneck strong { color: var(--text); }
+  .bottleneck li { margin-bottom: 6px; font-weight: 300; }
+  .bottleneck strong { color: var(--text); font-weight: 500; }
 
   /* ── Contribution table ── */
   .contrib-table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 0.88rem; }
   .contrib-table th {
-    background: #F1F3F9; color: #374151; font-weight: 600;
-    padding: 8px 14px; text-align: left; border-bottom: 2px solid var(--border);
+    color: var(--subtext); font-weight: 500; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 8px 14px; text-align: left;
+    border-bottom: 2px solid var(--border);
   }
-  .contrib-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .contrib-table td {
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+    vertical-align: top; font-weight: 300; color: var(--subtext);
+  }
   .contrib-table tr:last-child td { border-bottom: none; }
   .contrib-table .num { color: var(--accent); font-weight: 700; white-space: nowrap; }
-  .contrib-table .piece { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .contrib-table .piece { font-weight: 500; color: var(--text); white-space: nowrap; }
 
   .result-pill {
     display: inline-block; margin-top: 14px;
     background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;
-    border-radius: 6px; padding: 8px 16px; font-size: 0.85rem; font-weight: 500;
+    border-radius: 4px; padding: 8px 16px; font-size: 0.85rem; font-weight: 400;
   }
-  .result-pill strong { color: #064E3B; }
+  [data-theme="dark"] .result-pill {
+    background: rgba(6,95,70,0.2); border-color: #065F46; color: #6EE7B7;
+  }
+  .result-pill strong { font-weight: 700; }
 
   /* ── Report card ── */
   .report-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-    padding: 18px 22px; margin-bottom: 10px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 18px 22px; margin-bottom: 8px;
     display: flex; align-items: flex-start; gap: 16px;
     text-decoration: none; color: inherit;
     transition: box-shadow 0.15s, border-color 0.15s;
   }
-  .report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); border-color: var(--accent); }
+  .report-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.07); border-color: var(--accent); }
+  [data-theme="dark"] .report-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.4); }
   .report-icon {
-    width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
     background: var(--accent-light);
-    display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
   }
-  .report-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 3px; }
+  .report-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 3px; color: var(--text); }
   .report-card:hover .report-title { color: var(--accent); }
-  .report-desc { font-size: 0.84rem; color: var(--subtext); }
-  .report-meta { margin-top: 8px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+  .report-desc { font-size: 0.84rem; color: var(--subtext); font-weight: 300; }
+  .report-meta { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+  /* ── Tags ── */
   .tag {
-    font-size: 0.7rem; font-weight: 600; padding: 2px 8px;
-    background: #F3F4F6; color: #374151; border-radius: 10px;
+    font-size: 0.69rem; font-weight: 500; padding: 2px 8px;
+    background: var(--tag-bg); color: var(--tag-text); border-radius: 3px;
   }
   .tag-html { background: var(--accent-light); color: var(--accent); }
-  .date { font-size: 0.77rem; color: #9CA3AF; }
+  .date { font-size: 0.77rem; color: var(--subtext); }
 
   /* ── Meeting list ── */
-  .meeting-list { display: flex; flex-direction: column; gap: 1px; }
+  .meeting-list { display: flex; flex-direction: column; }
   .meeting-row {
     display: flex; align-items: center; gap: 14px;
-    padding: 10px 14px; border-radius: 8px;
+    padding: 10px 14px; border-radius: 4px;
     text-decoration: none; color: inherit;
+    border-bottom: 1px solid var(--border);
     transition: background 0.12s;
   }
-  .meeting-row:hover { background: var(--card); }
-  .meeting-date { font-size: 0.79rem; color: var(--subtext); white-space: nowrap; min-width: 86px; }
-  .meeting-title { font-size: 0.88rem; flex: 1; }
+  .meeting-row:last-child { border-bottom: none; }
+  .meeting-row:hover { background: var(--accent-light); }
+  .meeting-date { font-size: 0.79rem; color: var(--subtext); white-space: nowrap; min-width: 86px; font-weight: 300; }
+  .meeting-title { font-size: 0.88rem; flex: 1; font-weight: 400; }
   .meeting-row:hover .meeting-title { color: var(--accent); }
-  .meeting-context { font-size: 0.76rem; color: #9CA3AF; white-space: nowrap; }
+  .meeting-context { font-size: 0.76rem; color: var(--subtext); white-space: nowrap; font-weight: 300; }
+
   .semester-badge {
-    font-size: 0.68rem; font-weight: 700; padding: 2px 7px;
-    border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+    font-size: 0.68rem; font-weight: 500; padding: 2px 7px;
+    border-radius: 3px; white-space: nowrap; flex-shrink: 0;
   }
   .badge-spring { background: #FEF3C7; color: #92400E; }
   .badge-fall   { background: #DBEAFE; color: #1E40AF; }
+  [data-theme="dark"] .badge-spring { background: rgba(254,243,199,0.15); color: #FCD34D; }
+  [data-theme="dark"] .badge-fall   { background: rgba(219,234,254,0.15); color: #93C5FD; }
 
   .thesis-link {
     display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 10px; font-size: 0.84rem; color: var(--accent);
-    text-decoration: none; padding: 6px 0;
+    margin-top: 12px; font-size: 0.84rem; color: var(--accent);
+    text-decoration: none; padding: 6px 0; font-weight: 400;
   }
   .thesis-link:hover { text-decoration: underline; }
-  .meeting-links { display: flex; gap: 8px; align-items: center; }
+
+  .meeting-links { display: flex; gap: 6px; align-items: center; }
   .pill-link {
-    font-size: 0.72rem; font-weight: 600; padding: 2px 9px;
-    border-radius: 10px; text-decoration: none; white-space: nowrap;
+    font-size: 0.69rem; font-weight: 500; padding: 2px 9px;
+    border-radius: 3px; text-decoration: none; white-space: nowrap;
     transition: opacity 0.15s;
   }
   .pill-link:hover { opacity: 0.75; }
   .pill-web    { background: var(--accent-light); color: var(--accent); }
   .pill-pdf    { background: #FEF2F2; color: #B91C1C; }
-  .pill-github { background: #F3F4F6; color: #374151; }
+  .pill-github { background: var(--tag-bg); color: var(--tag-text); }
   .pill-slides { background: #F0FDF4; color: #15803D; }
+  [data-theme="dark"] .pill-pdf    { background: rgba(185,28,28,0.2); color: #FCA5A5; }
+  [data-theme="dark"] .pill-slides { background: rgba(21,128,61,0.2); color: #86EFAC; }
 
   /* ── Footer ── */
   footer {
-    text-align: center; font-size: 0.79rem; color: #9CA3AF;
-    padding: 20px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 0.79rem;
+    color: var(--footer-text); background: var(--footer-bg);
+    padding: 24px;
   }
-  footer a { color: inherit; }
+  footer a { color: var(--footer-link); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-inner">
-    <h1>Research Reports</h1>
-    <div class="subtitle" style="opacity:0.6;font-size:0.82rem;margin-bottom:4px;font-style:italic">
-      Thesis (tentative): A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
+    <div class="header-text">
+      <h1>Research Reports</h1>
+      <div class="subtitle" style="opacity:0.6;font-size:0.82rem;margin-bottom:4px;font-style:italic">
+        Thesis (tentative): A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
+      </div>
+      <div class="subtitle">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</div>
+      <div class="links">
+        <a href="https://github.com/azwanazamuddin" target="_blank">GitHub</a>
+        <a href="https://github.com/azwanazamuddin/ddcm" target="_blank">ddcm repo</a>
+        <a href="thesis/thesis-draft.md">Thesis Draft</a>
+      </div>
     </div>
-    <div class="subtitle">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</div>
-    <div class="links">
-      <a href="https://github.com/azwanazamuddin" target="_blank">GitHub</a>
-      <a href="https://github.com/azwanazamuddin/ddcm" target="_blank">ddcm repo</a>
-      <a href="thesis/thesis-draft.md">Thesis Draft</a>
-    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">☀ / ☾</button>
   </div>
 </header>
 
@@ -447,6 +515,21 @@
   Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab ·
   <a href="https://github.com/azwanazamuddin/reports">source</a>
 </footer>
+
+<script>
+  // Persist theme across page loads
+  (function() {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
 
 </body>
 </html>
