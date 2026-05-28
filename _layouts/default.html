@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} — Azwan Nazamuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script>
+  MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.1);
+    --text: #000000;
+    --subtext: #828282;
+    --accent: #4338CA;
+    --accent-light: #EEF2FF;
+    --tag-bg: #f3f4f6;
+    --tag-text: #374151;
+    --footer-bg: #1c1c1d;
+    --footer-text: #d4d4d4;
+    --footer-link: #ffffff;
+    --code-bg: rgba(67,56,202,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1c1c1d;
+    --card: #212529;
+    --border: #424246;
+    --text: #d4d4d4;
+    --subtext: #9CA3AF;
+    --accent: #2698ba;
+    --accent-light: rgba(38,152,186,0.15);
+    --tag-bg: #2d3239;
+    --tag-text: #d4d4d4;
+    --footer-bg: #111112;
+    --footer-text: #9CA3AF;
+    --footer-link: #d4d4d4;
+    --code-bg: rgba(38,152,186,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  /* ── Header ── */
+  header {
+    background: #1c1c1d;
+    color: #fff;
+    padding: 28px 24px;
+  }
+  .header-inner {
+    max-width: 860px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .back-link {
+    color: rgba(255,255,255,0.65); font-size: 0.82rem;
+    text-decoration: none; padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;
+    transition: background 0.15s; white-space: nowrap;
+  }
+  .back-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .header-title { font-size: 0.95rem; font-weight: 500; opacity: 0.9; }
+
+  .theme-toggle {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.18); }
+
+  /* ── Page meta (date, tags) ── */
+  .page-meta {
+    max-width: 860px; margin: 0 auto;
+    padding: 20px 20px 0;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .meta-tag {
+    font-size: 0.69rem; font-weight: 500; padding: 2px 8px;
+    background: var(--tag-bg); color: var(--tag-text); border-radius: 3px;
+  }
+  .meta-date { font-size: 0.79rem; color: var(--subtext); font-weight: 300; }
+
+  /* ── Main content ── */
+  main {
+    max-width: 860px; margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  /* ── Markdown content styles ── */
+  .content h1 {
+    font-size: 1.5rem; font-weight: 700; margin: 0 0 20px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--border);
+  }
+  .content h2 {
+    font-size: 1.15rem; font-weight: 700; margin: 36px 0 12px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .content h3 {
+    font-size: 1rem; font-weight: 500; margin: 24px 0 8px;
+    color: var(--text);
+  }
+  .content h4 {
+    font-size: 0.92rem; font-weight: 500; margin: 18px 0 6px;
+    color: var(--subtext);
+  }
+  .content p {
+    margin: 0 0 14px; font-weight: 300; color: var(--text);
+    font-size: 0.95rem;
+  }
+  .content ul, .content ol {
+    margin: 0 0 14px 22px; font-weight: 300;
+    font-size: 0.95rem; color: var(--text);
+  }
+  .content li { margin-bottom: 5px; }
+  .content li p { margin-bottom: 4px; }
+  .content strong { font-weight: 500; color: var(--text); }
+  .content em { font-style: italic; }
+  .content a { color: var(--accent); text-decoration: none; }
+  .content a:hover { text-decoration: underline; }
+
+  /* ── Tables ── */
+  .content table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0 20px; font-size: 0.88rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .content th {
+    background: var(--tag-bg); color: var(--subtext);
+    font-weight: 500; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 9px 14px; text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  .content td {
+    padding: 9px 14px; border-bottom: 1px solid var(--border);
+    vertical-align: top; font-weight: 300;
+  }
+  .content tr:last-child td { border-bottom: none; }
+
+  /* ── Code ── */
+  .content code {
+    font-family: 'Roboto Mono', 'Fira Code', monospace;
+    font-size: 0.84em;
+    background: var(--code-bg); color: var(--accent);
+    padding: 1px 5px; border-radius: 3px;
+  }
+  .content pre {
+    background: var(--tag-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px 18px;
+    margin: 0 0 16px; overflow-x: auto;
+  }
+  .content pre code {
+    background: none; color: var(--text);
+    padding: 0; font-size: 0.85rem;
+  }
+
+  /* ── Blockquote ── */
+  .content blockquote {
+    border-left: 4px solid var(--accent);
+    margin: 16px 0; padding: 10px 18px;
+    background: var(--accent-light); border-radius: 0 4px 4px 0;
+    font-size: 0.9rem; color: var(--subtext);
+  }
+  .content blockquote p { margin-bottom: 4px; font-weight: 300; }
+  .content blockquote strong { color: var(--text); }
+
+  /* ── Horizontal rule ── */
+  .content hr {
+    border: none; border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center; font-size: 0.79rem;
+    color: var(--footer-text); background: var(--footer-bg);
+    padding: 24px;
+  }
+  footer a { color: var(--footer-link); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <a class="back-link" href="/reports/">← Reports</a>
+      <span class="header-title">{{ page.title }}</span>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">☀ / ☾</button>
+  </div>
+</header>
+
+{% if page.created or page.tags %}
+<div class="page-meta">
+  {% if page.created %}<span class="meta-date">{{ page.created }}</span>{% endif %}
+  {% for tag in page.tags %}
+  <span class="meta-tag">{{ tag }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+
+<main>
+  <article class="content">
+    {{ content }}
+  </article>
+</main>
+
+<footer>
+  Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab ·
+  <a href="https://github.com/azwanazamuddin/reports">source</a>
+</footer>
+
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
+
+</body>
+</html>
