@@ -36,7 +36,7 @@ related:
    Planned sections: §2.1 Activity-Based Travel Demand Models · §2.2 DDCM Theory · §2.3 DDCMs in Transport · §2.4 Approaches to the Computational Curse · §2.5 Estimation Methods for DDCMs · §2.6 Research Gap Summary.
 
 3. **The analytical gradient is now confirmed correct — K=11 estimation is unblocked.**
-   For approximately two years no K=11 run converged: the log-likelihood went flat after a few iterations and the `mu_home` parameter jammed at its bound every time. This was finally traced to a bug in the gradient computation. The root cause has been isolated, confirmed on both MPS and CUDA, and the production estimation can now be launched with a correct analytical gradient.
+   No K=11 run converged: the log-likelihood went flat after a few iterations and the `mu_home` parameter jammed at its bound every time. This was finally traced to a bug in the gradient computation. The root cause has been isolated, confirmed on both MPS and CUDA, and the production estimation can now be launched with a correct analytical gradient.
 
 ---
 
@@ -128,7 +128,7 @@ Two infrastructure problems that were causing estimation runs to fail on the CUD
 
 ### On discussion item 3 (gradient investigation)
 
-The central lesson: **a wrong gradient does not crash; it masquerades as a hard optimization landscape.** Every time `mu_home` jammed at its bound, the natural interpretation was "the model is hard to identify" or "the warm-start is wrong." We tried all of those. None helped because the cause was never the landscape — it was that we were handing the optimizer a gradient pointing the wrong direction. The bug survived because every diagnostic used the same `zone_batch_size=8` that caused the corruption. The moment we compared batch=1 vs batch=8 vs FD — varying one knob — a two-year problem resolved in a single line of output.
+The central lesson: **a wrong gradient does not crash; it masquerades as a hard optimization landscape.** Every time `mu_home` jammed at its bound, the natural interpretation was "the model is hard to identify" or "the warm-start is wrong." We tried all of those. None helped because the cause was never the landscape — it was that we were handing the optimizer a gradient pointing the wrong direction. The bug survived because every diagnostic used the same `zone_batch_size=8` that caused the corruption. The moment we compared batch=1 vs batch=8 vs FD — varying one knob — the problem resolved in a single line of output.
 
 Now that CUDA is confirmed clean, the full K=11 analytical-gradient workers estimation can launch this week. I expect convergence in 10–30 L-BFGS-B iterations.
 
