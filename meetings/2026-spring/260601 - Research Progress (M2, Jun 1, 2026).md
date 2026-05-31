@@ -15,14 +15,7 @@
 > - **When you include calculation or analysis results, upload the corresponding code separately to GitHub and provide a reference link in this document.** Without the code, the reproducibility and reliability of the results cannot be verified. Every figure, table, and numerical result must be accompanied by a link to the script that generated it.
 
 ---
-%%
-These instruction not spesificly only for this minutes. But for revise the index for other can be easily understand the "timeline":
-- update the index.html to more be general friendly so all of lab members can understand easily. Show my current research title, brief introduction, and objectives. Setup also one section that show summary of progress that include: thesis draft status, technical prorgess (coding, estimation, stufff), papers/conferences/presentations
-- for the contexts of conferences papers (APTE, ICMC), also positioning of both on my master thesis, include future plan based on JSPS proposal, please create "timline view" but it is not about timeline, it is just show phasing, that APTE and ICMC is focus on simulation algorithm, hEART (4 - Projects/heart) most of it have same level with master thesis, and the extension plan is JSPS proposal.
-- after all of those section,  we can put all reports. Please show with "intuitive story", not very techinal even though it is techinal reports.
-- and lets also move this report to the 3 - Permanent Notes/reports to show it on my reports webpage. For technical progress, i'll update again later let them blanks
--
-%% 
+
 ## 1. What I Want to Discuss Today (Most Important)
 
 1. **APTE paper revision** — The paper received a conditional acceptance. The reviewer raised three clarification points, and I have already drafted a response to each as minor additions to the discussion section. I would like to present the revisions and confirm they are appropriate before re-submission.
