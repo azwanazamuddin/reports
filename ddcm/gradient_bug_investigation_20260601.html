@@ -128,7 +128,7 @@
 <!-- ═══════════════════════════════════════════════════════ TLDR -->
 <h2 id="tldr">1. One-Paragraph Summary</h2>
 
-<p>We estimate a dynamic discrete-choice model (DDCM) by NFXP: an optimizer searches over parameters θ, and for each θ we solve the agent's full day by GPU-accelerated backward induction and compare it to observed travel diaries. To make the optimizer converge efficiently we need the <em>gradient</em> of the log-likelihood. <strong>For approximately two years, no K=11 run ever truly converged</strong> — the likelihood went flat after a few iterations and the parameter <code>mu_home</code> jammed against its bound every time. The cause was a wrong gradient. After eliminating a dozen suspects, we found it: the analytical gradient is <strong>exactly correct when processing one home-zone at a time</strong> and <strong>38% wrong when batching multiple zones together on the Apple GPU (MPS) backend</strong>. The math, the features, and the recursion are all right; the defect is a backend implementation issue — most likely an int32 integer overflow at real graph scale, the same family as three prior MPS-specific failures in this codebase. <strong>CUDA has now been confirmed clean</strong> (batch=8 == batch=1 == FD, 0.0% difference), so the production estimation launches immediately with no workaround. The MPS issue is a local-development matter only.</p>
+<p>We estimate a dynamic discrete-choice model (DDCM) by NFXP: an optimizer searches over parameters θ, and for each θ we solve the agent's full day by GPU-accelerated backward induction and compare it to observed travel diaries. To make the optimizer converge efficiently we need the <em>gradient</em> of the log-likelihood. <strong>No NFXP estimation run with the analytical gradient ever truly converged</strong> — the likelihood went flat after a few iterations and the parameter <code>mu_home</code> jammed against its bound every time. The cause was a wrong gradient. After eliminating a dozen suspects, we found it: the analytical gradient is <strong>exactly correct when processing one home-zone at a time</strong> and <strong>38% wrong when batching multiple zones together on the Apple GPU (MPS) backend</strong>. The math, the features, and the recursion are all right; the defect is a backend implementation issue — most likely an int32 integer overflow at real graph scale, the same family as three prior MPS-specific failures in this codebase. <strong>CUDA has now been confirmed clean</strong> (batch=8 == batch=1 == FD, 0.0% difference), so the production estimation launches immediately with no workaround. The MPS issue is a local-development matter only.</p>
 
 <!-- ═══════════════════════════════════════════════════════ STORY -->
 <h2 id="story">2. The Story — Why It Was So Hard to Find</h2>
@@ -137,7 +137,7 @@
 <p>The production estimator runs on a Linux server with a single NVIDIA GPU (32 GB), shared with other lab members. Queue times, memory limits, and long iteration times made local debugging painful. The Mac on the desk has Apple Silicon with large unified memory (192 GB shared CPU+GPU). Moving local development to MPS gave us zero queuing and no memory cliffs. The design contract was <em>byte-compatibility</em>: same model, same parameters, same answer on CUDA, MPS, and CPU.</p>
 
 <h3>The symptom</h3>
-<p>K=11 estimation always showed the same fingerprint:</p>
+<p>Every analytical-gradient estimation run showed the same fingerprint:</p>
 <ul style="margin: 8px 0 12px 20px;">
   <li>The optimizer takes a few steps, the likelihood improves a little, then <strong>goes flat</strong>.</li>
   <li><code>mu_home</code> slides to its lower bound and <strong>jams there</strong>.</li>
@@ -279,7 +279,7 @@ score_n = obs_feat_n − GV(x₀_n)                              ← NFXP score 
   <tr><th>Bug</th><th>Effect</th><th>Status</th></tr>
   <tr>
     <td><strong>Zone-batch MPS</strong><br><small>3-D accumulation int32-overflow at scale</small></td>
-    <td class="bad">38% workers GV error → mu_home sign flip → every K=11 run flat</td>
+    <td class="bad">38% workers GV error → mu_home sign flip → every analytical-gradient run flat</td>
     <td class="ok">Found. CUDA confirmed clean. MPS fix pending (non-blocking).</td>
   </tr>
   <tr>
@@ -342,7 +342,7 @@ score_n = obs_feat_n − GV(x₀_n)                              ← NFXP score 
   <li>✅ <strong>[Done]</strong> CUDA zone-batch test — 0.0% diff. Bug is MPS-only.</li>
   <li>→ <strong>[Next]</strong> Validate all 11 params with <code>cuda_debug_fd2.py</code> on workers multi-zone group at <code>zone_batch_size=8</code>. One final sanity check.</li>
   <li>→ <strong>[Then]</strong> Launch full <code>--analytical-gradient</code> estimation on CUDA, workers-only, L-BFGS-B, warm-start from best checkpoint.</li>
-  <li>→ <strong>[After convergence]</strong> Compute BHHH standard errors; compare K=11 vs K=10 behavioral validity.</li>
+  <li>→ <strong>[After convergence]</strong> Compute BHHH standard errors and assess behavioral validity.</li>
 </ol>
 
 <h3>Side track — MPS local-dev fix (non-blocking)</h3>
@@ -353,7 +353,7 @@ score_n = obs_feat_n − GV(x₀_n)                              ← NFXP score 
 </ol>
 
 <h3>The key lesson</h3>
-<p>The deepest lesson from this investigation: <strong>a wrong gradient masquerades as a hard optimization landscape.</strong> "Flat LL, parameter jammed at its bound" was interpreted for two years as an identification or optimizer problem. It was a gradient bug. When every optimizer and warm-start behaves the same way, suspect the gradient. And the defense against silent correctness failures is always the same: an independent oracle (CPU / FD) and varying <em>one knob at a time</em>. The day we compared batch=1 vs batch=8 against FD, a two-year problem resolved in a single line of output.</p>
+<p>The deepest lesson from this investigation: <strong>a wrong gradient masquerades as a hard optimization landscape.</strong> "Flat LL, parameter jammed at its bound" was interpreted as an identification or optimizer problem. It was a gradient bug. When every optimizer and warm-start behaves the same way, suspect the gradient. And the defense against silent correctness failures is always the same: an independent oracle (CPU / FD) and varying <em>one knob at a time</em>. The day we compared batch=1 vs batch=8 against FD, the problem resolved in a single line of output.</p>
 
 <!-- ═══════════════════════════════════════════════════════ REFS -->
 <h2 id="refs">8. References</h2>
