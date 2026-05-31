@@ -353,7 +353,7 @@
       <div class="prog-card-label">Technical</div>
       <div class="prog-item prog-done">Backward induction (GPU, 1.5M states)</div>
       <div class="prog-item prog-done">NFXP pipeline + analytical gradient</div>
-      <div class="prog-item prog-active">K=11 estimation (CUDA, just unblocked)</div>
+      <div class="prog-item prog-active">NFXP estimation (CUDA, just unblocked)</div>
       <div class="prog-item prog-pending">BHHH standard errors</div>
       <div class="prog-item prog-pending">Welfare scenarios</div>
     </div>
@@ -435,12 +435,12 @@
         <div class="tl-date"><span class="day">01</span></div>
         <span class="tl-type type-invest">Investig.</span>
         <div class="tl-content">
-          <div class="tl-title">Analytical Gradient Investigation — K=11 Unblocked</div>
-          <div class="tl-desc">Every K=11 estimation run stalled: the optimizer gave up after a few iterations and one parameter jammed at its bound every time. The cause turned out to be a wrong gradient — 38% off — triggered by an integer overflow on the Apple GPU backend when processing multiple home zones at once. CUDA is confirmed clean. K=11 estimation is unblocked.</div>
+          <div class="tl-title">Analytical Gradient Investigation — NFXP Estimation Unblocked</div>
+          <div class="tl-desc">Every NFXP estimation run stalled: the optimizer gave up after a few iterations and one parameter jammed at its bound every time. The cause turned out to be a wrong gradient — 38% off — triggered by an integer overflow on the Apple GPU backend when processing multiple home zones at once. CUDA is confirmed clean. Estimation is unblocked.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
             <span class="tag tag-ok">CUDA Clean ✓</span>
-            <span class="tag tag-ok">K=11 Unblocked ✓</span>
+            <span class="tag tag-ok">Estimation Unblocked ✓</span>
           </div>
         </div>
       </a>
@@ -450,7 +450,7 @@
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Research Progress (M2, Jun 1, 2026)</div>
-          <div class="tl-desc">Gradient investigation result (K=11 unblocked); APTE revision plan (3 reviewer points); Thesis Chapter 2 outline review. Includes warm-start parameter table and all supplementary session reports.</div>
+          <div class="tl-desc">Gradient investigation result (NFXP estimation unblocked); APTE revision plan (3 reviewer points); Thesis Chapter 2 outline review. Includes warm-start parameter table and all supplementary session reports.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md" target="_blank">GitHub</a>
@@ -468,11 +468,11 @@
         <div class="tl-date"><span class="day">13</span></div>
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
-          <div class="tl-title">Profile LL Scan — c_change (K=10 v7, Zone-Agnostic)</div>
+          <div class="tl-title">Profile LL Scan — c_change (v7, Zone-Agnostic)</div>
           <div class="tl-desc">Is the "cost of switching activities" a real, estimable quantity — or could it be anything? This scan sweeps the parameter across its plausible range and finds a clear peak at −0.615. The data knows it.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag">K=10 NFXP</span>
+            <span class="tag">NFXP</span>
             <span class="tag tag-ok">c_change Identified ✓</span>
           </div>
         </div>
@@ -496,11 +496,11 @@
         <div class="tl-date"><span class="day">12</span></div>
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
-          <div class="tl-title">Profile LL Scan — δ × μ_home (K=10)</div>
+          <div class="tl-title">Profile LL Scan — δ × μ_home</div>
           <div class="tl-desc">A two-dimensional scan of the future-discounting parameter against home preference. The flatness of the δ axis was the first clue that something was wrong upstream — it led directly to the zone-matching bug.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag">K=10 NFXP</span>
+            <span class="tag">NFXP</span>
             <span class="tag tag-warn">Diagnostic (v5 estimates)</span>
           </div>
         </div>
@@ -511,7 +511,7 @@
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Research Progress (M2, May 11, 2026)</div>
-          <div class="tl-desc">K=10 convergence update, BHHH standard errors, work-timing gap diagnosis, JSPS proposal status, 11 new literature reviews.</div>
+          <div class="tl-desc">NFXP convergence update, BHHH standard errors, work-timing gap diagnosis, JSPS proposal status, 11 new literature reviews.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).md" target="_blank">GitHub</a>
@@ -524,7 +524,7 @@
         <div class="tl-date"><span class="day">10</span></div>
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
-          <div class="tl-title">Work Timing Analysis — K=10 NFXP</div>
+          <div class="tl-title">Work Timing Analysis — NFXP</div>
           <div class="tl-desc">The model was predicting that people go to work at ~3pm rather than 8:30am. This report diagrams why: interactive utility plots expose the zone-matching bug as the source of the wrong incentives.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>

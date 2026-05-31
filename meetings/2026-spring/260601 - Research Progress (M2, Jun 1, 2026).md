@@ -35,8 +35,8 @@ related:
 
    Planned sections: §2.1 Activity-Based Travel Demand Models · §2.2 DDCM Theory · §2.3 DDCMs in Transport · §2.4 Approaches to the Computational Curse · §2.5 Estimation Methods for DDCMs · §2.6 Research Gap Summary.
 
-3. **The analytical gradient is now confirmed correct — K=11 estimation is unblocked.**
-   No K=11 run converged: the log-likelihood went flat after a few iterations and the `mu_home` parameter jammed at its bound every time. This was finally traced to a bug in the gradient computation. The root cause has been isolated, confirmed on both MPS and CUDA, and the production estimation can now be launched with a correct analytical gradient.
+3. **The analytical gradient is now confirmed correct — NFXP estimation is unblocked.**
+   No estimation run with the analytical gradient converged: the log-likelihood went flat after a few iterations and the `mu_home` parameter jammed at its bound every time. This was finally traced to a bug in the gradient computation. The root cause has been isolated, confirmed on both MPS and CUDA, and the production estimation can now be launched with a correct analytical gradient.
 
 ---
 
@@ -44,7 +44,7 @@ related:
 
 ### 2.1 The gradient investigation — what happened and what was found
 
-This period was dominated by a systematic investigation into why every K=11 analytical-gradient estimation run failed. The work took three phases over about two weeks.
+This period was dominated by a systematic investigation into why every analytical-gradient estimation run failed. The work took three phases over about two weeks.
 
 **Phase 1 — Ruled out suspects (late May).** We first eliminated a long list of plausible causes: the per-edge utility features (confirmed correct to within 0.1%), the policy normalization (confirmed exact), the observed-path feature accumulation (confirmed within 2% of finite differences), telescoping from broken step-links (real but only 6% effect, not the cause). After each ruling-out the "GV undercount" remained at ~16–22%. The symptoms looked like a subtle mathematical error in the gradient backward recursion.
 
@@ -94,7 +94,7 @@ Two infrastructure problems that were causing estimation runs to fail on the CUD
 
 - **Full mixed-sample estimation (workers + non-workers, CUDA).** Building all four graph variants (workers × non-workers × car-owned) sequentially on the 32 GB GPU still exceeds memory even with the graph-build fix — the first graph occupies ~20 GB of RAM and the second build cannot fit. The workaround is to run workers-only on CUDA (fits) and run the full mixed sample on the Mac (MPS, large unified memory, correct at `zone_batch_size=1` in the interim).
 - **MPS local-dev fix.** The edge-chunking fix that would restore `zone_batch_size=8` on MPS is identified but not yet written. It is non-blocking for production estimation.
-- **APTE paper Section 5 and K=11 results.** The K=11 estimation has not yet been launched (just now unblocked). The APTE revision keeps the original estimation framing rather than new results.
+- **APTE paper Section 5 and estimation results.** The full estimation has not yet been launched (just now unblocked). The APTE revision keeps the original estimation framing rather than new results.
 
 ---
 
@@ -130,7 +130,7 @@ Two infrastructure problems that were causing estimation runs to fail on the CUD
 
 The central lesson: **a wrong gradient does not crash; it masquerades as a hard optimization landscape.** Every time `mu_home` jammed at its bound, the natural interpretation was "the model is hard to identify" or "the warm-start is wrong." We tried all of those. None helped because the cause was never the landscape — it was that we were handing the optimizer a gradient pointing the wrong direction. The bug survived because every diagnostic used the same `zone_batch_size=8` that caused the corruption. The moment we compared batch=1 vs batch=8 vs FD — varying one knob — the problem resolved in a single line of output.
 
-Now that CUDA is confirmed clean, the full K=11 analytical-gradient workers estimation can launch this week. I expect convergence in 10–30 L-BFGS-B iterations.
+Now that CUDA is confirmed clean, the full analytical-gradient workers estimation can launch this week. I expect convergence in 10–30 L-BFGS-B iterations.
 
 ---
 
@@ -138,7 +138,7 @@ Now that CUDA is confirmed clean, the full K=11 analytical-gradient workers esti
 
 - Are the three APTE revision paragraphs appropriate for re-submission as written?
 - Is the Chapter 2 outline structure (§§2.1–2.6) acceptable to proceed with drafting?
-- Should the APTE revision keep the original K=10 framing, or wait for K=11 results now that the gradient is fixed? I cannot judge which matters more to the reviewer.
+- Should the APTE revision keep the current estimation framing, or wait for updated results now that the gradient is fixed? I cannot judge which matters more to the reviewer.
 - Should I proceed with workers-only CUDA results for the thesis, or wait for the full mixed sample (which requires solving the CUDA memory problem or running on MPS at batch=1)?
 
 ---
@@ -168,7 +168,20 @@ Overview: [`gradient_investigation_overview_20260601.md`](../../../../0%20-%20In
 Detailed theory: [`analytical_gradient_deep_research_20260601.md`](../../../../0%20-%20Inbox/comingFromCode/analytical_gradient_deep_research_20260601.md)
 Narrative: [`mps_port_and_hidden_gradient_bug_story_20260601.md`](../../../../0%20-%20Inbox/comingFromCode/mps_port_and_hidden_gradient_bug_story_20260601.md)
 
-### 7.2 K=11 warm-start parameters (last checkpoint before this session)
+### 7.2 NFXP warm-start parameters (last checkpoint before this session)
+
+The model estimates 11 behavioral parameters (θ) that govern how workers value time, activities, and travel throughout the day. They fall into four groups:
+
+| Group | Parameters | What they represent |
+|---|---|---|
+| Work scheduling | δ, α, β | How much a worker values being on time; penalties for arriving early or late |
+| Activity preferences | β₁/β₀ (shop, leisure) | How attractive shopping and leisure are relative to home, accounting for facility availability |
+| Trip switching cost | c_change | The disutility of changing activities — captures the friction that keeps people from making more trips |
+| Travel & mode | θ_travel, ASC_pt_adj | How much people dislike travel time; relative attractiveness of public transport vs car |
+
+**Home preference** (μ_home) is the reservation utility of staying home — the baseline against which all out-of-home activities compete.
+
+Current warm-start values (workers subset, best log-likelihood checkpoint):
 
 | Parameter | Value | Notes |
 |---|---|---|
@@ -184,7 +197,7 @@ Narrative: [`mps_port_and_hidden_gradient_bug_story_20260601.md`](../../../../0%
 | theta_travel | 1.118 | Travel disutility scale |
 | ASC_pt_adj | −0.015 | PT mode constant shift |
 
-Source: `estimation_results/nfxp_checkpoint_20260525_190114.csv` (K=11, 11 params, workers-only, best LL = −3,981 on workers subset)
+Source: `estimation_results/nfxp_checkpoint_20260525_190114.csv` (11 params, workers-only, best LL = −3,981 on workers subset)
 
 ### 7.3 Writing deliverables
 
