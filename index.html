@@ -294,27 +294,39 @@
       A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
     </div>
     <p>
-      How do people decide when to work, shop, or travel — and what happens to those decisions when
-      transport policies change? This research builds a model that answers both questions at city scale.
-      The model is called a <strong>Dynamic Discrete Choice Model (DDCM)</strong>: it describes people
-      as forward-looking decision makers who plan their whole day, not just individual trips.
+      Cities face persistent welfare trade-offs in transport policy. Congestion pricing, emissions
+      controls, transit investment for ageing populations, and the integration of autonomous mobility
+      all alter who can travel, when, and at what cost — yet the tools most widely used by planners
+      cannot quantify these effects in welfare terms. The dominant four-step traffic model predicts
+      aggregate vehicle volumes but treats mode and departure time as exogenous inputs, leaving the
+      distributional consequences of policy invisible.
     </p>
     <p>
-      The core challenge is computational. A realistic city generates around
-      <strong>145 million possible decision states</strong> (combinations of time, location, activity,
-      and travel history). Standard methods take over 1,000 CPU-days to estimate on that scale — making
-      real application practically impossible. This thesis addresses that barrier with two contributions:
-      a reachability-based method that eliminates 99% of states before any computation begins, and a
-      GPU-parallelised algorithm that processes the remaining states in seconds.
+      <strong>Dynamic Discrete Choice Models (DDCMs)</strong> for activity-based travel demand address
+      both the behavioral and the welfare measurement problem within a single unified framework.
+      By modeling each time step of the day as a sequential choice over destination, mode, and activity
+      type, DDCMs generate activity-travel patterns as the outcome of forward-looking utility
+      maximization under time-space constraints. The log-sum of the value function at the start of the
+      day constitutes a welfare-consistent consumer surplus measure — policy prediction and welfare
+      measurement emerge from the same model, without additional assumptions.
+    </p>
+    <p>
+      The central practical obstacle is computational. Computing the welfare measure exactly requires
+      backward induction over every reachable state; for a city-scale network this runs to the order
+      of 10<sup>8</sup> theoretical states. Every approximation that reduces this cost modifies the
+      value function and therefore corrupts the welfare measure. This thesis demonstrates that exact
+      computation is tractable: reachability-based state pruning and GPU-accelerated backward induction
+      together reduce the effective state space by more than 99% while preserving the value function
+      exactly.
     </p>
     <div class="objective-list">
       <div class="obj">
         <span class="obj-num">O1</span>
-        <span class="obj-text">Make city-scale backward induction tractable: reduce the state space via reachability pruning and parallelize computation on a GPU</span>
+        <span class="obj-text">Develop a scalable computational framework for exact inference in activity-based DDCMs, enabling city-scale backward induction while preserving the welfare-consistent value function.</span>
       </div>
       <div class="obj">
         <span class="obj-num">O2</span>
-        <span class="obj-text">Estimate behavioral parameters on city-scale data (Higashihiroshima, 1,368 workers) and establish a validated welfare measurement baseline</span>
+        <span class="obj-text">Demonstrate that city-scale DDCM estimation is tractable: recover behaviorally coherent utility parameters from observed travel diary data and characterise the limits of the estimated model.</span>
       </div>
     </div>
     <div class="result-pill">
