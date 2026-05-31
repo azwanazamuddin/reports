@@ -79,47 +79,123 @@
   .section-label {
     font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--subtext);
-    margin: 40px 0 16px;
+    margin: 44px 0 16px;
     display: flex; align-items: center; gap: 10px;
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-label:first-child { margin-top: 0; }
 
-  /* ── About card ── */
+  /* ── About / Intro card ── */
   .about-card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 6px; padding: 24px 28px;
   }
-  .about-card p { color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; font-weight: 300; }
+  .research-title {
+    font-size: 1.05rem; font-weight: 500; color: var(--text);
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  .about-card p {
+    color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; font-weight: 300;
+  }
   .about-card p:last-child { margin-bottom: 0; }
-  .bottleneck { margin: 14px 0 14px 18px; font-size: 0.9rem; color: var(--subtext); }
-  .bottleneck li { margin-bottom: 6px; font-weight: 300; }
-  .bottleneck strong { color: var(--text); font-weight: 500; }
-  .contrib-table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 0.88rem; }
-  .contrib-table th {
-    color: var(--subtext); font-weight: 500; font-size: 0.75rem;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    padding: 8px 14px; text-align: left; border-bottom: 2px solid var(--border);
+
+  /* Objectives */
+  .objective-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .obj { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; }
+  .obj-num {
+    flex-shrink: 0; background: var(--accent); color: #fff;
+    border-radius: 3px; padding: 1px 8px;
+    font-size: 0.71rem; font-weight: 700; margin-top: 3px;
   }
-  .contrib-table td {
-    padding: 10px 14px; border-bottom: 1px solid var(--border);
-    vertical-align: top; font-weight: 300; color: var(--subtext);
-  }
-  .contrib-table tr:last-child td { border-bottom: none; }
-  .contrib-table .num { color: var(--accent); font-weight: 700; white-space: nowrap; }
-  .contrib-table .piece { font-weight: 500; color: var(--text); white-space: nowrap; }
+  .obj-text { color: var(--subtext); font-weight: 300; }
+
+  /* Result pill */
   .result-pill {
-    display: inline-block; margin-top: 14px;
+    display: inline-block; margin-top: 16px;
     background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;
     border-radius: 4px; padding: 8px 16px; font-size: 0.85rem; font-weight: 400;
   }
   [data-theme="dark"] .result-pill { background: rgba(6,95,70,0.2); border-color: #065F46; color: #6EE7B7; }
   .result-pill strong { font-weight: 700; }
 
-  /* ── Timeline ── */
-  .timeline { position: relative; padding-left: 0; }
+  /* ── Progress grid ── */
+  .progress-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  @media (max-width: 660px) { .progress-grid { grid-template-columns: 1fr; } }
+  .prog-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 18px 20px;
+  }
+  .prog-card-label {
+    font-size: 0.71rem; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--subtext); margin-bottom: 12px;
+  }
+  .prog-item {
+    font-size: 0.83rem; font-weight: 300;
+    padding: 5px 0 5px 18px; position: relative;
+    border-bottom: 1px solid var(--tl-line);
+    color: var(--subtext);
+  }
+  .prog-item:last-child { border-bottom: none; }
+  .prog-item::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .prog-done { color: var(--text); }
+  .prog-done::before  { background: #10B981; }
+  .prog-active { color: var(--text); }
+  .prog-active::before { background: var(--accent); }
+  .prog-pending::before { background: transparent; border: 1.5px solid var(--subtext); }
 
-  /* Month group header */
-  .tl-month-group { margin: 32px 0 0; }
+  /* ── Research phases ── */
+  .phases-row {
+    display: flex; align-items: stretch; gap: 0;
+  }
+  @media (max-width: 660px) { .phases-row { flex-direction: column; } }
+  .phase-card {
+    flex: 1; background: var(--card);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 20px 22px;
+  }
+  .phase-arrow {
+    display: flex; align-items: center; padding: 0 10px;
+    color: var(--subtext); font-size: 1.1rem; flex-shrink: 0;
+    opacity: 0.5;
+  }
+  @media (max-width: 660px) { .phase-arrow { transform: rotate(90deg); padding: 6px 0; justify-content: center; } }
+  .phase-tag {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--subtext);
+    margin-bottom: 6px;
+  }
+  .phase-name {
+    font-size: 0.95rem; font-weight: 500; color: var(--text);
+    margin-bottom: 10px; line-height: 1.4;
+  }
+  .phase-desc {
+    font-size: 0.82rem; font-weight: 300; color: var(--subtext);
+    margin-bottom: 14px; line-height: 1.6;
+  }
+  .phase-papers { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+  .phase-paper {
+    font-size: 0.7rem; font-weight: 500; padding: 2px 8px;
+    background: var(--tag-bg); color: var(--tag-text);
+    border-radius: 3px;
+  }
+  .phase-status {
+    font-size: 0.72rem; font-weight: 500; padding: 2px 9px;
+    border-radius: 3px; display: inline-block;
+  }
+  .status-done    { background: #ECFDF5; color: #065F46; }
+  .status-current { background: var(--accent-light); color: var(--accent); }
+  .status-planned { background: var(--tag-bg); color: var(--subtext); }
+  [data-theme="dark"] .status-done    { background: rgba(6,95,70,0.2); color: #6EE7B7; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; }
+  .tl-month-group { margin: 28px 0 0; }
   .tl-month-label {
     font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--subtext);
@@ -127,8 +203,6 @@
     margin-bottom: 4px;
   }
   .tl-month-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-  /* Individual timeline row */
   .tl-row {
     display: flex; align-items: flex-start; gap: 0;
     padding: 10px 12px; border-radius: 5px;
@@ -139,16 +213,12 @@
   .tl-row:last-child { border-bottom: none; }
   .tl-row:hover { background: var(--accent-light); }
   .tl-row:hover .tl-title { color: var(--accent); }
-
-  /* Date column */
   .tl-date {
     width: 54px; flex-shrink: 0;
     font-size: 0.77rem; color: var(--subtext); font-weight: 300;
     padding-top: 2px; line-height: 1.4;
   }
   .tl-date .day { display: block; font-weight: 500; color: var(--subtext); }
-
-  /* Type badge */
   .tl-type {
     flex-shrink: 0; margin-right: 10px; margin-top: 2px;
     font-size: 0.65rem; font-weight: 700; padding: 2px 7px;
@@ -162,14 +232,10 @@
   [data-theme="dark"] .type-meeting  { background: rgba(254,243,199,0.15); color: #FCD34D; }
   [data-theme="dark"] .type-slides   { background: rgba(21,128,61,0.2); color: #86EFAC; }
   [data-theme="dark"] .type-invest   { background: rgba(185,28,28,0.2); color: #FCA5A5; }
-
-  /* Content column */
   .tl-content { flex: 1; min-width: 0; }
   .tl-title { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.4; }
   .tl-desc  { font-size: 0.81rem; color: var(--subtext); font-weight: 300; margin-top: 2px; line-height: 1.5; }
   .tl-meta  { margin-top: 6px; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
-
-  /* Tags & pills */
   .tag {
     font-size: 0.68rem; font-weight: 500; padding: 1px 7px;
     background: var(--tag-bg); color: var(--tag-text); border-radius: 3px;
@@ -207,9 +273,6 @@
   <div class="header-inner">
     <div>
       <h1>Research Reports</h1>
-      <div class="subtitle" style="opacity:0.6;font-size:0.82rem;margin-bottom:4px;font-style:italic">
-        Thesis (tentative): A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
-      </div>
       <div class="subtitle">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</div>
       <div class="links">
         <a href="https://azwanazamuddin.github.io/">Home</a>
@@ -225,48 +288,150 @@
 <main>
 
   <!-- ── About ── -->
-  <div class="section-label">About</div>
+  <div class="section-label">About this research</div>
   <div class="about-card">
+    <div class="research-title">
+      A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
+    </div>
     <p>
-      I am building a <strong>computational framework that makes activity-based DDCM estimation
-      tractable at city scale</strong>, and re-specifying its utility function so that
-      <strong>activity timing emerges from preferences</strong> rather than from hard-coded rules.
+      How do people decide when to work, shop, or travel — and what happens to those decisions when
+      transport policies change? This research builds a model that answers both questions at city scale.
+      The model is called a <strong>Dynamic Discrete Choice Model (DDCM)</strong>: it describes people
+      as forward-looking decision makers who plan their whole day, not just individual trips.
     </p>
-    <p>Two bottlenecks in activity-based demand modelling:</p>
-    <ul class="bottleneck">
-      <li><strong>State-space explosion</strong> — a single city has ~145 million states
-        (time × zone × activity × duration × mode × history).
-        Estimating on that is a 1,000-CPU-day / 6.7 TB problem.</li>
-      <li><strong>Timing is usually assumed, not estimated</strong> — classic specs bolt hard time
-        windows onto the model ("work happens 6am–10pm"), so behaviour is partly an
-        <em>input</em>, not an <em>output</em>.</li>
-    </ul>
-    <table class="contrib-table">
-      <thead><tr><th>#</th><th>Contribution</th><th>What it does</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="num">1</td><td class="piece">DDCM as a DAG</td>
-          <td>Time only moves forward → no cycles. Backward induction is a reverse topological sort, so a GPU processes each time level in one batched kernel.</td>
-        </tr>
-        <tr>
-          <td class="num">2</td><td class="piece">Reachability pruning</td>
-          <td>Forward BFS with Hägerstrand space-time-prism constraints keeps only reachable states. 145M → 1.5M (~1%), no approximation.</td>
-        </tr>
-        <tr>
-          <td class="num">3</td><td class="piece">μ(t) utility</td>
-          <td>Each activity gets a time-varying marginal-utility profile μₐ(t). Trip-making emerges from the gradient. Timing becomes an output.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>
+      The core challenge is computational. A realistic city generates around
+      <strong>145 million possible decision states</strong> (combinations of time, location, activity,
+      and travel history). Standard methods take over 1,000 CPU-days to estimate on that scale — making
+      real application practically impossible. This thesis addresses that barrier with two contributions:
+      a reachability-based method that eliminates 99% of states before any computation begins, and a
+      GPU-parallelised algorithm that processes the remaining states in seconds.
+    </p>
+    <div class="objective-list">
+      <div class="obj">
+        <span class="obj-num">O1</span>
+        <span class="obj-text">Make city-scale backward induction tractable: reduce the state space via reachability pruning and parallelize computation on a GPU</span>
+      </div>
+      <div class="obj">
+        <span class="obj-num">O2</span>
+        <span class="obj-text">Estimate behavioral parameters on city-scale data (Higashihiroshima, 1,368 workers) and establish a validated welfare measurement baseline</span>
+      </div>
+    </div>
     <div class="result-pill">
-      End-to-end: <strong>~69 hours → 105 seconds</strong> (~2,400×) ·
-      memory <strong>6.7 TB → 6.5 GB</strong> · 144-zone Higashi-Hiroshima network
+      Computation: <strong>~69 hours → 105 seconds</strong> (~2,400×) ·
+      Memory: <strong>6.7 TB → 6.5 GB</strong> · 144-zone Higashi-Hiroshima network
     </div>
   </div>
 
-  <!-- ── Timeline ── -->
-  <div class="section-label" style="margin-top:44px;">Timeline</div>
+  <!-- ── Progress snapshot ── -->
+  <div class="section-label">Where I am now</div>
+  <div class="progress-grid">
+
+    <div class="prog-card">
+      <div class="prog-card-label">Master Thesis</div>
+      <div class="prog-item prog-done">Ch 1 — Introduction</div>
+      <div class="prog-item prog-active">Ch 2 — Literature Review</div>
+      <div class="prog-item prog-done">Ch 3 — Model Specification</div>
+      <div class="prog-item prog-pending">Ch 4 — Computational Framework</div>
+      <div class="prog-item prog-pending">Ch 5 — Estimation</div>
+      <div class="prog-item prog-pending">Ch 6 — Results &amp; Welfare</div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-card-label">Technical</div>
+      <div class="prog-item prog-done">Backward induction (GPU, 1.5M states)</div>
+      <div class="prog-item prog-done">NFXP pipeline</div>
+      <div class="prog-item prog-active">Estimation running (remote device)</div>
+      <div class="prog-item prog-pending">BHHH standard errors</div>
+      <div class="prog-item prog-pending">Welfare scenarios</div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-card-label">Papers &amp; Conferences</div>
+      <div class="prog-item prog-done">ICMC 2025 — accepted</div>
+      <div class="prog-item prog-active">APTE 2026 — conditional acceptance</div>
+      <div class="prog-item prog-active">hEART 2026 — short paper in progress</div>
+      <div class="prog-item prog-pending">JSPS DC-1 fellowship proposal</div>
+    </div>
+
+  </div>
+
+  <!-- ── Research phases ── -->
+  <div class="section-label">Research roadmap</div>
+  <div class="phases-row">
+
+    <div class="phase-card">
+      <div class="phase-tag">Phase A</div>
+      <div class="phase-name">Computational algorithm</div>
+      <p class="phase-desc">
+        Proving the framework works at city scale. The reachability pruning cuts the state space by 99%;
+        GPU backward induction brings city-scale computation from days to seconds.
+        Both results are written up and submitted to conferences.
+      </p>
+      <div class="phase-papers">
+        <span class="phase-paper">ICMC 2025</span>
+        <span class="phase-paper">APTE 2026</span>
+      </div>
+      <span class="phase-status status-done">Complete / Under revision</span>
+    </div>
+
+    <div class="phase-arrow">→</div>
+
+    <div class="phase-card">
+      <div class="phase-tag">Phase B</div>
+      <div class="phase-name">Estimation &amp; master thesis</div>
+      <p class="phase-desc">
+        Estimating behavioral parameters from real person-trip data and writing the complete thesis.
+        hEART 2026 covers the estimation results.
+        This is the current focus.
+      </p>
+      <div class="phase-papers">
+        <span class="phase-paper">hEART 2026</span>
+        <span class="phase-paper">Master Thesis</span>
+      </div>
+      <span class="phase-status status-current">Current work</span>
+    </div>
+
+    <div class="phase-arrow">→</div>
+
+    <div class="phase-card">
+      <div class="phase-tag">Extension</div>
+      <div class="phase-name">PhD scale-up</div>
+      <p class="phase-desc">
+        Structural-IRL: a new estimation algorithm that removes the repeated DP solve,
+        enabling welfare-preserving estimation at national scale.
+        Proposed in the JSPS DC-1 fellowship application.
+      </p>
+      <div class="phase-papers">
+        <span class="phase-paper">JSPS DC-1 Proposal</span>
+      </div>
+      <span class="phase-status status-planned">Planned (PhD)</span>
+    </div>
+
+  </div>
+
+  <!-- ── Reports ── -->
+  <div class="section-label" style="margin-top:52px;">Reports</div>
   <div class="timeline">
+
+    <!-- ════ June 2026 ════ -->
+    <div class="tl-month-group">
+      <div class="tl-month-label">June 2026</div>
+
+      <div class="tl-row" style="cursor:default;">
+        <div class="tl-date"><span class="day">01</span></div>
+        <span class="tl-type type-meeting">Meeting</span>
+        <div class="tl-content">
+          <div class="tl-title">Research Progress (M2, Jun 1, 2026)</div>
+          <div class="tl-desc">APTE conditional acceptance and revision plan; Thesis Chapter 2 outline review; estimation status update.</div>
+          <div class="tl-meta">
+            <a class="pill-link pill-web" href="meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).html" target="_blank">Web</a>
+            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /June 2026 -->
 
     <!-- ════ May 2026 ════ -->
     <div class="tl-month-group">
@@ -277,7 +442,7 @@
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
           <div class="tl-title">Profile LL Scan — c_change (K=10 v7, Zone-Agnostic)</div>
-          <div class="tl-desc">1D profile likelihood sweep (16 grid points, 569 workers). Interior MLE confirmed at −0.615; HH MNL prior firmly rejected. c_change is identified.</div>
+          <div class="tl-desc">Is the "cost of switching activities" a real, estimable quantity — or could it be anything? This scan sweeps the parameter across its plausible range and finds a clear peak at −0.615. The data knows it.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
             <span class="tag">K=10 NFXP</span>
@@ -291,7 +456,7 @@
         <span class="tl-type type-invest">Investig.</span>
         <div class="tl-content">
           <div class="tl-title">Root Cause Investigation — Why δ Converged to Near-Zero</div>
-          <div class="tl-desc">Two bugs identified in runs v1–v5: zone-matching bug + non-worker data bias. Both fixed. v9 iter 4: LL=−7590 (+358 over v7), δ=0.043, converging.</div>
+          <div class="tl-desc">One parameter — how much people value the future — kept landing at zero, which makes no sense behaviorally. This report traces it to two bugs: a mismatch in how zones were labelled and a dataset contaminated by non-workers. Fixed in v9; estimation is now substantially better.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
             <span class="tag tag-ok">v7 Complete ✓</span>
@@ -305,7 +470,7 @@
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
           <div class="tl-title">Profile LL Scan — δ × μ_home (K=10)</div>
-          <div class="tl-desc">Profile likelihood heatmap over δ and μ_home. Flat δ axis was the diagnostic clue that exposed the zone-matching bug in U<sub>obs</sub>.</div>
+          <div class="tl-desc">A two-dimensional scan of the future-discounting parameter against home preference. The flatness of the δ axis was the first clue that something was wrong upstream — it led directly to the zone-matching bug.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
             <span class="tag">K=10 NFXP</span>
@@ -319,7 +484,7 @@
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Research Progress (M2, May 11, 2026)</div>
-          <div class="tl-desc">K=10 convergence + BHHH SEs, work timing gap diagnosis, JSPS outline, 11 lit reviews.</div>
+          <div class="tl-desc">K=10 convergence update, BHHH standard errors, work-timing gap diagnosis, JSPS proposal status, 11 new literature reviews.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).md" target="_blank">GitHub</a>
@@ -333,7 +498,7 @@
         <span class="tl-type type-analysis">Analysis</span>
         <div class="tl-content">
           <div class="tl-title">Work Timing Analysis — K=10 NFXP</div>
-          <div class="tl-desc">Why simulated work start is ~14:51 vs observed ~8:30. Interactive utility plots and simulation validation (N=934 agents).</div>
+          <div class="tl-desc">The model was predicting that people go to work at ~3pm rather than 8:30am. This report diagrams why: interactive utility plots expose the zone-matching bug as the source of the wrong incentives.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive HTML</span>
             <span class="tag tag-warn">v5 estimates (zone bug)</span>
@@ -352,7 +517,7 @@
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Research Progress (M2, Apr 27, 2026)</div>
-          <div class="tl-desc">Gradient bug fixes, c_change diagnosis, JSPS proposal updates.</div>
+          <div class="tl-desc">Gradient bug fixes, c_change identification diagnosis, JSPS proposal updates.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md" target="_blank">GitHub</a>
@@ -365,7 +530,7 @@
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Master Thesis Progress (M2, April 2026)</div>
-          <div class="tl-desc">Framework overview, μ(t) utility profiles, computational and behavioural results, estimation diagnosis.</div>
+          <div class="tl-desc">Full framework overview presented to the lab: μ(t) utility profiles, computational and behavioral results, estimation diagnosis.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md" target="_blank">GitHub</a>
@@ -379,7 +544,7 @@
         <span class="tl-type type-slides">Slides</span>
         <div class="tl-content">
           <div class="tl-title">Research Presentation Deck</div>
-          <div class="tl-desc">Interactive Slidev presentation — framework, reachability pruning, μ(t) utility, estimation results. Updated each semester.</div>
+          <div class="tl-desc">Interactive presentation of the full research: framework, reachability pruning, μ(t) utility, estimation results. Updated each semester.</div>
           <div class="tl-meta">
             <span class="tag tag-html">Interactive Slides</span>
             <span class="tag">Slidev</span>
