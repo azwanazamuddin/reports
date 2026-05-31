@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,8 +99,38 @@
 
   @media(max-width:600px) { .cards { grid-template-columns: 1fr; } .page { padding: 24px 16px; } }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── al-folio skin ── */
+body { font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif !important; background: #ffffff !important; transition: background 0.2s, color 0.2s; }
+[data-theme="dark"] body { background: #1c1c1d !important; color: #d4d4d4 !important; }
+[data-theme="dark"] .page { background: #1c1c1d; }
+.header { background: transparent !important; border-bottom: 1px solid rgba(0,0,0,0.1) !important; padding: 20px 0 16px !important; margin-bottom: 28px !important; }
+.header h1 { color: #111 !important; font-size: 1.4rem !important; }
+.header .subtitle { opacity: 1 !important; color: #828282 !important; }
+[data-theme="dark"] .header { border-color: #424246 !important; }
+[data-theme="dark"] .header h1 { color: #d4d4d4 !important; }
+[data-theme="dark"] .header .subtitle { color: #9CA3AF !important; }
+[data-theme="dark"] .card, [data-theme="dark"] .toc, [data-theme="dark"] .callout, [data-theme="dark"] .smoking-gun { background: #212529 !important; border-color: #424246 !important; }
+[data-theme="dark"] p, [data-theme="dark"] li, [data-theme="dark"] td, [data-theme="dark"] .tl-body { color: #d4d4d4 !important; }
+[data-theme="dark"] th { background: #2d3239 !important; color: #9CA3AF !important; border-color: #424246 !important; }
+[data-theme="dark"] td { border-color: #424246 !important; }
+[data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] .tl-title { color: #d4d4d4 !important; }
+[data-theme="dark"] code { background: rgba(38,152,186,0.1) !important; color: #60a5fa !important; }
+[data-theme="dark"] .toc a { color: #60a5fa !important; }
+[data-theme="dark"] .formula { background: #2d3239 !important; border-color: #424246 !important; color: #60a5fa !important; }
+.af-nav { background: #1c1c1d; padding: 16px 24px; }
+.af-nav-inner { max-width: 930px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.af-back { color: rgba(255,255,255,0.65); font-size: 0.82rem; text-decoration: none; padding: 4px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; transition: background 0.15s; white-space: nowrap; font-family: inherit; }
+.af-back:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.af-toggle { flex-shrink: 0; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.85); border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.af-toggle:hover { background: rgba(255,255,255,0.18); }
+</style>
 </head>
 <body>
+<div class="af-nav"><div class="af-nav-inner"><a class="af-back" href="/reports/">← Reports</a><button class="af-toggle" onclick="afToggle()">☀ / ☾</button></div></div>
 <div class="page">
 
 <!-- ═══════════════════════════════════════════════════════ HEADER -->
@@ -381,5 +411,9 @@ score_n = obs_feat_n − GV(x₀_n)                              ← NFXP score 
 </footer>
 
 </div>
+<script>
+(function(){var s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);})();
+function afToggle(){var c=document.documentElement.getAttribute('data-theme');var n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);}
+</script>
 </body>
 </html>
