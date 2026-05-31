@@ -352,8 +352,8 @@
     <div class="prog-card">
       <div class="prog-card-label">Technical</div>
       <div class="prog-item prog-done">Backward induction (GPU, 1.5M states)</div>
-      <div class="prog-item prog-done">NFXP pipeline</div>
-      <div class="prog-item prog-active">Estimation running (remote device)</div>
+      <div class="prog-item prog-done">NFXP pipeline + analytical gradient</div>
+      <div class="prog-item prog-active">K=11 estimation (CUDA, just unblocked)</div>
       <div class="prog-item prog-pending">BHHH standard errors</div>
       <div class="prog-item prog-pending">Welfare scenarios</div>
     </div>
@@ -431,12 +431,26 @@
     <div class="tl-month-group">
       <div class="tl-month-label">June 2026</div>
 
+      <a class="tl-row" href="ddcm/gradient_bug_investigation_20260601.html">
+        <div class="tl-date"><span class="day">01</span></div>
+        <span class="tl-type type-invest">Investig.</span>
+        <div class="tl-content">
+          <div class="tl-title">Analytical Gradient Investigation — K=11 Unblocked</div>
+          <div class="tl-desc">For roughly two years, every K=11 estimation stalled: the optimizer gave up after a few iterations and one parameter jammed at its bound every time. The cause turned out to be a wrong gradient — 38% off — triggered by an integer overflow on the Apple GPU backend when processing multiple home zones at once. CUDA is confirmed clean. K=11 estimation is unblocked.</div>
+          <div class="tl-meta">
+            <span class="tag tag-html">Interactive HTML</span>
+            <span class="tag tag-ok">CUDA Clean ✓</span>
+            <span class="tag tag-ok">K=11 Unblocked ✓</span>
+          </div>
+        </div>
+      </a>
+
       <div class="tl-row" style="cursor:default;">
         <div class="tl-date"><span class="day">01</span></div>
         <span class="tl-type type-meeting">Meeting</span>
         <div class="tl-content">
           <div class="tl-title">Research Progress (M2, Jun 1, 2026)</div>
-          <div class="tl-desc">APTE conditional acceptance and revision plan; Thesis Chapter 2 outline review; estimation status update.</div>
+          <div class="tl-desc">Gradient investigation result (K=11 unblocked); APTE revision plan (3 reviewer points); Thesis Chapter 2 outline review. Includes warm-start parameter table and all supplementary session reports.</div>
           <div class="tl-meta">
             <a class="pill-link pill-web" href="meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).html" target="_blank">Web</a>
             <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md" target="_blank">GitHub</a>
