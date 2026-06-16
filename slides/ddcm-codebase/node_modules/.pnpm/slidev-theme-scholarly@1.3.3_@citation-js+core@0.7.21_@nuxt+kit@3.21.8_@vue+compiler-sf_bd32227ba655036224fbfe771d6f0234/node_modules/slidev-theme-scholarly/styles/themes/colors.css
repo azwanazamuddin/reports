@@ -1,0 +1,102 @@
+/* ========================================================================== */
+/* Color Themes for Slidev Theme Scholarly                                   */
+/* ========================================================================== */
+
+/* -------------------------------------------------------------------------- */
+/* Classic Academic Blue (Default)                                           */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="classic-blue"] {
+  --slidev-theme-primary: #1e3a5f;
+  --slidev-theme-primary-light: #2c5282;
+  --scholarly-accent: #b8860b;
+  --scholarly-bg-warm: #fdfbf7;
+  --scholarly-text-primary: #2d3748;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Oxford Burgundy                                                            */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="oxford-burgundy"] {
+  --slidev-theme-primary: #862633;
+  --slidev-theme-primary-light: #a23648;
+  --scholarly-accent: #c5a572;
+  --scholarly-bg-warm: #faf8f5;
+  --scholarly-text-primary: #2d1b1e;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Cambridge Green                                                            */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="cambridge-green"] {
+  --slidev-theme-primary: #00543c;
+  --slidev-theme-primary-light: #006b4a;
+  --scholarly-accent: #d4af37;
+  --scholarly-bg-warm: #f8faf7;
+  --scholarly-text-primary: #1a2f1a;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Princeton Orange                                                           */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="princeton-orange"] {
+  --slidev-theme-primary: #e87722;
+  --slidev-theme-primary-light: #f08f42;
+  --scholarly-accent: #1c1c1c;
+  --scholarly-bg-warm: #fffbf5;
+  --scholarly-text-primary: #2d2d2d;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Yale Blue                                                                  */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="yale-blue"] {
+  --slidev-theme-primary: #0f4d92;
+  --slidev-theme-primary-light: #286fb4;
+  --scholarly-accent: #d4af37;
+  --scholarly-bg-warm: #f7f9fc;
+  --scholarly-text-primary: #1a2332;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Monochrome Professional                                                    */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="monochrome"] {
+  --slidev-theme-primary: #2d3748;
+  --slidev-theme-primary-light: #4a5568;
+  --scholarly-accent: #718096;
+  --scholarly-bg-warm: #ffffff;
+  --scholarly-text-primary: #1a202c;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Warm Sepia                                                                 */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="warm-sepia"] {
+  --slidev-theme-primary: #5d4037;
+  --slidev-theme-primary-light: #795548;
+  --scholarly-accent: #d4a574;
+  --scholarly-bg-warm: #faf6f1;
+  --scholarly-text-primary: #3e2723;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Nordic Blue                                                                */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="nordic-blue"] {
+  --slidev-theme-primary: #2e5266;
+  --slidev-theme-primary-light: #4a7c9c;
+  --scholarly-accent: #d4a762;
+  --scholarly-bg-warm: #f5f8fa;
+  --scholarly-text-primary: #1e3a4a;
+}
+
+/* -------------------------------------------------------------------------- */
+/* High Contrast (Accessibility)                                              */
+/* -------------------------------------------------------------------------- */
+:root[data-color-theme="high-contrast"] {
+  --slidev-theme-primary: #000000;
+  --slidev-theme-primary-light: #333333;
+  --scholarly-accent: #0066cc;
+  --scholarly-bg-warm: #ffffff;
+  --scholarly-text-primary: #000000;
+}

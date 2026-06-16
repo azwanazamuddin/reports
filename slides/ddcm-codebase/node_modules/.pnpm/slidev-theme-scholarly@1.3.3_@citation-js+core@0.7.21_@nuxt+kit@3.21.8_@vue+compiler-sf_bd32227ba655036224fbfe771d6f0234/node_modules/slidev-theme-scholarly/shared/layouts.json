@@ -1,0 +1,60 @@
+{
+    "layoutGroups": [
+        {
+            "name": "structure",
+            "items": [
+                "cover",
+                "default",
+                "intro",
+                "section",
+                "center",
+                "auto-center",
+                "auto-size",
+                "toc",
+                "end"
+            ]
+        },
+        {
+            "name": "content",
+            "items": [
+                "two-cols",
+                "image-left",
+                "image-right",
+                "bullets",
+                "figure",
+                "split-image"
+            ]
+        },
+        {
+            "name": "emphasis",
+            "items": [
+                "quote",
+                "fact",
+                "statement",
+                "focus"
+            ]
+        },
+        {
+            "name": "academic",
+            "items": [
+                "compare",
+                "methodology",
+                "results",
+                "timeline",
+                "agenda",
+                "acknowledgments",
+                "references"
+            ]
+        }
+    ],
+    "componentNames": [
+        "Theorem",
+        "Block",
+        "Cite",
+        "Steps",
+        "Keywords",
+        "Columns",
+        "Highlight",
+        "ThemePreview"
+    ]
+}

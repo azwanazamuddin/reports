@@ -1,0 +1,133 @@
+{
+    "colorThemes": [
+        {
+            "id": "classic-blue",
+            "label": "Classic Blue",
+            "description": "Default scholarly palette"
+        },
+        {
+            "id": "oxford-burgundy",
+            "label": "Oxford Burgundy",
+            "description": "Deep burgundy accents"
+        },
+        {
+            "id": "cambridge-green",
+            "label": "Cambridge Green",
+            "description": "Elegant green accents"
+        },
+        {
+            "id": "yale-blue",
+            "label": "Yale Blue",
+            "description": "Strong blue accents"
+        },
+        {
+            "id": "princeton-orange",
+            "label": "Princeton Orange",
+            "description": "Vibrant orange accents"
+        },
+        {
+            "id": "nordic-blue",
+            "label": "Nordic Blue",
+            "description": "Cool nordic tones"
+        },
+        {
+            "id": "warm-sepia",
+            "label": "Warm Sepia",
+            "description": "Warm paper-like tones"
+        },
+        {
+            "id": "monochrome",
+            "label": "Monochrome",
+            "description": "Minimal black & white"
+        },
+        {
+            "id": "high-contrast",
+            "label": "High Contrast",
+            "description": "Maximum contrast"
+        }
+    ],
+    "fontThemes": [
+        {
+            "id": "classic",
+            "label": "Classic",
+            "description": "Traditional academic feel"
+        },
+        {
+            "id": "modern",
+            "label": "Modern",
+            "description": "Clean and minimal"
+        },
+        {
+            "id": "traditional",
+            "label": "Traditional",
+            "description": "Serif-forward classic"
+        },
+        {
+            "id": "contemporary",
+            "label": "Contemporary",
+            "description": "Balanced and readable"
+        },
+        {
+            "id": "humanist",
+            "label": "Humanist",
+            "description": "Friendly humanist sans"
+        },
+        {
+            "id": "technical",
+            "label": "Technical",
+            "description": "Engineering/tech vibe"
+        },
+        {
+            "id": "elegant",
+            "label": "Elegant",
+            "description": "Refined serif accents"
+        },
+        {
+            "id": "sans-default",
+            "label": "Sans Default",
+            "description": "Simple sans default"
+        }
+    ],
+    "themePresets": [
+        {
+            "id": "classic",
+            "label": "Classic",
+            "description": "Classic Blue + Classic",
+            "colorTheme": "classic-blue",
+            "fontTheme": "classic"
+        },
+        {
+            "id": "oxford",
+            "label": "Oxford",
+            "description": "Oxford Burgundy + Traditional",
+            "colorTheme": "oxford-burgundy",
+            "fontTheme": "traditional"
+        },
+        {
+            "id": "cambridge",
+            "label": "Cambridge",
+            "description": "Cambridge Green + Elegant",
+            "colorTheme": "cambridge-green",
+            "fontTheme": "elegant"
+        },
+        {
+            "id": "modern",
+            "label": "Modern Minimal",
+            "description": "Monochrome + Sans Default",
+            "colorTheme": "monochrome",
+            "fontTheme": "sans-default"
+        }
+    ],
+    "colorModes": [
+        {
+            "id": "dark",
+            "label": "Dark",
+            "description": "Dark background with light text (default)"
+        },
+        {
+            "id": "light",
+            "label": "Light",
+            "description": "Light background with dark text"
+        }
+    ]
+}
