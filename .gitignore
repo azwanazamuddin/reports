@@ -4,3 +4,13 @@ Thumbs.db
 *.swo
 .obsidian/
 .trash/
+node_modules/
+slides/*/dist/
+slides/*/dist_v2/
+slides/*/pnpm-lock.yaml
+slides/*/package.json
+slides/*/slides.md
+slides/*/components/
+slides/*/pages/
+slides/*/public/
+slides/*/snippets/
