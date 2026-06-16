@@ -1,0 +1,12 @@
+import{B as e,C as t,O as n,Q as r,_t as i,v as a,w as o,y as s,yt as c}from"./modules/shiki-5lP-1OJ1.js";import{H as l,V as u}from"./useNav-rxqVRdK2.js";import{t as d}from"./slidev/CodeBlockWrapper-BCpfmUff.js";import{t as f}from"./default-CJKhsMWf.js";var p={__name:`slides.md__slidev_63`,setup(p){let{$slidev:m,$nav:h,$clicksContext:g,$clicks:_,$page:v,$renderContext:y,$frontmatter:b}=l();return g.setup(),(l,p)=>{let m=d;return e(),s(f,c(n(i(u)(i(b),62))),{default:r(()=>[p[1]||=a(`h1`,null,`Float Atomic Max: The Core Trick (Recap)`,-1),p[2]||=a(`p`,null,[a(`strong`,null,`The float-to-uint bijective mapping:`)],-1),o(m,{title:``,ranges:[]},{default:r(()=>[...p[0]||=[a(`pre`,{class:`shiki shiki-themes vitesse-dark vitesse-light slidev-code`,style:{"--shiki-dark":`#dbd7caee`,"--shiki-light":`#393a34`,"--shiki-dark-bg":`#121212`,"--shiki-light-bg":`#ffffff`}},[a(`code`,{class:`language-text`},[a(`span`,{class:`line`},[a(`span`,null,`float_to_sortable_uint(f):`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`    bits = reinterpret_as_uint(f)`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`    sign = int(bits >> 31)`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`    mask = uint(-sign) | 0x80000000   # 0xFFFFFFFF if negative, 0x80000000 if positive`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`    return bits XOR mask`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`Mappings:`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`  −∞   →  0x007FFFFF  (uint minimum — initializer for max_buf)`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`  −1.0 →  0x3F800000`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`   0.0 →  0x80000000`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`  +1.0 →  0xBF800000`)]),t(`
+`),a(`span`,{class:`line`},[a(`span`,null,`  +∞   →  0xFF800000  (uint maximum)`)])])],-1)]]),_:1}),p[3]||=a(`p`,null,[t(`One thread per edge → `),a(`code`,null,`atomic_fetch_max_explicit(&max_buf[src], float_to_sortable_uint(q_val))`)],-1),p[4]||=a(`p`,null,[a(`code`,null,`_SORTABLE_NEG_INF = 0x007FFFFF`),t(` initializes `),a(`code`,null,`max_buf`),t(` before each scatter.`)],-1)]),_:1},16)}}};export{p as default};
