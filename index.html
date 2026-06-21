@@ -344,26 +344,28 @@
       <div class="prog-item prog-done">Ch 1 — Introduction</div>
       <div class="prog-item prog-active">Ch 2 — Literature Review</div>
       <div class="prog-item prog-done">Ch 3 — Model Specification</div>
-      <div class="prog-item prog-pending">Ch 4 — Computational Framework</div>
-      <div class="prog-item prog-pending">Ch 5 — Estimation</div>
-      <div class="prog-item prog-pending">Ch 6 — Results &amp; Welfare</div>
+      <div class="prog-item prog-done">Ch 4 — Computational Framework</div>
+      <div class="prog-item prog-done">Ch 5 — Parameter Recovery &amp; Identification</div>
+      <div class="prog-item prog-active">Ch 6 — Numerical Variance Experiments</div>
+      <div class="prog-item prog-pending">Ch 7 — HH Empirical (optional)</div>
     </div>
 
     <div class="prog-card">
       <div class="prog-card-label">Technical</div>
       <div class="prog-item prog-done">Backward induction (GPU, 1.5M states)</div>
       <div class="prog-item prog-done">NFXP pipeline + analytical gradient</div>
-      <div class="prog-item prog-active">NFXP estimation (CUDA, just unblocked)</div>
-      <div class="prog-item prog-pending">BHHH standard errors</div>
-      <div class="prog-item prog-pending">Welfare scenarios</div>
+      <div class="prog-item prog-done">BHHH standard errors</div>
+      <div class="prog-item prog-done">Parameter recovery — R=30 Monte-Carlo ✓</div>
+      <div class="prog-item prog-active">Numerical experiments (Exact vs SA vs RL)</div>
+      <div class="prog-item prog-pending">HH estimation (real data)</div>
     </div>
 
     <div class="prog-card">
       <div class="prog-card-label">Papers &amp; Conferences</div>
       <div class="prog-item prog-done">ICMC 2025 — accepted</div>
-      <div class="prog-item prog-active">APTE 2026 — accepted, revision + camera-ready by Jun 10</div>
-      <div class="prog-item prog-active">hEART 2026 — submitted, awaiting result</div>
-      <div class="prog-item prog-pending">JSPS DC-1 fellowship proposal</div>
+      <div class="prog-item prog-active">APTE 2026 — camera-ready done, present Jul 7–10</div>
+      <div class="prog-item prog-active">hEART 2026 — accepted, revision in progress</div>
+      <div class="prog-item prog-active">JSPS DC-1 — submitted, awaiting result</div>
     </div>
 
   </div>
@@ -376,30 +378,31 @@
       <div class="phase-tag">Phase A</div>
       <div class="phase-name">Computational algorithm</div>
       <p class="phase-desc">
-        Proving the framework works at city scale. The reachability pruning cuts the state space by 99%;
-        GPU backward induction brings city-scale computation from days to seconds.
-        Both results are written up and accepted at conferences.
+        Proving the framework works at city scale. Reachability pruning cuts the state space by 99%;
+        GPU backward induction brings exact computation from days to seconds.
+        Both results written up, accepted, and presented.
       </p>
       <div class="phase-papers">
         <span class="phase-paper">ICMC 2025</span>
-        <span class="phase-paper">APTE 2026</span>
+        <span class="phase-paper">APTE 2026 (Jul 7–10)</span>
       </div>
-      <span class="phase-status status-done">Complete — camera-ready by Jun 10</span>
+      <span class="phase-status status-done">Complete — camera-ready submitted</span>
     </div>
 
     <div class="phase-arrow">→</div>
 
     <div class="phase-card">
       <div class="phase-tag">Phase B</div>
-      <div class="phase-name">Estimation &amp; master thesis</div>
+      <div class="phase-name">Variance-characterization framework</div>
       <p class="phase-desc">
-        Estimating behavioral parameters from real person-trip data and writing the complete thesis.
-        hEART 2026 (submitted, awaiting result) covers the estimation progress; a full presentation
-        is targeted for when the complete implementation is ready.
-        This is the current focus.
+        Triggered by hEART reviews: first establish parameter recovery on synthetic data (done, R=30),
+        then characterise approximation error across three approaches — Exact NFXP, Sampling-of-Alternatives,
+        and RL value estimation. This is the thesis spine and the hEART revision target.
+        Higashi-Hiroshima real-data estimation runs in parallel.
       </p>
       <div class="phase-papers">
         <span class="phase-paper">hEART 2026</span>
+        <span class="phase-paper">ICMC 2026 (Jul 20–22)</span>
         <span class="phase-paper">Master Thesis</span>
       </div>
       <span class="phase-status status-current">Current work</span>
