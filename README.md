@@ -30,8 +30,10 @@ reports/
 │   └── thesis-draft.md                       single source of truth — update before each meeting
 ├── slides/                                ← interactive presentation decks (Slidev, built static HTML)
 │   └── ddcm/                                 main DDCM research deck — rebuild with: slidev build --base /reports/slides/ddcm/
-├── ddcm/                                  ← standalone HTML reports
-│   └── work_timing_analysis.html
+├── ddcm/                                  ← standalone HTML reports (see ddcm/index.md)
+│   ├── recovery_smallnet_R30_20260620.html      Report 1 · parameter recovery & identification
+│   ├── experiments_exact_sa_rl_20260621.html    Report 2 · Exact vs SA vs RL (approximation error)
+│   └── …                                         earlier reports (profile-LL, work-timing, …)
 ├── meetings/                              ← per-meeting discussion docs
 │   ├── 2025-fall/                            M1 Fall 2025 (archive)
 │   │   ├── *.md                              meeting docs

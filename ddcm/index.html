@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DDCM Implementation Reports</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--border:#e0e4ea;--text:#1a2332;--sub:#607080;--accent:#3949ab;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;}
+.page{max-width:880px;margin:0 auto;padding:40px 20px 60px;}
+h1{font-size:1.5rem;color:var(--accent);margin-bottom:4px;}
+.meta{color:var(--sub);font-size:.85rem;margin-bottom:24px;}
+h2{font-size:.95rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 10px;}
+a.report{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;
+ padding:18px 20px;margin-bottom:14px;text-decoration:none;color:inherit;box-shadow:0 1px 4px rgba(0,0,0,.05);
+ transition:box-shadow .15s,transform .15s;}
+a.report:hover{box-shadow:0 4px 14px rgba(57,73,171,.18);transform:translateY(-1px);}
+.report h3{font-size:1.08rem;color:var(--accent);margin-bottom:5px;}
+.report p{font-size:.88rem;}
+.report .tag{display:inline-block;font-size:.7rem;font-weight:700;background:#e8eaf6;color:var(--accent);
+ border-radius:10px;padding:2px 9px;margin-bottom:7px;}
+.report .date{float:right;color:var(--sub);font-size:.78rem;font-weight:400;}
+ul.earlier{list-style:none;}
+ul.earlier li{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 16px;
+ margin-bottom:9px;font-size:.88rem;}
+ul.earlier a{color:var(--accent);text-decoration:none;font-weight:600;}
+ul.earlier .date{float:right;color:var(--sub);font-size:.78rem;}
+.foot{margin-top:26px;color:var(--sub);font-size:.82rem;}
+</style></head><body><div class="page">
+<h1>DDCM Implementation Reports</h1>
+<div class="meta">Technical reports from the DDCM implementation — generated in the <code>ddcm</code>
+repo, published here.</div>
+
+<h2>Current deliverables · synthetic-data methodology</h2>
+
+<a class="report" href="recovery_smallnet_R30_20260620.html">
+ <span class="tag">REPORT 1 · RECOVERY</span><span class="date">2026-06-20</span>
+ <h3>Parameter Recovery &amp; Identification — Exact NFXP</h3>
+ <p>Does the estimator recover known parameters? Part I — production-fidelity single-transport-scale
+ confirmation (the transport-scale ridge broken, 13.8%→0.8% bias). Part II — controlled R=30
+ Monte-Carlo Dekker table, N-sweep (√N), profile-LL, behavioral validation, BHHH standard errors.</p>
+</a>
+
+<a class="report" href="experiments_exact_sa_rl_20260621.html">
+ <span class="tag">REPORT 2 · APPROXIMATION ERROR</span><span class="date">2026-06-21</span>
+ <h3>Exact vs Sampling-of-Alternatives vs RL value estimation</h3>
+ <p>The variance framework — approximation error vs compute budget. SA is consistent (variance only,
+ McFadden); RL is inconsistent at finite budget (bias + variance, no correction). Variance/bias
+ panels + per-parameter densities + the bit-level oracle.</p>
+</a>
+
+<h2>Earlier reports</h2>
+<ul class="earlier">
+ <li><a href="profile_ll_cchange_v7.html">Profile LL: c_change sweep</a> — interior MLE −0.615; HH prior rejected <span class="date">2026-05-13</span></li>
+ <li><a href="investigation_overview.html">Root-cause investigation</a> — zone-matching bug left δ unidentified; fixed <span class="date">2026-05-12</span></li>
+ <li><a href="profile_ll_delta_muhome.html">Profile LL scan (δ × μ_home)</a> — U_obs was δ-invariant (zone-bug symptom) <span class="date">2026-05-12</span></li>
+ <li><a href="work_timing_analysis.html">Work-timing analysis</a> — why simulated work-start ≈14:51 vs observed ≈8:30 <span class="date">2026-05-10</span></li>
+ <li><a href="gradient_bug_investigation_20260601.html">Gradient-bug investigation</a> <span class="date">2026-06-01</span></li>
+</ul>
+
+<div class="foot">Reports are self-contained (Plotly + KaTeX via CDN). Generated in the <code>ddcm</code>
+repo (<code>estimation/experiments/{recovery_report,experiments_report}.py</code>) and auto-published
+to this folder.</div>
+</div></body></html>

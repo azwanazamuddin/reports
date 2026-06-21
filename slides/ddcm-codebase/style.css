@@ -1,0 +1,45 @@
+/* Force ALL code/pre text to dark slate — bypasses shiki CSS variable issues.
+   Step-through highlighting still works because it uses opacity on .line,
+   not color, so !important here does not interfere. */
+.slidev-layout pre span,
+.slidev-layout pre code,
+.slidev-layout pre {
+  color: #2d3748 !important;
+}
+
+/* Block component body text */
+.block-content,
+.block-content p,
+.block-content li,
+.block-content ul,
+.block-content ol,
+.block-content span,
+.block-content code,
+.block-content pre {
+  color: #2d3748 !important;
+}
+
+/* Breadcrumb blockquotes */
+.slidev-layout blockquote,
+.slidev-layout blockquote p,
+.slidev-layout blockquote code {
+  color: #4a5568 !important;
+  opacity: 1 !important;
+}
+
+/* Section dividers render in DARK mode (dark gradient bg, white foreground).
+   Any light info box (bg-gray-50/100/200, bg-white) inside a divider would
+   inherit that white text → invisible white-on-near-white. Force dark text
+   inside light boxes on section slides. Covers all current + future dividers. */
+.slidev-layout.section [class*="bg-gray-"],
+.slidev-layout.section [class*="bg-gray-"] *,
+.slidev-layout.section .bg-white,
+.slidev-layout.section .bg-white * {
+  color: #2d3748 !important;
+}
+
+/* Same hazard on the intro layout (light cards on a tinted background). */
+.slidev-layout.intro [class*="bg-gray-"],
+.slidev-layout.intro [class*="bg-gray-"] * {
+  color: #2d3748 !important;
+}

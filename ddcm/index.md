@@ -3,7 +3,7 @@ title: DDCM Implementation Reports
 type: index
 status: active
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-06-21
 tags: [ddcm, reports, implementation]
 ---
 
@@ -15,7 +15,16 @@ Reports are generated in the `ddcm` repo and published here.
 
 ---
 
-## Reports
+## Current deliverables (synthetic-data methodology)
+
+| Report | Topic | Date |
+|--------|-------|------|
+| [recovery_smallnet_R30_20260620.html](recovery_smallnet_R30_20260620.html) | **Report 1 · Parameter Recovery & Identification** — Exact NFXP recovers known parameters: Part I production-fidelity single-transport-scale confirmation (transport-scale ridge broken, 13.8%→0.8% bias); Part II controlled R=30 Dekker table, N-sweep (√N), profile-LL, behavioral validation, BHHH SEs | 2026-06-20 |
+| [experiments_exact_sa_rl_20260621.html](experiments_exact_sa_rl_20260621.html) | **Report 2 · Approximation-Error Experiments** — Exact vs Sampling-of-Alternatives vs RL value estimation: SA is consistent (variance only, McFadden); RL is inconsistent at finite budget (bias + variance, no correction). Variance/bias panels + per-parameter densities + bit-level oracle | 2026-06-21 |
+
+---
+
+## Earlier reports
 
 | Report | Topic | Date |
 |--------|-------|------|
