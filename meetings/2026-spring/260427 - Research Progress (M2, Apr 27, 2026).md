@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Research Progress — M2, Apr 27, 2026
 type: progress-report
 status: complete

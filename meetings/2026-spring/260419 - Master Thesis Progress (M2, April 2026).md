@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Master Thesis Progress — M2, April 2026
 type: progress-report
 status: complete
