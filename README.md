@@ -88,6 +88,8 @@ Per-meeting discussion docs. Update `thesis/thesis-draft.md` before each meeting
 
 | Date | Meeting Doc | Slides | Event / context |
 |---|---|---|---|
+| 2026-06-23 | [Research Progress (M2, Jun 23, 2026)](meetings/2026-spring/260623%20-%20Research%20Progress%20(M2,%20Jun%2023,%202026).md) | — | Parameter recovery (R=30, θ_travel bias 13.8%→0.8%), Exact/SA/RL approximation-error experiments (SA consistent, RL Jensen-biased at finite B), HH full run status (iter 6, best LL=−177,916). |
+| 2026-06-01 | [Research Progress (M2, Jun 1, 2026)](meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md) | — | Analytical gradient confirmed correct (GV zone-batch MPS int32 overflow root cause, CUDA clean); NFXP estimation unblocked; APTE revision paragraphs; Thesis Ch2 outline. |
 | 2026-05-11 | [Research Progress (M2, May 11, 2026)](meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).md) | — | Weekly progress. K=10 L-BFGS-B convergence (LL=−19,187, BHHH SEs), work timing gap analysis, 11 new lit reviews, JSPS outline finalized. |
 | 2026-04-27 | [Research Progress (M2, Apr 27, 2026)](meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md) | — | Weekly progress. Gradient bug fixes (forbidden_masks, zone ID), c_change ridge diagnosis, cumulative utility diagnostic planned; JSPS/thesis writing updates. |
 | 2026-04-19 | [Master Thesis Progress (M2, April 2026)](meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md) | [April_Seminar_Presentation.pdf](meetings/2026-spring/presentations/April_Seminar_Presentation.pdf) | M2 mid-semester progress presentation. Framework, μ(t), results, estimation diagnosis. |
