@@ -2,3 +2,9 @@ title: Azwan Nazamuddin — Research Reports
 description: PhD research on DDCM for activity-based travel demand · Hiroshima University
 plugins:
   - jekyll-relative-links
+
+# Jekyll excludes any file/folder starting with "_" by default. Slidev/Vite builds under
+# slides/ emit underscore-prefixed files (e.g. assets/_plugin-vue_export-helper-*.js,
+# _redirects) that must ship as-is or the deck fails to load (blank page, 404'd JS module).
+include:
+  - "slides/**/_*"
