@@ -51,6 +51,8 @@ reports/
 cd "4 - Projects/ddcm/ddcm_slides"
 npx slidev build --base /reports/slides/ddcm/
 rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/ddcm/"
+cd "../../../3 - Permanent Notes/reports"
+python3 scripts/patch-spa-redirect.py slides/ddcm/index.html
 ```
 
 Then commit and push the updated `slides/ddcm/` folder in the reports repo.
@@ -61,7 +63,11 @@ Same pattern for the APTE deck — source at `4 - Projects/ddcm/apte_slides/slid
 cd "4 - Projects/ddcm/apte_slides"
 npx slidev build --base /reports/slides/apte/
 rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/apte/"
+cd "../../../3 - Permanent Notes/reports"
+python3 scripts/patch-spa-redirect.py slides/apte/index.html
 ```
+
+**Why the `patch-spa-redirect.py` step matters:** every Slidev deck here is a client-routed SPA (paths like `slides/apte/1`, `slides/apte/2`, …). GitHub Pages has no server-side rewrite, so a direct link to any slide but the first, or a page refresh mid-deck, 404s. The repo-root `404.html` catches that and redirects into the deck's `index.html` with the intended path encoded in a query string (the [spa-github-pages](https://github.com/rafgraph/spa-github-pages) pattern); the snippet this script injects into `index.html` decodes it back via `history.replaceState` before the router boots. `slidev build` regenerates `index.html` from scratch every time, so this step must be re-run after every rebuild — it's idempotent and safe to run twice.
 
 Then commit and push the updated `slides/apte/` folder in the reports repo.
 
