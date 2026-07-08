@@ -29,7 +29,8 @@ reports/
 ├── thesis/                                ← rolling Master thesis draft
 │   └── thesis-draft.md                       single source of truth — update before each meeting
 ├── slides/                                ← interactive presentation decks (Slidev, built static HTML)
-│   └── ddcm/                                 main DDCM research deck — rebuild with: slidev build --base /reports/slides/ddcm/
+│   ├── ddcm/                                 main DDCM research deck — rebuild with: slidev build --base /reports/slides/ddcm/
+│   └── apte/                                 APTE 2026 conference talk — rebuild with: slidev build --base /reports/slides/apte/
 ├── ddcm/                                  ← standalone HTML reports (see ddcm/index.md)
 │   ├── recovery_smallnet_R30_20260620.html      Report 1 · parameter recovery & identification
 │   ├── experiments_exact_sa_rl_20260621.html    Report 2 · Exact vs SA vs RL (approximation error)
@@ -53,6 +54,16 @@ rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/ddcm/"
 ```
 
 Then commit and push the updated `slides/ddcm/` folder in the reports repo.
+
+Same pattern for the APTE deck — source at `4 - Projects/ddcm/apte_slides/slides.md`:
+
+```bash
+cd "4 - Projects/ddcm/apte_slides"
+npx slidev build --base /reports/slides/apte/
+rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/apte/"
+```
+
+Then commit and push the updated `slides/apte/` folder in the reports repo.
 
 **Two documents per meeting** (HIIRM convention):
 
