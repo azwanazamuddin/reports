@@ -7,4 +7,6 @@ plugins:
 # slides/ emit underscore-prefixed files (e.g. assets/_plugin-vue_export-helper-*.js,
 # _redirects) that must ship as-is or the deck fails to load (blank page, 404'd JS module).
 include:
-  - "slides/**/_*"
+  - "slides/*/_*"
+  - "slides/*/assets/_*"
+  - "slides/*/*/assets/_*"
