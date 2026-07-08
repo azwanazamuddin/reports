@@ -19,9 +19,10 @@
       if (m) {
         var base = m[1];
         var rest = m[2];
-        var query = l.search.replace(/^\?/, "~and~");
         l.replace(
-          base + "?p=/" + rest.replace(/&/g, "~and~") + query + l.hash
+          base + "?/" + rest.replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
         );
       }
     </script>
