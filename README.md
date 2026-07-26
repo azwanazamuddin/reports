@@ -30,7 +30,8 @@ reports/
 │   └── thesis-draft.md                       single source of truth — update before each meeting
 ├── slides/                                ← interactive presentation decks (Slidev, built static HTML)
 │   ├── ddcm/                                 main DDCM research deck — rebuild with: slidev build --base /reports/slides/ddcm/
-│   └── apte/                                 APTE 2026 conference talk — rebuild with: slidev build --base /reports/slides/apte/
+│   ├── apte/                                 APTE 2026 conference talk — rebuild with: slidev build --base /reports/slides/apte/
+│   └── thesis/                               Master thesis final defense (12 min) — rebuild with: slidev build --base /reports/slides/thesis/
 ├── ddcm/                                  ← standalone HTML reports (see ddcm/index.md)
 │   ├── recovery_smallnet_R30_20260620.html      Report 1 · parameter recovery & identification
 │   ├── experiments_exact_sa_rl_20260621.html    Report 2 · Exact vs SA vs RL (approximation error)
@@ -70,6 +71,18 @@ python3 scripts/patch-spa-redirect.py slides/apte/index.html
 **Why the `patch-spa-redirect.py` step matters:** every Slidev deck here is a client-routed SPA (paths like `slides/apte/1`, `slides/apte/2`, …). GitHub Pages has no server-side rewrite, so a direct link to any slide but the first, or a page refresh mid-deck, 404s. The repo-root `404.html` catches that and redirects into the deck's `index.html` with the intended path encoded in a query string (the [spa-github-pages](https://github.com/rafgraph/spa-github-pages) pattern); the snippet this script injects into `index.html` decodes it back via `history.replaceState` before the router boots. `slidev build` regenerates `index.html` from scratch every time, so this step must be re-run after every rebuild — it's idempotent and safe to run twice.
 
 Then commit and push the updated `slides/apte/` folder in the reports repo.
+
+Same pattern for the thesis defense deck — source at `4 - Projects/ddcm/thesis_slides/slides.md`:
+
+```bash
+cd "4 - Projects/ddcm/thesis_slides"
+npx slidev build --base /reports/slides/thesis/
+rsync -a --delete dist/ "../../../3 - Permanent Notes/reports/slides/thesis/"
+cd "../../../3 - Permanent Notes/reports"
+python3 scripts/patch-spa-redirect.py slides/thesis/index.html
+```
+
+Then commit and push the updated `slides/thesis/` folder in the reports repo.
 
 **Two documents per meeting** (HIIRM convention):
 
