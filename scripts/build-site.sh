@@ -14,6 +14,11 @@
 # The 404 page has to do two jobs at once, so it is assembled here: Quartz's own
 # 404 for missing notes, plus the spa-github-pages decoder that rescues deep links
 # into the Slidev decks (/reports/slides/apte/7 and the like).
+#
+# Gotcha: those three trees are copied from `git ls-files`, so a newly added file
+# in them has to be `git add`ed before it will appear in the build. That is
+# deliberate — it makes a local build match what CI publishes from a clean
+# checkout — but it does mean an untracked new report silently will not ship.
 
 set -euo pipefail
 

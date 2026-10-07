@@ -9,6 +9,15 @@ related:
   - [[../../../3 - Permanent Notes/research-plan/MASTER_THESIS_OUTLINE]]
   - [[../../../3 - Permanent Notes/research-plan/RESEARCH_PLAN]]
 ---
+> [!warning] This is an abandoned scaffold, not the thesis
+> Last touched 21 April 2026 and never finished — its own status table marks
+> Chapters 1, 2, 3, 5-Phase B and 6 as "Not started", and its chapter scheme
+> differs from what was actually defended. Kept for the record only.
+>
+> The completed thesis is
+> [the manuscript (PDF, 67 pages)](/archive/thesis/nazamuddin-2026-masters-thesis.pdf),
+> dated September 2026, defended 27 July 2026.
+
 
 # Master's Thesis Draft
 

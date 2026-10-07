@@ -134,6 +134,7 @@ Its own conclusion is where the PhD starts: standard errors, welfare confidence
 intervals and faster estimation algorithms are named as open, and define the
 programme the thesis initiates.
 
+- [Manuscript (PDF, 67 pages)](/archive/thesis/nazamuddin-2026-masters-thesis.pdf)
 - [Defense deck](/slides/thesis/) — July 2026
 - [Master's archive](/archive/) — implementation reports, lab-meeting notes, decks
 
