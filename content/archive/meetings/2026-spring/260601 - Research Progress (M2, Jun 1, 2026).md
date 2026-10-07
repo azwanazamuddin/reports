@@ -165,9 +165,9 @@ Now that CUDA is confirmed clean, the full analytical-gradient workers estimatio
 
 Code: `investigations/check_gv_order.py` · `investigations/check_zone_batch_device.py` · `cuda_check_zone_batch.py`
 **Standalone report (HTML):** [`gradient_bug_investigation_20260601.html`](../../ddcm/gradient_bug_investigation_20260601.html)
-Overview: [`gradient_investigation_overview_20260601.md`](../../../../0%20-%20Inbox/comingFromCode/gradient_investigation_overview_20260601.md)
-Detailed theory: [`analytical_gradient_deep_research_20260601.md`](../../../../0%20-%20Inbox/comingFromCode/analytical_gradient_deep_research_20260601.md)
-Narrative: [`mps_port_and_hidden_gradient_bug_story_20260601.md`](../../../../0%20-%20Inbox/comingFromCode/mps_port_and_hidden_gradient_bug_story_20260601.md)
+Overview: `gradient_investigation_overview_20260601.md`
+Detailed theory: `analytical_gradient_deep_research_20260601.md`
+Narrative: `mps_port_and_hidden_gradient_bug_story_20260601.md`
 
 ### 7.2 NFXP warm-start parameters (last checkpoint before this session)
 

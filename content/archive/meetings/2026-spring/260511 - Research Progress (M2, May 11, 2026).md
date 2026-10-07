@@ -154,7 +154,7 @@ related:
 
 - JSPS proposal (Overleaf, read-only): [https://www.overleaf.com/read/bvjwznrzzrmp#d856a7](https://www.overleaf.com/read/bvjwznrzzrmp#d856a7)
 - Thesis (Overleaf, read-only): [https://www.overleaf.com/read/tfvtfgnpjrrg#125dbf](https://www.overleaf.com/read/tfvtfgnpjrrg#125dbf)
-- Session reports: [`session_report_20260427.md`](../../../../0%20-%20Inbox/comingFromCode/session_report_20260427.md) · [`session_report_20260430.md`](../../../../0%20-%20Inbox/comingFromCode/session_report_20260430.md) · [`session_report_20260507.md`](../../../../0%20-%20Inbox/comingFromCode/session_report_20260507.md)
+- Session reports: `session_report_20260427.md` · `session_report_20260430.md` · `session_report_20260507.md`
 
 ---
 

@@ -17,7 +17,7 @@ and by which mode can be modelled and estimated at the scale of a real city.
 
 ## Archive
 
-[**Master's thesis era →**](/reports/archive/)
+[**Master's thesis era →**](/archive/)
 
 *A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice
 Models* (Hiroshima University, September 2026). Implementation reports,
@@ -27,7 +27,7 @@ lab-meeting notes, and the conference and defense decks, 2025–2026.
 
 Presentation decks stay at their original addresses:
 
-- [Master's thesis defense](/reports/slides/thesis/) — July 2026
-- [APTE 2026](/reports/slides/apte/) — Jeju, July 2026
-- [DDCM framework](/reports/slides/ddcm/) — April 2026
-- [Inside the DDCM engine](/reports/slides/ddcm-codebase/) — codebase walkthrough, June 2026
+- [Master's thesis defense](/slides/thesis/) — July 2026
+- [APTE 2026](/slides/apte/) — Jeju, July 2026
+- [DDCM framework](/slides/ddcm/) — April 2026
+- [Inside the DDCM engine](/slides/ddcm-codebase/) — codebase walkthrough, June 2026

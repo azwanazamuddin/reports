@@ -1,5 +1,5 @@
 ---
-title: Summary of SMASO-X Presentation: Approximate DDCM
+title: "Summary of SMASO-X Presentation: Approximate DDCM"
 type: finding
 status: complete
 created: 2025-11-09

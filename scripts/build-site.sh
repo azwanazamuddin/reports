@@ -51,9 +51,13 @@ echo "==> copying static trees"
 # node_modules of ~480 MB; copying the directory wholesale pulled 23,980 stray
 # files into the artifact and took it to 568 MB. Using the tracked file list also
 # makes a local build match exactly what CI publishes from a fresh checkout.
+# Overlaid, not replaced. content/archive/*.md renders into public/archive/, so
+# wiping public/archive first would delete the pages Quartz had just written.
+# Quartz cleans public/ wholesale at the start of its build, so nothing is stale.
+# Where both produce the same path — archive/index.html, the old landing page vs
+# Quartz's generated folder listing — the hand-written one wins, by design.
 for d in archive slides ddcm; do
   if [ -d "$ROOT/$d" ]; then
-    rm -rf "${OUT:?}/$d"
     n=$(git -C "$ROOT" ls-files -- "$d" | wc -l | tr -d ' ')
     if [ "$n" -gt 0 ]; then
       rsync -a --files-from=<(git -C "$ROOT" ls-files -- "$d") "$ROOT/" "$OUT/"
