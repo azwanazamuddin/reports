@@ -1,801 +1,123 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Research Reports — Azwan Nazamuddin</title>
+<meta name="description" content="Research reports, Hiroshima University. Master's-era work is archived; PhD reporting begins here.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #ffffff;
-    --card: #ffffff;
-    --border: rgba(0,0,0,0.1);
-    --text: #000000;
-    --subtext: #828282;
-    --accent: #4338CA;
-    --accent-light: #EEF2FF;
-    --tag-bg: #f3f4f6;
-    --tag-text: #374151;
-    --footer-bg: #1c1c1d;
-    --footer-text: #d4d4d4;
-    --footer-link: #ffffff;
-    --tl-line: rgba(0,0,0,0.08);
+    --fg: #1a1a1a;
+    --muted: #666666;
+    --rule: #e3e3e3;
+    --accent: #005028;
+    --card: #fafafa;
   }
-  [data-theme="dark"] {
-    --bg: #1c1c1d;
-    --card: #212529;
-    --border: #424246;
-    --text: #d4d4d4;
-    --subtext: #9CA3AF;
-    --accent: #2698ba;
-    --accent-light: rgba(38,152,186,0.15);
-    --tag-bg: #2d3239;
-    --tag-text: #d4d4d4;
-    --footer-bg: #111112;
-    --footer-text: #9CA3AF;
-    --footer-link: #d4d4d4;
-    --tl-line: rgba(255,255,255,0.08);
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171a; --fg: #e8e8e8; --muted: #9aa0a6;
+      --rule: #2c2f33; --accent: #4caf7d; --card: #1c1f23;
+    }
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root[data-theme="dark"] {
+    --bg: #15171a; --fg: #e8e8e8; --muted: #9aa0a6;
+    --rule: #2c2f33; --accent: #4caf7d; --card: #1c1f23;
+  }
+  * { box-sizing: border-box; }
   body {
-    font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg); color: var(--text);
-    line-height: 1.8; font-size: 16px;
-    transition: background 0.2s, color 0.2s;
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 300; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
-
-  /* ── Header ── */
-  header { background: #1c1c1d; color: #fff; padding: 52px 24px 44px; }
-  .header-inner {
-    max-width: 930px; margin: 0 auto;
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-  }
-  header h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
-  header .subtitle { font-size: 1rem; opacity: 0.75; margin-bottom: 18px; }
-  header .links { display: flex; gap: 10px; flex-wrap: wrap; }
-  header .links a {
-    color: rgba(255,255,255,0.8); font-size: 0.82rem;
-    text-decoration: none; padding: 4px 13px;
-    border: 1px solid rgba(255,255,255,0.22); border-radius: 20px;
-    transition: background 0.15s;
-  }
-  header .links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
-  .theme-toggle {
-    flex-shrink: 0; background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.22);
-    color: rgba(255,255,255,0.85); border-radius: 20px;
-    padding: 5px 13px; font-size: 0.82rem; cursor: pointer;
-    font-family: inherit; transition: background 0.15s;
-  }
-  .theme-toggle:hover { background: rgba(255,255,255,0.18); }
-
-  /* ── Main ── */
-  main { max-width: 930px; margin: 0 auto; padding: 36px 20px 80px; }
-
-  /* ── Section label ── */
-  .section-label {
-    font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--subtext);
-    margin: 44px 0 16px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .section-label:first-child { margin-top: 0; }
-
-  /* ── About / Intro card ── */
-  .about-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 24px 28px;
-  }
-  .research-title {
-    font-size: 1.05rem; font-weight: 500; color: var(--text);
-    margin-bottom: 14px; line-height: 1.5;
-  }
-  .about-card p {
-    color: var(--subtext); font-size: 0.92rem; margin-bottom: 12px; font-weight: 400;
-  }
-  .about-card p:last-child { margin-bottom: 0; }
-
-  /* Objectives */
-  .objective-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .obj { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; }
-  .obj-num {
-    flex-shrink: 0; background: var(--accent); color: #fff;
-    border-radius: 3px; padding: 1px 8px;
-    font-size: 0.71rem; font-weight: 700; margin-top: 3px;
-  }
-  .obj-text { color: var(--subtext); font-weight: 400; }
-
-  /* Result pill */
-  .result-pill {
-    display: inline-block; margin-top: 16px;
-    background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;
-    border-radius: 4px; padding: 8px 16px; font-size: 0.85rem; font-weight: 400;
-  }
-  [data-theme="dark"] .result-pill { background: rgba(6,95,70,0.2); border-color: #065F46; color: #6EE7B7; }
-  .result-pill strong { font-weight: 700; }
-
-  /* ── Progress grid ── */
-  .progress-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  }
-  @media (max-width: 660px) { .progress-grid { grid-template-columns: 1fr; } }
-  .prog-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 18px 20px;
-  }
-  .prog-card-label {
-    font-size: 0.71rem; font-weight: 700; letter-spacing: 0.07em;
-    text-transform: uppercase; color: var(--subtext); margin-bottom: 12px;
-  }
-  .prog-item {
-    font-size: 0.83rem; font-weight: 400;
-    padding: 5px 0 5px 18px; position: relative;
-    border-bottom: 1px solid var(--tl-line);
-    color: var(--subtext); font-weight: 400;
-  }
-  .prog-item:last-child { border-bottom: none; }
-  .prog-item::before {
-    content: ''; position: absolute; left: 0; top: 50%;
-    transform: translateY(-50%);
-    width: 8px; height: 8px; border-radius: 50%;
-  }
-  .prog-done { color: var(--text); }
-  .prog-done::before  { background: #10B981; }
-  .prog-active { color: var(--text); }
-  .prog-active::before { background: var(--accent); }
-  .prog-pending::before { background: transparent; border: 1.5px solid var(--subtext); }
-
-  /* ── Research phases ── */
-  .phases-row {
-    display: flex; align-items: stretch; gap: 0;
-  }
-  @media (max-width: 660px) { .phases-row { flex-direction: column; } }
-  .phase-card {
-    flex: 1; background: var(--card);
-    border: 1px solid var(--border); border-radius: 6px;
-    padding: 20px 22px;
-  }
-  .phase-arrow {
-    display: flex; align-items: center; padding: 0 10px;
-    color: var(--subtext); font-size: 1.1rem; flex-shrink: 0;
-    opacity: 0.5;
-  }
-  @media (max-width: 660px) { .phase-arrow { transform: rotate(90deg); padding: 6px 0; justify-content: center; } }
-  .phase-tag {
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--subtext);
-    margin-bottom: 6px;
-  }
-  .phase-name {
-    font-size: 0.95rem; font-weight: 500; color: var(--text);
-    margin-bottom: 10px; line-height: 1.4;
-  }
-  .phase-desc {
-    font-size: 0.82rem; font-weight: 400; color: var(--subtext);
-    margin-bottom: 14px; line-height: 1.6;
-  }
-  .phase-papers { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-  .phase-paper {
-    font-size: 0.7rem; font-weight: 500; padding: 2px 8px;
-    background: var(--tag-bg); color: var(--tag-text);
-    border-radius: 3px;
-  }
-  .phase-status {
-    font-size: 0.72rem; font-weight: 500; padding: 2px 9px;
-    border-radius: 3px; display: inline-block;
-  }
-  .status-done    { background: #ECFDF5; color: #065F46; }
-  .status-current { background: var(--accent-light); color: var(--accent); }
-  .status-planned { background: var(--tag-bg); color: var(--subtext); }
-  [data-theme="dark"] .status-done    { background: rgba(6,95,70,0.2); color: #6EE7B7; }
-
-  /* ── Timeline ── */
-  .timeline { position: relative; }
-  .tl-month-group { margin: 28px 0 0; }
-  .tl-month-label {
-    font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--subtext);
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 4px;
-  }
-  .tl-month-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .tl-row {
-    display: flex; align-items: flex-start; gap: 0;
-    padding: 10px 12px; border-radius: 5px;
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 72px; }
+  header { padding: 72px 0 28px; border-bottom: 1px solid var(--rule); }
+  h1 { font-size: 1.9rem; font-weight: 500; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 0.95rem; margin: 0; }
+  .links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+  .links a:hover { text-decoration: underline; }
+  section { padding-top: 34px; }
+  h2 { font-size: 1.05rem; font-weight: 500; margin: 0 0 10px; }
+  p { margin: 0 0 14px; }
+  .card {
+    display: block; padding: 20px 22px; margin-top: 14px;
+    background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
     text-decoration: none; color: inherit;
-    transition: background 0.12s;
-    border-bottom: 1px solid var(--tl-line);
   }
-  .tl-row:last-child { border-bottom: none; }
-  .tl-row:hover { background: var(--accent-light); }
-  .tl-row:hover .tl-title { color: var(--accent); }
-  .tl-date {
-    width: 54px; flex-shrink: 0;
-    font-size: 0.77rem; color: var(--subtext); font-weight: 300;
-    padding-top: 2px; line-height: 1.4;
-  }
-  .tl-date .day { display: block; font-weight: 500; color: var(--subtext); }
-  .tl-type {
-    flex-shrink: 0; margin-right: 10px; margin-top: 2px;
-    font-size: 0.65rem; font-weight: 700; padding: 2px 7px;
-    border-radius: 3px; white-space: nowrap; letter-spacing: 0.03em;
-    text-transform: uppercase; width: 72px; text-align: center;
-  }
-  .type-analysis  { background: var(--accent-light); color: var(--accent); }
-  .type-meeting   { background: #FEF3C7; color: #92400E; }
-  .type-slides    { background: #F0FDF4; color: #15803D; }
-  .type-invest    { background: #FEF2F2; color: #B91C1C; }
-  [data-theme="dark"] .type-meeting  { background: rgba(254,243,199,0.15); color: #FCD34D; }
-  [data-theme="dark"] .type-slides   { background: rgba(21,128,61,0.2); color: #86EFAC; }
-  [data-theme="dark"] .type-invest   { background: rgba(185,28,28,0.2); color: #FCA5A5; }
-  .tl-content { flex: 1; min-width: 0; }
-  .tl-title { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.4; }
-  .tl-desc  { font-size: 0.82rem; color: var(--subtext); font-weight: 400; margin-top: 2px; line-height: 1.6; }
-  .tl-meta  { margin-top: 6px; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
-  .tag {
-    font-size: 0.68rem; font-weight: 500; padding: 1px 7px;
-    background: var(--tag-bg); color: var(--tag-text); border-radius: 3px;
-  }
-  .tag-ok    { background: #ECFDF5; color: #065F46; }
-  .tag-warn  { background: #FEF3C7; color: #92400E; }
-  .tag-html  { background: var(--accent-light); color: var(--accent); }
-  [data-theme="dark"] .tag-ok   { background: rgba(6,95,70,0.2); color: #6EE7B7; }
-  [data-theme="dark"] .tag-warn { background: rgba(146,64,14,0.2); color: #FCD34D; }
-  .pill-link {
-    font-size: 0.68rem; font-weight: 500; padding: 1px 8px;
-    border-radius: 3px; text-decoration: none; white-space: nowrap;
-    transition: opacity 0.15s;
-  }
-  .pill-link:hover { opacity: 0.75; }
-  .pill-web    { background: var(--accent-light); color: var(--accent); }
-  .pill-github { background: var(--tag-bg); color: var(--tag-text); }
-  .pill-slides { background: #F0FDF4; color: #15803D; }
-  .pill-pdf    { background: #FEF2F2; color: #B91C1C; }
-  [data-theme="dark"] .pill-slides { background: rgba(21,128,61,0.2); color: #86EFAC; }
-  [data-theme="dark"] .pill-pdf    { background: rgba(185,28,28,0.2); color: #FCA5A5; }
-
-  /* ── Footer ── */
+  .card:hover { border-color: var(--accent); }
+  .card .t { font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .card .d { color: var(--muted); font-size: 0.9rem; }
   footer {
-    text-align: center; font-size: 0.79rem;
-    color: var(--footer-text); background: var(--footer-bg); padding: 24px;
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.85rem;
   }
-  footer a { color: var(--footer-link); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+  footer a { color: var(--muted); }
+  #theme {
+    float: right; background: none; border: 1px solid var(--rule); color: var(--muted);
+    border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 0.85rem;
+  }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<header>
-  <div class="header-inner">
-    <div>
-      <h1>Research Reports</h1>
-      <div class="subtitle">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</div>
-      <div class="links">
-        <a href="https://azwanazamuddin.github.io/">Home</a>
-        <a href="https://github.com/azwanazamuddin" target="_blank">GitHub</a>
-        <a href="https://github.com/azwanazamuddin/ddcm" target="_blank">ddcm repo</a>
-        <a href="thesis/thesis-draft.md">Thesis Draft</a>
-      </div>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()">☀ / ☾</button>
-  </div>
-</header>
+  <header>
+    <button id="theme" type="button" aria-label="Toggle colour theme">☀ / ☾</button>
+    <h1>Research Reports</h1>
+    <p class="sub">Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab</p>
+    <nav class="links">
+      <a href="https://azwanazamuddin.github.io/">Main site</a>
+      <a href="https://github.com/azwanazamuddin">GitHub</a>
+      <a href="archive/">Master's archive</a>
+    </nav>
+  </header>
 
-<main>
-
-  <!-- ── About ── -->
-  <div class="section-label">About this research</div>
-  <div class="about-card">
-    <div class="research-title">
-      A Scalable Computational Framework for Activity-Based Dynamic Discrete Choice Models: Reachability, GPU Acceleration, and Baseline Estimation
-    </div>
+  <section>
+    <h2>PhD reporting starts here</h2>
     <p>
-      Cities face persistent welfare trade-offs in transport policy. Congestion pricing, emissions
-      controls, transit investment for ageing populations, and the integration of autonomous mobility
-      all alter who can travel, when, and at what cost — yet the tools most widely used by planners
-      cannot quantify these effects in welfare terms. The dominant four-step traffic model predicts
-      aggregate vehicle volumes but treats mode and departure time as exogenous inputs, leaving the
-      distributional consequences of policy invisible.
+      This site carries technical reports and progress notes. The Master's work it
+      previously held has been moved to the archive below, and PhD reporting begins
+      from a clean slate — there is nothing published here yet.
     </p>
-    <p>
-      <strong>Dynamic Discrete Choice Models (DDCMs)</strong> for activity-based travel demand address
-      both the behavioral and the welfare measurement problem within a single unified framework.
-      By modeling each time step of the day as a sequential choice over destination, mode, and activity
-      type, DDCMs generate activity-travel patterns as the outcome of forward-looking utility
-      maximization under time-space constraints. The log-sum of the value function at the start of the
-      day constitutes a welfare-consistent consumer surplus measure — policy prediction and welfare
-      measurement emerge from the same model, without additional assumptions.
-    </p>
-    <p>
-      The central practical obstacle is computational. Computing the welfare measure exactly requires
-      backward induction over every reachable state; for a city-scale network this runs to the order
-      of 10<sup>8</sup> theoretical states. Every approximation that reduces this cost modifies the
-      value function and therefore corrupts the welfare measure. This thesis demonstrates that exact
-      computation is tractable: reachability-based state pruning and GPU-accelerated backward induction
-      together reduce the effective state space by more than 99% while preserving the value function
-      exactly.
-    </p>
-    <div class="objective-list">
-      <div class="obj">
-        <span class="obj-num">O1</span>
-        <span class="obj-text">Develop a scalable computational framework for exact inference in activity-based DDCMs, enabling city-scale backward induction while preserving the welfare-consistent value function.</span>
+  </section>
+
+  <section>
+    <h2>Archive</h2>
+    <a class="card" href="archive/">
+      <div class="t">Master's thesis era →</div>
+      <div class="d">
+        A scalable computational framework for activity-based dynamic discrete choice
+        models. Implementation reports, lab-meeting notes, conference and defense decks,
+        2025–2026.
       </div>
-      <div class="obj">
-        <span class="obj-num">O2</span>
-        <span class="obj-text">Demonstrate that city-scale DDCM estimation is tractable: recover behaviorally coherent utility parameters from observed travel diary data and characterise the limits of the estimated model.</span>
-      </div>
-    </div>
-    <div class="result-pill">
-      Computation: <strong>~69 hours → 105 seconds</strong> (~2,400×) ·
-      Memory: <strong>6.7 TB → 6.5 GB</strong> · 144-zone Higashi-Hiroshima network
-    </div>
-  </div>
+    </a>
+  </section>
 
-  <!-- ── Progress snapshot ── -->
-  <div class="section-label">Where I am now</div>
-  <div class="progress-grid">
+  <footer>
+    Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab ·
+    <a href="https://github.com/azwanazamuddin/reports">source</a>
+  </footer>
 
-    <div class="prog-card">
-      <div class="prog-card-label">Master Thesis</div>
-      <div class="prog-item prog-done">Ch 1 — Introduction</div>
-      <div class="prog-item prog-done">Ch 2 — Literature Review</div>
-      <div class="prog-item prog-done">Ch 3 — Model Specification</div>
-      <div class="prog-item prog-done">Ch 4 — Computational Framework</div>
-      <div class="prog-item prog-done">Ch 5 — Parameter Recovery &amp; Identification</div>
-      <div class="prog-item prog-done">Ch 6 — Numerical Variance Experiments</div>
-      <div class="prog-item prog-done">Ch 7 — HH Empirical</div>
-      <div class="prog-item prog-done">Final Defense — Jul 27, 2026 ✓</div>
-    </div>
-
-    <div class="prog-card">
-      <div class="prog-card-label">Technical</div>
-      <div class="prog-item prog-done">Backward induction (GPU, 1.5M states)</div>
-      <div class="prog-item prog-done">NFXP pipeline + analytical gradient</div>
-      <div class="prog-item prog-done">BHHH standard errors</div>
-      <div class="prog-item prog-done">Parameter recovery — R=30 Monte-Carlo ✓</div>
-      <div class="prog-item prog-done">Numerical experiments (Exact vs SA vs RL) ✓</div>
-      <div class="prog-item prog-done">HH estimation (real data) — converged ✓</div>
-    </div>
-
-    <div class="prog-card">
-      <div class="prog-card-label">Papers &amp; Conferences</div>
-      <div class="prog-item prog-done">ICMC 2025 — accepted</div>
-      <div class="prog-item prog-done">APTE 2026 — presented Jul 7–10 ✓</div>
-      <div class="prog-item prog-done">ICMC 2026 — presented Jul 20–22 ✓</div>
-      <div class="prog-item prog-active">hEART 2026 — accepted, revision in progress</div>
-      <div class="prog-item prog-active">JSPS DC-1 — submitted, awaiting result</div>
-    </div>
-
-  </div>
-
-  <!-- ── Research phases ── -->
-  <div class="section-label">Research roadmap</div>
-  <div class="phases-row">
-
-    <div class="phase-card">
-      <div class="phase-tag">Phase A</div>
-      <div class="phase-name">Computational algorithm</div>
-      <p class="phase-desc">
-        Proving the framework works at city scale. Reachability pruning cuts the state space by 99%;
-        GPU backward induction brings exact computation from days to seconds.
-        Both results written up, accepted, and presented.
-      </p>
-      <div class="phase-papers">
-        <span class="phase-paper">ICMC 2025</span>
-        <span class="phase-paper">APTE 2026 (Jul 7–10)</span>
-      </div>
-      <span class="phase-status status-done">Complete — presented (APTE 2026, ICMC 2025)</span>
-    </div>
-
-    <div class="phase-arrow">→</div>
-
-    <div class="phase-card">
-      <div class="phase-tag">Phase B</div>
-      <div class="phase-name">Variance-characterization framework</div>
-      <p class="phase-desc">
-        Triggered by hEART reviews: parameter recovery on synthetic data (done, R=30) and the
-        approximation-error characterisation across three approaches — Exact NFXP, Sampling-of-Alternatives,
-        and RL value estimation — are complete and formed the thesis spine. Higashi-Hiroshima real-data
-        estimation converged, validated, and was presented at ICMC 2026 and the Master Thesis final
-        defense. Only the hEART revision remains open.
-      </p>
-      <div class="phase-papers">
-        <span class="phase-paper">hEART 2026 (revision)</span>
-        <span class="phase-paper">ICMC 2026 — presented ✓</span>
-        <span class="phase-paper">Master Thesis — defended ✓</span>
-      </div>
-      <span class="phase-status status-current">Current work — hEART revision</span>
-    </div>
-
-    <div class="phase-arrow">→</div>
-
-    <div class="phase-card">
-      <div class="phase-tag">Extension</div>
-      <div class="phase-name">PhD scale-up</div>
-      <p class="phase-desc">
-        Structural-IRL: a new estimation algorithm that removes the repeated DP solve,
-        enabling welfare-preserving estimation at national scale.
-        Proposed in the JSPS DC-1 fellowship application.
-      </p>
-      <div class="phase-papers">
-        <span class="phase-paper">JSPS DC-1 Proposal</span>
-      </div>
-      <span class="phase-status status-planned">Planned (PhD)</span>
-    </div>
-
-  </div>
-
-  <!-- ── Reports ── -->
-  <div class="section-label" style="margin-top:52px;">Reports</div>
-  <div class="timeline">
-
-    <!-- ════ July 2026 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">July 2026</div>
-
-      <a class="tl-row" href="slides/thesis/">
-        <div class="tl-date"><span class="day">27</span></div>
-        <span class="tl-type type-slides">Slides</span>
-        <div class="tl-content">
-          <div class="tl-title">Master Thesis Final Defense</div>
-          <div class="tl-desc">12-minute defense presentation: formal MDP/DDCM equations, the reachability-pruning and losslessness proof, the scheduling-preference utility specification, and the full Higashi-Hiroshima estimation, validation, and policy-application results.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive Slides</span>
-            <span class="tag">Slidev</span>
-            <span class="tag">Master Thesis</span>
-          </div>
-        </div>
-      </a>
-
-    </div><!-- /July 2026 -->
-
-    <!-- ════ June 2026 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">June 2026</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">23</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Research Progress (M2, Jun 23, 2026)</div>
-          <div class="tl-desc">Parameter recovery confirmed (R=30, θ_travel bias 13.8%→0.8%, CP 97.5%). Exact/SA/RL approximation-error experiments: SA consistent (variance-only, McFadden); RL inconsistent at finite B (Jensen bias + variance). HH full estimation live on Mac Studio (iter 6, best LL=−177,916).</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-web" href="meetings/2026-spring/260623%20-%20Research%20Progress%20(M2,%20Jun%2023,%202026)" target="_blank">Web</a>
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260623%20-%20Research%20Progress%20(M2,%20Jun%2023,%202026).md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <a class="tl-row" href="ddcm/experiments_exact_sa_rl_20260621.html">
-        <div class="tl-date"><span class="day">21</span></div>
-        <span class="tl-type type-analysis">Analysis</span>
-        <div class="tl-content">
-          <div class="tl-title">Exact vs Sampling-of-Alternatives vs RL — Approximation Error</div>
-          <div class="tl-desc">The variance framework: how much error does each approach introduce, and at what compute budget? SA is consistent (variance only, McFadden); RL is inconsistent at finite budget (bias + variance). Variance/bias panels, per-parameter densities, and the bit-level oracle.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag">Exact vs SA vs RL</span>
-            <span class="tag">Variance Framework</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tl-row" href="ddcm/recovery_smallnet_R30_20260620.html">
-        <div class="tl-date"><span class="day">20</span></div>
-        <span class="tl-type type-analysis">Analysis</span>
-        <div class="tl-content">
-          <div class="tl-title">Parameter Recovery &amp; Identification — Exact NFXP</div>
-          <div class="tl-desc">Does the estimator recover known parameters? Part I: production-fidelity single-run confirmation (transport-scale ridge broken, 13.8%→0.8% bias). Part II: controlled R=30 Monte-Carlo Dekker table, N-sweep (√N consistency), profile-LL, behavioral validation, BHHH standard errors.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag tag-ok">Recovery Confirmed ✓</span>
-            <span class="tag">R=30 Monte-Carlo</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tl-row" href="slides/ddcm-codebase/">
-        <div class="tl-date"><span class="day">16</span></div>
-        <span class="tl-type type-slides">Slides</span>
-        <div class="tl-content">
-          <div class="tl-title">Inside the DDCM Engine — GPU-Accelerated Codebase Walkthrough</div>
-          <div class="tl-desc">End-to-end technical walkthrough of the DDCM codebase: state-space construction, reachability pruning, GPU backward induction, NFXP estimation pipeline, and the analytical gradient.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive Slides</span>
-            <span class="tag">Slidev</span>
-            <span class="tag">Codebase Walkthrough</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tl-row" href="ddcm/gradient_bug_investigation_20260601.html">
-        <div class="tl-date"><span class="day">01</span></div>
-        <span class="tl-type type-invest">Investig.</span>
-        <div class="tl-content">
-          <div class="tl-title">Analytical Gradient Investigation — NFXP Estimation Unblocked</div>
-          <div class="tl-desc">Every NFXP estimation run stalled: the optimizer gave up after a few iterations and one parameter jammed at its bound every time. The cause turned out to be a wrong gradient — 38% off — triggered by an integer overflow on the Apple GPU backend when processing multiple home zones at once. CUDA is confirmed clean. Estimation is unblocked.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag tag-ok">CUDA Clean ✓</span>
-            <span class="tag tag-ok">Estimation Unblocked ✓</span>
-          </div>
-        </div>
-      </a>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">01</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Research Progress (M2, Jun 1, 2026)</div>
-          <div class="tl-desc">Gradient investigation result (NFXP estimation unblocked); APTE revision plan (3 reviewer points); Thesis Chapter 2 outline review. Includes warm-start parameter table and all supplementary session reports.</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-web" href="meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).html" target="_blank">Web</a>
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /June 2026 -->
-
-    <!-- ════ May 2026 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">May 2026</div>
-
-      <a class="tl-row" href="ddcm/profile_ll_cchange_v7.html">
-        <div class="tl-date"><span class="day">13</span></div>
-        <span class="tl-type type-analysis">Analysis</span>
-        <div class="tl-content">
-          <div class="tl-title">Profile LL Scan — c_change (v7, Zone-Agnostic)</div>
-          <div class="tl-desc">Is the "cost of switching activities" a real, estimable quantity — or could it be anything? This scan sweeps the parameter across its plausible range and finds a clear peak at −0.615. The data knows it.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag">NFXP</span>
-            <span class="tag tag-ok">c_change Identified ✓</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tl-row" href="ddcm/investigation_overview.html">
-        <div class="tl-date"><span class="day">13</span></div>
-        <span class="tl-type type-invest">Investig.</span>
-        <div class="tl-content">
-          <div class="tl-title">Root Cause Investigation — Why δ Converged to Near-Zero</div>
-          <div class="tl-desc">One parameter — how much people value the future — kept landing at zero, which makes no sense behaviorally. This report traces it to two bugs: a mismatch in how zones were labelled and a dataset contaminated by non-workers. Fixed in v9; estimation is now substantially better.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag tag-ok">v7 Complete ✓</span>
-            <span class="tag tag-ok">v9 iter 4 ✓</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tl-row" href="ddcm/profile_ll_delta_muhome.html">
-        <div class="tl-date"><span class="day">12</span></div>
-        <span class="tl-type type-analysis">Analysis</span>
-        <div class="tl-content">
-          <div class="tl-title">Profile LL Scan — δ × μ_home</div>
-          <div class="tl-desc">A two-dimensional scan of the future-discounting parameter against home preference. The flatness of the δ axis was the first clue that something was wrong upstream — it led directly to the zone-matching bug.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag">NFXP</span>
-            <span class="tag tag-warn">Diagnostic (v5 estimates)</span>
-          </div>
-        </div>
-      </a>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">11</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Research Progress (M2, May 11, 2026)</div>
-          <div class="tl-desc">NFXP convergence update, BHHH standard errors, work-timing gap diagnosis, JSPS proposal status, 11 new literature reviews.</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-web" href="meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).html" target="_blank">Web</a>
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).md" target="_blank">GitHub</a>
-            <a class="pill-link pill-slides" href="slides/ddcm/" target="_blank">Slides</a>
-          </div>
-        </div>
-      </div>
-
-      <a class="tl-row" href="ddcm/work_timing_analysis.html">
-        <div class="tl-date"><span class="day">10</span></div>
-        <span class="tl-type type-analysis">Analysis</span>
-        <div class="tl-content">
-          <div class="tl-title">Work Timing Analysis — NFXP</div>
-          <div class="tl-desc">The model was predicting that people go to work at ~3pm rather than 8:30am. This report diagrams why: interactive utility plots expose the zone-matching bug as the source of the wrong incentives.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive HTML</span>
-            <span class="tag tag-warn">v5 estimates (zone bug)</span>
-          </div>
-        </div>
-      </a>
-
-    </div><!-- /May 2026 -->
-
-    <!-- ════ April 2026 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">April 2026</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">27</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Research Progress (M2, Apr 27, 2026)</div>
-          <div class="tl-desc">Gradient bug fixes, c_change identification diagnosis, JSPS proposal updates.</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-web" href="meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).html" target="_blank">Web</a>
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">19</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Master Thesis Progress (M2, April 2026)</div>
-          <div class="tl-desc">Full framework overview presented to the lab: μ(t) utility profiles, computational and behavioral results, estimation diagnosis.</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-web" href="meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).html" target="_blank">Web</a>
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md" target="_blank">GitHub</a>
-            <a class="pill-link pill-pdf" href="meetings/2026-spring/presentations/April_Seminar_Presentation.pdf" target="_blank">Slides PDF</a>
-          </div>
-        </div>
-      </div>
-
-      <a class="tl-row" href="slides/ddcm/">
-        <div class="tl-date"><span class="day">19</span></div>
-        <span class="tl-type type-slides">Slides</span>
-        <div class="tl-content">
-          <div class="tl-title">Research Presentation Deck</div>
-          <div class="tl-desc">Interactive presentation of the full research: framework, reachability pruning, μ(t) utility, estimation results. Updated each semester.</div>
-          <div class="tl-meta">
-            <span class="tag tag-html">Interactive Slides</span>
-            <span class="tag">Slidev</span>
-            <span class="tag">M2 Spring 2026</span>
-          </div>
-        </div>
-      </a>
-
-    </div><!-- /April 2026 -->
-
-    <!-- ════ January 2026 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">January 2026</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">27</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Progress on Validation Plan</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/260127%20-%20Progress%20on%20validation%20plan.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">07</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">RMDP Theory and Implementation</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/260107%20-%20RMDP%20Theory%20and%20Implementation.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /January 2026 -->
-
-    <!-- ════ December 2025 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">December 2025</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">24</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Universal Graph and BI Optimization</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251224%20-%20Universal%20Graph%20and%20BI%20Optimization.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">15</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Progress on Documentation, Re-framework the Algorithm</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251215%20-%20Progress%20on%20documentation%2C%20re-framework%20the%20algorithm.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /December 2025 -->
-
-    <!-- ════ November 2025 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">November 2025</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">26</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Tensor-Based Summary Update</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251126%20-%20SummaryUpdateTensorBased.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">09</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">SMASO-X Presentation Summary</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251109%20-%20SMASO-X-Presentation-Summary.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">04</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Readings and Implementation Plans</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251104%20-%20Readings%20%26%20Implementation%20Plans.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /November 2025 -->
-
-    <!-- ════ October 2025 ════ -->
-    <div class="tl-month-group">
-      <div class="tl-month-label">October 2025</div>
-
-      <div class="tl-row" style="cursor:default;">
-        <div class="tl-date"><span class="day">15</span></div>
-        <span class="tl-type type-meeting">Meeting</span>
-        <div class="tl-content">
-          <div class="tl-title">Ideas on TD Estimation on DDCM</div>
-          <div class="tl-meta">
-            <a class="pill-link pill-github" href="https://github.com/azwanazamuddin/reports/blob/master/meetings/2025-fall/251015%20-%20Ideas%20on%20TD%20Estimation%20on%20DDCM.md" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /October 2025 -->
-
-  </div><!-- /timeline -->
-
-</main>
-
-<footer>
-  Azwan Nazamuddin · Hiroshima University · Chikaraishi Lab ·
-  <a href="https://github.com/azwanazamuddin/reports">source</a>
-</footer>
-
+</div>
 <script>
-  (function() {
-    const saved = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
+  (function () {
+    var root = document.documentElement;
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved) root.setAttribute("data-theme", saved);
+    } catch (e) {}
+    document.getElementById("theme").addEventListener("click", function () {
+      var dark = getComputedStyle(document.body).backgroundColor === "rgb(21, 23, 26)";
+      var next = dark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
   })();
-  function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }
 </script>
-
 </body>
 </html>
