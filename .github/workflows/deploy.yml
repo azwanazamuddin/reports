@@ -1,0 +1,74 @@
+name: Deploy site
+
+# NOTE: this only works once the repository's Pages source is switched from the
+# legacy Jekyll build to GitHub Actions:
+#   Settings -> Pages -> Build and deployment -> Source: GitHub Actions
+# Until that switch, the build job passes and the deploy job fails, because Pages
+# will not accept an artifact while it is configured for a branch build.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue instead of cancelling, so a push is not
+# dropped mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Quartz reads git history to date each page. A shallow clone makes
+          # every page look like it was created at checkout time.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Renders content/ with Quartz, merges the SPA decoder into the 404, and
+      # copies archive/, slides/ and ddcm/ in from the tracked file list.
+      - run: bash scripts/build-site.sh
+
+      - name: Check the decks survived the build
+        run: |
+          set -e
+          for p in index.html 404.html .nojekyll \
+                   archive/index.html \
+                   slides/thesis/index.html \
+                   slides/apte/index.html \
+                   ddcm/work_timing_analysis.html; do
+            test -e "public/$p" || { echo "missing from build: $p"; exit 1; }
+          done
+          grep -q spa-github-pages public/404.html \
+            || { echo "404 lost the SPA decoder"; exit 1; }
+          test -z "$(find public -path '*/node_modules/*' -print -quit)" \
+            || { echo "node_modules leaked into the artifact"; exit 1; }
+          echo "build looks sane: $(find public -type f | wc -l) files"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

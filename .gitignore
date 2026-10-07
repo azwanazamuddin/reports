@@ -14,3 +14,7 @@ slides/*/components/
 slides/*/pages/
 slides/*/public/
 slides/*/snippets/
+
+# Quartz build
+public/
+.quartz-cache/

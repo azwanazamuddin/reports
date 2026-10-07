@@ -10,3 +10,19 @@ include:
   - "_redirects"
   - "_*.js"
   - "_*.css"
+
+# The site is being migrated to Quartz. Until GitHub Pages is switched from the
+# legacy Jekyll build to an Actions workflow, Jekyll still builds this repo, so
+# keep it away from the Quartz toolchain and sources.
+exclude:
+  - node_modules
+  - public
+  - quartz
+  - content
+  - quartz.ts
+  - quartz.config.yaml
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - globals.d.ts
+  - index.d.ts
