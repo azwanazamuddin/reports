@@ -221,7 +221,6 @@ question from that list, though — not how to compute the model faster, but wha
 per-person constraints *cost*, and what that implies about which differences
 between people need their own computation.
 
-- [Manuscript (PDF, 67 pages)](/archive/thesis/nazamuddin-2026-masters-thesis.pdf)
 - [Defense deck](/slides/thesis/) — July 2026
 - [Master's archive](/archive/) — implementation reports, lab-meeting notes, decks
 
