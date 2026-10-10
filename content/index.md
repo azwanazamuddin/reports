@@ -191,7 +191,7 @@ settles that, and it has not happened yet.
 
 The computational ground this stands on was the Master's thesis, *A Scalable
 Computational Framework for Activity-Based Dynamic Discrete Choice Models*
-(Hiroshima University, September 2026; defended 27 July 2026).
+(Hiroshima University, September 2026; defended 10 August 2026).
 
 Its problem was that the value function has to be re-solved at every trial
 parameter vector, over a state space that is a product of zones, activities, modes,
@@ -221,12 +221,12 @@ question from that list, though — not how to compute the model faster, but wha
 per-person constraints *cost*, and what that implies about which differences
 between people need their own computation.
 
-- [Defense deck](/slides/thesis/) — July 2026
+- [Defense deck](/slides/thesis/) — August 2026
 - [Master's archive](/archive/) — implementation reports, lab-meeting notes, decks
 
 ## Decks
 
-- [Master's thesis defense](/slides/thesis/) — July 2026
+- [Master's thesis defense](/slides/thesis/) — August 2026
 - [APTE 2026](/slides/apte/) — Jeju, July 2026
 - [DDCM framework](/slides/ddcm/) — April 2026
 - [Inside the DDCM engine](/slides/ddcm-codebase/) — codebase walkthrough, June 2026

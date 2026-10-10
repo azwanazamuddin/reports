@@ -14,7 +14,7 @@ related:
 > Chapters 1, 2, 3, 5-Phase B and 6 as "Not started", and its chapter scheme
 > differs from what was actually defended. Kept for the record only.
 >
-> The completed thesis is dated September 2026 and was defended 27 July 2026;
+> The completed thesis is dated September 2026 and was defended 10 August 2026;
 > the manuscript is not published here, but the
 > [defense deck](/slides/thesis/) is.
 
