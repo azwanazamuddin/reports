@@ -1,13 +1,10 @@
 ---
-layout: default
 title: Research Progress — M2, June 1, 2026
 type: progress-report
 status: draft
 created: 2026-06-01
 updated: 2026-06-01
 tags: [ddcm, weekly-report, progress, m2, nfxp, jsps, estimation, analytical-gradient]
-related:
-  - [[260511 - Research Progress (M2, May 11, 2026)]]
 ---
 
 # Meeting Document
@@ -233,3 +230,7 @@ Source: `estimation_results/nfxp_checkpoint_20260525_190114.csv` (11 params, wor
 - [ ] 
 - [ ] 
 - [ ] 
+
+---
+
+**Previous meeting:** [[2026-05-11-k10-results-and-work-start-timing|Research Progress — M2, May 11, 2026]]

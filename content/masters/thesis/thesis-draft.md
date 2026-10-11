@@ -5,9 +5,6 @@ status: draft
 created: 2026-04-21
 updated: 2026-04-21
 tags: [thesis, ddcm, m2]
-related:
-  - [[../../../3 - Permanent Notes/research-plan/MASTER_THESIS_OUTLINE]]
-  - [[../../../3 - Permanent Notes/research-plan/RESEARCH_PLAN]]
 ---
 > [!warning] This is an abandoned scaffold, not the thesis
 > Last touched 21 April 2026 and never finished — its own status table marks

@@ -1,3 +1,11 @@
+---
+title: "DDCM Algorithm Summary: GPU/Tensor Implementation"
+type: report
+status: complete
+created: 2025-11-26
+tags: [ddcm, gpu, tensor, backward-induction, reachability]
+---
+
 # DDCM Algorithm Summary: GPU/Tensor Implementation
 
 This document provides a comprehensive summary of the Dynamic Discrete Choice Model (DDCM) simulation, specifically focusing on the optimized **Tensor-Based (GPU)** implementation. It covers the high-level workflow, mathematical formulation, and calibration results.

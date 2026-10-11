@@ -1,14 +1,10 @@
 ---
-layout: default
 title: Research Progress — M2, Apr 27, 2026
 type: progress-report
 status: complete
 created: 2026-04-27
 updated: 2026-04-27
 tags: [ddcm, weekly-report, progress, m2, gradient, c_change]
-related:
-  - [[260419 - Master Thesis Progress (M2, April 2026)]]
-  - [[../../../4 - Projects/ddcm/ddcm_slides/slides]]
 ---
 
 # 260427 — Research Progress (M2, Apr 27, 2026)
@@ -172,3 +168,8 @@ A full citation audit was created at `0 - Inbox/citation_audit.md`. It covers:
 ---
 
 **Session data source:** `0 - Inbox/comingFromCode/session_report_20260427.md`
+
+---
+
+**Previous meeting:** [[2026-04-19-thesis-progress-april|Master Thesis Progress — M2, April 2026]]  
+**Slides:** [DDCM framework deck](/slides/ddcm/)

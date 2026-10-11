@@ -1,3 +1,11 @@
+---
+title: "Relational MDPs: Theory and Implementation for DDCM"
+type: report
+status: complete
+created: 2026-01-07
+tags: [ddcm, rmdp, zone-abstraction, symbolic-dp]
+---
+
 # Relational Markov Decision Processes: Theory and Implementation for DDCM
 
 > **Abstract**: This report presents a comprehensive overview of Relational Markov Decision Processes (RMDPs) and their practical application to the Dynamic Discrete Choice Model (DDCM) for activity-based travel demand modeling. We bridge the theoretical foundations from Boutilier et al.'s seminal work on Symbolic Dynamic Programming with a practical GPU-accelerated implementation that achieves ~20,000× speedup for population-scale simulations.

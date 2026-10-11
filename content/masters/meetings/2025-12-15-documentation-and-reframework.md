@@ -1,3 +1,11 @@
+---
+title: Documentation Updates and Algorithm Re-framework
+type: report
+status: complete
+created: 2025-12-15
+tags: [ddcm, documentation, refactor]
+---
+
 # Report: Documentation Updates (Last 2 Weeks)
 
 This report details the changes made to the documentation in the last 14 days, based on `git diff` analysis. The updates represent a significant effort to document the **theoretical and architectural underpinnings** of the GPU implementation.

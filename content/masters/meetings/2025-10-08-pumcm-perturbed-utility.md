@@ -1,3 +1,11 @@
+---
+title: PUMCM for Activity-Based Models
+type: report
+status: abandoned
+created: 2025-10-08
+tags: [ddcm, perturbed-utility, shannon-logit, not-pursued]
+---
+
 This report demonstrates that the **Perturbed Utility Markovian Choice Model (PUMCM)** can be effectively applied to **Dynamic Discrete Choice Models (DDCM)** for activity-based travel demand modeling. The key finding is that **PUMCM and traditional logit models solve the same underlying problem** through their shared connection to **Shannon entropy** (Yao and Zhang, _Perturbed Utility Markovian Choice Model: Choice Probability Generation Function and Estimation_, 2025) , making PUMCM a natural extension of familiar discrete choice methods to sequential decision-making contexts.
 **Main Result**: When the perturbation function is Shannon entropy, PUMCM recovers the recursive logit model, enabling both efficient parameter estimation and behavioral simulation.
 ## 1. Theoretical Foundation

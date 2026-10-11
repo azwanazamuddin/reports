@@ -1,13 +1,10 @@
 ---
-layout: default
 title: Master Thesis Progress — M2, April 2026
 type: progress-report
 status: complete
 created: 2026-04-19
 updated: 2026-04-19
 tags: [ddcm, weekly-report, progress, m2]
-related:
-  - [[../../../4 - Projects/ddcm/ddcm_slides/slides]]
 ---
 
 # 260419 — Master Thesis Progress (M2, April 2026)
@@ -226,3 +223,7 @@ If this is right, it's an **identification issue, not an optimiser issue**. Mult
 **Session data source:** `0 - Inbox/comingFromCode/session_report_20260419.md` (full iteration log, runtime profile, disk/memory details).
 **Slides:** `4 - Projects/ddcm/ddcm_slides/slides.md` · **PDF export:** `4 - Projects/presentations/` after export.
 **Related in vault:** `3 - Permanent Notes/research-plan/RESEARCH_PLAN.md`, `5 - Indexes/index-ddcm.md`.
+
+---
+
+**Slides:** [DDCM framework deck](/slides/ddcm/)

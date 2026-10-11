@@ -1,3 +1,11 @@
+---
+title: Ideas on TD Estimation for DDCM
+type: report
+status: complete
+created: 2025-10-15
+tags: [ddcm, td-estimation, reinforcement-learning, ccp-inversion, approximate-dp]
+---
+
 > 📊 Research Integration: This document demonstrates how temporal difference (TD) learning methods from reinforcement learning can be applied to estimate Dynamic Discrete Choice Models (DDCM) for activity-based travel demand, specifically addressing the computational challenges of high-dimensional state spaces in the Västberg model.
 
 ---

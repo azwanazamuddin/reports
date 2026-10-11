@@ -1,3 +1,11 @@
+---
+title: DDCM Validation Framework
+type: report
+status: complete
+created: 2026-01-27
+tags: [ddcm, validation, verification]
+---
+
 # DDCM Validation Framework Summary
 
 **Source**: `0 - Inbox/drafts/new materials for DDCM (condition)/validation_process.md`

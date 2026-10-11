@@ -1,13 +1,10 @@
 ---
-layout: default
 title: Research Progress — M2, May 11, 2026
 type: progress-report
 status: draft
 created: 2026-05-11
 updated: 2026-05-11
 tags: [ddcm, weekly-report, progress, m2, nfxp, jsps, estimation]
-related:
-  - [[260427 - Research Progress (M2, Apr 27, 2026)]]
 ---
 
 # Meeting Document
@@ -163,3 +160,7 @@ related:
 - [ ] 
 - [ ] 
 - [ ] 
+
+---
+
+**Previous meeting:** [[2026-04-27-gradient-masks-and-c-change|Research Progress — M2, Apr 27, 2026]]

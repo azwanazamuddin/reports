@@ -1,3 +1,11 @@
+---
+title: Universal Graph and Backward-Induction Optimization
+type: report
+status: complete
+created: 2025-12-24
+tags: [ddcm, shared-graph, bisimulation, backward-induction, performance]
+---
+
 # Universal Graph and BI Optimization: Technical Report
 **Date**: 2025-12-24
 **Topic**: DDCM GPU Implementation Updates

@@ -1,13 +1,10 @@
 ---
-layout: default
 title: Research Progress — M2, June 23, 2026
 type: progress-report
 status: draft
 created: 2026-06-23
 updated: 2026-06-23
 tags: [ddcm, weekly-report, progress, m2, nfxp, recovery, identification, sampling-of-alternatives, rl, approximation-error, estimation]
-related:
-  - [[260601 - Research Progress (M2, Jun 1, 2026)]]
 ---
 
 # Meeting Document
@@ -245,3 +242,7 @@ Dashboard: [http://localhost:8090](http://localhost:8090) (Tailscale: http://100
 - [ ] 
 - [ ] 
 - [ ] 
+
+---
+
+**Previous meeting:** [[2026-06-01-gradient-investigation-resolved|Research Progress — M2, June 1, 2026]]
