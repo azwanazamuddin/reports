@@ -222,7 +222,7 @@ per-person constraints *cost*, and what that implies about which differences
 between people need their own computation.
 
 - [Defense deck](/slides/thesis/) — August 2026
-- [Master's archive](/archive/) — implementation reports, lab-meeting notes, decks
+- [Master's work](/masters/) — implementation reports, lab-meeting notes, decks
 
 ## Decks
 

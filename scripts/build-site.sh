@@ -7,7 +7,7 @@
 #
 #   slides/   four Slidev decks, each built with --base /reports/slides/<name>/.
 #             Their asset paths are baked in, so they cannot move or be rewritten.
-#   archive/  the Master's-era site: self-contained Plotly/KaTeX report pages, the
+#   masters/  the Master's-era site: self-contained Plotly/KaTeX report pages, the
 #             old landing page, meeting notes, the thesis draft.
 #   ddcm/     redirect stubs holding the old public report URLs open.
 #
@@ -46,7 +46,10 @@ if "spa-github-pages" in html:
     print("   already present, skipping")
 else:
     # First thing in <head>: it must run before anything else loads.
-    html = re.sub(r"(<head[^>]*>)", r"\1\n" + decoder, html, count=1)
+    # A function replacement, not a template string: the decoder is JavaScript
+    # containing regex escapes like \d, and re.sub would try to interpret those
+    # as group references in a replacement template and fail.
+    html = re.sub(r"(<head[^>]*>)", lambda m: m.group(1) + "\n" + decoder, html, count=1)
     open(target, "w", encoding="utf-8").write(html)
     print("   injected")
 PY
@@ -56,12 +59,13 @@ echo "==> copying static trees"
 # node_modules of ~480 MB; copying the directory wholesale pulled 23,980 stray
 # files into the artifact and took it to 568 MB. Using the tracked file list also
 # makes a local build match exactly what CI publishes from a fresh checkout.
-# Overlaid, not replaced. content/archive/*.md renders into public/archive/, so
-# wiping public/archive first would delete the pages Quartz had just written.
+# Overlaid, not replaced. content/masters/*.md renders into public/masters/, so
+# wiping public/masters first would delete the pages Quartz had just written.
 # Quartz cleans public/ wholesale at the start of its build, so nothing is stale.
-# Where both produce the same path — archive/index.html, the old landing page vs
-# Quartz's generated folder listing — the hand-written one wins, by design.
-for d in archive slides ddcm; do
+# masters/ holds two disjoint kinds of file: passthrough Plotly output under
+# masters/ddcm/ with underscored names, and Quartz-generated pages with
+# hyphenated slugs, so neither can clobber the other.
+for d in masters slides ddcm; do
   if [ -d "$ROOT/$d" ]; then
     n=$(git -C "$ROOT" ls-files -- "$d" | wc -l | tr -d ' ')
     if [ "$n" -gt 0 ]; then

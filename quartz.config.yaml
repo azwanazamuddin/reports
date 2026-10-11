@@ -210,7 +210,7 @@ plugins:
         Main site: https://azwanazamuddin.github.io/
         GitHub: https://github.com/azwanazamuddin
         Source: https://github.com/azwanazamuddin/reports
-        Master's archive: https://azwanazamuddin.github.io/reports/archive/
+        Master's work: https://azwanazamuddin.github.io/reports/masters/
     layout:
       position: footer
       priority: 50

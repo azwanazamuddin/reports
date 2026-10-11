@@ -127,9 +127,9 @@ Per-meeting discussion docs. Update `thesis/thesis-draft.md` before each meeting
 | 2026-06-01 | [Research Progress (M2, Jun 1, 2026)](content/archive/meetings/2026-spring/260601%20-%20Research%20Progress%20(M2,%20Jun%201,%202026).md) | — | Analytical gradient confirmed correct (GV zone-batch MPS int32 overflow root cause, CUDA clean); NFXP estimation unblocked; APTE revision paragraphs; Thesis Ch2 outline. |
 | 2026-05-11 | [Research Progress (M2, May 11, 2026)](content/archive/meetings/2026-spring/260511%20-%20Research%20Progress%20(M2,%20May%2011,%202026).md) | — | Weekly progress. K=10 L-BFGS-B convergence (LL=−19,187, BHHH SEs), work timing gap analysis, 11 new lit reviews, JSPS outline finalized. |
 | 2026-04-27 | [Research Progress (M2, Apr 27, 2026)](content/archive/meetings/2026-spring/260427%20-%20Research%20Progress%20(M2,%20Apr%2027,%202026).md) | — | Weekly progress. Gradient bug fixes (forbidden_masks, zone ID), c_change ridge diagnosis, cumulative utility diagnostic planned; JSPS/thesis writing updates. |
-| 2026-04-19 | [Master Thesis Progress (M2, April 2026)](content/archive/meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md) | [April_Seminar_Presentation.pdf](content/archive/meetings/2026-spring/presentations/April_Seminar_Presentation.pdf) | M2 mid-semester progress presentation. Framework, μ(t), results, estimation diagnosis. |
+| 2026-04-19 | [Master Thesis Progress (M2, April 2026)](content/archive/meetings/2026-spring/260419%20-%20Master%20Thesis%20Progress%20(M2,%20April%202026).md) | [April_Seminar_Presentation.pdf](masters/meetings/presentations/April_Seminar_Presentation.pdf) | M2 mid-semester progress presentation. Framework, μ(t), results, estimation diagnosis. |
 
-Thesis draft (research overview document): [`content/archive/thesis/thesis-draft.md`](content/archive/thesis/thesis-draft.md).
+Thesis draft (research overview document): [`content/masters/thesis/thesis-draft.md`](content/masters/thesis/thesis-draft.md).
 
 ---
 
@@ -139,17 +139,17 @@ Older reports kept for reference. These predate the DAG / reachability / μ(t) r
 
 | Date | Report | Topic |
 |---|---|---|
-| 2025-10-08 | [PUMCM for Activity-Based Models](content/archive/meetings/2025-fall/251008%20-%20NOT%20USED%20-%20PUMCM%20for%20Activity-Based%20Models.md) | *Not used.* Early brainstorm on PUMCM. |
-| 2025-10-15 | [Ideas on TD Estimation on DDCM](content/archive/meetings/2025-fall/251015%20-%20Ideas%20on%20TD%20Estimation%20on%20DDCM.md) | TD-learning ideas for DDC estimation. |
-| 2025-11-04 | [Readings & Implementation Plans](content/archive/meetings/2025-fall/251104%20-%20Readings%20%26%20Implementation%20Plans.md) | Lit-review notes + implementation roadmap. |
-| 2025-11-09 | [SMASO-X Presentation Summary](content/archive/meetings/2025-fall/251109%20-%20SMASO-X-Presentation-Summary.md) | Summary of the SMASO-X talk. |
-| 2025-11-26 | [Tensor-Based Summary Update](content/archive/meetings/2025-fall/251126%20-%20SummaryUpdateTensorBased.md) | Early tensor-graph framework write-up. |
-| 2025-12-15 | [Documentation & Re-framework](content/archive/meetings/2025-fall/251215%20-%20Progress%20on%20documentation%2C%20re-framework%20the%20algorithm.md) | Algorithmic re-framework progress. |
-| 2025-12-24 | [Universal Graph & BI Optimization](content/archive/meetings/2025-fall/251224%20-%20Universal%20Graph%20and%20BI%20Optimization.md) | Shared-graph structure + BI tuning. |
-| 2026-01-07 | [RMDP Theory & Implementation](content/archive/meetings/2025-fall/260107%20-%20RMDP%20Theory%20and%20Implementation.md) | Relational MDP theory + lifted solvers. |
-| 2026-01-27 | [Progress on Validation Plan](content/archive/meetings/2025-fall/260127%20-%20Progress%20on%20validation%20plan.md) | Seven-layer validation framework. |
+| 2025-10-08 | [PUMCM for Activity-Based Models](content/masters/meetings/2025-10-08-pumcm-perturbed-utility.md) | *Not used.* Early brainstorm on PUMCM. |
+| 2025-10-15 | [Ideas on TD Estimation on DDCM](content/masters/meetings/2025-10-15-td-estimation-ideas.md) | TD-learning ideas for DDC estimation. |
+| 2025-11-04 | [Readings & Implementation Plans](content/masters/meetings/2025-11-04-readings-and-implementation-plans.md) | Lit-review notes + implementation roadmap. |
+| 2025-11-09 | [SMASO-X Presentation Summary](content/masters/meetings/2025-11-09-smaso-x-presentation.md) | Summary of the SMASO-X talk. |
+| 2025-11-26 | [Tensor-Based Summary Update](content/masters/meetings/2025-11-26-tensor-gpu-implementation.md) | Early tensor-graph framework write-up. |
+| 2025-12-15 | [Documentation & Re-framework](content/masters/meetings/2025-12-15-documentation-and-reframework.md) | Algorithmic re-framework progress. |
+| 2025-12-24 | [Universal Graph & BI Optimization](content/masters/meetings/2025-12-24-universal-graph-and-bi-optimization.md) | Shared-graph structure + BI tuning. |
+| 2026-01-07 | [RMDP Theory & Implementation](content/masters/meetings/2026-01-07-rmdp-theory-and-implementation.md) | Relational MDP theory + lifted solvers. |
+| 2026-01-27 | [Progress on Validation Plan](content/masters/meetings/2026-01-27-validation-plan.md) | Seven-layer validation framework. |
 
-Slide decks and PDFs from last semester: [`archive/meetings/2025-fall/presentations/`](content/archive/meetings/2025-fall/presentations/).
+Slide decks and PDFs from last semester: [`masters/meetings/presentations/`](masters/meetings/presentations/).
 
 ---
 

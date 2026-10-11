@@ -52,7 +52,7 @@ Bellman structure maps one-to-one onto the graph: states → vertices, actions �
 
 ### 3.2 Reachability-based pruning
 
-![Forward reachability in 3D](figures/forward_reachability_3d.png)
+![Forward reachability in 3D](/masters/meetings/figures/forward_reachability_3d.png)
 
 Out of ~145M nominal states, most are physically unreachable: no agent can be in two zones 30 km apart in consecutive 15-minute intervals. A **level-synchronous forward BFS** (Berrendorf et al., 2014) from the feasible initial states, embedding **Hägerstrand space-time prism** constraints (Hägerstrand, 1970; Oyama & Hato, 2019), keeps only what an agent can actually reach.
 
@@ -101,7 +101,7 @@ Before estimating on real data, we need to answer: *does the new μ(t) spec prod
 
 ### 5.1 Activity emergence from μ(t)
 
-![Marginal utility profiles and activity emergence](figures/fig1_utility.png)
+![Marginal utility profiles and activity emergence](/masters/meetings/figures/fig1_utility.png)
 
 Top row: the μₐ(t) profiles themselves. Bottom row: what 300 simulated agents actually do.
 
@@ -113,7 +113,7 @@ All five baseline sanity checks pass: home at night; work dominates daytime; cor
 
 ### 5.2 Transport stress — workers
 
-![Worker transport sensitivity](figures/fig2a_worker.png)
+![Worker transport sensitivity](/masters/meetings/figures/fig2a_worker.png)
 
 Three rows: cost sensitivity (×1.0, ×1.58, ×3.0), time sensitivity (×1.0, ×1.20, ×2.0), combined $V_0$ welfare panel.
 
@@ -126,7 +126,7 @@ Three rows: cost sensitivity (×1.0, ×1.58, ×3.0), time sensitivity (×1.0, ×
 
 ### 5.3 Transport stress — non-workers
 
-![Non-worker transport sensitivity](figures/fig2b_nonworker.png)
+![Non-worker transport sensitivity](/masters/meetings/figures/fig2b_nonworker.png)
 
 The striking finding: almost nothing happens. Baseline $V_0 = 172.8$, which is *exactly* $\mu_\text{home} \times \Delta t \times 96\text{ steps} = 0.12 \times 15 \times 96$. Non-worker welfare is the utility of staying home all day. Under cost ×3.0: $V_0 = 173$. Under time ×2.0: $V_0 = 173$. Both blue lines in the welfare panel are flat throughout.
 
@@ -136,7 +136,7 @@ The 4.2-unit baseline gap between worker (177) and non-worker (172.8) welfare is
 
 ## 6. City-scale simulation — Higashi-Hiroshima
 
-![Higashi-Hiroshima city-scale baseline](figures/fig3_hh_baseline.png)
+![Higashi-Hiroshima city-scale baseline](/masters/meetings/figures/fig3_hh_baseline.png)
 
 Same framework, unchanged, on a real city: 144 zones, 5 modes, 300 agents (210 workers + 90 non-workers), 4 activity-sequence groups covering the full population through the shared universal graph. **Full baseline simulation finishes in under 3 minutes.**
 
