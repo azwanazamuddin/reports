@@ -18,7 +18,15 @@ which of those differences genuinely need their own computation. The full framin
 
 ## Reports
 
-- [[paper-a|Paper A — what per-person feasibility costs]] — the first paper, as an argument in ten links. Draft, October 2026.
+In reading order:
+
+1. [[paper-a|Paper A — what per-person feasibility costs]] — the first paper, as an argument in ten
+   links, with what is established and what is still open. Draft, revised 13 October 2026.
+2. [[supervisor-deck|The supervisor deck]] — how that argument is framed for a working session, and
+   the corrections made to the positioning while building it. 13 October 2026.
+3. [[cpu-speedup|Why the estimator got faster on CPU]] — the computation the case study depends on:
+   a 16.7× speed-up with identical results, the defects found on the way, and the cost of the first
+   full-sample run. It contains no estimation result yet. 13 October 2026.
 
 ## Where it comes from
 

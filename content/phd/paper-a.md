@@ -3,15 +3,18 @@ title: "Paper A — what per-person feasibility costs"
 type: report
 status: draft
 created: 2026-10-12
-updated: 2026-10-12
+updated: 2026-10-13
 tags: [phd, paper-a, constraint-heterogeneity]
 ---
 
-> [!warning] Pre-supervisor draft, 12 October 2026
+> [!warning] Pre-supervisor draft, first written 12 October 2026, revised 13 October
 > This is the argument as it stands in the working documents, before any of it has been taken to a
 > supervisor session. It will be restated. Where this page and the working documents disagree, the
 > working documents win. The manuscript is being restructured to follow this argument and does not
 > yet match it.
+>
+> **Revised 13 October:** the positioning now rests on one citable neighbour (Yao and Zhang), and
+> link 9 no longer presents an earlier specification's estimates as the current case study.
 
 ## What the paper asks
 
@@ -53,6 +56,17 @@ reviewers of the hEART submission read it as a claim about recovering true param
 about the computation; and the speed comparison against Västberg stays deleted, because it had
 factual defects.
 
+Two things narrowed again on 12 and 13 October, while the deck for the supervisor session was being
+built (see [[supervisor-deck|the deck notes]]):
+
+- **The positioning uses Yao and Zhang only.** An earlier version leaned on a conference keynote that
+  survives only as photographs of slides and cannot be cited. Yao and Zhang's feasible set is also
+  indexed by user class, so the claim that holds is narrower than first written: nobody carries a
+  mask *per person* on one shared structure, or asks how many distinct masks a population needs.
+- **Exact zeros and "every option counts" are one knob.** A finite slope at zero of the perturbation
+  gives exact pruning but only weak option value; an infinite slope gives full support and the
+  capability reading. Checked numerically on the Tsallis family.
+
 ## The argument, in ten links
 
 The point of writing the chain down before the prose is that it can be read aloud and argued with.
@@ -88,7 +102,9 @@ Each link says what it claims, and what a referee will say.
    *another person's day* is not a rule about this person at all. The dangerous objection is Oyama
    and Hato (2019), who already mask per context on a shared layered graph, and the paper has to say
    so first. Their contexts are origin-destination pairs and their restriction is network geometry;
-   ours are people, and the restriction comes from attributes that are not in the graph at all.
+   ours are people, and the restriction comes from attributes that are not in the graph at all. The
+   second neighbour is Yao and Zhang (2026), who carry a feasible set per user class and solve class
+   by class, so a handful of masks by replication, not one per person.
 7. **In this setting the expensive case is free, and that is a property of the setting.** The clock
    makes the graph acyclic, so a solve is one backward sweep. That is a property of modelling a day,
    not an achievement, and the paper concedes it. The layered acyclic space and the reachability cone
@@ -102,13 +118,18 @@ Each link says what it claims, and what a referee will say.
 
 **The evidence**
 
-9. **The case study shows scale, and nothing more.** 7,468 persons estimated, with both
-   standard-error families reported; the median ratio of robust to outer-product errors is 1.48, and
-   two coefficients change significance under robust inference. The reference implementation is
-   stated without reference to hardware and runs on CPU. The GPU is a case study in acceleration that
-   costs a property the rest of the paper rests on: its gradient is not a function of the parameters.
-   The fair objection is "this shows it runs, not that it is useful", and it has to be answered with
-   a welfare number.
+9. **The case study shows scale, and nothing more; and for the current specification it has not yet
+   been estimated to convergence.** An earlier 38-parameter specification was estimated on 7,468
+   persons to its gradient tolerance, with both standard-error families reported (median ratio of
+   robust to outer-product errors 1.48, two coefficients changing significance under robust
+   inference). That specification has since been superseded: the parameter vector went from 88 names
+   to 75, and several defects in the gradient and the starting point were fixed. Those results have
+   **not been re-verified**, and no run has yet converged for the current one. The first full-sample
+   run was a single iteration, a cost measurement and not an estimate; it is described in
+   [[cpu-speedup|the CPU report]]. The reference implementation is stated without reference to
+   hardware and runs on CPU. The GPU is a case study in acceleration that costs a property the rest of
+   the paper rests on: its gradient is not a function of the parameters. The fair objection is "this
+   shows it runs, not that it is useful", and it has to be answered with a welfare number.
 
 **The limits**
 
@@ -116,7 +137,9 @@ Each link says what it claims, and what a referee will say.
     because fuel-only car cost is proportional to distance and so collinear with time. One finite
     penalty survives in the specification, on the lower bound of work start. Household coupling does
     not factorise. The horizon is chosen. Three of the five constraint sources need an exogeneity
-    argument that has not yet been made.
+    argument that has not yet been made. And between 23% and 28% of observed steps, depending on the
+    graph, are dropped because they match no state or edge; that is selection on the chosen action,
+    and whether it biases the estimates has not been measured.
 
 ## What was measured
 
@@ -154,14 +177,30 @@ The discipline in one line: the paper may claim the *question* is general, and m
 - **Within-sample shares** of the constraint counts above, which are survey-wide.
 - **The contribution paragraph** is a draft that waits on explicit confirmation before it changes the
   manuscript's introduction, abstract and contribution list.
+- **Proofs.** Only the sweep result is a theorem. The losslessness of pruning is *tested*, not
+  proved, and the simulated review flagged the missing proofs as critical.
+- **Two statements still unverified**: that a mask cannot make the recursion unsolvable, and that
+  restricting the action set works for nested perturbation families.
+- **Convergence for the current specification**, which no run has yet reached.
+- **Citability.** The hEART 2026 slides are photographs and the Tokyo keynote exists only as page
+  images, so neither can be cited.
 - **Three phrases that are not yet safe to write**: that no estimated model reports a random-utility
   welfare measure (an absence in a bounded search), a characterisation of PCATS that has not been
   read, and welfare from a frozen parameter vector (which rests on a secondary reading of Naqavi).
 - **Evidence depth in the literature run**: only one source was read in full, and most of the
   positioning rests on shallower reading. Two citations for Sen's conversion factors are also still
   missing from the bibliography.
-- **The cyclic case**: whether per-person masking admits a cheap low-rank update when the graph is
-  not acyclic is the open question the rest of the programme is built around.
+- **The cyclic case.** It is well posed under Yao and Zhang's conditions (reachability and a
+  second); what is open is the per-person cost of the solves. A mask can remove a state's only exit,
+  so reachability has to be checked per person, which is what the backward cone does on the day
+  graph. Whether per-person masking admits a cheap low-rank update is the open question the rest of
+  the programme is built around.
+
+## Companion pages
+
+- [[supervisor-deck|The supervisor deck]]: how this argument is framed for a working session, and
+  the corrections made while building it.
+- [[cpu-speedup|Why the estimator got faster on CPU]]: the computation behind link 9.
 
 ## Where the ingredients came from
 

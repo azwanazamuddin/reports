@@ -45,6 +45,10 @@ differs by group and by individual.
 
 The shared graph is the "shared structure" ingredient in [[paper-a|Paper A]]'s argument, and the condition tiers above are an early version of its question about feasibility that differs by group and by individual.
 
+The GPU implementation built in this phase was later replaced as the platform: the CUDA code paths
+were deleted in October 2026 and the engine now runs on CPU, which made the gradient bitwise
+reproducible. See [[cpu-speedup|why the estimator got faster on CPU]].
+
 ---
 
 **← Previous** [[01-approximation-first|Phase 1]] · **Next →** [[03-the-framework|Phase 3 — The framework]]

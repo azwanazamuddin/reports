@@ -150,7 +150,7 @@ plugins:
           const order = ["meetings", "investigations", "ddcm", "thesis",
             "investigation-overview", "work-timing-analysis", "profile-likelihood-scans",
             "gradient-bug-investigation", "parameter-recovery", "exact-vs-sampling-vs-rl",
-            "behavioural-validation-series"];
+            "behavioural-validation-series", "paper-a", "supervisor-deck", "cpu-speedup"];
           const rank = (n) => {
             const s = n.slugSegment;
             if (n.isFolder && s === "phd") return 0;
