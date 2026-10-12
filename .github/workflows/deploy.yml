@@ -40,21 +40,30 @@ jobs:
       - run: npm ci
 
       # Renders content/ with Quartz, merges the SPA decoder into the 404, and
-      # copies archive/, slides/ and ddcm/ in from the tracked file list.
+      # copies masters/, slides/ and ddcm/ in from the tracked file list.
       - run: bash scripts/build-site.sh
 
       - name: Check the decks survived the build
         run: |
           set -e
           for p in index.html 404.html .nojekyll \
-                   archive/index.html \
+                   masters/index.html \
+                   masters/legacy/index.html \
+                   masters/ddcm/work_timing_analysis.html \
+                   phd/paper-a.html \
                    slides/thesis/index.html \
                    slides/apte/index.html \
                    ddcm/work_timing_analysis.html; do
             test -e "public/$p" || { echo "missing from build: $p"; exit 1; }
           done
+          # the old URL space must be gone, not merely redirected: a leftover
+          # public/archive/ would shadow the 404 rule that holds those URLs open
+          test ! -e public/archive \
+            || { echo "public/archive/ exists and would shadow the redirect"; exit 1; }
           grep -q spa-github-pages public/404.html \
             || { echo "404 lost the SPA decoder"; exit 1; }
+          grep -q "reports/archive" public/404.html \
+            || { echo "404 lost the archive -> masters redirect"; exit 1; }
           test -z "$(find public -path '*/node_modules/*' -print -quit)" \
             || { echo "node_modules leaked into the artifact"; exit 1; }
           echo "build looks sane: $(find public -type f | wc -l) files"
