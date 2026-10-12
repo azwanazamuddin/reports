@@ -67,12 +67,13 @@ work is about removing the second horn.
 
 Perturbed utility splits a choice model in two: the **domain**, which is what is
 available at all, and the **objective**, which is how probability spreads over what
-is available. Written over flows, the penalty has one term for each.
+is available. Written over flows, the penalty has one term for each. That split is
+Yao and Zhang's, not ours; what is ours is only what goes in the second slot.
 
 Every neighbour in this literature works the objective — sparse perturbations,
 generalised entropies, Fenchel-Young losses. Their domain is flow conservation:
-network structure, identical for every traveller. The slot exists in their own
-formulation and carries nothing personal.
+network structure, shared by every traveller, or at most one feasible set per user
+class. The slot exists in their own formulation and carries nothing personal.
 
 This work varies the **domain** instead: one feasible set per person, built from
 attributes that are not in the graph at all.
@@ -87,19 +88,19 @@ neighbour's own notation is what makes this a position rather than a complaint:
 | **Västberg et al. (2020)** | — | n/a | ✓ |
 | **Naqavi et al. (2023)** | — | n/a | ✓ |
 | **Oyama & Hato (2019)** | ✓ | ✓ | — |
-| **Fosgerau & Yao (2026)** | ✓ | — | n/a |
+| **Yao & Zhang (2026)** | ✓ | per class | classes only |
 
 Västberg has the person index without a shared structure, so heterogeneity is
 handled by replication and cost is linear in people. Oyama has the shared structure
 *and* the mask — on a layered acyclic graph, with a reachability cone, introduced
 for exactly this reason — but the context is a single origin–destination pair, and
 his own footnote calls the per-pair version "a trade-off between computational
-efficiency and realism" and declines it. Fosgerau and Yao have the sharing, and
-their feasible set carries no person at all; their heterogeneity is in volume, not
-in feasibility.
+efficiency and realism" and declines it. Yao and Zhang have the sharing, and
+a feasible set per user class, solved class by class; that is a handful of masks by
+replication, not one per person.
 
-**Each has two of the three. Nobody has asked how many distinct masks a real
-population needs.**
+**Each has two of the three. Nobody carries a mask per person on one shared
+structure, or has asked how many distinct masks a real population needs.**
 
 Two concessions belong with that table. Västberg's constraints are *exact*, not
 soft — the shortfall is cost, not correctness. And sampling of alternatives is
@@ -147,7 +148,8 @@ Stated here because all of it has drifted into earlier drafts:
 - Not that the layered acyclic graph, the reachability cone or an edge mask inside
   the sum is new — those are Oyama and Hato's, introduced for the same reason
 - Not that the perturbed-utility formulation is ours; with entropy this is
-  recursive logit, which is 2013
+  recursive logit, which is 2013. Nor that its two-slot split is ours
+  (Yao and Zhang's), only what goes in the second slot
 - Not that the value function as an accessibility measure is new — that is the
   published bridge above
 - Not that schedulers cannot be estimated, and not that sampling is invalid
