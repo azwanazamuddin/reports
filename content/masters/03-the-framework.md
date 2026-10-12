@@ -1,5 +1,5 @@
 ---
-title: "Phase 3 — The framework"
+title: "Phase 3 · Apr 2026 — The framework"
 type: hub
 status: complete
 created: 2026-10-12

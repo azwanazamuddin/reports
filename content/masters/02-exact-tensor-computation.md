@@ -1,5 +1,5 @@
 ---
-title: "Phase 2 — Can it be computed exactly instead?"
+title: "Phase 2 · Nov 2025–Jan 2026 — Can it be computed exactly instead?"
 type: hub
 status: complete
 created: 2026-10-12
@@ -43,11 +43,11 @@ differs by group and by individual.
 
 ## Carried into the PhD
 
-The shared graph is the "shared structure" ingredient in [[paper-a|Paper A]]'s argument, and the condition tiers above are an early version of its question about feasibility that differs by group and by individual.
+The shared graph is the "shared structure" ingredient in [[2026-10-13-paper-a-deck|Paper A]]'s argument, and the condition tiers above are an early version of its question about feasibility that differs by group and by individual.
 
 The GPU implementation built in this phase was later replaced as the platform: the CUDA code paths
 were deleted in October 2026 and the engine now runs on CPU, which made the gradient bitwise
-reproducible. See [[cpu-speedup|why the estimator got faster on CPU]].
+reproducible. See [[2026-10-13-gradient-speedup|how the gradient is managed, and how it compares with these CUDA runs]].
 
 ---
 

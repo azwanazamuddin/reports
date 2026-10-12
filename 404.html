@@ -54,6 +54,21 @@
         l.replace("/reports/masters/" + rest + l.search + l.hash);
       }
 
+      // ── 1b. Renamed PhD pages ─────────────────────────────────────────────
+      //
+      // The two PhD reports were renamed to date-prefixed slugs on 2026-10-13 (the explorer reads
+      // the date from the slug), and the Paper A page was folded into its deck. Their old URLs had
+      // been live, so they are held open here.
+      var moved = {
+        "/reports/phd/paper-a": "/reports/slides/constraint-framing/",
+        "/reports/phd/supervisor-deck": "/reports/phd/2026-10-13-paper-a-deck",
+        "/reports/phd/cpu-speedup": "/reports/phd/2026-10-13-gradient-speedup"
+      };
+      var movedTo = moved[l.pathname.replace(/(?:\.html|\/)$/, "")];
+      if (movedTo) {
+        l.replace(movedTo + l.search + l.hash);
+      }
+
       // ── 2. Slidev deck deep links ─────────────────────────────────────────
       //
       // Single Page Apps for GitHub Pages (https://github.com/rafgraph/spa-github-pages)

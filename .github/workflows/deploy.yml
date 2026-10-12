@@ -50,7 +50,8 @@ jobs:
                    masters/index.html \
                    masters/legacy/index.html \
                    masters/ddcm/work_timing_analysis.html \
-                   phd/paper-a.html \
+                   phd/2026-10-13-paper-a-deck.html \
+                   slides/constraint-framing/index.html \
                    slides/thesis/index.html \
                    slides/apte/index.html \
                    ddcm/work_timing_analysis.html; do

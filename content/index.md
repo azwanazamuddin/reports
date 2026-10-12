@@ -12,10 +12,23 @@ state graph, a family of feasible sets over it, and the question of how many
 distinct computations that family actually requires.
 
 > [!note] Status
-> The framing below is current as of October 2026 and is being taken to a
+> The framing below is current as of 13 October 2026 and is being taken to a
 > supervisor session, not settled by it. The research directions at the end are
 > themes to read into — they carry no ordering and no commitment. Where this page
 > and the working documents disagree, the working documents win.
+
+## Reports and decks, newest first
+
+- **13 Oct 2026** · [Paper A: the deck](/slides/constraint-framing/). 42 slides for the supervisor working
+  session. [Decisions, corrections and what is still open](/phd/2026-10-13-paper-a-deck/).
+- **13 Oct 2026** · [Why the estimator got faster: how the gradient is managed](/phd/2026-10-13-gradient-speedup/).
+  A 16.7× speed-up with identical results, compared with the old CUDA runs. No estimation result yet.
+- **Aug 2026** · [Master's thesis defense](/slides/thesis/). The deck for the defended thesis.
+- **Jul 2026** · [APTE 2026](/slides/apte/). Jeju Island, 8–10 July.
+- **Jun 2026** · [Inside the DDCM engine](/slides/ddcm-codebase/). A codebase walkthrough.
+- **Apr 2026** · [DDCM framework](/slides/ddcm/).
+
+The Master's work, from first ideas to the defended thesis, is in [five phases](/masters/).
 
 ## A day is assembled out of what is possible
 
@@ -225,14 +238,3 @@ between people need their own computation.
 
 - [Defense deck](/slides/thesis/) — August 2026
 - [Master's work](/masters/) — the path from first ideas to the defended thesis, in five phases
-
-## Reports
-
-- [Paper A — what per-person feasibility costs](/phd/paper-a/) — the first paper, as an argument in ten links. Pre-supervisor draft, October 2026.
-
-## Decks
-
-- [Master's thesis defense](/slides/thesis/) — August 2026
-- [APTE 2026](/slides/apte/) — Jeju, July 2026
-- [DDCM framework](/slides/ddcm/) — April 2026
-- [Inside the DDCM engine](/slides/ddcm-codebase/) — codebase walkthrough, June 2026

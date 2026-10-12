@@ -1,5 +1,5 @@
 ---
-title: "Phase 5 — The thesis"
+title: "Phase 5 · Jul–Sep 2026 — The thesis"
 type: hub
 status: complete
 created: 2026-10-12

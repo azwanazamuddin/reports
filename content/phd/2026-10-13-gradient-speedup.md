@@ -1,10 +1,10 @@
 ---
-title: "Why the estimator got faster on CPU, and everything else that changed"
+title: "Why the estimator got faster: how the gradient is managed"
 type: report
 status: draft
 created: 2026-10-13
 updated: 2026-10-13
-tags: [phd, ddcm, estimation, performance, cpu, gradient]
+tags: [phd, ddcm, estimation, performance, gradient, cuda]
 ---
 
 > [!warning] Working recap, 13 October 2026
@@ -25,7 +25,9 @@ tags: [phd, ddcm, estimation, performance, cpu, gradient]
 
 One gradient evaluation through the real 24-worker pool went from **2,460.8 s to 147.2 s, 16.7 times
 faster**, with the likelihood and the gradient norm identical to every printed digit **[report]**.
-It came from two changes, not from a better machine:
+It came from two changes to **how the gradient is managed**, not from the CPU and not from a better
+machine. Section 4 sets it against the old CUDA runs: on the dense work a GPU is still the faster
+device, and the whole difference sits in the gradient:
 
 1. **A smaller chunk of edges per worker.** The old rule spent memory because memory was available,
    and bigger chunks turned out to be slower. This alone is **6.61 times**.
@@ -37,7 +39,7 @@ Nothing was approximated. The same likelihood, the same gradient, sooner.
 
 On top of that, a full-sample (9,006 persons, 893 groups) objective evaluation now costs about
 **509 s** on this machine **[log]**, and a series of correctness and clarity changes made the
-optimiser's result worth trusting. Section 6 is the part that is still open.
+optimiser's result worth trusting. Section 7 is the part that is still open.
 
 ## 1. What actually changed in the repository
 
@@ -47,13 +49,13 @@ the first two of which are about speed.
 | Kind | What | Where it is verified |
 |---|---|---|
 | Speed of the sweep | chunk size as a ceiling, deferred and keyed gradient contraction | [report] feature_sparsity_20261008.md section 12 |
-| Speed of everything around it | load balance across workers, a memory regression given back, pooled standard errors | mixed, see section 5 |
-| Correctness | four defects that made the gradient or the starting point wrong without any error | [git] commit messages, section 4 |
+| Speed of everything around it | load balance across workers, a memory regression given back, pooled standard errors | mixed, see section 6 |
+| Correctness | four defects that made the gradient or the starting point wrong without any error | [git] commit messages, section 5 |
 | Clarity | the legacy parameter block removed, 88 names became 75 | [git] ed31afaa1, 5c69d4247 |
 | Honesty of measurement | a machine-readable record of each run, a shared series reader, a record of other users' load | [git] 4ec35065b, d8c77f02a, c4cb18f65 |
 | Platform | the CUDA paths deleted, CPU made the platform | [git], CLAUDE.md |
 
-## 2. Why it is faster on CPU
+## 2. Why it is faster
 
 The first useful thing to say is what was **not** the reason. For two days the working belief was
 that the slow part was a cache-layout problem in building the feature matrix, and three layout fixes
@@ -147,7 +149,81 @@ likelihood**, and a pooled gradient that varied by 1% to 6.5% between runs **[gi
 gate now measures the premise instead of inferring it, and the penalty moved into the choice domain
 where it belongs (8659247db).
 
-## 4. Correctness changes that matter for the optimiser
+## 4. Compared with the old CUDA runs
+
+Until 7 October the production estimator ran on an NVIDIA GPU (CUDA, an RTX 5090 on a 48-core host).
+The CUDA code paths have since been deleted, so **there is no CUDA measurement of the code described
+above**. What exists is the recorded CUDA runs from before. They used other specifications, samples and
+code than the CPU run, so the table says what each one was, and the reading under it is limited on
+purpose.
+
+| Run | Device, precision | Free parameters | Groups | One evaluation | Backward induction | Gradient | `gc.collect` | Source |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| CUDA, 11 Aug baseline, steady state | RTX 5090, float32 | 38 | 972 | 1,157.4 s | 107.3 s | 566.2 s | 462.4 s | [report] |
+| CUDA, converged run, 81 iterations | RTX 5090, float64 | 38 | 893 | 1,768.7 s | 160.6 s | 1,085.0 s | 496.0 s | [report] |
+| CUDA, 21 Sep, iteration 1 only | RTX 5090, float32 | 69 | 893 | 1,728.5 s | 106 s | 1,179 s | 421 s | [notes] |
+| **CPU, 13 Oct (section 7)** | **24 workers, float64** | **69** | **893** | **about 509 s** | **about 202 s** | **about 307 s** | **1 s** | [log] |
+
+*One evaluation* is one objective-and-gradient evaluation, as the run logged it. *Gradient* is the
+analytical-gradient sweep: the older backward gradient-value sweep on CUDA, the forward flow sweep with
+the deferred, keyed contraction on CPU. *`gc.collect`* is Python garbage collection, which the evidence
+manifest classes as runtime overhead and not as algorithmic cost.
+
+### What the table shows
+
+**1. At the same number of free parameters (the last two rows), the CPU run is about 3.4 times
+faster**: 1,728.5 s against about 509 s. That is not a like-for-like figure. The CUDA row is iteration
+1 only, it is float32 against float64, it is an earlier specification, and 421 s of it is `gc.collect`.
+Without that term the CUDA time is about 1,307 s, and the ratio is about 2.6 times.
+
+**2. The difference sits in the gradient and in overhead, not in the dense computation.**
+
+- *Backward induction is slower on the CPU.* About 202 s against 106 s on CUDA float32, or 160.6 s on
+  CUDA float64 (the two float32 CUDA runs give 107.3 s at 38 free parameters and 106 s at 69, so it does
+  not look sensitive to the parameter count). The project's own measured per-thread ratio, one CPU thread about 31.6 times slower than
+  the whole GPU on real evaluation groups **[notes]**, predicts roughly 1.3 times for 24 workers if they
+  scaled perfectly. The observed 202 s against 160.6 s is 1.26 times. This is the part where a GPU wins,
+  and it does.
+- *The gradient is about 3.8 times cheaper.* About 307 s against 1,179 s at 69 free parameters.
+- *`gc.collect` is 1 s against 421 to 496 s.* The manifest describes that cost as scaling with the number
+  of live Python objects rather than with the device. This page does not trace which change removed it.
+
+**3. The same CPU was slower than CUDA before the gradient was reorganised.** The 6 October planning
+notes extrapolated the full-sample CPU cost at the old defaults to roughly 7,700 s per iteration, about
+4 times the CUDA figure of 1,768.7 s **[notes]**. They flagged it as suspect, since it scales 155 s at 18
+evaluation contexts linearly to 893. At 2,000 persons the same change took one gradient evaluation from
+2,460.8 s to 147.2 s (16.7 times). Applied to the extrapolation, 7,700 s / 16.7 is about 460 s, close to
+the 509 s measured at full sample. That is an order-of-magnitude agreement, not a validated prediction.
+The machine did not change between "about 4 times slower than CUDA" and "about 3 times faster". The
+gradient code did.
+
+### What it does not show
+
+- **The new gradient has never been run on CUDA**, so how much of the speed-up transfers is unknown. The
+  one CUDA data point on the approach is older and partial: an earlier test of the flow gradient on CUDA,
+  before the deferred and keyed contraction, gave only **1.18 times**, because rebuilding the feature
+  matrix was 79% of the gradient there (39.3% on CPU at the time) **[notes]**. The deferred, keyed form is what
+  removed that term.
+- **The two steps differ in how device-specific they are.** Step 1, the chunk size, is about 24 processes
+  each holding a large chunk, which is specific to a pool of processes sharing memory. Step 2, the keyed
+  contraction, replaces writing and reading a mostly empty dense matrix with aggregating edges onto a
+  small table of distinct rows. The sparsity report argues that is simply less work on every device
+  **[report]**. That is an argument, not a measurement.
+- **A GPU design is a later plan, not a result.** The same report calls the dense feature buffer "the
+  GPU-era design". With the factorisation the working set per edge chunk falls from 8.4 GiB to about
+  0.24 GiB, which would let a CUDA implementation stream many chunks where about three fit in 32 GiB
+  today **[report]**. Its conclusion on the cause is the one this page reaches: the engine was never
+  short of hardware, it was short of the right representation.
+- **Precision and reproducibility are a separate reason for the CPU, and not about speed.** The CPU
+  gradient is bitwise reproducible. A GPU gradient measured on the Apple GPU (not on CUDA) differed by
+  8.4e-5 between runs of the same probe, and float64 on the CUDA card drove the gradient accumulator
+  past its 31.36 GiB, so there it is limited by memory rather than time **[notes]**.
+
+**So, is it the CPU? No.** The CPU is not faster at the dense work. The gain is in how the gradient is
+computed, contracted and chunked, plus an overhead term. The CPU is where the new gradient was built and
+measured, and where the results are reproducible.
+
+## 5. Correctness changes that matter for the optimiser
 
 A faster wrong gradient is worse than a slow right one. These are the defects found and fixed along
 the way. None was visible from the likelihood.
@@ -164,7 +240,7 @@ The last row was found only because deleting the legacy parameters forced that b
 rewritten. A pair of implementations of one formula needs a test that holds them together, and now
 has one.
 
-## 5. Speed outside the gradient, and the cost of finding out
+## 6. Speed outside the gradient, and the cost of finding out
 
 - **Load balance across workers.** Setting the parent's share to a ratio of 1.0 on CPU measured
   **1.78 times** (245.7 s to 138.4 s per iteration at 2,000 persons) and **1.74 times** on a free
@@ -186,7 +262,7 @@ error: a pool parameter measured in a single process, and a ratio formed from tw
 That is why every figure above names its configuration, and why the dedicated report section on it
 exists (`feature_sparsity_20261008.md`, section 12).
 
-## 6. The first full-sample run
+## 7. The first full-sample run
 
 The first full run was one iteration on 9,006 persons with the standard error pass at the end
 **[log]**. It is a cost measurement, not an estimation result.
@@ -216,7 +292,7 @@ when this page was last updated, 28 minutes in, so no iteration has printed. The
 line-search trial count, ‖g‖∞ against iteration and the time per iteration will be added here when it
 does. **Nothing is claimed about convergence until then.**
 
-## 7. What is not established
+## 8. What is not established
 
 - **Convergence.** No run has converged for the current specification. The 2,000-person
   five-iteration test raised the likelihood at every accepted iteration, but the gradient norm
@@ -227,12 +303,12 @@ does. **Nothing is claimed about convergence until then.**
   the current optimiser.
 - **The data-matched grid** (47 free parameters) is untested on real data. It is a smaller model,
   not a re-expression of the same one, and its likelihood cost has not been measured.
-- **The GPU was not re-measured.** The CPU comparison is against the CPU's own earlier defaults,
-  not against a tuned GPU run.
+- **The new gradient was not run on CUDA.** The 16.7 times is against the CPU's own earlier
+  defaults. The CUDA runs in section 4 predate the change and come from other specifications.
 - **The percentages above are specific to this machine** (24 performance cores, 512 GiB) and to the
   2,000-person and 9,006-person caches. They should not be quoted without the configuration.
 
-## 8. Index of sources
+## 9. Index of sources
 
 | Claim | Source |
 |---|---|
@@ -244,12 +320,18 @@ does. **Nothing is claimed about convergence until then.**
 | Parameter vector 88 to 75; about 12,000 and 4,581 lines deleted | commits ed31afaa1, d50f0b9c7, 5c69d4247 |
 | 893 groups, 4 topologies, 509 s per evaluation, 2,153.9 s Phase 1, 7,181 s BHHH | `results/estimation_results/cpu_float64_n9006_20261013_005612.log` |
 | LPT ratio 1.78 times and 1.74 times; pooled BHHH 2.97 times; GPU run-to-run variation | `CLAUDE.md` and project notes only, not re-derived here |
+| CUDA 1,157.4 s steady state (BI 107.3, GV 566.2, GC 462.4; 972 groups) | `performance_baseline_rtx5090_20260811.md`, via the evidence manifest section 2a |
+| CUDA float64 1,768.7 s over 81 iterations; 893 groups; 38 free | `paperA_metrics_20260824.md` |
+| CUDA float32 1,728.5 s at 69 free, iteration 1 | `session_handoff_20260921_parking_hourly_run_launched.md` |
+| CPU extrapolation of about 7,700 s per iteration; flow gradient 1.18 times on CUDA | `docs/plans/runs_20261006.md` |
+| One CPU thread 31.6 times slower than the whole GPU on CUDA | `float64_cpu_cost_and_pool_precision_20261005.md` section 4 |
+| Dense buffer is the GPU-era design; 8.4 GiB per chunk falls to about 0.24 GiB | `feature_sparsity_20261008.md` section 9 |
 
 ## Where this sits
 
-- It is the computation behind link 9 of [[paper-a|Paper A]]: the case study has to run at full
-  sample before it can show anything.
+- It is the computation behind the case study in [[2026-10-13-paper-a-deck|the Paper A deck notes]]:
+  the case study has to run at full sample before it can show anything.
 - The platform changed during this work. The Master's thesis was built GPU-first
   ([[02-exact-tensor-computation|the tensor implementation]]); the CUDA code paths were deleted on
-  7 October and the engine is now device-agnostic with CPU as the platform, which is also what makes
-  the gradient bitwise reproducible.
+  7 October and the engine now runs on CPU. That is not why it got faster (section 4). It is why the
+  results are bitwise reproducible.

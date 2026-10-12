@@ -1,5 +1,5 @@
 ---
-title: "Phase 1 — Can the model be approximated?"
+title: "Phase 1 · Oct–Nov 2025 — Can the model be approximated?"
 type: hub
 status: complete
 created: 2026-10-12

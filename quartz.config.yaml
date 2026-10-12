@@ -136,21 +136,24 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
-    # The default tree is folders-first and alphabetical by title, which puts the five phase
-    # hubs (the spine of the Master's work) below three folders and sorts the meeting notes
-    # as "June 1, June 23, May 11". Quartz passes these to the browser as source strings and
-    # rebuilds them there, so they must be self-contained: no outside references.
-    #   - PhD first, then the Master's; inside the Master's, phase hubs 01-05, then folders
-    #     in reading order. Meeting notes sort on their date-prefixed slug, so they are
-    #     chronological. Investigations follow the order Phase 4 tells them in; that order
-    #     is listed by hand because those slugs carry no date or number.
+    # The default tree is folders-first and alphabetical by title, which put the five phase hubs
+    # (the spine of the Master's work) below three folders and sorted the meeting notes as
+    # "June 1, June 23, May 11". Quartz passes these to the browser as source strings and rebuilds
+    # them there, so they must be self-contained: no outside references.
+    #   - PhD first, then the Master's; inside the Master's, phase hubs 01-05, then folders in
+    #     reading order. Investigations follow the order Phase 4 tells them in; that order is listed
+    #     by hand because those slugs carry no date or number.
+    #   - Any page whose slug starts YYYY-MM-DD- is labelled with that date and sorted by it: the
+    #     PhD reports newest first (so people see what is newest), the Master's meeting notes oldest
+    #     first (they are a story). The client-side index carries no dates, which is why the date
+    #     lives in the slug. A new report named 2026-11-02-something sorts and labels itself.
     options:
       sortFn: |-
         (a, b) => {
           const order = ["meetings", "investigations", "ddcm", "thesis",
             "investigation-overview", "work-timing-analysis", "profile-likelihood-scans",
             "gradient-bug-investigation", "parameter-recovery", "exact-vs-sampling-vs-rl",
-            "behavioural-validation-series", "paper-a", "supervisor-deck", "cpu-speedup"];
+            "behavioural-validation-series"];
           const rank = (n) => {
             const s = n.slugSegment;
             if (n.isFolder && s === "phd") return 0;
@@ -160,6 +163,13 @@ plugins:
           };
           const ra = rank(a), rb = rank(b);
           if (ra !== rb) return ra - rb;
+          const dated = /^(\d{4}-\d{2}-\d{2})-/;
+          const da = dated.exec(a.slugSegment), db = dated.exec(b.slugSegment);
+          if (da && db) {
+            const newestFirst = a.slug.startsWith("phd/");
+            const c = da[1].localeCompare(db[1]) || a.slugSegment.localeCompare(b.slugSegment);
+            return newestFirst ? -c : c;
+          }
           const ia = order.indexOf(a.slugSegment), ib = order.indexOf(b.slugSegment);
           if (ia !== ib) return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
           return a.slugSegment.localeCompare(b.slugSegment, undefined, { numeric: true });
@@ -167,12 +177,20 @@ plugins:
       mapFn: |-
         (node) => {
           const names = {
+            "phd/index": "Doctoral research (newest first)",
             "masters/meetings/index": "Meeting notes, oldest first",
             "masters/investigations/index": "Investigations",
             "masters/ddcm/index": "All 19 interactive reports",
             "masters/thesis/index": "Thesis draft (abandoned)"
           };
           if (node.isFolder && names[node.slug]) node.displayName = names[node.slug];
+          const m = /^(\d{4})-(\d{2})-(\d{2})-/.exec(node.slugSegment);
+          if (!node.isFolder && m) {
+            const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(m[2]) - 1];
+            // several titles already end in their own date ("..., Apr 27, 2026"); drop it, the label has it
+            const bare = node.displayName.replace(/,?\s*(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?(?:\s+\d{1,2},)?\s+\d{4}\s*$/, "");
+            node.displayName = Number(m[3]) + " " + mon + " " + m[1] + " · " + bare;
+          }
         }
     layout:
       position: left

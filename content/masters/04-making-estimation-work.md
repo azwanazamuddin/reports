@@ -1,5 +1,5 @@
 ---
-title: "Phase 4 — Can it actually be estimated?"
+title: "Phase 4 · Apr–Jul 2026 — Can it actually be estimated?"
 type: hub
 status: complete
 created: 2026-10-12
