@@ -192,6 +192,17 @@ files genuinely are series.
 
 ## 6. The first PhD report
 
+> **Amendment, 2026-10-12.** The contribution list below (C1-C4, with C1, "exactness forces
+> reachability restriction", as the headline) was taken from the body of `OUTLINE.md` and is
+> **stale**. A literature run on 2026-10-01 refuted C1, and the paper was restructured on
+> 2026-10-05; `OUTLINE.md`'s own banner says C1 and C3 "move", which was visible and was missed.
+> The published page follows the current `paper_a_argument.md` (8 October), a ten-link chain, and
+> the 4 October recap's working claim: *constraint heterogeneity becomes a specification choice
+> rather than a computational concession*, marked as a draft not yet applied to the manuscript.
+> The numbers rules below stand. Two more conflicts surfaced while reading and are also not
+> published: observed decision steps (406,381 in one source, 409,808 in another) and evaluation
+> contexts (893 versus 972).
+
 `content/phd/paper-a.md` → `/reports/phd/paper-a/`. The Paper A proposal as it stands after the
 2026-10-05 reframe, carrying a dated status banner: pre-supervisor, to be restated, working
 documents win where they disagree.
