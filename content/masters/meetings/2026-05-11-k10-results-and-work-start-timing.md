@@ -37,7 +37,7 @@ tags: [ddcm, weekly-report, progress, m2, nfxp, jsps, estimation]
 
 **K=10 L-BFGS-B estimation (final, bounded).** Switching to L-BFGS-B with lower bounds (delta ≥ 0, alpha ≥ 0, beta ≥ 0, mu_home ≥ 0; c_change ∈ [−5, 0.5]) and warm-starting from the A3 checkpoint, the optimizer converged in 18 iterations (LL = −19,187.07, 825 valid persons, 48,908 observed steps). BHHH standard errors were then computed from the analytical gradient scores. All 10 parameters are statistically significant (see Section 7).
 
-**Work timing analysis.** I produced an interactive HTML report analyzing why the model predicts a substantially later work-start time than observed. The report includes per-parameter utility plots and simulation validation and is available at: [work_timing_analysis.html](https://azwanazamuddin.github.io/reports/ddcm/work_timing_analysis.html)
+**Work timing analysis.** I produced an interactive HTML report analyzing why the model predicts a substantially later work-start time than observed. The report includes per-parameter utility plots and simulation validation and is available at: [work_timing_analysis.html](https://azwanazamuddin.github.io/reports/masters/ddcm/work_timing_analysis.html)
 
 **Literature reviews.** I completed 11 new literature reviews, covering papers for JSPS proposal Moves 1–3 and background for Phase B. These are listed in Section 8.
 
@@ -107,7 +107,7 @@ tags: [ddcm, weekly-report, progress, m2, nfxp, jsps, estimation]
 
 | Result | Link | Notes |
 |--------|------|-------|
-| Work timing analysis | [work_timing_analysis.html](https://azwanazamuddin.github.io/reports/ddcm/work_timing_analysis.html) | Model predicts work start ~14:51; observed ~8:30. Interactive utility plots. Code: private `ddcm` repo. |
+| Work timing analysis | [work_timing_analysis.html](https://azwanazamuddin.github.io/reports/masters/ddcm/work_timing_analysis.html) | Model predicts work start ~14:51; observed ~8:30. Interactive utility plots. Code: private `ddcm` repo. |
 | K=10 parameter estimates + BHHH SEs | Table below | LL = −19,187.07; 825 valid persons; 48,908 steps; 28 graph groups |
 
 **K=10 Converged Parameters — L-BFGS-B, Analytical Gradient:**

@@ -161,7 +161,7 @@ Now that CUDA is confirmed clean, the full analytical-gradient workers estimatio
 | Production check (CUDA) | CUDA | 8 | +942.67 | **0.0%** | ✓ Exact |
 
 Code: `investigations/check_gv_order.py` · `investigations/check_zone_batch_device.py` · `cuda_check_zone_batch.py`
-**Standalone report (HTML):** [`gradient_bug_investigation_20260601.html`](../../ddcm/gradient_bug_investigation_20260601.html)
+**Standalone report (HTML):** [`gradient_bug_investigation_20260601.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/gradient_bug_investigation_20260601.html)
 Overview: `gradient_investigation_overview_20260601.md`
 Detailed theory: `analytical_gradient_deep_research_20260601.md`
 Narrative: `mps_port_and_hidden_gradient_bug_story_20260601.md`

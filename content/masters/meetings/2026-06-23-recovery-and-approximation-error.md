@@ -133,7 +133,7 @@ The multi-home zone loop in backward induction (which processes ~91 home zones s
 
 | Result | Link to Code | Link to Report | Notes |
 |--------|--------------|----------------|-------|
-| Dekker-style coverage table (bias, SD, CP) | `estimation/experiments/recovery_small_net.py` | [`recovery_smallnet_R30_20260620.html`](../../ddcm/recovery_smallnet_R30_20260620.html) | All well-id params CP ≈ 97.5%; α/β excluded from coverage claims |
+| Dekker-style coverage table (bias, SD, CP) | `estimation/experiments/recovery_small_net.py` | [`recovery_smallnet_R30_20260620.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/recovery_smallnet_R30_20260620.html) | All well-id params CP ≈ 97.5%; α/β excluded from coverage claims |
 | N-sweep (N=50,100,200,500,1000) | `estimation/experiments/recovery_small_net.py` | same | Tracks 1/√N reference line; θ_travel SD = 0.076→0.030 |
 | θ_travel ridge resolution | `estimation/experiments/recovery_small_net.py` | same | Bias 13.8% (single-zone) → 0.8% (multi-zone, PT-reference ASCs) |
 | Profile-LL curves | `estimation/experiments/profile_ll_smallnet.py` | same | Unimodal at θ*; α/β one-sided (steep below θ*, flat above) |
@@ -178,7 +178,7 @@ Code links:
 | `estimation/experiments/experiments_report.py` | HTML report generator |
 | `docs/estimation/reports/rl_value_estimation_landscape.md` | RL landscape theory + framing |
 
-Report: [`experiments_exact_sa_rl_20260621.html`](../../ddcm/experiments_exact_sa_rl_20260621.html)
+Report: [`experiments_exact_sa_rl_20260621.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/experiments_exact_sa_rl_20260621.html)
 
 ### 7.3 HH full estimation run — current state (as of 2026-06-22 morning)
 
@@ -221,9 +221,9 @@ Dashboard: [http://localhost:8090](http://localhost:8090) (Tailscale: http://100
 ## 8. Supplementary Materials
 
 **Reports:**
-- Report 1 (recovery): [`recovery_smallnet_R30_20260620.html`](../../ddcm/recovery_smallnet_R30_20260620.html)
-- Report 2 (experiments): [`experiments_exact_sa_rl_20260621.html`](../../ddcm/experiments_exact_sa_rl_20260621.html)
-- Report index: [`index.html`](../../ddcm/index.html)
+- Report 1 (recovery): [`recovery_smallnet_R30_20260620.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/recovery_smallnet_R30_20260620.html)
+- Report 2 (experiments): [`experiments_exact_sa_rl_20260621.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/experiments_exact_sa_rl_20260621.html)
+- Report index: [`index.html`](https://azwanazamuddin.github.io/reports/masters/ddcm/index.html)
 
 **Session handoffs (since last meeting):**
 - `session_handoff_20260621.md` — HH full run launch, crash investigation, relaunch without disk-mode
