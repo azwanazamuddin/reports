@@ -136,6 +136,44 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
+    # The default tree is folders-first and alphabetical by title, which puts the five phase
+    # hubs (the spine of the Master's work) below three folders and sorts the meeting notes
+    # as "June 1, June 23, May 11". Quartz passes these to the browser as source strings and
+    # rebuilds them there, so they must be self-contained: no outside references.
+    #   - PhD first, then the Master's; inside the Master's, phase hubs 01-05, then folders
+    #     in reading order. Meeting notes sort on their date-prefixed slug, so they are
+    #     chronological. Investigations follow the order Phase 4 tells them in; that order
+    #     is listed by hand because those slugs carry no date or number.
+    options:
+      sortFn: |-
+        (a, b) => {
+          const order = ["meetings", "investigations", "ddcm", "thesis",
+            "investigation-overview", "work-timing-analysis", "profile-likelihood-scans",
+            "gradient-bug-investigation", "parameter-recovery", "exact-vs-sampling-vs-rl",
+            "behavioural-validation-series"];
+          const rank = (n) => {
+            const s = n.slugSegment;
+            if (n.isFolder && s === "phd") return 0;
+            if (n.isFolder && s === "masters") return 1;
+            if (!n.isFolder && /^0\d-/.test(s)) return 2;
+            return n.isFolder ? 3 : 4;
+          };
+          const ra = rank(a), rb = rank(b);
+          if (ra !== rb) return ra - rb;
+          const ia = order.indexOf(a.slugSegment), ib = order.indexOf(b.slugSegment);
+          if (ia !== ib) return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
+          return a.slugSegment.localeCompare(b.slugSegment, undefined, { numeric: true });
+        }
+      mapFn: |-
+        (node) => {
+          const names = {
+            "masters/meetings/index": "Meeting notes, oldest first",
+            "masters/investigations/index": "Investigations",
+            "masters/ddcm/index": "All 19 interactive reports",
+            "masters/thesis/index": "Thesis draft (abandoned)"
+          };
+          if (node.isFolder && names[node.slug]) node.displayName = names[node.slug];
+        }
     layout:
       position: left
       priority: 50
