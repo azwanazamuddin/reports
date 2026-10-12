@@ -89,6 +89,22 @@ python3 scripts/patch-spa-redirect.py slides/thesis/index.html
 
 Then commit and push the updated `slides/thesis/` folder in the reports repo.
 
+Same pattern for the Paper A supervisor deck (42 slides) — source at
+`4 - Projects/ddcm/constraint_framing_slides/slides.md`, which is **not under version control**, so
+copy it somewhere durable. It shares `node_modules` with `paper_a_slides` through a symlink:
+
+```bash
+cd "4 - Projects/ddcm/constraint_framing_slides"
+node_modules/.bin/slidev build --base /reports/slides/constraint-framing/ --out /tmp/constraint-framing-build
+rsync -a --delete /tmp/constraint-framing-build/ "../../../3 - Permanent Notes/reports/slides/constraint-framing/"
+cd "../../../3 - Permanent Notes/reports"
+python3 scripts/patch-spa-redirect.py slides/constraint-framing/index.html
+```
+
+Then commit and push the updated `slides/constraint-framing/` folder in the reports repo. A build
+under Slidev 52.14.2 logs a harmless `Failed to patch FloatingVue ... 'Popper'` console error; it is
+in Slidev's own client code and only affects the toolbar pop-up menus.
+
 **Two documents per meeting** (HIIRM convention):
 
 1. **Research overview** → always `thesis/thesis-draft.md`. Do not duplicate per meeting — update the single draft, Git history preserves versions.

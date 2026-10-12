@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  // SPA GitHub Pages redirect decoder — pairs with the repo-root 404.html
+  // (https://github.com/rafgraph/spa-github-pages). Restores the real path
+  // before the router boots.
+  (function(l) {
+    if (l.search[1] === "/") {
+      var decoded = l.search.slice(1).split("&").map(function(s) {
+        return s.replace(/~and~/g, "&");
+      }).join("?");
+      window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+    }
+  }(window.location));
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constraint Heterogeneity in Dynamic Choice Models - Slidev</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" type="text/css">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/960px-Emblem_of_Hiroshima_University.png">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/two_prisms.png">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/marginal_penalty.png">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/entmax_ladder.png">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/four_cases_graph.png">
+<link rel="preload" as="image" href="/reports/slides/constraint-framing/images/workflow_mask_sweep.png">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/slidevjs/slidev/assets/favicon.png">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="slidev:version" content="52.14.2">
+<meta property="og:title" content="Constraint Heterogeneity in Dynamic Choice Models - Slidev">  <script type="module" crossorigin src="/reports/slides/constraint-framing/assets/index-71YfDD7K.js"></script>
+  <link rel="modulepreload" crossorigin href="/reports/slides/constraint-framing/assets/modules/vue-Bf3X-9uV.js">
+  <link rel="modulepreload" crossorigin href="/reports/slides/constraint-framing/assets/modules/shiki-CZZ3xiVu.js">
+  <link rel="stylesheet" crossorigin href="/reports/slides/constraint-framing/assets/modules/shiki-Do831mNu.css">
+  <link rel="stylesheet" crossorigin href="/reports/slides/constraint-framing/assets/index-DC50WuPj.css">
+</head>
+<body>
+  <div id="app"></div>
+  <div id="mermaid-rendering-container"></div>
+  
+</body>
+</html>
