@@ -41,6 +41,10 @@ differs by group and by individual.
 - [[2026-01-07-rmdp-theory-and-implementation|7 Jan — RMDP theory and implementation]]: the relational track.
 - [[2026-01-27-validation-plan|27 Jan — Validation plan]]: a layered framework for checking the algorithm, from theoretical correctness through to policy testing.
 
+## Carried into the PhD
+
+The shared graph is the "shared structure" ingredient in [[paper-a|Paper A]]'s argument, and the condition tiers above are an early version of its question about feasibility that differs by group and by individual.
+
 ---
 
 **← Previous** [[01-approximation-first|Phase 1]] · **Next →** [[03-the-framework|Phase 3 — The framework]]

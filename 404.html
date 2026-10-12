@@ -40,8 +40,13 @@
           "260623": "2026-06-23-recovery-and-approximation-error"
         };
         var note = rest.match(/^meetings\/[^/]+\/(\d{6})[^/]*$/);
+        var asset = rest.match(/^meetings\/20\d\d-(?:fall|spring)\/(presentations|figures)\/(.+)$/);
         if (note && notes[note[1]]) {
           rest = "meetings/" + notes[note[1]] + ".html";
+        } else if (asset) {
+          // the two semester folders merged, so their presentations/ and figures/
+          // subfolders now sit directly under meetings/
+          rest = "meetings/" + asset[1] + "/" + asset[2];
         } else if (/^meetings\/20\d\d-(?:fall|spring)\/?$/.test(rest)) {
           // the per-semester folder listings no longer exist
           rest = "meetings/";

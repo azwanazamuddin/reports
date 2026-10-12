@@ -224,6 +224,10 @@ between people need their own computation.
 - [Defense deck](/slides/thesis/) — August 2026
 - [Master's work](/masters/) — the path from first ideas to the defended thesis, in five phases
 
+## Reports
+
+- [Paper A — what per-person feasibility costs](/phd/paper-a/) — the first paper, as an argument in ten links. Pre-supervisor draft, October 2026.
+
 ## Decks
 
 - [Master's thesis defense](/slides/thesis/) — August 2026
