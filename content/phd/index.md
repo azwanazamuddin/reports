@@ -32,6 +32,9 @@ which of those differences genuinely need their own computation. The full framin
 - **13 Oct 2026** · [[2026-10-13-gradient-speedup|Why the estimator got faster: how the gradient is managed]].
   A 16.7× speed-up with identical results, compared with the old CUDA runs, the defects found on the
   way, and the cost of the first full-sample run. It contains no estimation result yet.
+- **29 Sep 2026** · [hEART 2026 talk](/slides/heart/), Paris. *Reachability-Based Sparse Computation for
+  Activity-Based Dynamic Discrete Choice Models*: the computational framing of Paper A, before the
+  1 October literature run turned it into a constraint-heterogeneity paper.
 
 ## Where it comes from
 

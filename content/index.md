@@ -32,6 +32,9 @@ actually requires.
   session. [Decisions, corrections and what is still open](/phd/2026-10-13-paper-a-deck/).
 - **13 Oct 2026** · [Why the estimator got faster: how the gradient is managed](/phd/2026-10-13-gradient-speedup/).
   A 16.7× speed-up with identical results, compared with the old CUDA runs. No estimation result yet.
+- **29 Sep 2026** · [hEART 2026](/slides/heart/). Paris, 29 September to 1 October: *Reachability-Based
+  Sparse Computation for Activity-Based Dynamic Discrete Choice Models*, the computational framing of
+  Paper A before the 1 October reframe to constraint heterogeneity.
 - **Aug 2026** · [Master's thesis defense](/slides/thesis/). The deck for the defended thesis.
 - **Jul 2026** · [APTE 2026](/slides/apte/). Jeju Island, 8–10 July.
 - **Jun 2026** · [Inside the DDCM engine](/slides/ddcm-codebase/). A codebase walkthrough.
