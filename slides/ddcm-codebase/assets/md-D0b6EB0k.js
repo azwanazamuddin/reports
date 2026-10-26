@@ -1,0 +1,18 @@
+import{_ as u}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-B4m7DOMt.js";import{o as c,Y as d,aa as n,b as s,ab as e,a9 as t,aA as i,aC as m,aD as f,G as r}from"./modules/vue-CQDW7uO4.js";import{I as h}from"./default-BwQys07c.js";import{K as k,a6 as g}from"./index-C5VTuUwJ.js";import"./modules/unplugin-icons-Dmgetque.js";import"./ScholarlyHeader.vue_vue_type_script_setup_true_lang-B99esPMz.js";import"./useFontSizeStyles-Bu6DRE4f.js";import"./modules/shiki-KldqaUeW.js";const N={__name:"slides.md__slidev_66",setup(_){const{$clicksContext:p,$frontmatter:o}=k();return p.setup(),(b,l)=>{const a=u;return c(),d(h,m(f(r(g)(r(o),65))),{default:n(()=>[l[2]||(l[2]=s("h1",null,"Fused Utilities — Intuition",-1)),l[3]||(l[3]=s("p",null,[e("Think of utilities as a "),s("strong",null,"conveyor belt"),e(", not a warehouse.")],-1)),l[4]||(l[4]=s("p",null,[s("strong",null,"Old path:"),e(" fill a 19 GB warehouse (one global write), then make 96 + 96 trips to the warehouse to fetch what you need.")],-1)),t(a,i({},{title:"",ranges:[]}),{default:n(()=>[...l[0]||(l[0]=[s("pre",{class:"shiki shiki-themes vitesse-dark vitesse-light slidev-code",style:{"--shiki-dark":"#dbd7caee","--shiki-light":"#393a34","--shiki-dark-bg":"#121212","--shiki-light-bg":"#ffffff"}},[s("code",{class:"language-text"},[s("span",{class:"line"},[s("span",null,"BFGS iter k")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│")]),e(`
+`),s("span",{class:"line"},[s("span",null,"├─ recompute_graph_utilities()   ← fill the warehouse: 4.76B floats × 4 bytes = 19 GB")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│")]),e(`
+`),s("span",{class:"line"},[s("span",null,"├─ BI:    t=96 … t=1   each reads utils[slice] from RAM, computes V")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│                        96 warehouse trips")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│")]),e(`
+`),s("span",{class:"line"},[s("span",null,"└─ GV:   chunk 0 … N   each reads utils[slice] from RAM, computes ∂V/∂θ")]),e(`
+`),s("span",{class:"line"},[s("span",null,"                         ~96 more warehouse trips")])])],-1)])]),_:1},16),l[5]||(l[5]=s("p",null,[s("strong",null,"New path:"),e(" compute utilities "),s("strong",null,"on-demand"),e(", consume immediately, discard.")],-1)),t(a,i({},{title:"",ranges:[]}),{default:n(()=>[...l[1]||(l[1]=[s("pre",{class:"shiki shiki-themes vitesse-dark vitesse-light slidev-code",style:{"--shiki-dark":"#dbd7caee","--shiki-light":"#393a34","--shiki-dark-bg":"#121212","--shiki-light-bg":"#ffffff"}},[s("code",{class:"language-text"},[s("span",{class:"line"},[s("span",null,"BFGS iter k")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│")]),e(`
+`),s("span",{class:"line"},[s("span",null,"├─ BI:    t=96 … t=1")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│         ├─ utils_t = compute_batch(states_t, acts_t)   ← tiny slice, ~50M edges")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│         ├─ fused_bi_step(utils_t, targets_t, V)        ← consumed in Metal")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│         └─ utils_t freed                               ← ~200 MB peak, not 19 GB")]),e(`
+`),s("span",{class:"line"},[s("span",null,"│")]),e(`
+`),s("span",{class:"line"},[s("span",null,"└─ GV:   chunk 0 … N")]),e(`
+`),s("span",{class:"line"},[s("span",null,"          ├─ utils_c = compute_batch(states_c, acts_c)")]),e(`
+`),s("span",{class:"line"},[s("span",null,"          └─ utils_c freed after gradient scatter")])])],-1)])]),_:1},16),l[6]||(l[6]=s("p",null,"The 19 GB array never exists. Memory bound becomes per-timestep (~200 MB), not per-graph.",-1))]),_:1},16)}}};export{N as default};

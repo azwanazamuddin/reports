@@ -1,0 +1,12 @@
+import{_ as p}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-B4m7DOMt.js";import{o as r,Y as u,aa as e,b as s,a9 as m,aA as f,ab as n,aC as c,aD as d,G as l}from"./modules/vue-CQDW7uO4.js";import{I as _}from"./default-BwQys07c.js";import{K as F,a6 as x}from"./index-C5VTuUwJ.js";import"./modules/unplugin-icons-Dmgetque.js";import"./ScholarlyHeader.vue_vue_type_script_setup_true_lang-B99esPMz.js";import"./useFontSizeStyles-Bu6DRE4f.js";import"./modules/shiki-KldqaUeW.js";const R={__name:"slides.md__slidev_63",setup(g){const{$clicksContext:t,$frontmatter:i}=F();return t.setup(),(k,a)=>{const o=p;return r(),u(_,c(d(l(x)(l(i),62))),{default:e(()=>[a[1]||(a[1]=s("h1",null,"Float Atomic Max: The Core Trick (Recap)",-1)),a[2]||(a[2]=s("p",null,[s("strong",null,"The float-to-uint bijective mapping:")],-1)),m(o,f({},{title:"",ranges:[]}),{default:e(()=>[...a[0]||(a[0]=[s("pre",{class:"shiki shiki-themes vitesse-dark vitesse-light slidev-code",style:{"--shiki-dark":"#dbd7caee","--shiki-light":"#393a34","--shiki-dark-bg":"#121212","--shiki-light-bg":"#ffffff"}},[s("code",{class:"language-text"},[s("span",{class:"line"},[s("span",null,"float_to_sortable_uint(f):")]),n(`
+`),s("span",{class:"line"},[s("span",null,"    bits = reinterpret_as_uint(f)")]),n(`
+`),s("span",{class:"line"},[s("span",null,"    sign = int(bits >> 31)")]),n(`
+`),s("span",{class:"line"},[s("span",null,"    mask = uint(-sign) | 0x80000000   # 0xFFFFFFFF if negative, 0x80000000 if positive")]),n(`
+`),s("span",{class:"line"},[s("span",null,"    return bits XOR mask")]),n(`
+`),s("span",{class:"line"},[s("span")]),n(`
+`),s("span",{class:"line"},[s("span",null,"Mappings:")]),n(`
+`),s("span",{class:"line"},[s("span",null,"  −∞   →  0x007FFFFF  (uint minimum — initializer for max_buf)")]),n(`
+`),s("span",{class:"line"},[s("span",null,"  −1.0 →  0x3F800000")]),n(`
+`),s("span",{class:"line"},[s("span",null,"   0.0 →  0x80000000")]),n(`
+`),s("span",{class:"line"},[s("span",null,"  +1.0 →  0xBF800000")]),n(`
+`),s("span",{class:"line"},[s("span",null,"  +∞   →  0xFF800000  (uint maximum)")])])],-1)])]),_:1},16),a[3]||(a[3]=s("p",null,[n("One thread per edge → "),s("code",null,"atomic_fetch_max_explicit(&max_buf[src], float_to_sortable_uint(q_val))")],-1)),a[4]||(a[4]=s("p",null,[s("code",null,"_SORTABLE_NEG_INF = 0x007FFFFF"),n(" initializes "),s("code",null,"max_buf"),n(" before each scatter.")],-1))]),_:1},16)}}};export{R as default};
