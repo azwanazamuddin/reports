@@ -35,6 +35,12 @@ which of those differences genuinely need their own computation. The full framin
 - **29 Sep 2026** · [hEART 2026 talk](/slides/heart/), Paris. *Reachability-Based Sparse Computation for
   Activity-Based Dynamic Discrete Choice Models*: the computational framing of Paper A, before the
   1 October literature run turned it into a constraint-heterogeneity paper.
+- **28 Sep 2026** · [MATSim User Meeting 2026 talk](/slides/matsim-um/), Paris. *A Reachability-Pruned
+  Activity-Based Demand Model for MATSim*: the model as a demand generator for MATSim, and how plans
+  respond to congestion.
+- **Jul 2026** · [ICMC 2026 talk](/slides/icmc/), Gold Coast. *A Reachability-Based Computational
+  Framework for Population-Scale Activity-Based Dynamic Discrete Choice Models*, the conference paper
+  of the Master's work.
 
 ## Where it comes from
 

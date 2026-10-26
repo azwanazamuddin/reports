@@ -35,7 +35,12 @@ actually requires.
 - **29 Sep 2026** · [hEART 2026](/slides/heart/). Paris, 29 September to 1 October: *Reachability-Based
   Sparse Computation for Activity-Based Dynamic Discrete Choice Models*, the computational framing of
   Paper A before the 1 October reframe to constraint heterogeneity.
+- **28 Sep 2026** · [MATSim User Meeting 2026](/slides/matsim-um/). Sorbonne University, Paris: *A
+  Reachability-Pruned Activity-Based Demand Model for MATSim*, on congestion response and demand
+  generation in Higashi-Hiroshima.
 - **Aug 2026** · [Master's thesis defense](/slides/thesis/). The deck for the defended thesis.
+- **Jul 2026** · [ICMC 2026](/slides/icmc/). Gold Coast, 20–22 July: *A Reachability-Based
+  Computational Framework for Population-Scale Activity-Based Dynamic Discrete Choice Models*.
 - **Jul 2026** · [APTE 2026](/slides/apte/). Jeju Island, 8–10 July.
 - **Jun 2026** · [Inside the DDCM engine](/slides/ddcm-codebase/). A codebase walkthrough.
 - **Apr 2026** · [DDCM framework](/slides/ddcm/).
