@@ -20,7 +20,7 @@ the whole PhD first, then Paper A in full, then the plan for the later papers. T
 
 | Part | What it covers |
 |---|---|
-| 1 · The PhD research | people face different constraints; if ignored, they are read as preferences; the research question; five papers and how they connect; urban transformation as the long-term objective; the value of a constraint |
+| 1 · The PhD research | people face different constraints; if ignored, they are read as preferences; the research question; five papers and how they connect; urban transformation as the long-term objective; the value of a constraint; perturbed utility as the lens across the papers |
 | 2 · Paper A | the model, value and likelihood, the two parts of every choice, five kinds of constraint, what each costs, one sweep, five propositions, experiments, case study |
 | 3 · Next plan | Papers B, C, D and E, and how they make the thesis chapters |
 
@@ -48,7 +48,28 @@ each arrow is that gap.
 - **E · locate.** Homes and jobs are fixed in B; E lets people choose where they work and live from the
   value of the day.
 
-After the PhD: the housing market and designs chosen by planners.
+After the PhD: a bigger upper-level optimisation, such as the supply design response, beyond the travel
+demand model itself.
+
+## Perturbed utility: the lens across the papers
+
+Every choice model has two parts: **the perturbation**, which says how probability spreads over the
+options a person likes (Shannon entropy gives logit), and **the domain**, the feasible set, which says what
+the person can do. Constraints live in the domain. Both parts can put zero probability on an option: the
+domain because of a constraint, a sparse perturbation because of preference (Yao and Zhang 2026; Tan et
+al.).
+
+That is why perturbed utility runs through the whole plan rather than being one paper:
+
+| Paper | Role of perturbed utility |
+|---|---|
+| A · represent | stated for the Shannon member, where every feasible option has positive probability, so **every zero is a constraint** and the value of the day reads cleanly |
+| C · learn | the main home: a zero may come from a specified constraint, a latent one, or a sparse preference; also checks that sharing is not tied to logit |
+| B · use | welfare as the surplus under the perturbation; a value is only a constraint value if the zeros are constraints |
+| after the PhD | a general "beyond logit" account of sharing and welfare |
+
+Two guardrails: sparse perturbations are not outside random utility, and any computational gain from
+sparsity is measured, not claimed.
 
 ## The value of a constraint
 
