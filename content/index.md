@@ -6,15 +6,18 @@ PhD research at [Hiroshima University](https://www.hiroshima-u.ac.jp/en), in the
 [Urban and Transportation Planning Laboratory](https://home.hiroshima-u.ac.jp/~mkt682/)
 under Prof. Makoto Chikaraishi.
 
-The work is about **constraint heterogeneity in dynamic choice models**. The object
-is a Markov perturbed-utility model with heterogeneous feasible sets: one shared
-state graph, a family of feasible sets over it, and the question of how many
-distinct computations that family actually requires.
+The work is about **constraint heterogeneity in dynamic discrete choice models**:
+people face different constraints, and a model of the whole day has to carry them
+exactly, for a whole population, at a cost that grows with the kinds of constraint
+rather than with the number of people. The object is a Markov perturbed-utility
+model with heterogeneous feasible sets: one shared state graph, a family of feasible
+sets over it, and the question of how many distinct computations that family
+actually requires.
 
-> [!note] Status
-> The framing below is current as of 13 October 2026 and is being taken to a
-> supervisor session, not settled by it. The research directions at the end are
-> themes to read into — they carry no ordering and no commitment. Where this page
+> [!note] Status, 26 October 2026
+> The framing below follows the PhD plan presented at the lab seminar on 25 October:
+> five papers joined by gaps, with Paper A as the foundation. It is a plan, not a
+> result, and the literature behind it is still being read in full. Where this page
 > and the working documents disagree, the working documents win.
 
 ## Reports and decks, newest first
@@ -82,6 +85,11 @@ welfare reading needs.
 **Constraint heterogeneity is therefore either misattributed or unaffordable.** The
 work is about removing the second horn.
 
+The first horn is not new on its own. Separating constraint from preference is an
+old question in choice modelling (Manski 1977; Swait and Ben-Akiva 1987; Scott and
+He 2012; Thorhauge, Vij and Cherchi 2021). What is open is doing it exactly and
+affordably inside a whole-day dynamic discrete choice model.
+
 ## Where the work sits
 
 Perturbed utility splits a choice model in two: the **domain**, which is what is
@@ -108,6 +116,8 @@ neighbour's own notation is what makes this a position rather than a complaint:
 | **Naqavi et al. (2023)** | — | n/a | ✓ |
 | **Oyama & Hato (2019)** | ✓ | ✓ | — |
 | **Yao & Zhang (2026)** | ✓ | per class | classes only |
+| **Tran & Mai (2024)** | — | n/a | ✓ |
+| **Tran, Mai & Hoang (2025)** | ✓ | ✓ | one threshold for everyone |
 
 Västberg has the person index without a shared structure, so heterogeneity is
 handled by replication and cost is linear in people. Oyama has the shared structure
@@ -117,6 +127,11 @@ his own footnote calls the per-pair version "a trade-off between computational
 efficiency and realism" and declines it. Yao and Zhang have the sharing, and
 a feasible set per user class, solved class by class; that is a handful of masks by
 replication, not one per person.
+
+Tran and Mai build one graph per decision maker; Tran, Mai and Hoang prove lossless
+exclusion and extend the state for constraints that depend on history, with one
+threshold for everyone. Both rows are from a first reading and are still to be
+checked in full.
 
 **Each has two of the three. Nobody carries a mask per person on one shared
 structure, or has asked how many distinct masks a real population needs.**
@@ -134,9 +149,17 @@ choice.
 Write each constraint as a rule reading some attributes and a state. Then it either
 reads nothing about the person, so it is removed once for everybody; or reads an
 attribute with few values, so it selects one of a handful of prebuilt structures;
-or reads something nearly unique to the person, so it is switched off against a
-structure everyone shares; or it reads **another person's day**, in which case it
+or reads an amount used up along the day against the person's own bound, such as a
+time or money budget, so each person is a different start node on one extended
+graph; or reads something nearly unique to the person, so it is switched off against
+a structure everyone shares; or it reads **another person's day**, in which case it
 is not a rule about this person at all.
+
+Named by what they say about a person's life, these are four kinds: **institutional**
+(the same for everyone), **capability** in two forms (the means a person holds, and
+a budget used up during the day; the prism itself is bounded by a time budget),
+**anchor** (where and when one must be) and **interdependent** (set by another
+person). The two forms of capability share a meaning but not a mechanism.
 
 That last case is the boundary, and it is a principled one rather than a practical
 one. The work handles every constraint whose referent is *given* — including
@@ -145,6 +168,7 @@ cannot handle is coupling whose counterpart is also optimising.
 
 ### What that costs, measured
 
+These counts are from 6 October and will be re-counted on the current specification.
 7,468 real diaries need **four** structures. A synthetic population of **214,216**
 people for the same city needs the same four. Separately, 8,031 people need
 **3,096** solves rather than 8,031 — a 2.6× collapse. Per-person switching leaves
@@ -172,39 +196,47 @@ Stated here because all of it has drifted into earlier drafts:
 - Not that the value function as an accessibility measure is new — that is the
   published bridge above
 - Not that schedulers cannot be estimated, and not that sampling is invalid
+- Not that separating constraint from preference is new (Manski 1977; Swait and
+  Ben-Akiva 1987), nor that lossless exclusion or a state extended for history is new
+  (Tran, Mai and Hoang 2025)
+- Not that valuing a known constraint per person is new: Naqavi et al. (2023) value
+  car access per person and evaluate a workplace in every zone
 - **Not that the cost result transfers to cyclic models.** That is open, not
   claimed
 
-The honest limits are stated too: value of time comes out at 193 yen per minute
-against the reference model's own 44, because fuel-only car cost is proportional to
-distance and the cost and time coefficients are collinear; one finite penalty
-survives in the specification, on the lower bound of work start; household coupling
-does not factorise; the modelled horizon is chosen rather than given; and three of
-the five constraint sources need an exogeneity argument that has not yet been made.
+The honest limits are stated too. The estimate shown at the
+[SIP seminar](/phd/2026-10-23-sip-seminar/) is one estimation round, with public
+transport time fixed from a trip-level model; the model was re-specified on 24
+October and is being re-estimated. Each person is observed on one weekday, work
+duration is taken from the diary, shopping destinations do not fit, household
+coupling does not factorise, and the constraint sources still need an argument that
+they are exogenous.
 
 ## Where this goes
 
-The classification cuts across Hägerstrand's three types, and two dropped
-assumptions give the thesis its shape:
+Five papers, each starting from a gap the previous one states in its own discussion.
+The [lab seminar deck](/slides/phd-framework/) sets them out, and
+[its notes](/phd/2026-10-25-phd-framework/) say what is open.
 
-| | acyclic, a day | cyclic, a network |
+| Paper | Question | Gap it starts from |
 |---|---|---|
-| **reads given quantities** | **the first paper** | does masking admit a low-rank resolvent update? |
-| **reads another's choice** | endogenous coupling, estimable and welfare-bearing | both at once |
+| **A · represent** | when can people whose constraints differ share one graph exactly, and what does each kind cost? | the foundation |
+| **C · learn** | where do the zeros come from: a specified constraint, a latent one, or a sparse preference? | A assumes constraints are known |
+| **D · couple** | how to estimate constraints set by another household member's choice | A shows them only on a toy |
+| **B · use** | buildings, the MATSim loop and the welfare diagnosis | A works with zones and fixed travel times |
+| **E · locate** | where people work and live, read from the value of the day, as a choice of one's own constraints | B keeps homes and jobs fixed |
 
-The first paper is one cell. The rest is the same question with the acyclicity and
-the given-referent assumptions dropped, rather than a new topic. Six directions are
-currently written as themes to read into, not as papers: what per-person
-feasibility costs when the clock condition fails; which shared representation is
-best, and whether there is a principled way to choose one; constraints between
-people, and where exactly the boundary is; constraints that change under a policy
-scenario; constraints that are uncertain, which is flagged as outside the current
-frame because it breaks the known-arrival assumption; and where constraints come
-from, when feasibility must be inferred rather than read off.
+**Perturbed utility is the lens across all five.** A choice model has a perturbation,
+which spreads probability over what a person likes, and a domain, which is what the
+person can do. Under the Shannon member every zero is a constraint, so the value of
+the day and the value of a constraint read cleanly; under a sparse perturbation a zero
+may be preference. Paper A states its results for the Shannon member, and Paper C
+asks which zeros are which.
 
-Each carries an honest risk line — whether the machinery is so established that the
-contribution would be the application rather than the method. The reading is what
-settles that, and it has not happened yet.
+The quantity that runs through the plan is the **value of a constraint** to one person:
+what they would gain if it were lifted, with everything else unchanged. After the PhD,
+the long-term objective is urban transformation: a bigger upper-level optimisation,
+such as the supply design response, beyond the travel demand model itself.
 
 ---
 

@@ -63,7 +63,7 @@ Two boundaries were checked on 25 October (provisional, from abstracts):
 | 1 Introduction | points; written last |
 | 2 Constraints in activity-travel behaviour: a review | prose |
 | 3 Dynamic discrete choice models: review, gap and objectives | prose for 3.1 to 3.7, with Tran and Mai and Tran, Mai and Hoang now cited; 3.8 objectives await the author's decision |
-| 4 Model | prose. The classification table now has **five kinds** (institutional, capability, anchor, budget, interdependent) and a paragraph on the memory axis |
+| 4 Model | prose. The classification table has **four kinds** (institutional, capability, anchor, interdependent), with capability in two forms: the means a person holds, and a budget used up during the day. A paragraph covers the memory axis |
 | 5 Constraint heterogeneity and what it costs | 5.1, 5.2 and 5.4 prose; 5.3 points until the household toy exists |
 | 6 Numerical experiments | points; the sweep ranges and axes await the author's decision |
 | 7 Case study | waits for the re-estimate |
@@ -83,7 +83,7 @@ The five propositions:
 
 1. **Sharing gate** in the code: shared graph with masks against one graph per person, compared by logsum
    and gradient, on a fixture where the masks really differ.
-2. **Start-node check**, if any case-study constraint is of the budget type.
+2. **Start-node check**, if any case-study constraint is a budget (the second form of capability).
 3. **Household toy**: two members, one car, as a joint graph; measures the growth and confirms that the
    interdependent kind does not reduce.
 4. **Re-count** of distinct classes on the current specification.

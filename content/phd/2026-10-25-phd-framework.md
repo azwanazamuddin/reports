@@ -21,7 +21,7 @@ the whole PhD first, then Paper A in full, then the plan for the later papers. T
 | Part | What it covers |
 |---|---|
 | 1 · The PhD research | people face different constraints; if ignored, they are read as preferences; the research question; five papers and how they connect; urban transformation as the long-term objective; the value of a constraint; perturbed utility as the lens across the papers |
-| 2 · Paper A | the model, value and likelihood, the two parts of every choice, five kinds of constraint, what each costs, one sweep, five propositions, experiments, case study |
+| 2 · Paper A | the model, value and likelihood, the two parts of every choice, four kinds of constraint (capability in two forms), what each costs, one sweep, five propositions, experiments, case study |
 | 3 · Next plan | Papers B, C, D and E, and how they make the thesis chapters |
 
 Then references, and the working notes.
