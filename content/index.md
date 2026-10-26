@@ -19,6 +19,12 @@ distinct computations that family actually requires.
 
 ## Reports and decks, newest first
 
+- **25 Oct 2026** · [The PhD framework and Paper A](/slides/phd-framework/). The lab seminar deck: five
+  papers joined by gaps, Paper A in full, the next plan. [What it argues and what is open](/phd/2026-10-25-phd-framework/).
+- **25 Oct 2026** · [Paper A progress](/phd/2026-10-25-paper-a-progress/). Where the manuscript stands,
+  section by section.
+- **23 Oct 2026** · [SIP seminar](/slides/sip-seminar/). The stakeholder talk with the first full-sample
+  results. [PDF, handouts and how it was made](/phd/2026-10-23-sip-seminar/).
 - **13 Oct 2026** · [Paper A: the deck](/slides/constraint-framing/). 42 slides for the supervisor working
   session. [Decisions, corrections and what is still open](/phd/2026-10-13-paper-a-deck/).
 - **13 Oct 2026** · [Why the estimator got faster: how the gradient is managed](/phd/2026-10-13-gradient-speedup/).

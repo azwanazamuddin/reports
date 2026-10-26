@@ -3,7 +3,7 @@ title: "Doctoral research"
 type: hub
 status: draft
 created: 2026-10-12
-updated: 2026-10-13
+updated: 2026-10-26
 tags: [phd, hub]
 ---
 
@@ -19,6 +19,13 @@ which of those differences genuinely need their own computation. The full framin
 
 ## Reports and decks, newest first
 
+- **25 Oct 2026** · [[2026-10-25-phd-framework|The PhD framework and Paper A: the lab seminar deck]].
+  The [whole PhD as five papers](/slides/phd-framework/), Paper A in full, and the plan that follows.
+- **25 Oct 2026** · [[2026-10-25-paper-a-progress|Paper A progress: where the manuscript stands]].
+  Section by section, the five drafted propositions, the gates, and what waits for the re-estimate.
+- **23 Oct 2026** · [[2026-10-23-sip-seminar|SIP seminar: the deck, the handouts, and how they were made]].
+  The [stakeholder talk](/slides/sip-seminar/) with the first full-sample results, a BRT test and
+  city-wide policies, with the PDF and the English and Japanese handouts.
 - **13 Oct 2026** · [[2026-10-13-paper-a-deck|Paper A: the deck, and what stands behind it]]. The
   [42-slide deck](/slides/constraint-framing/) for the supervisor working session, and this page's
   record of the decisions behind it, the corrections made while building it, and what is still open.

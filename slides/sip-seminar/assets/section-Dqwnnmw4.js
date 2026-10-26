@@ -1,0 +1,1 @@
+import{o as e,a as o,b as t,ao as a}from"./modules/vue-C_7tNnSX.js";import{K as i}from"./index-BPMzERFr.js";const n={class:"slidev-layout sip-section sip-dark"},r={class:"sip-section__inner"},p={__name:"section",setup(c){return i(),(s,_)=>(e(),o("div",n,[t("div",r,[a(s.$slots,"default")])]))}};export{p as _};

@@ -1,0 +1,1 @@
+import{o as s,a as o,b as t,ao as a}from"./modules/vue-Ck5nFOQZ.js";import{K as c}from"./index-CiAzmG4f.js";const n={class:"slidev-layout deck-section deck-dark"},r={class:"deck-section__inner"},m={__name:"section",setup(_){return c(),(e,d)=>(s(),o("div",n,[t("div",r,[a(e.$slots,"default")])]))}};export{m as _};
