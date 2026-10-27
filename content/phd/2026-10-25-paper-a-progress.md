@@ -2,8 +2,9 @@
 title: "Paper A progress: where the manuscript stands"
 type: report
 status: draft
+draft: true
 created: 2026-10-25
-updated: 2026-10-26
+updated: 2026-10-27
 tags: [phd, paper-a, constraint-heterogeneity, manuscript]
 ---
 

@@ -84,9 +84,8 @@ Taken from the session handoff, 20 to 23 October.
 
 ## What came after
 
-- The model was re-specified on 24 October, and the re-estimate is the next result. See
-  [[2026-10-25-paper-a-progress|Paper A progress]].
+- The model was re-specified on 24 October, and the re-estimate is the next result.
 - The shopping misfit and "the BRT is only a time change" are both specification items for that
   round, together with a closed loop with MATSim (lanes, congestion, the full population).
-- The talk's second take-home, that every person keeps their own constraints, is the subject of the
-  [[2026-10-25-phd-framework|PhD framework deck]].
+- The talk's second take-home, that every person keeps their own constraints, is the subject of
+  Paper A.

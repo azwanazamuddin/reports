@@ -19,10 +19,6 @@ which of those differences genuinely need their own computation. The full framin
 
 ## Reports and decks, newest first
 
-- **25 Oct 2026** · [[2026-10-25-phd-framework|The PhD framework and Paper A: the lab seminar deck]].
-  The [whole PhD as five papers](/slides/phd-framework/), Paper A in full, and the plan that follows.
-- **25 Oct 2026** · [[2026-10-25-paper-a-progress|Paper A progress: where the manuscript stands]].
-  Section by section, the five drafted propositions, the gates, and what waits for the re-estimate.
 - **23 Oct 2026** · [[2026-10-23-sip-seminar|SIP seminar: the deck, the handouts, and how they were made]].
   The [stakeholder talk](/slides/sip-seminar/) with the first full-sample results, a BRT test and
   city-wide policies, with the PDF and the English and Japanese handouts.
