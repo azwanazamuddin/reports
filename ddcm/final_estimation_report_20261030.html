@@ -59,7 +59,7 @@ against the activity it displaces. The median over hours, against home, in yen p
 <div class=note>The PT and bicycle time coefficients are positive (<code>beta_time_pt</code> +0.0274,
 t 9.5), as in every estimate since 22 October.
 For car 2.1%, bicycle 2.2%, walk 2.2%, PT 9.0% of activity person-minutes, the value of a travel minute is &le; 0,
-that is, the model would rather ride than stay. This matters for the BRT result below.</div>
+that is, the model would rather ride than stay. A faster PT trip is therefore not always a gain in welfare, which matters for any PT scenario.</div>
 
 <h2>4. Fit: simulated against the diary</h2>
 <p>The simulation covers 6,510 persons, 3 simulated days each, with &theta;&#770; frozen. Car passenger is folded into car.</p>
@@ -74,19 +74,7 @@ starts that the likelihood actually scores.</p>
 100 leisure starts against 24. With the pre-work start constants this gap is closed. Every group now sits within
 a few percent of the diary except leisure before work (0.75&times;). That cell has only 25 starts.</p>
 
-<h2>5. BRT scenario</h2>
-<p>BRT runs as bus lines on the proposal headways. Travel times change only where BRT is faster, and fares stay as
-today. The run uses common random numbers against base.</p>
-<div class=wrap><table><tr><th>group</th><th>persons</th><th>mean &Delta;CV (yen/day)</th><th>median</th><th>gain %</th><th>loss %</th></tr><tr><td>all</td><td class=n>6,510</td><td class=n>0.216</td><td class=n>0.017</td><td class=n>85.5</td><td class=n>14.5</td></tr><tr><td>is_worker=False</td><td class=n>3,826</td><td class=n>0.045</td><td class=n>0.023</td><td class=n>100.0</td><td class=n>0.0</td></tr><tr><td>is_worker=True</td><td class=n>2,684</td><td class=n>0.459</td><td class=n>0.002</td><td class=n>64.8</td><td class=n>35.2</td></tr><tr><td>car_owned=False</td><td class=n>2,252</td><td class=n>0.566</td><td class=n>0.027</td><td class=n>88.7</td><td class=n>11.3</td></tr><tr><td>car_owned=True</td><td class=n>4,258</td><td class=n>0.030</td><td class=n>0.014</td><td class=n>83.8</td><td class=n>16.2</td></tr><tr><td>brt_corridor=False</td><td class=n>4,365</td><td class=n>0.076</td><td class=n>0.011</td><td class=n>85.1</td><td class=n>14.9</td></tr><tr><td>brt_corridor=True</td><td class=n>2,145</td><td class=n>0.499</td><td class=n>0.026</td><td class=n>86.2</td><td class=n>13.8</td></tr></table></div>
-<p>Mode share change: bus +0.0002 pp, train +0.012 pp.
-Across persons, &Delta;CV ranges from -25.4 to 242.5 yen. 59 persons lose more than
-1 yen and 20 gain more than 10. The mean of 0.22 yen per person-day is about a fifth of the
-seminar's 1.06 yen.</p>
-<div class=note>A faster PT trip can LOWER welfare here. With <code>beta_time_pt</code> &gt; 0, a saved PT minute is
-worth only &mu;(a,t) &minus; &beta;<sub>pt</sub>, and that is negative where &mu; is small (home 11:00, shopping 07:00
-to 09:00). So the losers in this table follow from the sign of the PT time coefficient, not from noise.</div>
-
-<h2>6. Likelihood check and the canonical encoding</h2>
+<h2>5. Likelihood check and the canonical encoding</h2>
 <p>The base simulation scores the diary on the ordinary (non-canonical) graph: LL -42,459.14 on 6,487 persons and
 376,761 steps. The estimator, on the canonical graph, scored the same persons at -42,462.12 on 376,773 steps.
 The 2.98 LL gap comes from the 12 extra steps.</p>
@@ -102,9 +90,9 @@ the merged node and the step is scored. Nothing is lost in the other direction. 
 matched edge are the same in both audits. The canonical likelihood therefore scores a superset of the ordinary one,
 and the 12 extra steps are an encoding artefact of the ordinary graph, not new behaviour.</p>
 
-<h2>7. Open points</h2>
+<h2>6. Open points</h2>
 <ul>
-<li>The sign of the PT and bicycle time coefficients (section 3), and the BRT losers that follow from it.</li>
+<li>The sign of the PT and bicycle time coefficients (section 3).</li>
 <li>Durations of shopping and leisure are still too long, especially for workers (93 against 51 min for shopping).
 Duration memory is not in the case-study state (a known limitation).</li>
 <li>The home 11:00 knot is negative (the long-standing 11:00 dip).</li>
