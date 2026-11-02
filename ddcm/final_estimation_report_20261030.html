@@ -186,6 +186,7 @@ decisions, where a chained trip is one trip.</p>
 
 <style>td.num, td.n { text-align: right; } .card .wrap { overflow-x: auto; }</style>
 <h3>8. Workers before and after work</h3>
+<p class="note-static"><i>This section and the next cover everyone; the group buttons above do not apply to them.</i></p>
 <p>Each simulated shopping and leisure start, set against the starts the likelihood scores in the estimator's own
 encoding, split by the state's work history.</p>
 <div class="grid2">
@@ -210,6 +211,9 @@ remember car passenger. Canonical states drop memory that no later utility reads
 the merged node and the step is scored. Nothing is lost in the other direction. The 42 persons with an infeasible
 matched edge are the same in both audits. The canonical likelihood therefore scores a superset of the ordinary one,
 and the 12 extra steps are an encoding artefact of the ordinary graph, not new behaviour.</p></div>
+
+<h3>10. Goodness of fit: McFadden &rho;&sup2;</h3>
+<div class='card tablewrap'><table><tr><th>quantity</th><th>value</th></tr><tr><td>LL(&theta;&#770;), ordinary graph, 6,487 persons</td><td class=num>-42,459.14</td></tr><tr><td>LL(0), &theta; = 0 on the same graph and persons</td><td class=num>-811,175.47</td></tr><tr><td>&rho;&sup2; = 1 &minus; LL(&theta;&#770;)/LL(0)</td><td class=num>0.9477</td></tr><tr><td>&rho;&#772;&sup2; = 1 &minus; (LL(&theta;&#770;) &minus; K)/LL(0), K = 76</td><td class=num>0.9476</td></tr></table><p>At &theta; = 0 every feasible action has utility 0, so the null spreads probability evenly over the feasible set at every step, which is very large. &rho;&sup2; is therefore high mostly because the null is weak; it compares models fitted on the same graph, not with &rho;&sup2; from trip-level logit models.</p></div>
 
 <h3>Summary table</h3>
 <div class="card tablewrap" id="tbl"></div>
