@@ -1,19 +1,18 @@
 ---
-title: "Weekly progress, 26 October to 2 November 2026"
+title: "Weekly progress: 26 October to 2 November"
 type: report
 status: draft
-unlisted: true
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-05
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
-**[Open the Paper A deck](/slides/paper-a-progress/)** (43 slides, 2 November) ·
+**[Open the Paper A deck](/slides/paper-a-progress/)** (current version; it had 43 slides when this was written) ·
 [final estimation report](/ddcm/final_estimation_report_20261030.html) ·
 [distribution figures](/ddcm/behavioral_validation_20261030.html)
 
 > [!warning] Working material
-> Unlisted. The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
+> The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
 
 ## 1. Planned
 

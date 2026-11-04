@@ -21,6 +21,7 @@ which of those differences genuinely need their own computation. The full framin
 
 - **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Paper A progress deck](/slides/paper-a-progress/),
   the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down, and the [full estimation report](/ddcm/round1_estimation_report_20261103.html).
+- **2 Nov 2026** · [Weekly progress: 26 October to 2 November](/phd/2026-11-02-weekly-progress). The week before, with the [final estimation report of 30 October](/ddcm/final_estimation_report_20261030.html).
 - **23 Oct 2026** · [[2026-10-23-sip-seminar|SIP seminar: the deck, the handouts, and how they were made]].
   The [stakeholder talk](/slides/sip-seminar/) with the first full-sample results, a BRT test and
   city-wide policies, with the PDF and the English and Japanese handouts.
