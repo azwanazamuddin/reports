@@ -1,8 +1,7 @@
 ---
-title: "Weekly progress, 2 to 4 November 2026"
+title: "Weekly progress: Theorem 1, the latest estimate, what is next"
 type: report
 status: draft
-unlisted: true
 created: 2026-11-04
 updated: 2026-11-05
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
@@ -13,7 +12,7 @@ tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 [full estimation report](/ddcm/round1_estimation_report_20261103.html)
 
 > [!warning] Working material
-> Unlisted. The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
+> The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
 
 ## 1. Done
 
@@ -39,9 +38,9 @@ a population whose constraints differ person by person.
 ### Part B paper
 
 - **Sections 1 to 4** (introduction, literature review, model, constraint heterogeneity): first full draft, written up from the
-  agreed points. Objectives reset to three and gaps to two.
-- **Section 6, case study, estimation part:** the latest estimate is the one the paper uses (next section). The results text of the section
-  is still an outline.
+  agreed points. Objectives reset to three and gaps to two. Section 5 is updated to the design below, still in points.
+- **Section 6, case study, estimation part:** the latest estimate is the one the paper uses (next section). Its parameter and fit tables and its figures are now in the section; the comparison with and without
+  constraints has not been run.
 
 ### Estimation reports
 

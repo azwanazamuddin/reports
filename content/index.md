@@ -22,6 +22,8 @@ actually requires.
 
 ## Reports and decks, newest first
 
+- **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Paper A progress deck](/slides/paper-a-progress/),
+  the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down, and the [full estimation report](/ddcm/round1_estimation_report_20261103.html).
 - **23 Oct 2026** · [SIP seminar](/slides/sip-seminar/). The stakeholder talk with the first full-sample
   results. [PDF, handouts and how it was made](/phd/2026-10-23-sip-seminar/).
 - **13 Oct 2026** · [Paper A: the deck](/slides/constraint-framing/). 42 slides for the supervisor working
