@@ -214,7 +214,7 @@ Stated here because all of it has drifted into earlier drafts:
 The honest limits are stated too. The estimate shown at the
 [SIP seminar](/phd/2026-10-23-sip-seminar/) is one estimation round, with public
 transport time fixed from a trip-level model; the model was re-specified on 24
-October and is being re-estimated. Each person is observed on one weekday, work
+October, and the [latest estimate](/phd/2026-11-04-weekly-progress) replaces it, with the public transport time coefficient still positive. Each person is observed on one weekday, work
 duration is taken from the diary, shopping destinations do not fit, household
 coupling does not factorise, and the constraint sources still need an argument that
 they are exogenous.

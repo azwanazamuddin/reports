@@ -75,7 +75,7 @@ the edge chunk inside the Hessian, now capped), and **canonical states** halved 
 | **Canonical states**: erase memory that no rule reads | likelihood equal to 2.7e-15; **42% of the edges, 2.3× less memory** | committed, used for the final estimate |
 | **Live-region sweeps**: skip the states a group cannot be in | 27% of the work at full scale (bound **3.7×**); backward induction exact on the live part | prototype |
 
-### Respecification round 1 (coded and verified, not estimated)
+### First respecification (coded and verified, not estimated)
 
 Leave out short pick-up/drop-off and hospital stops, recover short shopping and leisure stops, and forbid a tour that
 leaves home and comes back with nothing done. All gates passed (likelihood unchanged with the switches off; analytic
@@ -101,7 +101,7 @@ against numerical gradient, ratio 1.0000).
   2. *Chaining*: too many starts from another activity, too few from home.
   3. *Empty home-to-home trips*: mostly short stops lost between 15-minute slots.
 
-  Round 1 addresses the third. Round 2 (duration with satiation) would address the first but reverses the
+  The first respecification addresses the third. A further one (duration with satiation) would address the first but reverses the
   28 October choice to keep duration only in the general formulation. **To decide.**
 
 ## 5. Next steps
@@ -109,7 +109,7 @@ against numerical gradient, ratio 1.0000).
 1. **Finalise Paper A's formulation** before the zemi: the formal section, the new statements, and a check that the
    final specification is linear in θ (the Remark and the gradient as flows need it).
 2. **New estimation?** For Paper A, the current estimate is enough (its claim is exact computation under
-   constraints, not the best behavioural model). Round 1 can run in parallel in under a day; round 2 needs a
+   constraints, not the best behavioural model). The first can run in parallel in under a day; the further one needs a
    decision first.
 3. The experiments pilot on synthetic networks, then the case-study section.
 4. The live-region gate (same likelihood and gradient, timing through the worker pool).
