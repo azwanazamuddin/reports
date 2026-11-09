@@ -122,15 +122,7 @@ Run A waits until then.
 Convex analysis and duality are learned when OT needs them. The link to my models is the last of nine phases, and it does not narrow what comes before it.
 The material is a guide, a knowledge map, foundation and OT notes, and a 35-step reading curriculum with the sections to read.
 
-**A provisional view on the link to this work.** It is a working view from the learning so far, and it will change as the learning goes on.
-
-| Link | Status |
-|---|---|
-| Logit is entropic OT with one margin fixed. With destination totals added, each row stays logit, and the destination potentials act as destination constants. Sinkhorn's algorithm is the Furness balancing of the gravity model | computed on toys |
-| The log-sum and entropy form a conjugate pair, which is the duality inside DDCM. Static choice can be written as matching shocks to actions (Chiong, Galichon and Shum, 2016) | the paper read, pp. 1-30 |
-| Recursive logit looks like a Schrödinger bridge whose end is left free | my reading, to check against the literature |
-| Perturbed utility with a quadratic term looks like quadratically regularised OT, with sparse plans as with zero choice shares. Its route-choice form looks like a regularised Beckmann flow on a graph | my reading, to check |
-| OT dual potentials are fixed only up to a constant, like the utility level in this week's estimation problem | an analogy, not a result |
+**Working assumption.** I am still learning this, so I make no claim yet about how OT connects to my work. My assumption is that OT is related to the models I use (logit, DDCM, recursive logit and perturbed utility) through entropy and duality. Testing that assumption is the last phase of the learning, after OT itself.
 
 ## 7. Next steps
 
