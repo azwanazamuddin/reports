@@ -108,7 +108,9 @@ Run A, with the switch forbidden, is coded and checked, but not launched.
 
 Run A waits until then.
 
-## 6. Learning: optimal transport
+## 6. Learning: optimal transport (in progress)
+
+**Status: in progress, not finished.** The learning has started, and the material for it is set up. No phase is complete yet, so everything below is a plan and a working view, not a result.
 
 **The target is optimal transport (OT) as a whole:**
 - the problem and its dual;
@@ -120,7 +122,7 @@ Run A waits until then.
 Convex analysis and duality are learned when OT needs them. The link to my models is the last of nine phases, and it does not narrow what comes before it.
 The material is a guide, a knowledge map, foundation and OT notes, and a 35-step reading curriculum with the sections to read.
 
-**A provisional conclusion on the link to this work.** It is only partly tested.
+**A provisional view on the link to this work.** It is a working view from the learning so far, and it will change as the learning goes on.
 
 | Link | Status |
 |---|---|
@@ -138,4 +140,4 @@ The material is a guide, a knowledge map, foundation and OT notes, and a 35-step
    - why the canonical graph encodes 11 more observed steps;
    - parking-off and fare-off checks at the new estimate;
    - the same-zone walk time sensitivity run.
-4. Learning: phases 1 to 3 of the reading curriculum (the OT problem, the conjugate, duality).
+4. Learning, continuing: phases 1 to 3 of the reading curriculum (the OT problem, the conjugate, duality).
