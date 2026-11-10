@@ -14,7 +14,7 @@ tags: [phd, weekly, estimation, public-transport, work-duration, optimal-transpo
 
 ## 1. In short
 
-**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays. The model change is built. Its exactness check found two gaps in which observed decisions are counted, both now fixed; the last full-sample check is running, and the new estimation starts automatically when it passes.
+**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays. The model change is built. Its exactness check found two gaps in which observed decisions are counted; both are fixed, the full-sample check now passes exactly, and the new estimation started on 11 November at 06:40.
 
 | | 9 November | 11 November |
 |---|---|---|
@@ -195,9 +195,10 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 9. **The exactness check of the new graph, and two fixes it forced (10 to 11 November).** Full story under Error.
    - First fix: a trip's departure and arrival are counted together or not at all when the diary is matched to the graph. The 274-person check then gave the same log-likelihood to 13 decimals.
    - Second fix: the same rule applied again at each $\theta$, when steps the model finds impossible are left out. Recomputed from the stored values, both graphs now count the same 361,167 decisions in every group.
+   - **Full-sample check passed (11 November, 06:40):** both graphs give log-likelihood -34,540.956941, the same 6,243 persons and 361,167 decisions, and gradients equal to 8e-16.
 
 ### Doing
-- The last full-sample check of the new graph (see Error), running; the new estimation starts automatically if it passes, and every outcome, pass or fail, is checked automatically.
+- **The new estimation** (commute trips free, passengers pay no fuel, paired trip scoring), started 11 November 06:40 from the 10 November estimate; about 1 hour to build the graphs, then about 7 hours of estimation. Each stage is checked automatically.
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
 - Tadelis game theory reading guide (18 lessons), for its own sake.
 
@@ -217,14 +218,12 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 - **The cause:** 11 workers, one step each, leave work in the late afternoon or evening for a home arrival from which the model cannot complete the day. At each $\theta$ the likelihood leaves out steps the model finds impossible. In the old graph the departure could still lead elsewhere, so it was counted and only the arrival was dropped; in the new graph the departure already says "home" and was dropped too. 11 departures at about -7 points each make the 77-point gap.
 - **Fix:** the pairing rule now also applies at that point: if either half of a trip is impossible, both are left out. It sits in the two functions every likelihood, gradient and standard-error path calls. Recomputed from the stored values, both graphs now count **361,167 decisions, with no group differing.**
 
-**Third attempt (06:20) stopped by the memory guard, not by an error.** The two full-sample evaluations ran side by side, each holding its whole stored graph set in memory, and together they filled the machine. They now run one after the other.
+**Third attempt (06:20) stopped by the memory guard, not by an error.** The two full-sample evaluations ran side by side, each holding its whole stored graph set in memory, and together they filled the machine. Run one after the other, **the check passed at 06:40**: log-likelihood -34,540.956941 in both graphs, identical persons and decisions, gradients equal to 8e-16.
 
 **What this means for the method.** It is a rule about which observed decisions enter the likelihood, and it will be stated as such: a trip is one choice, so both of its steps are scored together or not at all. It changes the counted sample by about 0.05% (361,167 decisions against 361,350 on 10 November), so the new log-likelihood is not exactly comparable to the 10 November one.
 
 ### To do
-1. Read the last full-sample check (both graphs must give the same log-likelihood and gradient).
-2. Evaluate the new model at the 10 November estimate: which way cost moves, and the size of the graph.
-3. **New estimation** (commute trips free, passengers pay no fuel), warm start from the 10 November estimate; it starts automatically when the check passes, and is expected around 15:00 on 11 November.
-4. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
-5. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
-6. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis.
+1. **Finish the new estimation** (started 06:40), expected around 15:00 on 11 November; then the BHHH standard errors.
+2. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
+3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
+4. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis.
