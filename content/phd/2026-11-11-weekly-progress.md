@@ -184,7 +184,7 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
    - Commute trips (home ↔ work/school) pay no money by any mode; passengers pay no fuel.
    - The model chooses the trip first and the activity on arrival, so a trip leaving home (before work) or leaving work is split into "my commute" and "another trip". That is the same model as Västberg's single choice of destination, mode and purpose, at +21% edges in the largest graph.
    - 8 new tests on a small network pass, and the full test suite passes (1,245 tests).
-8. **An estimation report page** for the 10 November estimate: specification in plain words, parameters with both standard errors, time-of-day profiles, convergence, fit to the diary.
+8. **A report page for the existing 10 November estimate** ([open](/ddcm/estimate_20261110.html)). No new estimation: the same results, written up with the specification in plain words, parameters with both standard errors (BHHH and the exact Hessian computed afterwards), time-of-day profiles, convergence and the fit to the diary.
 
 ### Doing
 - Fixing the bug found by the full-sample check (see Error).
