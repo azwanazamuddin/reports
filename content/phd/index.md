@@ -19,6 +19,7 @@ which of those differences genuinely need their own computation. The full framin
 
 ## Reports and decks, newest first
 
+- **11 Nov 2026** · [Weekly progress: 5 to 11 November](/phd/2026-11-11-weekly-progress). Positive public transport time traced to free overtime at work and fixed; the remaining positive cost traced to commutes charged money the employer pays; the model change and its open check; optimal transport learning. With the [estimation report of 10 November](/ddcm/estimate_20261110.html).
 - **9 Nov 2026** · [Weekly progress: 5 to 9 November (half week)](/phd/2026-11-09-weekly-progress). Why the public transport time coefficient is positive: the data checked, the passenger switch, and free overtime at work; optimal transport learning.
 - **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Paper A progress deck](/slides/paper-a-progress/),
   the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down, and the [full estimation report](/ddcm/round1_estimation_report_20261103.html).
