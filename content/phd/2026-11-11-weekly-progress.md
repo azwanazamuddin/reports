@@ -90,7 +90,7 @@ These are reported, not tuned away with constants.
 
 | Estimate | Car time | Public transport time | Cost |
 |---|---:|---:|---:|
-| up to 3 November (car time **fixed** at the household mode-choice value) | -0.0133 (fixed) | **+0.026 to +0.028** | **-0.0006 to -0.0013** |
+| up to 3 November (car time **fixed** at -0.0133, a value carried over from earlier runs) | -0.0133 (fixed) | **+0.026 to +0.028** | **-0.0006 to -0.0013** |
 | 6 November (car time **free**, public transport from the timetable; stopped run) | -0.041 | +0.007 | +0.0001 |
 | 10 November (+ exact work duration, no public transport ↔ car passenger switch) | -0.0795 | **-0.0366** | **+0.0003** |
 
@@ -167,12 +167,18 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
    - The 10 November estimate converged: log-likelihood -34,897.31, 6,245 persons, 361,350 decisions. Every travel time coefficient is negative: public transport -0.0366 (SE 0.0050), car -0.0795, walk -0.0707, bicycle -0.0609. Simulated overtime is 0%. The trip-level mode choice model agrees on public transport time (-0.035).
 3. **The timetable data checked and cleared as a cause.**
    - Public transport times have come from the GTFS-based transit schedule since the 19 October estimate: a door-to-door skim by origin and destination, with fares from Jorudan; before that, a station-to-station scrape that turned out to be broken.
-   - Since the 6 November estimate they come from the full 2021-2025 timetable: time by the hour of departure, and no public transport choice on a step with no departure.
+   - Since the 6 November estimate they come from the full 2021-2025 timetable, through a **service constraint** (decided on 5 November):
+     - public transport exists at a 15-minute step only if a journey actually leaves in that step; between departures there is no public transport option at all. This is a restriction on which choices exist, not a penalty;
+     - the time of an open step is the timetable's earliest arrival minus the departure time, door to door, so waiting and transfers sit inside one time with one public transport coefficient: no separate wait parameter, no caps;
+     - an observed trip that the diary puts on a closed step moves to the nearest open step (only forward when leaving work), and the difference counts as time at the previous activity; a person whose trip would have to move 45 minutes or more leaves the sample (about 20 persons, 0.3%);
+     - a commuter with a fixed work start may take an earlier journey and wait;
+     - the walk from the last stop to an external zone is measured per city from building points (7.7 to 38.3 minutes, median 18.6), replacing a single 8.5 minutes set against the diary;
+     - checked at a fixed $\theta$ on the full sample before the run: every graph's public transport edges, the fast gradient against the slow one, and the simulation with and without the constraint.
    - Checked: it is **not the cause** of either sign. The trip model with time by departure stays negative; the train skim's error is unrelated to the fare (so it cannot push cost positive); the 2900 terminal code and the 216 public transport trips with no timetable time are not causes either.
    - What remains is noise, not a sign problem: against the diary, the skim's public transport time has slope 0.37 and correlation 0.17, which weakens the coefficient. The timetable is also 7-13 years younger than the survey.
 4. **Exact Hessian at the 10 November estimate:** all 76 eigenvalues positive, a true optimum.
 5. **Why cost turned positive (section 5).**
-   - Up to 3 November cost was negative (-0.0006 to -0.0013), but car time was fixed at -0.0133.
+   - Up to 3 November cost was negative (-0.0006 to -0.0013), but car time was fixed at -0.0133, a value carried over from earlier warm starts with no source of its own.
    - Fuel moves almost exactly with car time ($R^2=0.96$), so with car time fixed, cost carried "long car trips are disliked".
    - Once car time was freed it took that effect over (-0.080), and cost went slightly positive (+0.0003, t 1.9). Fixing public transport did not break cost; cost's earlier sign rested on a fixed car time.
 6. **Cause of the positive cost found (section 5).**

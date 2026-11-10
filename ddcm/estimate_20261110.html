@@ -100,7 +100,7 @@ code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);paddi
     <dt>Work and school</dt><dd><b>The work block is exact:</b> a worker who arrives at work leaves after exactly the diary's duration (no overtime). The start time is the worker's own diary start; the workplace is the survey workplace. School is treated as work.</dd>
     <dt>Activities</dt><dd>Home, work, shopping, leisure. Utility per minute varies by hour of day for home, shopping and leisure; shopping and leisure also by zone size. Leisure at 14:00 is the fixed reference (0). Shops close at their opening hours.</dd>
     <dt>Modes</dt><dd>Car (driver), car passenger, train, bus, walk, bicycle. A time coefficient per mode group: car (driver and passenger share one), public transport, walk, bicycle. Constants per mode, plus train and bus constants for trips to or from outside the city.</dd>
-    <dt>Public transport</dt><dd>Times from the 2021–2025 timetable, door to door, by the hour of departure; a trip can only leave on a step with a departure. Walk to and from stations by distance per city.</dd>
+    <dt>Public transport</dt><dd>Times from the 2021–2025 timetable, door to door, by the 15-minute step of departure, with waiting and transfers inside one time. Public transport exists only on a step with a departure; an observed trip on a closed step moves to the nearest open step, and a person who would move 45 minutes or more leaves the sample. Walk to external zones measured per city. Walk to and from stations by distance per city.</dd>
     <dt>Money cost</dt><dd>One cost coefficient for all modes. Car fuel 15 yen/km (driver <b>and passenger</b>); train and bus fares; parking for shopping and leisure by length of stay, none at work or home.</dd>
     <dt>Within a tour</dt><dd>Walk ↔ car passenger switches allowed; public transport ↔ car passenger switches <b>not</b> allowed. A tour from home must reach an activity before returning home.</dd>
   </dl>
@@ -280,7 +280,7 @@ code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);paddi
 <section>
   <h2>Open issue: the cost coefficient</h2>
   <div class="callout">
-    <p><b>Cost is +0.0003 per yen (t 1.9).</b> It was negative only while car time was fixed at the household mode-choice value; with car time free, car time takes the distance effect (−0.080 per minute) and fuel, which is 15 yen per km, keeps little that is money.</p>
+    <p><b>Cost is +0.0003 per yen (t 1.9).</b> It was negative only while car time was fixed (at −0.0133, a value carried over from earlier runs); with car time free, car time takes the distance effect (−0.080 per minute) and fuel, which is 15 yen per km, keeps little that is money.</p>
     <p>The cause found since: commute trips are charged fuel, fares and parking that employers pay (通勤手当, 91.7% of firms in 2014). In the trip-level model, making commute trips free turns cost to −0.00175 (t −14). Car passengers should not pay fuel either. A model with both changes is being checked before it is estimated.</p>
   </div>
 </section>
