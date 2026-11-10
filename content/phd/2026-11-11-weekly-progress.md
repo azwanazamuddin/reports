@@ -226,4 +226,5 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 1. **Finish the new estimation** (started 06:40), expected around 15:00 on 11 November; then the BHHH standard errors.
 2. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
 3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
-4. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
+4. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.
+5. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
