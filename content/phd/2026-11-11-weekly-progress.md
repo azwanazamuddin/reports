@@ -14,7 +14,7 @@ tags: [phd, weekly, estimation, public-transport, work-duration, optimal-transpo
 
 ## 1. In short
 
-**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays; the model change is built and being checked before a new estimation.
+**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays. The model change is built. Its exactness check found two gaps in which observed decisions are counted, both now fixed; the last full-sample check is running, and the new estimation starts automatically when it passes.
 
 | | 9 November | 11 November |
 |---|---|---|
@@ -192,8 +192,12 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
    - 8 new tests on a small network pass, and the full test suite passes (1,245 tests).
 8. **A report page for the existing 10 November estimate** ([open](/ddcm/estimate_20261110.html)). No new estimation: the same results, written up with the specification in plain words, parameters with both standard errors (BHHH and the exact Hessian computed afterwards), time-of-day profiles, convergence and the fit to the diary.
 
+9. **The exactness check of the new graph, and two fixes it forced (10 to 11 November).** Full story under Error.
+   - First fix: a trip's departure and arrival are counted together or not at all when the diary is matched to the graph. The 274-person check then gave the same log-likelihood to 13 decimals.
+   - Second fix: the same rule applied again at each $\theta$, when steps the model finds impossible are left out. Recomputed from the stored values, both graphs now count the same 361,167 decisions in every group.
+
 ### Doing
-- Fixing the bug found by the full-sample check (see Error).
+- The last full-sample check of the new graph (see Error), running; the new estimation starts automatically if it passes, and every outcome, pass or fail, is checked automatically.
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
 - Tadelis game theory reading guide (18 lessons), for its own sake.
 
@@ -201,14 +205,26 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 
 **What the check is.** The model's actions are built in two steps: first where and how to travel, then, on arrival, what to do. That is the same model as Västberg et al.'s single choice of destination, mode and purpose, as long as travel cost does not depend on the purpose. Free commutes break that condition, so each trip leaving home (before work) or leaving work is now split into two versions: "my commute" and "another trip" (section 5). To test the split alone, there is a **check version** of the new graph: it has the two versions but still charges cost on both. That check version is, by construction, the old model in a different graph, so it must reproduce the old log-likelihood and gradient exactly. Only after that does "commute free" mean what it says.
 
-**What it found.** On the full sample at the 10 November estimate, the check version gives -34,773.85 against the old -34,897.31, with 3 persons and 20 observed decisions fewer. A difference of 123 points is larger than the improvement the change is meant to bring (+104 in the trip model), so it cannot be ignored: it would be mixed into any new estimate.
+**First failure (10 November evening).** On the full sample at the 10 November estimate, the check version gave -34,773.85 against the old -34,897.31, with 3 persons and 20 observed decisions fewer. A gap of 123 points is larger than the improvement the change is meant to bring (+104 in the trip model), so it could not be ignored: it would be mixed into any new estimate.
 
-**Narrowed so far.** A 274-person run shows the same kind of difference (0.06 points) with identical observed decisions; the activity states and the trip-to-work connections are identical between the old and the new graph. So the difference is in the utility of some edges, not in which paths exist. Being fixed; **the new estimation starts only after the check passes exactly.**
+- **The model itself was identical.** Every edge utility (70.6 million edges), every activity-state value (357,760 states, largest difference 2.5e-14), the set of states and the observed paths were all the same in both graphs. (An earlier version of this post guessed at edge utilities; that guess was wrong.)
+- **The cause was which diary decisions are counted.** A trip is two steps: leaving (where and how) and arriving (what to do). When only one of the two can be matched to the graph, the old rule still counted the matched half. The old graph puts the purpose on the arrival, the new one on the departure for commutes, so the half that survives differs and the two graphs score different halves. One more case: a failed arrival at work left the following work steps counted, where the exact work duration makes them impossible.
+- **Fix: paired trip scoring.** A trip's departure and arrival are counted together or not at all, and a failed arrival at work still skips the work block. With it, the 274-person check gives **identical** log-likelihoods (-1,011.2757746103185 against -1,011.2757746103184), the same gradient, and the same 13,897 decisions; 8 steps of 25,672 (0.03%) are dropped with their trip partner.
+
+**Second failure (11 November, 00:42).** On the full sample: -34,774.54 against -34,697.70, 11 decisions apart.
+
+- **The matching was now identical:** an audit of every diary step found the same 366,988 matched steps in both graphs.
+- **The cause:** 11 workers, one step each, leave work in the late afternoon or evening for a home arrival from which the model cannot complete the day. At each $\theta$ the likelihood leaves out steps the model finds impossible. In the old graph the departure could still lead elsewhere, so it was counted and only the arrival was dropped; in the new graph the departure already says "home" and was dropped too. 11 departures at about -7 points each make the 77-point gap.
+- **Fix:** the pairing rule now also applies at that point: if either half of a trip is impossible, both are left out. It sits in the two functions every likelihood, gradient and standard-error path calls. Recomputed from the stored values, both graphs now count **361,167 decisions, with no group differing.**
+
+**Third attempt (06:20) stopped by the memory guard, not by an error.** The two full-sample evaluations ran side by side, each holding its whole stored graph set in memory, and together they filled the machine. They now run one after the other.
+
+**What this means for the method.** It is a rule about which observed decisions enter the likelihood, and it will be stated as such: a trip is one choice, so both of its steps are scored together or not at all. It changes the counted sample by about 0.05% (361,167 decisions against 361,350 on 10 November), so the new log-likelihood is not exactly comparable to the 10 November one.
 
 ### To do
-1. Find and fix the bug: compare edge utilities between the old and new graphs on the 274-person run; then rerun the full-sample check.
-2. Evaluate the new model at the 10 November estimate: which way cost moves, whether every diary decision is still matched, and the size of the graph.
-3. **New estimation** (commute trips free, passengers pay no fuel), warm start from the 10 November estimate.
+1. Read the last full-sample check (both graphs must give the same log-likelihood and gradient).
+2. Evaluate the new model at the 10 November estimate: which way cost moves, and the size of the graph.
+3. **New estimation** (commute trips free, passengers pay no fuel), warm start from the 10 November estimate; it starts automatically when the check passes, and is expected around 15:00 on 11 November.
 4. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
-5. Robust standard errors; the 11-step gap in the canonical graph; documentation (module READMEs, the formulation with the factorization statement); commit.
+5. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
 6. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis.
