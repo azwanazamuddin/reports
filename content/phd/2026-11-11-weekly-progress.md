@@ -149,9 +149,9 @@ Each lesson names the exact sections to read, explains the ideas with derivation
 
 The working assumption from last time is unchanged and **still untested:** OT relates to logit, DDCM, recursive logit and perturbed utility through entropy and duality. Testing it is the last part of the path.
 
-### Game theory (new, for its own sake)
+### Game theory (new, for the study camp)
 
-A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 18 lessons, one per chapter, in the same format. **It is not tied to my research;** an optional last lesson only maps where it meets discrete choice and traffic equilibrium.
+A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 18 lessons, one per chapter, in the same format. **It is preparation for the study camp, not part of my research;** an optional last lesson only maps where it meets discrete choice and traffic equilibrium.
 
 ## 7. Status
 
@@ -200,7 +200,7 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 ### Doing
 - **The new estimation** (commute trips free, passengers pay no fuel, paired trip scoring), started 11 November 06:40 from the 10 November estimate; about 1 hour to build the graphs, then about 7 hours of estimation. Each stage is checked automatically.
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
-- Tadelis game theory reading guide (18 lessons), for its own sake.
+- Tadelis game theory reading guide (18 lessons), as preparation for the study camp.
 
 ### Error
 
@@ -226,4 +226,4 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 1. **Finish the new estimation** (started 06:40), expected around 15:00 on 11 November; then the BHHH standard errors.
 2. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
 3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
-4. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis.
+4. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
