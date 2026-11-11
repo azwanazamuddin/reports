@@ -185,6 +185,28 @@ Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation r
 - Non-workers use public transport about 1.75 times as often as the diary, car owners most of all (45 against 18 per 1,000); their car passenger trips match in total but too many fall after 19:00 (27 against 6).
 - Reported, not tuned away.
 
+**Simulated against observed, as figures.** Observed is the reported 15-minute diary; simulated is 3 draws of the 6,279 persons with a feasible day (33 workers with none are left out on both sides, so these per-1,000 values differ slightly from the table, which divides by all 6,312).
+
+![Trips by mode and person type, per 1,000 person-days](figures/runB_20261111_fig5_mode_by_person_type.png)
+
+The worker car passenger bar (294 against 80) is the gap that stays open. Workers' train use is close (484 against 524); workers' car driver trips are short by 14% (1,067 against 1,239).
+
+![Activity starts per hour per person](figures/runB_20261111_fig1_activity_starts.png)
+
+Work starts fit closely. Home, shopping and leisure starts follow the diary through the day; the home spike at 23:45 is the model day ending at home at 24:00.
+
+![Share of persons in each activity by time of day](figures/runB_20261111_fig4_occupancy.png)
+
+Time at home and at work fit almost exactly. Travel is short in the middle of the day (about 3% against 4 to 5% of persons), and the drops at 24:00 are the same day-end boundary.
+
+![Trips per day, tours per day, trips per tour](figures/runB_20261111_fig2_trips_tours.png)
+
+Up to five trips a day fit; longer days are rarer in the model. Diary days with one trip are days that do not return home, which the model day does not allow.
+
+![Trip duration by mode](figures/runB_20261111_fig3_trip_length.png)
+
+Walk fits. Simulated car trips are shorter (mean 24 against 30 minutes) and train trips peak at 75 minutes against 90. Observed durations are on the reported diary clock and simulated ones on the skim, so part of each gap is the clock rather than the choice.
+
 ## 7. Learning
 
 ### Optimal transport (in progress)

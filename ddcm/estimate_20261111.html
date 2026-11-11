@@ -43,6 +43,7 @@ section{display:grid;gap:14px;min-width:0}
 .spec dd{margin:0;color:var(--fg)}
 .spec dd small{color:var(--muted)}
 @media (max-width:560px){.spec{grid-template-columns:1fr}.spec dd{margin-bottom:6px}}
+.simfig{margin:18px 0;padding:10px;background:#fff;border:1px solid var(--rule);border-radius:6px}.simfig img{width:100%;height:auto;display:block}.simfig figcaption{color:#3d3d3a;font-size:13px;margin-top:6px}
 .tablebox{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
 table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
 th,td{padding:7px 12px;text-align:left;border-bottom:1px solid var(--rule)}
@@ -410,6 +411,13 @@ code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);paddi
     <li>Non-workers' car passenger trips now match in total (184 against 183), but too many fall after 19:00 (27 against 6 per 1,000).</li>
     <li>A first simulation at this estimate wrote every commute as a work or home row without a mode (a labelling bug in the batch simulator's output, fixed); these numbers are from the rerun, which passed a check on that label.</li>
   </ul>
+  <h3>Figures</h3>
+  <p class="note">Observed is the reported 15-minute diary; simulated is 3 draws of the 6,279 persons with a feasible day (33 workers with none are left out on both sides, so the per-1,000 figures differ slightly from the table above, which divides by all 6,312).</p>
+  <figure class="simfig"><img src="figures_20261111/fig5_mode_by_person_type.png" alt="Trips by mode and person type, per 1,000 person-days" loading="lazy"><figcaption>Trips by mode and person type, per 1,000 person-days. The worker car passenger bar is the gap that stays open.</figcaption></figure>
+  <figure class="simfig"><img src="figures_20261111/fig1_activity_starts.png" alt="Activity starts per hour per person" loading="lazy"><figcaption>Activity starts per hour per person. The first episode of a day is not counted as a start. The home spike at 23:45 is the model day ending at home at 24:00.</figcaption></figure>
+  <figure class="simfig"><img src="figures_20261111/fig4_occupancy.png" alt="Share of persons in each activity by time of day" loading="lazy"><figcaption>Share of persons in each activity by time of day. The drops at 24:00 are the same day-end boundary.</figcaption></figure>
+  <figure class="simfig"><img src="figures_20261111/fig2_trips_tours.png" alt="Trips per day, tours per day and trips per tour (log scale)" loading="lazy"><figcaption>Trips per day, tours per day and trips per tour (log scale). Diary days with one trip are days that do not return home, which the model day does not allow.</figcaption></figure>
+  <figure class="simfig"><img src="figures_20261111/fig3_trip_length.png" alt="Trip duration by mode, observed mean against simulated mean in each panel" loading="lazy"><figcaption>Trip duration by mode, observed mean against simulated mean in each panel. Observed durations are on the reported diary clock and simulated ones on the skim, so part of the train gap is the clock.</figcaption></figure>
 </section>
 
 
