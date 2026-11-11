@@ -181,15 +181,15 @@ Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation r
 | Non-workers' public transport trips (per 1,000) | 30.3 | | 53.0 |
 
 - **Workers' public transport commute fits the diary closely**, out and home, and 94% of their public transport days have two trips (diary 95%).
-- **Still off: workers go as car passengers 3.6 times as often as the diary** (291 against 80), a little better than 10 November. With commutes free of cost and passengers free of fuel, only the passenger constant separates riding from driving on a commute. A separate worker passenger constant is the next question.
+- **Still off: workers go as car passengers too often.** 291 per 1,000 against 80 in the raw diary, a little better than 10 November. But the likelihood does not fit 80: a diary car-driver trip by someone whose household owns no car, or who holds no licence, is encoded as car passenger, which makes it 178. Against what the model is fitted to, the simulation is 1.65 times, not 3.6 ([full observed vs simulated report](/ddcm/obs_vs_sim_20261111.html)). With commutes free of cost and passengers free of fuel, only the passenger constant separates riding from driving on a commute. A separate worker passenger constant is the next question.
 - Non-workers use public transport about 1.75 times as often as the diary, car owners most of all (45 against 18 per 1,000); their car passenger trips match in total but too many fall after 19:00 (27 against 6).
 - Reported, not tuned away.
 
-**Simulated against observed, as figures.** Observed is the reported 15-minute diary; simulated is 3 draws of the 6,279 persons with a feasible day (33 workers with none are left out on both sides, so these per-1,000 values differ slightly from the table, which divides by all 6,312).
+**Simulated against observed, as figures** (the [full observed vs simulated report](/ddcm/obs_vs_sim_20261111.html) adds the diary as the likelihood reads it, by workers and non-workers). Observed here is the reported 15-minute diary; simulated is 3 draws of the 6,279 persons with a feasible day (33 workers with none are left out on both sides, so these per-1,000 values differ slightly from the table, which divides by all 6,312).
 
 ![Trips by mode and person type, per 1,000 person-days](figures/runB_20261111_fig5_mode_by_person_type.png)
 
-The worker car passenger bar (294 against 80) is the gap that stays open. Workers' train use is close (484 against 524); workers' car driver trips are short by 14% (1,067 against 1,239).
+The worker car passenger bar (294 against 80 in the raw diary, 178 as encoded) is the gap that stays open. Workers' train use is close (484 against 524); workers' car driver trips are short by 14% (1,067 against 1,239).
 
 ![Activity starts per hour per person](figures/runB_20261111_fig1_activity_starts.png)
 
@@ -273,7 +273,7 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 10. **The new estimate converged (11 November, section 6).** Commutes free, passengers free of fuel, paired trip scoring. Cost -0.00222 (t -19.2), every time coefficient negative, value of time 24 yen per minute by car and 10 by public transport. A report page with every parameter against 10 November ([open](/ddcm/estimate_20261111.html)).
 11. **The memory guard now protects the estimation.** When memory runs short it first stops other large jobs of the same account, and stops the estimation only when nothing else is left. Before, it stopped the estimation (see Error).
 
-12. **The simulation at the new estimate (section 6).** Workers' public transport commute fits the diary; workers' car passenger trips are still 3.6 times the diary.
+12. **The simulation at the new estimate (section 6).** Workers' public transport commute fits the diary; workers' car passenger trips are still too many, 1.65 times the diary as the model reads it (178; 80 raw, where non-owners' and unlicensed persons' driver trips are not yet passenger). [Full observed vs simulated report](/ddcm/obs_vs_sim_20261111.html).
 
 ### Doing
 - Deciding the next step for workers' car passenger trips (a separate worker passenger constant or not).
@@ -305,7 +305,7 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 **The first simulation at the new estimate mislabelled every commute (11 November, 21:10).** Workers showed 176 car trips per 1,000 days against 1,258 in the diary. The simulated choices were right; the file writer decided "trip or not" from the activity column alone, and a commute carries its target (work or home) there, so each commute was written as a work or home row with no mode. Fixed with the same rule as the rest of the code (a trip is any action with a mode) and rerun, with a check that fails on the mislabelled output.
 
 ### To do
-1. **Workers' car passenger trips** (3.6 times the diary): decide whether workers need their own car passenger constant, and test it at a fixed $\theta$ before any run.
+1. **Workers' car passenger trips** (291 against 178 as encoded, 80 raw): decide whether workers need their own car passenger constant, and test it at a fixed $\theta$ before any run.
 2. Exact-Hessian standard errors at the new estimate, as for 10 November.
 3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
 4. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.
