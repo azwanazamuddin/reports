@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Estimate 2026-11-11</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column of a technical estimation record; tables and charts scroll inside their own boxes. */
+:root{
+  --bg:#f6f7f6; --panel:#ffffff; --fg:#1d2422; --muted:#5c6763; --rule:#d9dedb;
+  --accent:#1f6f62; --accent-soft:#e2efec; --warn:#a4541a; --warn-soft:#f6e8dc; --ok:#2f6d3a;
+  --home:#1f6f62; --shop:#8a5a14; --leis:#5a4c9c; --ll:#1f6f62;
+  --display:"IBM Plex Serif", Georgia, serif; --body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e6; --muted:#9aa7a2; --rule:#2e3835;
+  --accent:#6cc2b1; --accent-soft:#1f3330; --warn:#e3a06b; --warn-soft:#3a2a1d; --ok:#7fc58a;
+  --home:#6cc2b1; --shop:#d9a650; --leis:#a99be6; --ll:#6cc2b1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e6; --muted:#9aa7a2; --rule:#2e3835;
+  --accent:#6cc2b1; --accent-soft:#1f3330; --warn:#e3a06b; --warn-soft:#3a2a1d; --ok:#7fc58a;
+  --home:#6cc2b1; --shop:#d9a650; --leis:#a99be6; --ll:#6cc2b1; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+main{max-width:860px;margin:0 auto;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;font-weight:600}
+h1{font-size:2.1rem;line-height:1.15}
+h2{font-size:1.35rem;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+h3{font-size:1.05rem;font-family:var(--body)}
+p{margin:0;max-width:68ch}
+section{display:grid;gap:14px;min-width:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:1.05rem;color:var(--muted);max-width:66ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.facts div{background:var(--panel);padding:12px 14px;display:grid;gap:2px}
+.facts b{font-family:var(--mono);font-size:1.15rem;font-weight:500;font-variant-numeric:tabular-nums}
+.facts span{font-size:.8rem;color:var(--muted)}
+.spec{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr);gap:8px 20px;margin:0}
+.spec dt{font-weight:600}
+.spec dd{margin:0;color:var(--fg)}
+.spec dd small{color:var(--muted)}
+@media (max-width:560px){.spec{grid-template-columns:1fr}.spec dd{margin-bottom:6px}}
+.tablebox{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{padding:7px 12px;text-align:left;border-bottom:1px solid var(--rule)}
+th{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.unit{color:var(--muted);font-size:.8rem}
+tr.fixed td{color:var(--muted)}
+tr:last-child td{border-bottom:none}
+tr.grp td{font-weight:600;background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+tr.hl td{background:var(--accent-soft)}
+tr.open td{background:var(--warn-soft)}
+.note{font-size:.85rem;color:var(--muted)}
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px;overflow-x:auto}
+.chart svg{width:100%;min-width:520px;height:auto;display:block}
+.grid{stroke:var(--rule);stroke-width:1}
+.zero{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.tick{fill:var(--muted);font:11px var(--mono)}
+.tick.strong{fill:var(--fg);font-weight:500}
+.line{fill:none;stroke-width:2}
+.dot{stroke:var(--panel);stroke-width:1}
+.s-home{stroke:var(--home)} .dot.s-home{fill:var(--home)}
+.s-shop{stroke:var(--shop)} .dot.s-shop{fill:var(--shop)}
+.s-leis{stroke:var(--leis)} .dot.s-leis{fill:var(--leis)}
+.s-ll{stroke:var(--ll)} .dot.s-ll{fill:var(--ll)}
+.dot.fixedpt{fill:var(--panel);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle}
+.callout{border-left:3px solid var(--warn);background:var(--warn-soft);padding:12px 16px;border-radius:0 6px 6px 0;display:grid;gap:8px}
+.callout.ok{border-color:var(--ok);background:var(--accent-soft)}
+ul{margin:0;padding-left:1.2em;display:grid;gap:4px;max-width:70ch}
+code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);padding:1px 5px;border-radius:3px;overflow-wrap:anywhere}
+.files{font-family:var(--mono);font-size:.8rem;color:var(--muted);display:grid;gap:4px;overflow-wrap:anywhere}
+.line.prev{stroke-dasharray:4 4;opacity:.55;stroke-width:1.6}
+.badge{display:inline-block;font-family:var(--mono);font-size:.75rem;padding:1px 7px;border-radius:10px;background:var(--accent-soft);color:var(--accent)}
+</style>
+</head>
+<body>
+
+
+<main>
+<header style="display:grid;gap:12px">
+  <div class="eyebrow">Higashihiroshima daily activity model · estimation record</div>
+  <h1>Estimate 2026-11-11</h1>
+  <p class="lede">Commute trips free of money cost, car passengers free of fuel. Same model as the 10 November estimate otherwise. Converged 11 November 2026, 17:30; standard errors saved 20:09. Called “run B” in earlier notes.</p>
+  <div class="facts">
+    <div><b>−34,414.82</b><span>log-likelihood</span></div>
+    <div><b>6,243</b><span>persons scored</span></div>
+    <div><b>361,167</b><span>observed decisions</span></div>
+    <div><b>76</b><span>free parameters</span></div>
+    <div><b>−19.2</b><span>t of the cost coefficient</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="callout ok">
+    <p><b>The cost coefficient is now negative and clearly identified: −0.00222 per yen (SE 0.00012, t −19.2).</b> On 10 November it was +0.00032 (t 1.9). Every travel time coefficient stays negative. The reading written before the run said: negative and more than 2 SE from zero means the commuting-allowance explanation holds in this model, as it did in the trip-level model (−0.00175, t −14). It does.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What changed from 10 November</h2>
+  <dl class="spec">
+    <dt>Commute cost</dt><dd><b>A trip between home and work or school pays no money cost</b>, for every mode: no fuel, fare or parking. Employers pay the commute (通勤手当, 91.7% of firms in 2014). Other trips pay as before.</dd>
+    <dt>Car passenger fuel</dt><dd>A car passenger pays no fuel; the driver does.</dd>
+    <dt>Commute as its own trip class</dt><dd>So that a commute can carry a different cost, a trip that leaves home for work (or work for home) is a separate class of travel state. The trip is still one choice of destination, mode and arrival activity; the model equals the 10 November one when commute cost is set back to paid, and this was checked on the full sample before the run (identical log-likelihood, gradient difference 8 × 10⁻¹⁶). The graph is larger: states +24%, edges +14%.</dd>
+    <dt>Trip scoring</dt><dd>A trip is scored as one decision (departure and arrival together), the only form that does not depend on how the trip is split into two edges. 183 fewer observed decisions than on 10 November (361,167 against 361,350), so the two log-likelihoods are not directly comparable.</dd>
+    <dt>Unchanged</dt><dd>Sample, activities, modes, the public transport timetable, the exact work block, opening hours, parking, the time-of-day grid and the reference (leisure at 14:00).</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Travel parameters</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Parameter</th><th class="num">10 Nov</th><th class="num">This estimate</th><th class="num">SE (BHHH)</th><th class="num">t</th><th></th></tr></thead>
+    <tbody>
+<tr><td>Car (driver) constant</td><td class=num>−3.5765</td><td class=num><b>−3.6239</b></td><td class=num>0.0561</td><td class=num>−64.6</td><td class=unit></td></tr>
+<tr><td>Car passenger constant</td><td class=num>−4.6018</td><td class=num><b>−4.8562</b></td><td class=num>0.0600</td><td class=num>−81.0</td><td class=unit></td></tr>
+<tr><td>Walk constant</td><td class=num>−3.8103</td><td class=num><b>−3.8058</b></td><td class=num>0.0611</td><td class=num>−62.2</td><td class=unit></td></tr>
+<tr><td>Bicycle constant</td><td class=num>−4.3124</td><td class=num><b>−4.3513</b></td><td class=num>0.0646</td><td class=num>−67.3</td><td class=unit></td></tr>
+<tr><td>Train constant</td><td class=num>−4.9548</td><td class=num><b>−5.0221</b></td><td class=num>0.1261</td><td class=num>−39.8</td><td class=unit></td></tr>
+<tr><td>Bus constant</td><td class=num>−6.1324</td><td class=num><b>−6.1997</b></td><td class=num>0.1528</td><td class=num>−40.6</td><td class=unit></td></tr>
+<tr><td>Train, trips to or from outside the city</td><td class=num>+0.8765</td><td class=num><b>+1.2026</b></td><td class=num>0.1010</td><td class=num>+11.9</td><td class=unit></td></tr>
+<tr><td>Bus, trips to or from outside the city</td><td class=num>+0.0416</td><td class=num><b>+0.4795</b></td><td class=num>0.2031</td><td class=num>+2.4</td><td class=unit></td></tr>
+<tr><td>Car time (driver and passenger)</td><td class=num>−0.0795</td><td class=num><b>−0.0534</b></td><td class=num>0.0044</td><td class=num>−12.0</td><td class=unit>per min</td></tr>
+<tr><td>Public transport time</td><td class=num>−0.0366</td><td class=num><b>−0.0229</b></td><td class=num>0.0048</td><td class=num>−4.8</td><td class=unit>per min</td></tr>
+<tr><td>Walk time</td><td class=num>−0.0707</td><td class=num><b>−0.0684</b></td><td class=num>0.0046</td><td class=num>−14.9</td><td class=unit>per min</td></tr>
+<tr><td>Bicycle time</td><td class=num>−0.0609</td><td class=num><b>−0.0563</b></td><td class=num>0.0047</td><td class=num>−12.0</td><td class=unit>per min</td></tr>
+<tr class=hl><td>Cost</td><td class=num>+0.00032</td><td class=num><b>−0.0022</b></td><td class=num>0.00012</td><td class=num>−19.2</td><td class=unit>per yen</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Car and public transport time are smaller in size than on 10 November, because part of what they carried was money: with commutes no longer charged, cost is identified from the other trips and takes its own share. The car passenger constant falls (−4.60 to −4.86) as passengers no longer pay fuel and the constant carries their disadvantage alone.</p>
+</section>
+
+<section>
+  <h2>Value of time</h2>
+  <div class="tablebox"><table style="min-width:420px">
+    <thead><tr><th>Mode</th><th class="num">Yen per minute</th><th class="num">SE (delta method)</th><th class="num">95% interval</th></tr></thead>
+    <tbody>
+<tr><td>Car</td><td class=num><b>24.1</b></td><td class=num>2.5</td><td class=num>19.1 – 29.1</td></tr>
+<tr><td>Public transport</td><td class=num><b>10.3</b></td><td class=num>2.3</td><td class=num>5.9 – 14.8</td></tr>
+<tr><td>Walk</td><td class=num><b>30.8</b></td><td class=num>2.6</td><td class=num>25.7 – 35.9</td></tr>
+<tr><td>Bicycle</td><td class=num><b>25.4</b></td><td class=num>2.5</td><td class=num>20.5 – 30.4</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>Time coefficient divided by the cost coefficient; the scale of the error term cancels.</li>
+    <li>Commute trips carry no cost here, so the cost coefficient is learned from shopping, leisure and other non-commute trips, and these values are values for those purposes.</li>
+    <li>Benchmarks: the MLIT rail evaluation manual (2012, as applied by Osaka City) uses, <b>per person</b>, 15.2 yen per minute for private trips, 12.2 school, 37.5 commute and 41.6 business; the MLIT road manual (2018) uses 45.15 yen per minute <b>per vehicle</b> (乗用車類, all purposes). Car at 24 and public transport at 10 lie in the range of the private-trip values; public transport is about two thirds of the rail private-trip value, for a city with lower incomes than Osaka and a survey from 2012/2014.</li>
+    <li>Public transport time is valued at less than half of car time (10 against 24). Its time is door to door, including walking to the station and waiting.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Time-of-day utility per minute</h2>
+  <div class="legend"><span><i style="background:var(--home)"></i>Home</span><span><i style="background:var(--shop)"></i>Shopping</span><span><i style="background:var(--leis)"></i>Leisure</span><span>Dashed: 10 November</span><span>Hollow point: fixed reference</span></div>
+  <div class="chart"><svg viewBox="0 0 720 300" role="img" aria-label="Time-of-day utility rates by activity, run B against 10 November">
+<line x1="52" x2="704" y1="250.2" y2="250.2" class="grid"/><text x="44" y="254.2" class="tick" text-anchor="end">-0.10</text>
+<line x1="52" x2="704" y1="181.3" y2="181.3" class="grid"/><text x="44" y="185.3" class="tick" text-anchor="end">-0.05</text>
+<line x1="52" x2="704" y1="112.4" y2="112.4" class="zero"/><text x="44" y="116.4" class="tick" text-anchor="end">+0.00</text>
+<line x1="52" x2="704" y1="43.6" y2="43.6" class="grid"/><text x="44" y="47.6" class="tick" text-anchor="end">+0.05</text>
+<text x="52.0" y="288" class="tick" text-anchor="middle">06:00</text>
+<text x="167.1" y="288" class="tick" text-anchor="middle">09:00</text>
+<text x="282.1" y="288" class="tick" text-anchor="middle">12:00</text>
+<text x="397.2" y="288" class="tick" text-anchor="middle">15:00</text>
+<text x="512.2" y="288" class="tick" text-anchor="middle">18:00</text>
+<text x="627.3" y="288" class="tick" text-anchor="middle">21:00</text>
+<path d="M52.0,95.6 L90.4,126.0 L128.7,148.0 L167.1,102.2 L205.4,148.1 L243.8,167.0 L282.1,127.9 L320.5,114.4 L358.8,137.6 L397.2,125.4 L435.5,138.1 L473.9,125.8 L512.2,114.3 L550.6,109.4 L588.9,101.5 L627.3,88.4 L665.6,41.0 L704.0,128.3" class="line s-home prev"/>
+<path d="M52.0,89.3 L90.4,117.0 L128.7,143.9 L167.1,102.2 L205.4,148.3 L243.8,167.2 L282.1,128.0 L320.5,114.0 L358.8,136.6 L397.2,124.9 L435.5,138.6 L473.9,124.7 L512.2,106.4 L550.6,104.0 L588.9,96.6 L627.3,88.5 L665.6,29.4 L704.0,125.1" class="line s-home"/>
+<circle cx="52.0" cy="89.3" r="2.6" class="dot s-home"><title>home 06:00 +0.0168</title></circle>
+<circle cx="90.4" cy="117.0" r="2.6" class="dot s-home"><title>home 07:00 -0.0033</title></circle>
+<circle cx="128.7" cy="143.9" r="2.6" class="dot s-home"><title>home 08:00 -0.0229</title></circle>
+<circle cx="167.1" cy="102.2" r="2.6" class="dot s-home"><title>home 09:00 +0.0074</title></circle>
+<circle cx="205.4" cy="148.3" r="2.6" class="dot s-home"><title>home 10:00 -0.0260</title></circle>
+<circle cx="243.8" cy="167.2" r="2.6" class="dot s-home"><title>home 11:00 -0.0397</title></circle>
+<circle cx="282.1" cy="128.0" r="2.6" class="dot s-home"><title>home 12:00 -0.0113</title></circle>
+<circle cx="320.5" cy="114.0" r="2.6" class="dot s-home"><title>home 13:00 -0.0011</title></circle>
+<circle cx="358.8" cy="136.6" r="2.6" class="dot s-home"><title>home 14:00 -0.0176</title></circle>
+<circle cx="397.2" cy="124.9" r="2.6" class="dot s-home"><title>home 15:00 -0.0090</title></circle>
+<circle cx="435.5" cy="138.6" r="2.6" class="dot s-home"><title>home 16:00 -0.0190</title></circle>
+<circle cx="473.9" cy="124.7" r="2.6" class="dot s-home"><title>home 17:00 -0.0089</title></circle>
+<circle cx="512.2" cy="106.4" r="2.6" class="dot s-home"><title>home 18:00 +0.0044</title></circle>
+<circle cx="550.6" cy="104.0" r="2.6" class="dot s-home"><title>home 19:00 +0.0061</title></circle>
+<circle cx="588.9" cy="96.6" r="2.6" class="dot s-home"><title>home 20:00 +0.0115</title></circle>
+<circle cx="627.3" cy="88.5" r="2.6" class="dot s-home"><title>home 21:00 +0.0174</title></circle>
+<circle cx="665.6" cy="29.4" r="2.6" class="dot s-home"><title>home 22:00 +0.0602</title></circle>
+<circle cx="704.0" cy="125.1" r="2.6" class="dot s-home"><title>home 23:00 -0.0092</title></circle>
+<path d="M52.0,217.8 L90.4,210.0 L128.7,252.2 L167.1,166.3 L205.4,171.9 L243.8,142.1 L282.1,147.5 L320.5,153.2 L358.8,134.7 L397.2,139.6 L435.5,149.1 L473.9,137.7 L512.2,139.8 L550.6,123.5 L588.9,127.0 L627.3,88.2 L665.6,90.1 L704.0,93.3" class="line s-shop prev"/>
+<path d="M52.0,209.0 L90.4,195.0 L128.7,242.0 L167.1,165.6 L205.4,172.6 L243.8,143.0 L282.1,147.5 L320.5,153.3 L358.8,133.3 L397.2,139.5 L435.5,148.9 L473.9,136.1 L512.2,131.9 L550.6,116.2 L588.9,122.1 L627.3,87.5 L665.6,77.4 L704.0,90.2" class="line s-shop"/>
+<circle cx="52.0" cy="209.0" r="2.6" class="dot s-shop"><title>shop 06:00 -0.0700</title></circle>
+<circle cx="90.4" cy="195.0" r="2.6" class="dot s-shop"><title>shop 07:00 -0.0599</title></circle>
+<circle cx="128.7" cy="242.0" r="2.6" class="dot s-shop"><title>shop 08:00 -0.0941</title></circle>
+<circle cx="167.1" cy="165.6" r="2.6" class="dot s-shop"><title>shop 09:00 -0.0386</title></circle>
+<circle cx="205.4" cy="172.6" r="2.6" class="dot s-shop"><title>shop 10:00 -0.0437</title></circle>
+<circle cx="243.8" cy="143.0" r="2.6" class="dot s-shop"><title>shop 11:00 -0.0222</title></circle>
+<circle cx="282.1" cy="147.5" r="2.6" class="dot s-shop"><title>shop 12:00 -0.0254</title></circle>
+<circle cx="320.5" cy="153.3" r="2.6" class="dot s-shop"><title>shop 13:00 -0.0296</title></circle>
+<circle cx="358.8" cy="133.3" r="2.6" class="dot s-shop"><title>shop 14:00 -0.0152</title></circle>
+<circle cx="397.2" cy="139.5" r="2.6" class="dot s-shop"><title>shop 15:00 -0.0197</title></circle>
+<circle cx="435.5" cy="148.9" r="2.6" class="dot s-shop"><title>shop 16:00 -0.0265</title></circle>
+<circle cx="473.9" cy="136.1" r="2.6" class="dot s-shop"><title>shop 17:00 -0.0172</title></circle>
+<circle cx="512.2" cy="131.9" r="2.6" class="dot s-shop"><title>shop 18:00 -0.0141</title></circle>
+<circle cx="550.6" cy="116.2" r="2.6" class="dot s-shop"><title>shop 19:00 -0.0027</title></circle>
+<circle cx="588.9" cy="122.1" r="2.6" class="dot s-shop"><title>shop 20:00 -0.0070</title></circle>
+<circle cx="627.3" cy="87.5" r="2.6" class="dot s-shop"><title>shop 21:00 +0.0181</title></circle>
+<circle cx="665.6" cy="77.4" r="2.6" class="dot s-shop"><title>shop 22:00 +0.0254</title></circle>
+<circle cx="704.0" cy="90.2" r="2.6" class="dot s-shop"><title>shop 23:00 +0.0162</title></circle>
+<path d="M52.0,185.3 L90.4,137.4 L128.7,194.7 L167.1,119.9 L205.4,135.4 L243.8,142.7 L282.1,132.0 L320.5,155.0 L358.8,112.4 L397.2,126.0 L435.5,138.3 L473.9,136.6 L512.2,129.1 L550.6,116.6 L588.9,95.6 L627.3,75.8 L665.6,90.7 L704.0,75.7" class="line s-leis prev"/>
+<path d="M52.0,180.5 L90.4,126.8 L128.7,190.1 L167.1,118.3 L205.4,135.2 L243.8,143.9 L282.1,131.9 L320.5,153.3 L358.8,112.4 L397.2,125.2 L435.5,138.4 L473.9,135.3 L512.2,120.6 L550.6,111.6 L588.9,90.4 L627.3,74.5 L665.6,79.5 L704.0,71.8" class="line s-leis"/>
+<circle cx="52.0" cy="180.5" r="2.6" class="dot s-leis"><title>leis 06:00 -0.0494</title></circle>
+<circle cx="90.4" cy="126.8" r="2.6" class="dot s-leis"><title>leis 07:00 -0.0104</title></circle>
+<circle cx="128.7" cy="190.1" r="2.6" class="dot s-leis"><title>leis 08:00 -0.0564</title></circle>
+<circle cx="167.1" cy="118.3" r="2.6" class="dot s-leis"><title>leis 09:00 -0.0043</title></circle>
+<circle cx="205.4" cy="135.2" r="2.6" class="dot s-leis"><title>leis 10:00 -0.0165</title></circle>
+<circle cx="243.8" cy="143.9" r="2.6" class="dot s-leis"><title>leis 11:00 -0.0228</title></circle>
+<circle cx="282.1" cy="131.9" r="2.6" class="dot s-leis"><title>leis 12:00 -0.0141</title></circle>
+<circle cx="320.5" cy="153.3" r="2.6" class="dot s-leis"><title>leis 13:00 -0.0297</title></circle>
+<circle cx="358.8" cy="112.4" r="4" class="dot s-leis fixedpt"><title>leis 14:00 +0.0000 (fixed)</title></circle>
+<circle cx="397.2" cy="125.2" r="2.6" class="dot s-leis"><title>leis 15:00 -0.0093</title></circle>
+<circle cx="435.5" cy="138.4" r="2.6" class="dot s-leis"><title>leis 16:00 -0.0189</title></circle>
+<circle cx="473.9" cy="135.3" r="2.6" class="dot s-leis"><title>leis 17:00 -0.0166</title></circle>
+<circle cx="512.2" cy="120.6" r="2.6" class="dot s-leis"><title>leis 18:00 -0.0059</title></circle>
+<circle cx="550.6" cy="111.6" r="2.6" class="dot s-leis"><title>leis 19:00 +0.0006</title></circle>
+<circle cx="588.9" cy="90.4" r="2.6" class="dot s-leis"><title>leis 20:00 +0.0160</title></circle>
+<circle cx="627.3" cy="74.5" r="2.6" class="dot s-leis"><title>leis 21:00 +0.0276</title></circle>
+<circle cx="665.6" cy="79.5" r="2.6" class="dot s-leis"><title>leis 22:00 +0.0239</title></circle>
+<circle cx="704.0" cy="71.8" r="2.6" class="dot s-leis"><title>leis 23:00 +0.0295</title></circle>
+</svg></div>
+  <p class="note">Knots per hour, linear in between. Only differences between activities at the same hour carry meaning; the level is set by the leisure 14:00 reference. The profiles barely move between the two estimates.</p>
+</section>
+
+<section>
+  <h2>Destination parameters</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Parameter</th><th class="num">10 Nov</th><th class="num">This estimate</th><th class="num">SE (BHHH)</th><th class="num">t</th><th></th></tr></thead>
+    <tbody>
+<tr><td>Shop start constant</td><td class=num>−5.3723</td><td class=num><b>−5.4040</b></td><td class=num>0.1194</td><td class=num>−45.3</td><td class=unit></td></tr>
+<tr><td>Leisure start constant</td><td class=num>−5.0503</td><td class=num><b>−5.1717</b></td><td class=num>0.0911</td><td class=num>−56.8</td><td class=unit></td></tr>
+<tr><td>Shop after work (shift)</td><td class=num>−0.7536</td><td class=num><b>−0.5475</b></td><td class=num>0.0939</td><td class=num>−5.8</td><td class=unit></td></tr>
+<tr><td>Leisure after work (shift)</td><td class=num>−0.7948</td><td class=num><b>−0.6102</b></td><td class=num>0.0886</td><td class=num>−6.9</td><td class=unit></td></tr>
+<tr><td>Shop before work (shift)</td><td class=num>−1.3009</td><td class=num><b>−1.0316</b></td><td class=num>0.2777</td><td class=num>−3.7</td><td class=unit></td></tr>
+<tr><td>Leisure before work (shift)</td><td class=num>−1.5477</td><td class=num><b>−1.1334</b></td><td class=num>0.1941</td><td class=num>−5.8</td><td class=unit></td></tr>
+<tr><td>Shop size (log)</td><td class=num>+0.6171</td><td class=num><b>+0.6119</b></td><td class=num>0.0351</td><td class=num>+17.5</td><td class=unit></td></tr>
+<tr><td>Large-store size</td><td class=num>+0.1683</td><td class=num><b>+0.1717</b></td><td class=num>0.0125</td><td class=num>+13.7</td><td class=unit></td></tr>
+<tr><td>Shop outside the city</td><td class=num>−2.7350</td><td class=num><b>−2.4591</b></td><td class=num>0.1853</td><td class=num>−13.3</td><td class=unit></td></tr>
+<tr><td>Leisure size (log 1+x)</td><td class=num>+0.5556</td><td class=num><b>+0.5963</b></td><td class=num>0.0135</td><td class=num>+44.1</td><td class=unit></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The largest moves in the whole estimate are the before-work shifts (shopping and leisure on the way to work) and the train and bus constants for trips outside the city: the trips whose cost changed.</p>
+</section>
+
+<section>
+  <h2>All parameters</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Parameter</th><th class="num">10 Nov</th><th class="num">This estimate</th><th class="num">SE (BHHH)</th><th class="num">t</th><th></th></tr></thead>
+    <tbody>
+<tr class=grp><td colspan=6>Mode and cost (13)</td></tr>
+<tr><td><code>asc_car</code></td><td class=num>−3.5765</td><td class=num><b>−3.6239</b></td><td class=num>0.0561</td><td class=num>−64.6</td><td class=unit></td></tr>
+<tr><td><code>asc_car_pass</code></td><td class=num>−4.6018</td><td class=num><b>−4.8562</b></td><td class=num>0.0600</td><td class=num>−81.0</td><td class=unit></td></tr>
+<tr><td><code>asc_walk</code></td><td class=num>−3.8103</td><td class=num><b>−3.8058</b></td><td class=num>0.0611</td><td class=num>−62.2</td><td class=unit></td></tr>
+<tr><td><code>asc_bicycle</code></td><td class=num>−4.3124</td><td class=num><b>−4.3513</b></td><td class=num>0.0646</td><td class=num>−67.3</td><td class=unit></td></tr>
+<tr><td><code>asc_train</code></td><td class=num>−4.9548</td><td class=num><b>−5.0221</b></td><td class=num>0.1261</td><td class=num>−39.8</td><td class=unit></td></tr>
+<tr><td><code>asc_bus</code></td><td class=num>−6.1324</td><td class=num><b>−6.1997</b></td><td class=num>0.1528</td><td class=num>−40.6</td><td class=unit></td></tr>
+<tr><td><code>asc_train_ext</code></td><td class=num>+0.8765</td><td class=num><b>+1.2026</b></td><td class=num>0.1010</td><td class=num>+11.9</td><td class=unit></td></tr>
+<tr><td><code>asc_bus_ext</code></td><td class=num>+0.0416</td><td class=num><b>+0.4795</b></td><td class=num>0.2031</td><td class=num>+2.4</td><td class=unit></td></tr>
+<tr><td><code>beta_time</code></td><td class=num>−0.0795</td><td class=num><b>−0.0534</b></td><td class=num>0.0044</td><td class=num>−12.0</td><td class=unit></td></tr>
+<tr><td><code>beta_time_pt</code></td><td class=num>−0.0366</td><td class=num><b>−0.0229</b></td><td class=num>0.0048</td><td class=num>−4.8</td><td class=unit></td></tr>
+<tr><td><code>beta_time_walk</code></td><td class=num>−0.0707</td><td class=num><b>−0.0684</b></td><td class=num>0.0046</td><td class=num>−14.9</td><td class=unit></td></tr>
+<tr><td><code>beta_time_bicycle</code></td><td class=num>−0.0609</td><td class=num><b>−0.0563</b></td><td class=num>0.0047</td><td class=num>−12.0</td><td class=unit></td></tr>
+<tr><td><code>beta_cost</code></td><td class=num>+0.00032</td><td class=num><b>−0.0022</b></td><td class=num>0.00012</td><td class=num>−19.2</td><td class=unit></td></tr>
+<tr class=grp><td colspan=6>Destination (11)</td></tr>
+<tr><td><code>theta_c_shop</code></td><td class=num>−5.3723</td><td class=num><b>−5.4040</b></td><td class=num>0.1194</td><td class=num>−45.3</td><td class=unit></td></tr>
+<tr><td><code>theta_c_leis</code></td><td class=num>−5.0503</td><td class=num><b>−5.1717</b></td><td class=num>0.0911</td><td class=num>−56.8</td><td class=unit></td></tr>
+<tr><td><code>theta_c_shop_postwork</code></td><td class=num>−0.7536</td><td class=num><b>−0.5475</b></td><td class=num>0.0939</td><td class=num>−5.8</td><td class=unit></td></tr>
+<tr><td><code>theta_c_leis_postwork</code></td><td class=num>−0.7948</td><td class=num><b>−0.6102</b></td><td class=num>0.0886</td><td class=num>−6.9</td><td class=unit></td></tr>
+<tr><td><code>theta_c_shop_prework</code></td><td class=num>−1.3009</td><td class=num><b>−1.0316</b></td><td class=num>0.2777</td><td class=num>−3.7</td><td class=unit></td></tr>
+<tr><td><code>theta_c_leis_prework</code></td><td class=num>−1.5477</td><td class=num><b>−1.1334</b></td><td class=num>0.1941</td><td class=num>−5.8</td><td class=unit></td></tr>
+<tr><td><code>theta_size_shop</code></td><td class=num>+0.6171</td><td class=num><b>+0.6119</b></td><td class=num>0.0351</td><td class=num>+17.5</td><td class=unit></td></tr>
+<tr><td><code>theta_size_big_shop</code></td><td class=num>+0.1683</td><td class=num><b>+0.1717</b></td><td class=num>0.0125</td><td class=num>+13.7</td><td class=unit></td></tr>
+<tr><td><code>theta_ext_shop</code></td><td class=num>−2.7350</td><td class=num><b>−2.4591</b></td><td class=num>0.1853</td><td class=num>−13.3</td><td class=unit></td></tr>
+<tr><td><code>theta_size_leis</code></td><td class=num>+0.5556</td><td class=num><b>+0.5963</b></td><td class=num>0.0135</td><td class=num>+44.1</td><td class=unit></td></tr>
+<tr class=fixed><td><code>beta_open_leis</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=grp><td colspan=6>Home, utility per minute by hour (18)</td></tr>
+<tr><td><code>home_tod_6am</code></td><td class=num>+0.0122</td><td class=num><b>+0.0168</b></td><td class=num>0.0105</td><td class=num>+1.6</td><td class=unit></td></tr>
+<tr><td><code>home_tod_7am</code></td><td class=num>−0.0099</td><td class=num><b>−0.0033</b></td><td class=num>0.0075</td><td class=num>−0.4</td><td class=unit></td></tr>
+<tr><td><code>home_tod_8am</code></td><td class=num>−0.0258</td><td class=num><b>−0.0229</b></td><td class=num>0.0067</td><td class=num>−3.4</td><td class=unit></td></tr>
+<tr><td><code>home_tod_9am</code></td><td class=num>+0.0075</td><td class=num><b>+0.0074</b></td><td class=num>0.0071</td><td class=num>+1.0</td><td class=unit></td></tr>
+<tr><td><code>home_tod_10am</code></td><td class=num>−0.0259</td><td class=num><b>−0.0260</b></td><td class=num>0.0063</td><td class=num>−4.1</td><td class=unit></td></tr>
+<tr><td><code>home_tod_11am</code></td><td class=num>−0.0396</td><td class=num><b>−0.0397</b></td><td class=num>0.0060</td><td class=num>−6.6</td><td class=unit></td></tr>
+<tr><td><code>home_tod_12pm</code></td><td class=num>−0.0112</td><td class=num><b>−0.0113</b></td><td class=num>0.0061</td><td class=num>−1.9</td><td class=unit></td></tr>
+<tr><td><code>home_tod_1pm</code></td><td class=num>−0.0014</td><td class=num><b>−0.0011</b></td><td class=num>0.0065</td><td class=num>−0.2</td><td class=unit></td></tr>
+<tr><td><code>home_tod_2pm</code></td><td class=num>−0.0183</td><td class=num><b>−0.0176</b></td><td class=num>0.0038</td><td class=num>−4.6</td><td class=unit></td></tr>
+<tr><td><code>home_tod_3pm</code></td><td class=num>−0.0094</td><td class=num><b>−0.0090</b></td><td class=num>0.0068</td><td class=num>−1.3</td><td class=unit></td></tr>
+<tr><td><code>home_tod_4pm</code></td><td class=num>−0.0187</td><td class=num><b>−0.0190</b></td><td class=num>0.0061</td><td class=num>−3.1</td><td class=unit></td></tr>
+<tr><td><code>home_tod_5pm</code></td><td class=num>−0.0097</td><td class=num><b>−0.0089</b></td><td class=num>0.0062</td><td class=num>−1.4</td><td class=unit></td></tr>
+<tr><td><code>home_tod_6pm</code></td><td class=num>−0.0014</td><td class=num><b>+0.0044</b></td><td class=num>0.0064</td><td class=num>+0.7</td><td class=unit></td></tr>
+<tr><td><code>home_tod_7pm</code></td><td class=num>+0.0022</td><td class=num><b>+0.0061</b></td><td class=num>0.0065</td><td class=num>+0.9</td><td class=unit></td></tr>
+<tr><td><code>home_tod_8pm</code></td><td class=num>+0.0080</td><td class=num><b>+0.0115</b></td><td class=num>0.0072</td><td class=num>+1.6</td><td class=unit></td></tr>
+<tr><td><code>home_tod_9pm</code></td><td class=num>+0.0174</td><td class=num><b>+0.0174</b></td><td class=num>0.0077</td><td class=num>+2.3</td><td class=unit></td></tr>
+<tr><td><code>home_tod_10pm</code></td><td class=num>+0.0519</td><td class=num><b>+0.0602</b></td><td class=num>0.0090</td><td class=num>+6.7</td><td class=unit></td></tr>
+<tr><td><code>home_tod_11pm</code></td><td class=num>−0.0115</td><td class=num><b>−0.0092</b></td><td class=num>0.0072</td><td class=num>−1.3</td><td class=unit></td></tr>
+<tr class=grp><td colspan=6>Shopping, utility per minute by hour (18)</td></tr>
+<tr><td><code>shop_tod_6am</code></td><td class=num>−0.0765</td><td class=num><b>−0.0700</b></td><td class=num>0.0748</td><td class=num>−0.9</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_7am</code></td><td class=num>−0.0708</td><td class=num><b>−0.0599</b></td><td class=num>0.0478</td><td class=num>−1.3</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_8am</code></td><td class=num>−0.1014</td><td class=num><b>−0.0941</b></td><td class=num>0.0258</td><td class=num>−3.7</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_9am</code></td><td class=num>−0.0391</td><td class=num><b>−0.0386</b></td><td class=num>0.0132</td><td class=num>−2.9</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_10am</code></td><td class=num>−0.0431</td><td class=num><b>−0.0437</b></td><td class=num>0.0081</td><td class=num>−5.4</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_11am</code></td><td class=num>−0.0216</td><td class=num><b>−0.0222</b></td><td class=num>0.0067</td><td class=num>−3.3</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_12pm</code></td><td class=num>−0.0254</td><td class=num><b>−0.0254</b></td><td class=num>0.0068</td><td class=num>−3.7</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_1pm</code></td><td class=num>−0.0296</td><td class=num><b>−0.0296</b></td><td class=num>0.0075</td><td class=num>−4.0</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_2pm</code></td><td class=num>−0.0161</td><td class=num><b>−0.0152</b></td><td class=num>0.0047</td><td class=num>−3.2</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_3pm</code></td><td class=num>−0.0197</td><td class=num><b>−0.0197</b></td><td class=num>0.0075</td><td class=num>−2.6</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_4pm</code></td><td class=num>−0.0266</td><td class=num><b>−0.0265</b></td><td class=num>0.0070</td><td class=num>−3.8</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_5pm</code></td><td class=num>−0.0183</td><td class=num><b>−0.0172</b></td><td class=num>0.0075</td><td class=num>−2.3</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_6pm</code></td><td class=num>−0.0198</td><td class=num><b>−0.0141</b></td><td class=num>0.0082</td><td class=num>−1.7</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_7pm</code></td><td class=num>−0.0081</td><td class=num><b>−0.0027</b></td><td class=num>0.0095</td><td class=num>−0.3</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_8pm</code></td><td class=num>−0.0106</td><td class=num><b>−0.0070</b></td><td class=num>0.0112</td><td class=num>−0.6</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_9pm</code></td><td class=num>+0.0176</td><td class=num><b>+0.0181</b></td><td class=num>0.0139</td><td class=num>+1.3</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_10pm</code></td><td class=num>+0.0162</td><td class=num><b>+0.0254</b></td><td class=num>0.0184</td><td class=num>+1.4</td><td class=unit></td></tr>
+<tr><td><code>shop_tod_11pm</code></td><td class=num>+0.0139</td><td class=num><b>+0.0162</b></td><td class=num>0.0113</td><td class=num>+1.4</td><td class=unit></td></tr>
+<tr class=grp><td colspan=6>Leisure, utility per minute by hour (18)</td></tr>
+<tr><td><code>leis_tod_6am</code></td><td class=num>−0.0529</td><td class=num><b>−0.0494</b></td><td class=num>0.0304</td><td class=num>−1.6</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_7am</code></td><td class=num>−0.0181</td><td class=num><b>−0.0104</b></td><td class=num>0.0143</td><td class=num>−0.7</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_8am</code></td><td class=num>−0.0597</td><td class=num><b>−0.0564</b></td><td class=num>0.0092</td><td class=num>−6.1</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_9am</code></td><td class=num>−0.0054</td><td class=num><b>−0.0043</b></td><td class=num>0.0079</td><td class=num>−0.5</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_10am</code></td><td class=num>−0.0167</td><td class=num><b>−0.0165</b></td><td class=num>0.0066</td><td class=num>−2.5</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_11am</code></td><td class=num>−0.0220</td><td class=num><b>−0.0228</b></td><td class=num>0.0065</td><td class=num>−3.5</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_12pm</code></td><td class=num>−0.0142</td><td class=num><b>−0.0141</b></td><td class=num>0.0061</td><td class=num>−2.3</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_1pm</code></td><td class=num>−0.0309</td><td class=num><b>−0.0297</b></td><td class=num>0.0076</td><td class=num>−3.9</td><td class=unit></td></tr>
+<tr class=fixed><td><code>leis_tod_2pm</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr><td><code>leis_tod_3pm</code></td><td class=num>−0.0098</td><td class=num><b>−0.0093</b></td><td class=num>0.0079</td><td class=num>−1.2</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_4pm</code></td><td class=num>−0.0188</td><td class=num><b>−0.0189</b></td><td class=num>0.0060</td><td class=num>−3.1</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_5pm</code></td><td class=num>−0.0175</td><td class=num><b>−0.0166</b></td><td class=num>0.0071</td><td class=num>−2.3</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_6pm</code></td><td class=num>−0.0121</td><td class=num><b>−0.0059</b></td><td class=num>0.0072</td><td class=num>−0.8</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_7pm</code></td><td class=num>−0.0030</td><td class=num><b>+0.00059</b></td><td class=num>0.0078</td><td class=num>+0.1</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_8pm</code></td><td class=num>+0.0122</td><td class=num><b>+0.0160</b></td><td class=num>0.0089</td><td class=num>+1.8</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_9pm</code></td><td class=num>+0.0266</td><td class=num><b>+0.0276</b></td><td class=num>0.0094</td><td class=num>+2.9</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_10pm</code></td><td class=num>+0.0158</td><td class=num><b>+0.0239</b></td><td class=num>0.0118</td><td class=num>+2.0</td><td class=unit></td></tr>
+<tr><td><code>leis_tod_11pm</code></td><td class=num>+0.0267</td><td class=num><b>+0.0295</b></td><td class=num>0.0068</td><td class=num>+4.3</td><td class=unit></td></tr>
+<tr class=grp><td colspan=6>Work start, by hour (6)</td></tr>
+<tr class=fixed><td><code>work_start_5am</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=fixed><td><code>work_start_6am</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=fixed><td><code>work_start_7am</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=fixed><td><code>work_start_9am</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=fixed><td><code>work_start_10am</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+<tr class=fixed><td><code>work_start_12pm</code></td><td class=num>+0.0000</td><td class=num><b>+0.0000</b></td><td class=num>fixed</td><td class=num></td><td class=unit></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">All 84 parameters, 76 free. The 8 marked fixed are held at 0 and not estimated: leisure at 14:00 is the reference; the leisure opening-hours term is off (shops close by a hard rule instead); and the six work-start terms carry nothing, because each worker starts at the diary time.</p>
+</section>
+
+<section>
+  <h2>Convergence</h2>
+  <div class="chart"><svg viewBox="0 0 720 210" role="img" aria-label="Log-likelihood by evaluation">
+<line x1="70" x2="704" y1="159.6" y2="159.6" class="grid"/><text x="62" y="163.6" class="tick" text−anchor="end">-34,600</text>
+<line x1="70" x2="704" y1="87.8" y2="87.8" class="grid"/><text x="62" y="91.8" class="tick" text−anchor="end">-34,500</text>
+<line x1="70" x2="704" y1="16.0" y2="16.0" class="grid"/><text x="62" y="20.0" class="tick" text−anchor="end">-34,400</text>
+<text x="70.0" y="198" class="tick" text-anchor="middle">1</text>
+<text x="196.8" y="198" class="tick" text-anchor="middle">3</text>
+<text x="323.6" y="198" class="tick" text-anchor="middle">5</text>
+<text x="450.4" y="198" class="tick" text-anchor="middle">7</text>
+<text x="577.2" y="198" class="tick" text-anchor="middle">9</text>
+<text x="704.0" y="198" class="tick" text-anchor="middle">11</text>
+<path d="M70.0,152.0 L133.4,105.4 L196.8,55.2 L260.2,27.0 L387.0,26.7 L450.4,26.7 L513.8,26.6 L577.2,26.6 L640.6,26.6 L704.0,26.6" class="line s-ll"/>
+<circle cx="70.0" cy="152.0" r="2.6" class="dot s-ll"><title>evaluation 1: -34,589.4079</title></circle>
+<circle cx="133.4" cy="105.4" r="2.6" class="dot s-ll"><title>evaluation 2: -34,524.5120</title></circle>
+<circle cx="196.8" cy="55.2" r="2.6" class="dot s-ll"><title>evaluation 3: -34,454.5177</title></circle>
+<circle cx="260.2" cy="27.0" r="2.6" class="dot s-ll"><title>evaluation 4: -34,415.2881</title></circle>
+<circle cx="323.6" cy="174.0" r="3.2" class="dot s-ll fixedpt"><title>evaluation 5: -35,002.3078 (rejected trial step)</title></circle>
+<circle cx="387.0" cy="26.7" r="2.6" class="dot s-ll"><title>evaluation 6: -34,414.9677</title></circle>
+<circle cx="450.4" cy="26.7" r="2.6" class="dot s-ll"><title>evaluation 7: -34,414.8642</title></circle>
+<circle cx="513.8" cy="26.6" r="2.6" class="dot s-ll"><title>evaluation 8: -34,414.8196</title></circle>
+<circle cx="577.2" cy="26.6" r="2.6" class="dot s-ll"><title>evaluation 9: -34,414.8152</title></circle>
+<circle cx="640.6" cy="26.6" r="2.6" class="dot s-ll"><title>evaluation 10: -34,414.8151</title></circle>
+<circle cx="704.0" cy="26.6" r="2.6" class="dot s-ll"><title>evaluation 11: -34,414.8151</title></circle>
+<text x="704.0" y="16.6" class="tick strong" text-anchor="end">-34,414.82</text></svg></div>
+  <ul>
+    <li>Warm start from the 10 November estimate. The exact Hessian there (4.8 hours on 24 cores) has all 76 eigenvalues positive, smallest 13.8, and predicted a gain of 103 log-likelihood points; the run gained 175.</li>
+    <li>11 evaluations, 8 iterations of a trust-region Newton method, about 7 to 8 minutes each. Evaluation 5 was a rejected trial step (−35,002, hollow point), after which the trust radius was cut from 2 to 0.5.</li>
+    <li>Stopped on the gradient test: projected gradient 1.3 × 10⁻⁶ ≤ 10⁻⁵. The last three evaluations agree to 2 × 10⁻⁵ log-likelihood points.</li>
+    <li>BHHH information at the estimate: all eigenvalues positive (smallest 12.9). Standard errors in this record are BHHH; an exact Hessian at the estimate was not computed.</li>
+    <li>A first attempt was stopped at 11:06 by the memory guard while another job ran beside it. The guard now stops competing jobs before the estimation.</li>
+  </ul>
+</section>
+
+<section><h2>Against the diary</h2><p class="note">The simulation at this estimate is being rerun after a labelling fix (see below); this section fills in when it finishes.</p></section>
+
+<section>
+  <h2>Files</h2>
+  <div class="files">
+    <span>results/estimation_results/nfxp_params_20261111_200908.csv (+ .spec.json, .data_args.json)</span>
+    <span>results/estimation_results/nfxp_covariance_20261111_200908.npy (BHHH covariance, free parameters)</span>
+    <span>results/estimation_results/cpu_float64_n9077_20261111_110831.log</span>
+    <span>results/estimation_results/launch_runB_20261110.env (launch settings)</span>
+    <span>results/pt_timetable_20261105/sim_runB/full/ (simulation)</span>
+    <span>docs/plans/commute_cost_two_class_20261110.md (plan and the exactness check)</span>
+  </div>
+</section>
+</main>
+
+</body>
+</html>

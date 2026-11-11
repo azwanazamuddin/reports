@@ -14,14 +14,14 @@ tags: [phd, weekly, estimation, public-transport, work-duration, optimal-transpo
 
 ## 1. In short
 
-**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays. The model change is built. Its exactness check found two gaps in which observed decisions are counted; both are fixed, the full-sample check now passes exactly, and the new estimation started on 11 November at 06:40.
+**The overtime suspicion was confirmed and fixed. Every travel time coefficient is now negative, public transport included.** The last open sign, cost, was traced to commuters being charged money their employer pays. The model change was built, checked exactly against the old model on the full sample, and estimated. **In the new estimate (11 November) cost is negative and clearly identified: -0.00222 per yen, t -19.2** ([estimation report](/ddcm/estimate_20261111.html)).
 
-| | 9 November | 11 November |
-|---|---|---|
-| Cause of the positive public transport time | free overtime at work, under review | **confirmed** by two fixed-$\theta$ tests |
-| Fix | two options, (a) or (b) | **(a) chosen:** the work duration is exact |
-| Public transport time | positive | **-0.0366** (SE 0.0050) |
-| Cost | slightly positive | still **+0.0003** (SE 0.0002), t 1.9 |
+| | 9 November | 10 November | 11 November |
+|---|---|---|---|
+| Cause of the positive public transport time | free overtime at work, under review | **confirmed** by two fixed-$\theta$ tests | |
+| Fix | two options, (a) or (b) | **(a) chosen:** the work duration is exact | + commutes free of money cost, passengers free of fuel |
+| Public transport time | positive | **-0.0366** (SE 0.0050) | **-0.0229** (SE 0.0048) |
+| Cost | slightly positive | still **+0.0003** (SE 0.0002), t 1.9 | **-0.00222** (SE 0.00012), **t -19.2** |
 
 ## 2. The overtime test (L1 and L2)
 
@@ -134,7 +134,39 @@ These are reported, not tuned away with constants.
 - **Car passengers pay no fuel.**
 - How it is built: the model picks where and how to travel first and what to do on arrival. Västberg et al. (2020) choose destination, mode and purpose together; the two forms are the same model only while travel cost does not depend on the purpose. So a trip leaving home (before work) or leaving work now comes in two versions, "my commute" (free, ends only at work or home) and "another trip" (paid, cannot end there). This is the same model as choosing the purpose with the trip, at **+21% edges** in the largest graph (measured), against about 20 times more for choosing everything jointly.
 
-## 6. Learning
+## 6. The new estimate (11 November): commutes free
+
+Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation report](/ddcm/estimate_20261111.html), every parameter against 10 November). Log-likelihood -34,414.82; 6,243 persons; 361,167 decisions. Standard errors from BHHH.
+
+| | 10 November | 11 November | SE | t |
+|---|---:|---:|---:|---:|
+| Cost (per yen) | +0.00032 | **-0.00222** | 0.00012 | **-19.2** |
+| Car time (per min) | -0.0795 | -0.0534 | 0.0045 | -12.0 |
+| Public transport time | -0.0366 | -0.0229 | 0.0048 | -4.8 |
+| Walk time | -0.0707 | -0.0684 | 0.0046 | -14.9 |
+| Bicycle time | -0.0609 | -0.0563 | 0.0047 | -12.0 |
+| Car passenger constant | -4.60 | -4.86 | 0.06 | |
+
+- **The reading written before the run is met:** cost negative and more than 2 SE from zero. The commuting-allowance explanation holds in the DDCM itself, not only in the trip-level model (-0.00175 there).
+- **Every travel time coefficient stays negative.** Car and public transport time are smaller in size than on 10 November: part of what they carried was money, and cost now takes its own share.
+- The car passenger constant falls, as passengers no longer pay fuel and the constant carries their disadvantage alone.
+- The largest moves elsewhere are the before-work shopping and leisure shifts and the constants for train and bus trips outside the city: the trips whose cost changed. The time-of-day profiles barely move.
+
+**Value of time** (time coefficient over cost, yen per minute, delta-method SE):
+
+| Car | Public transport | Walk | Bicycle |
+|---:|---:|---:|---:|
+| **24.1** (2.5) | **10.3** (2.3) | 30.8 (2.6) | 25.4 (2.5) |
+
+- Commutes carry no cost in this model, so these are values for non-commute trips (shopping, leisure, errands).
+- Benchmarks, checked: the MLIT rail evaluation manual (2012, as applied by Osaka City) uses **per person** 15.2 yen per minute for private trips, 12.2 school, 37.5 commute, 41.6 business; the MLIT road manual (2018) uses 45.15 yen per minute **per vehicle**, all purposes. Car and public transport lie in the range of the private-trip values. Public transport is about two thirds of the rail private-trip value, and less than half of car time; its time is door to door, including the walk to the station and the wait.
+- An earlier draft of the check compared against "MLIT, about 40-44 yen per minute"; that figure is per vehicle and was quoted from memory. It is corrected here and in the summary script.
+
+**Convergence:** 11 evaluations from the 10 November estimate. The exact Hessian at the start (4.8 hours) has all 76 eigenvalues positive and predicted a gain of 103 points; the run gained 175. Stopped on the gradient test (1.3e-6 against 1e-5); the BHHH information at the estimate is positive definite.
+
+**The log-likelihoods of 10 and 11 November are not directly comparable:** paired trip scoring counts 183 fewer decisions.
+
+## 7. Learning
 
 ### Optimal transport (in progress)
 
@@ -153,7 +185,7 @@ The working assumption from last time is unchanged and **still untested:** OT re
 
 A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 18 lessons, one per chapter, in the same format. **It is preparation for the study camp, not part of my research;** an optional last lesson only maps where it meets discrete choice and traffic equilibrium.
 
-## 7. Status
+## 8. Status
 
 ### Done, in the order it happened
 
@@ -197,8 +229,11 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
    - Second fix: the same rule applied again at each $\theta$, when steps the model finds impossible are left out. Recomputed from the stored values, both graphs now count the same 361,167 decisions in every group.
    - **Full-sample check passed (11 November, 06:40):** both graphs give log-likelihood -34,540.956941, the same 6,243 persons and 361,167 decisions, and gradients equal to 8e-16.
 
+10. **The new estimate converged (11 November, section 6).** Commutes free, passengers free of fuel, paired trip scoring. Cost -0.00222 (t -19.2), every time coefficient negative, value of time 24 yen per minute by car and 10 by public transport. A report page with every parameter against 10 November ([open](/ddcm/estimate_20261111.html)).
+11. **The memory guard now protects the estimation.** When memory runs short it first stops other large jobs of the same account, and stops the estimation only when nothing else is left. Before, it stopped the estimation (see Error).
+
 ### Doing
-- **The new estimation** (commute trips free, passengers pay no fuel, paired trip scoring), started 11 November 06:40 from the 10 November estimate; about 1 hour to build the graphs, then about 7 hours of estimation. Each stage is checked automatically.
+- **The simulation at the 11 November estimate**, rerun after a labelling fix (see Error): the open misfits against the diary (workers commuting as car passengers, non-workers' public transport use, car passenger trips after public transport).
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
 - Tadelis game theory reading guide (18 lessons), as preparation for the study camp.
 
@@ -222,9 +257,13 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 
 **What this means for the method.** It is a rule about which observed decisions enter the likelihood, and it will be stated as such: a trip is one choice, so both of its steps are scored together or not at all. It changes the counted sample by about 0.05% (361,167 decisions against 361,350 on 10 November), so the new log-likelihood is not exactly comparable to the 10 November one.
 
+**The first attempt at the new estimation was stopped by the memory guard (11 November, 11:06), not by an error.** It was 3.5 hours into its first exact Hessian, holding about 420 GiB of 512, when another job started beside it. Nothing was lost but time: the optimizer had not yet moved. It was relaunched at 11:08 with fewer workers in the Hessian at once (6 instead of 8: safer, slower) and reused the stored graphs (a launcher bug had kept every timetable run since 5 November from finding them; fixed). The guard was also changed to protect the estimation first (Done 11).
+
+**The first simulation at the new estimate mislabelled every commute (11 November, 21:10).** Workers showed 176 car trips per 1,000 days against 1,258 in the diary. The simulated choices were right; the file writer decided "trip or not" from the activity column alone, and a commute carries its target (work or home) there, so each commute was written as a work or home row with no mode. Fixed with the same rule as the rest of the code (a trip is any action with a mode) and rerun, with a check that fails on the mislabelled output.
+
 ### To do
-1. **Finish the new estimation** (started 06:40), expected around 15:00 on 11 November; then the BHHH standard errors.
-2. Simulation at the new estimate: the sign of cost and the value of time (Västberg's definition, against MLIT's about 40-44 yen per minute); the open misfits (workers commute as car passengers 4 times as often as the diary; public transport time may become less negative; non-workers use public transport 2.3 times the diary).
+1. **The simulation at the new estimate** (rerun in progress): the open misfits against the diary; then decide whether workers need their own car passenger constant.
+2. Exact-Hessian standard errors at the new estimate, as for 10 November.
 3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
 4. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.
 5. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
