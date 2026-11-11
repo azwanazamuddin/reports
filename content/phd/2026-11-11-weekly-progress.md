@@ -166,6 +166,25 @@ Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation r
 
 **The log-likelihoods of 10 and 11 November are not directly comparable:** paired trip scoring counts 183 fewer decisions.
 
+**The simulation against the diary** (6,312 persons, 3 draws each; rerun after a labelling fix, see Error):
+
+| | Diary | 10 November | 11 November |
+|---|---:|---:|---:|
+| Car passenger right after public transport | 1.5% | 0.4% | **0.2%** |
+| Public transport days with only one public transport trip | 4.7% | 9.0% | 12.0% |
+| Workers' public transport trips to work (per 1,000 worker-days) | 265 | | **249** |
+| Workers home by public transport, 16-19h (per 1,000) | 150.2 | 139.8 | **145.8** |
+| Workers' car (driver) trips (per 1,000) | 1,258 | 1,011 | 1,053 |
+| Workers' car passenger trips (per 1,000) | 80 | 324 | **291** |
+| Workers home as car passenger, 16-19h (per 1,000) | 14.5 | 86.2 | **72.4** |
+| Non-workers' car passenger trips (per 1,000) | 183 | 153 | 184 |
+| Non-workers' public transport trips (per 1,000) | 30.3 | | 53.0 |
+
+- **Workers' public transport commute fits the diary closely**, out and home, and 94% of their public transport days have two trips (diary 95%).
+- **Still off: workers go as car passengers 3.6 times as often as the diary** (291 against 80), a little better than 10 November. With commutes free of cost and passengers free of fuel, only the passenger constant separates riding from driving on a commute. A separate worker passenger constant is the next question.
+- Non-workers use public transport about 1.75 times as often as the diary, car owners most of all (45 against 18 per 1,000); their car passenger trips match in total but too many fall after 19:00 (27 against 6).
+- Reported, not tuned away.
+
 ## 7. Learning
 
 ### Optimal transport (in progress)
@@ -232,8 +251,10 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 10. **The new estimate converged (11 November, section 6).** Commutes free, passengers free of fuel, paired trip scoring. Cost -0.00222 (t -19.2), every time coefficient negative, value of time 24 yen per minute by car and 10 by public transport. A report page with every parameter against 10 November ([open](/ddcm/estimate_20261111.html)).
 11. **The memory guard now protects the estimation.** When memory runs short it first stops other large jobs of the same account, and stops the estimation only when nothing else is left. Before, it stopped the estimation (see Error).
 
+12. **The simulation at the new estimate (section 6).** Workers' public transport commute fits the diary; workers' car passenger trips are still 3.6 times the diary.
+
 ### Doing
-- **The simulation at the 11 November estimate**, rerun after a labelling fix (see Error): the open misfits against the diary (workers commuting as car passengers, non-workers' public transport use, car passenger trips after public transport).
+- Deciding the next step for workers' car passenger trips (a separate worker passenger constant or not).
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
 - Tadelis game theory reading guide (18 lessons), as preparation for the study camp.
 
@@ -262,7 +283,7 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 **The first simulation at the new estimate mislabelled every commute (11 November, 21:10).** Workers showed 176 car trips per 1,000 days against 1,258 in the diary. The simulated choices were right; the file writer decided "trip or not" from the activity column alone, and a commute carries its target (work or home) there, so each commute was written as a work or home row with no mode. Fixed with the same rule as the rest of the code (a trip is any action with a mode) and rerun, with a check that fails on the mislabelled output.
 
 ### To do
-1. **The simulation at the new estimate** (rerun in progress): the open misfits against the diary; then decide whether workers need their own car passenger constant.
+1. **Workers' car passenger trips** (3.6 times the diary): decide whether workers need their own car passenger constant, and test it at a fixed $\theta$ before any run.
 2. Exact-Hessian standard errors at the new estimate, as for 10 November.
 3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
 4. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.

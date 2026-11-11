@@ -387,7 +387,31 @@ code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);paddi
   </ul>
 </section>
 
-<section><h2>Against the diary</h2><p class="note">The simulation at this estimate is being rerun after a labelling fix (see below); this section fills in when it finishes.</p></section>
+<section>
+  <h2>Against the diary</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Simulated (6,312 persons, 3 draws each)</th><th class="num">Diary</th><th class="num">10 Nov</th><th class="num">This estimate</th></tr></thead>
+    <tbody>
+      <tr><td>Car passenger trip right after public transport</td><td class="num">1.5%</td><td class="num">0.4%</td><td class="num">0.2%</td></tr>
+      <tr><td>Public transport days with only one public transport trip</td><td class="num">4.7%</td><td class="num">9.0%</td><td class="num">12.0%</td></tr>
+      <tr><td>Workers' public transport trips to work, per 1,000 worker-days</td><td class="num">265.3</td><td class="num">—</td><td class="num">248.8</td></tr>
+      <tr><td>Workers home by public transport, 16–19h, per 1,000</td><td class="num">150.2</td><td class="num">139.8</td><td class="num">145.8</td></tr>
+      <tr><td>Workers' car (driver) trips, per 1,000 worker-days</td><td class="num">1,258</td><td class="num">1,011</td><td class="num">1,053</td></tr>
+      <tr class="open"><td>Workers' car passenger trips, per 1,000 worker-days</td><td class="num">80</td><td class="num">324</td><td class="num">291</td></tr>
+      <tr class="open"><td>Workers home as car passenger, 16–19h, per 1,000</td><td class="num">14.5</td><td class="num">86.2</td><td class="num">72.4</td></tr>
+      <tr><td>Non-workers' car passenger trips, per 1,000</td><td class="num">183</td><td class="num">153</td><td class="num">184</td></tr>
+      <tr class="open"><td>Non-workers' public transport trips, per 1,000 person-days</td><td class="num">30.3</td><td class="num">—</td><td class="num">53.0</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>Workers' public transport commute matches the diary closely: to work 249 against 265 per 1,000, home at 16–19h 146 against 150, and 94% of public transport days have two trips (diary 95%).</li>
+    <li>Workers still go as car passengers far too often: 291 against 80 per 1,000 worker-days, down from 324. With commutes free of cost and passengers free of fuel, nothing but the passenger constant separates a commute as passenger from one as driver. A separate worker passenger constant is the next question.</li>
+    <li>Non-workers use public transport about 1.75 times as often as the diary, most in the middle of the day; car owners most of all (45 against 18 per 1,000). Reported, not tuned away.</li>
+    <li>Non-workers' car passenger trips now match in total (184 against 183), but too many fall after 19:00 (27 against 6 per 1,000).</li>
+    <li>A first simulation at this estimate wrote every commute as a work or home row without a mode (a labelling bug in the batch simulator's output, fixed); these numbers are from the rerun, which passed a check on that label.</li>
+  </ul>
+</section>
+
 
 <section>
   <h2>Files</h2>
