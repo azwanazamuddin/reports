@@ -136,15 +136,15 @@ These are reported, not tuned away with constants.
 
 ## 6. The new estimate (11 November): commutes free
 
-Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation report](/ddcm/estimate_20261111.html), every parameter against 10 November). Log-likelihood -34,414.82; 6,243 persons; 361,167 decisions. Standard errors from BHHH.
+Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation report](/ddcm/estimate_20261111.html), every parameter against 10 November). Log-likelihood -34,414.82; 6,243 persons; 361,167 decisions. Standard errors are robust (sandwich, exact Hessian at the estimate, computed 12 November); BHHH in brackets.
 
-| | 10 November | 11 November | SE | t |
+| | 10 November | 11 November | robust SE | robust t (BHHH t) |
 |---|---:|---:|---:|---:|
-| Cost (per yen) | +0.00032 | **-0.00222** | 0.00012 | **-19.2** |
-| Car time (per min) | -0.0795 | -0.0534 | 0.0045 | -12.0 |
-| Public transport time | -0.0366 | -0.0229 | 0.0048 | -4.8 |
-| Walk time | -0.0707 | -0.0684 | 0.0046 | -14.9 |
-| Bicycle time | -0.0609 | -0.0563 | 0.0047 | -12.0 |
+| Cost (per yen) | +0.00032 | **-0.00222** | 0.00019 | **-11.9** (-19.2) |
+| Car time (per min) | -0.0795 | -0.0534 | 0.0050 | -10.6 (-12.0) |
+| Public transport time | -0.0366 | -0.0229 | 0.0052 | -4.4 (-4.8) |
+| Walk time | -0.0707 | -0.0684 | 0.0062 | -11.0 (-14.9) |
+| Bicycle time | -0.0609 | -0.0563 | 0.0056 | -10.0 (-12.0) |
 | Car passenger constant | -4.60 | -4.86 | 0.06 | |
 
 - **The reading written before the run is met:** cost negative and more than 2 SE from zero. The commuting-allowance explanation holds in the DDCM itself, not only in the trip-level model (-0.00175 there).
@@ -152,17 +152,19 @@ Converged on 11 November, 17:30; standard errors saved 20:09 ([full estimation r
 - The car passenger constant falls, as passengers no longer pay fuel and the constant carries their disadvantage alone.
 - The largest moves elsewhere are the before-work shopping and leisure shifts and the constants for train and bus trips outside the city: the trips whose cost changed. The time-of-day profiles barely move.
 
-**Value of time** (time coefficient over cost, yen per minute, delta-method SE):
+**Value of time** (time coefficient over cost, yen per minute, robust delta-method SE):
 
 | Car | Public transport | Walk | Bicycle |
 |---:|---:|---:|---:|
-| **24.1** (2.5) | **10.3** (2.3) | 30.8 (2.6) | 25.4 (2.5) |
+| **24.1** (3.5) | **10.3** (2.6) | 30.8 (3.8) | 25.4 (3.4) |
 
 - Commutes carry no cost in this model, so these are values for non-commute trips (shopping, leisure, errands).
 - Benchmarks, checked: the MLIT rail evaluation manual (2012, as applied by Osaka City) uses **per person** 15.2 yen per minute for private trips, 12.2 school, 37.5 commute, 41.6 business; the MLIT road manual (2018) uses 45.15 yen per minute **per vehicle**, all purposes. Car and public transport lie in the range of the private-trip values. Public transport is about two thirds of the rail private-trip value, and less than half of car time; its time is door to door, including the walk to the station and the wait.
 - An earlier draft of the check compared against "MLIT, about 40-44 yen per minute"; that figure is per vehicle and was quoted from memory. It is corrected here and in the summary script.
 
-**Convergence:** 11 evaluations from the 10 November estimate. The exact Hessian at the start (4.8 hours) has all 76 eigenvalues positive and predicted a gain of 103 points; the run gained 175. Stopped on the gradient test (1.3e-6 against 1e-5); the BHHH information at the estimate is positive definite.
+**Convergence:** 11 evaluations from the 10 November estimate. The exact Hessian at the start (4.8 hours) has all 76 eigenvalues positive and predicted a gain of 103 points; the run gained 175. Stopped on the gradient test (1.3e-6 against 1e-5).
+
+**Second-order check and robust standard errors (12 November).** The exact Hessian at the estimate itself (4.8 hours) has all 76 eigenvalues positive (smallest 13.5) and a Newton decrement of 1.4e-8: the estimate is a maximum, with nothing left to gain. With robust errors, **55 of 76 free parameters are significant at 5%** (50 with BHHH). Robust errors are larger for the mode constants, cost (1.6 times) and walk time, and smaller for several time-of-day rates. One parameter drops below 5%: the bus constant for trips outside the city (robust t 1.9). Every time and cost coefficient stays far from zero.
 
 **The log-likelihoods of 10 and 11 November are not directly comparable:** paired trip scoring counts 183 fewer decisions.
 
@@ -275,6 +277,8 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 
 12. **The simulation at the new estimate (section 6).** Workers' public transport commute fits the diary; workers' car passenger trips are still too many, 1.65 times the diary as the model reads it (178; 80 raw, where non-owners' and unlicensed persons' driver trips are not yet passenger). [Full observed vs simulated report](/ddcm/obs_vs_sim_20261111.html).
 
+13. **Robust standard errors and the second-order check at the new estimate (12 November, section 6).** Exact Hessian at the estimate: all eigenvalues positive, Newton decrement 1.4e-8. 55 of 76 parameters significant with robust errors; cost robust t -11.9.
+
 ### Doing
 - Deciding the next step for workers' car passenger trips (a separate worker passenger constant or not).
 - Learning optimal transport: the 27-lesson path in five parts (mathematical basics, convex analysis, the core of OT, OT as a whole, connections), as preparation for the next paper after Paper A (TR Part B). The working assumption is unchanged and untested: OT relates to logit, the DDCM, recursive logit and perturbed utility through entropy and duality.
@@ -306,7 +310,6 @@ A reading guide for Tadelis, *Game Theory: An Introduction* (2013), was set up: 
 
 ### To do
 1. **Workers' car passenger trips** (291 against 178 as encoded, 80 raw): decide whether workers need their own car passenger constant, and test it at a fixed $\theta$ before any run.
-2. Exact-Hessian standard errors at the new estimate, as for 10 November.
-3. Robust standard errors; the 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
-4. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.
-5. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
+2. The 11-step gap in the canonical graph; an outdated test fixture (the pool flow-gradient tests stop before reaching the code); documentation (module READMEs, the formulation with the factorization statement); commit.
+3. **Finalize the manuscript (Paper A, TR Part B) after the estimation succeeds:** parameter tables, figures and results from the new estimate.
+4. Learning: the first lessons of the OT path (basics), and the first chapters of Tadelis for the study camp.
