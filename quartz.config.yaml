@@ -18,31 +18,32 @@ configuration:
   theme:
     fontOrigin: googleFonts
     cdnCaching: true
+    # House style (remote_main/VISUALS.md): deep teal + coral colours; Quartz's own fonts kept.
     typography:
       header: Schibsted Grotesk
       body: Source Sans Pro
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#005028"
-        tertiary: "#0a6e3c"
-        highlight: rgba(0, 80, 40, 0.10)
-        textHighlight: "#c8a00055"
+        light: "#ffffff"
+        lightgray: "#dee2e6"
+        gray: "#adb5bd"
+        darkgray: "#495057"
+        dark: "#12343a"
+        secondary: "#1d5c63"
+        tertiary: "#e8664a"
+        highlight: rgba(29, 92, 99, 0.10)
+        textHighlight: "#e8664a44"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#4caf7d"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#0f1f22"
+        lightgray: "#2a3b3e"
+        gray: "#6c757d"
+        darkgray: "#d4dadb"
+        dark: "#eef2f2"
+        secondary: "#5fb3b9"
+        tertiary: "#f08a72"
+        highlight: rgba(95, 179, 185, 0.15)
+        textHighlight: "#e8664a66"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true
