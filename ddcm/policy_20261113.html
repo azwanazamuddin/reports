@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Policy simulation 2026-11-13</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column of a technical estimation record; tables and charts scroll inside their own boxes. */
+:root{
+  --bg:#f6f7f6; --panel:#ffffff; --fg:#1d2422; --muted:#5c6763; --rule:#d9dedb;
+  --accent:#1f6f62; --accent-soft:#e2efec; --warn:#a4541a; --warn-soft:#f6e8dc; --ok:#2f6d3a;
+  --home:#1f6f62; --shop:#8a5a14; --leis:#5a4c9c; --ll:#1f6f62;
+  --display:"IBM Plex Serif", Georgia, serif; --body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e6; --muted:#9aa7a2; --rule:#2e3835;
+  --accent:#6cc2b1; --accent-soft:#1f3330; --warn:#e3a06b; --warn-soft:#3a2a1d; --ok:#7fc58a;
+  --home:#6cc2b1; --shop:#d9a650; --leis:#a99be6; --ll:#6cc2b1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e6; --muted:#9aa7a2; --rule:#2e3835;
+  --accent:#6cc2b1; --accent-soft:#1f3330; --warn:#e3a06b; --warn-soft:#3a2a1d; --ok:#7fc58a;
+  --home:#6cc2b1; --shop:#d9a650; --leis:#a99be6; --ll:#6cc2b1; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+main{max-width:860px;margin:0 auto;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;font-weight:600}
+h1{font-size:2.1rem;line-height:1.15}
+h2{font-size:1.35rem;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+h3{font-size:1.05rem;font-family:var(--body)}
+p{margin:0;max-width:68ch}
+section{display:grid;gap:14px;min-width:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:1.05rem;color:var(--muted);max-width:66ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.facts div{background:var(--panel);padding:12px 14px;display:grid;gap:2px}
+.facts b{font-family:var(--mono);font-size:1.15rem;font-weight:500;font-variant-numeric:tabular-nums}
+.facts span{font-size:.8rem;color:var(--muted)}
+.spec{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr);gap:8px 20px;margin:0}
+.spec dt{font-weight:600}
+.spec dd{margin:0;color:var(--fg)}
+.spec dd small{color:var(--muted)}
+@media (max-width:560px){.spec{grid-template-columns:1fr}.spec dd{margin-bottom:6px}}
+.simfig{margin:18px 0;padding:10px;background:#fff;border:1px solid var(--rule);border-radius:6px}.simfig img{width:100%;height:auto;display:block}.simfig figcaption{color:#3d3d3a;font-size:13px;margin-top:6px}
+.tablebox{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{padding:7px 12px;text-align:left;border-bottom:1px solid var(--rule)}
+th{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.unit{color:var(--muted);font-size:.8rem}
+td.dim{color:var(--muted)}
+tr.fixed td{color:var(--muted)}
+tr:last-child td{border-bottom:none}
+tr.grp td{font-weight:600;background:var(--bg);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+tr.hl td{background:var(--accent-soft)}
+tr.open td{background:var(--warn-soft)}
+.note{font-size:.85rem;color:var(--muted)}
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px;overflow-x:auto}
+.chart svg{width:100%;min-width:520px;height:auto;display:block}
+.grid{stroke:var(--rule);stroke-width:1}
+.zero{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.tick{fill:var(--muted);font:11px var(--mono)}
+.tick.strong{fill:var(--fg);font-weight:500}
+.line{fill:none;stroke-width:2}
+.dot{stroke:var(--panel);stroke-width:1}
+.s-home{stroke:var(--home)} .dot.s-home{fill:var(--home)}
+.s-shop{stroke:var(--shop)} .dot.s-shop{fill:var(--shop)}
+.s-leis{stroke:var(--leis)} .dot.s-leis{fill:var(--leis)}
+.s-ll{stroke:var(--ll)} .dot.s-ll{fill:var(--ll)}
+.dot.fixedpt{fill:var(--panel);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle}
+.callout{border-left:3px solid var(--warn);background:var(--warn-soft);padding:12px 16px;border-radius:0 6px 6px 0;display:grid;gap:8px}
+.callout.ok{border-color:var(--ok);background:var(--accent-soft)}
+ul{margin:0;padding-left:1.2em;display:grid;gap:4px;max-width:70ch}
+code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);padding:1px 5px;border-radius:3px;overflow-wrap:anywhere}
+.files{font-family:var(--mono);font-size:.8rem;color:var(--muted);display:grid;gap:4px;overflow-wrap:anywhere}
+.line.prev{stroke-dasharray:4 4;opacity:.55;stroke-width:1.6}
+.badge{display:inline-block;font-family:var(--mono);font-size:.75rem;padding:1px 7px;border-radius:10px;background:var(--accent-soft);color:var(--accent)}
+</style>
+</head>
+<body>
+
+
+<style>
+:root{--s-base:#2a78d6;--s-w60:#eb6834;--s-tt:#1baf7a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s-base:#3987e5;--s-w60:#d95926;--s-tt:#199e70}}
+:root[data-theme="dark"]{--s-base:#3987e5;--s-w60:#d95926;--s-tt:#199e70}
+.s-base{stroke:var(--s-base)} .dot.s-base{fill:var(--s-base)} .k-base{background:var(--s-base)}
+.s-w60{stroke:var(--s-w60)} .dot.s-w60{fill:var(--s-w60)} .k-w60{background:var(--s-w60)}
+.s-tt{stroke:var(--s-tt)} .dot.s-tt{fill:var(--s-tt)} .k-tt{background:var(--s-tt)}
+.hit{fill:transparent;stroke:none}
+.whisk{stroke:var(--muted);stroke-width:2}
+.iqr{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+.med{stroke:var(--fg);stroke-width:2.5}
+td{vertical-align:top}
+</style>
+
+<main>
+<header style="display:grid;gap:12px">
+  <div class="eyebrow">Higashihiroshima daily activity model · policy simulation record</div>
+  <h1>Policy simulation at the converged estimate</h1>
+  <p class="lede">Three rules, one for each kind of constraint, simulated at the 11 November estimate with every parameter frozen.
+  Each rule changes one input. The same random seed runs in every scenario, and the indicators are exact model
+  expectations from the forward sweep, so a difference against base is the rule's effect, not sampling noise.</p>
+  <div class="facts">
+    <div><b>6,312</b><span>persons; 33 with no feasible day</span></div>
+    <div><b>−34,411.03</b><span>LL at θ̂, base run; reproduces the earlier simulation exactly</span></div>
+    <div><b>3 of 3</b><span>direction checks pass</span></div>
+    <div><b>451 yen</b><span>per utility unit, through β<sub>cost</sub> −0.002217</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>Setup</h2>
+  <dl class="spec">
+    <dt>Estimate</dt><dd><code>nfxp_params_20261111_200908</code>, LL −34,414.815, converged (projected gradient 1.3e-6), all Hessian
+      eigenvalues positive; robust standard errors in the estimation record. Its spec and data sidecars are replayed in every run.</dd>
+    <dt>Rules</dt><dd><b>Shops close 2 h later</b> (institutional): the opening-hours table with every shop closing 120 min later.
+      <b>Drivers aged 75+ give up the car</b> (means): their household car access is removed, so they use the graph without the car.
+      <b>Work starts 60 min later</b> (anchor): every worker's fixed start, and with it the exact work end, moves 60 min.</dd>
+    <dt>Runs</dt><dd>Full sample, 3 repetitions for sampled paths, seed 42, 6 shards per scenario, about 1 h each on this machine.
+      Welfare is the change in each person's V(x₀), the log-sum over their feasible days, divided by |β<sub>cost</sub>|.</dd>
+    <dt>Direction checks</dt><dd>Written before the runs: a relaxing rule never lowers V, a tightening rule never raises it,
+      and a person the rule does not reach does not move.</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Direction checks</h2>
+  <div class="tablebox"><table><thead><tr><th>Rule</th><th class="num">V rises</th><th class="num">V falls</th><th class="num">unchanged</th><th class="num">newly infeasible / feasible</th><th class="num">not reached</th><th class="num">not reached that moved</th><th class="num">largest move, not reached</th><th class="num">violations</th><th></th></tr></thead><tbody><tr><td><b>Shops close 2 h later</b><br><span class="note">institutional constraint; rule relaxes</span></td><td class="num">6,261</td><td class="num">0</td><td class="num">18</td><td class="num">0/0</td><td class="num">0</td><td class="num">0</td><td class="num">0.0e+00</td><td class="num">0</td><td><span class="badge">PASS</span></td></tr><tr><td><b>Drivers aged 75+ give up the car</b><br><span class="note">means constraint; rule tightens</span></td><td class="num">0</td><td class="num">249</td><td class="num">6,030</td><td class="num">0/0</td><td class="num">6,063</td><td class="num">0</td><td class="num">2.1e-14</td><td class="num">0</td><td><span class="badge">PASS</span></td></tr><tr><td><b>Work starts 60 min later</b><br><span class="note">anchor constraint; rule moves</span></td><td class="num">250</td><td class="num">2,292</td><td class="num">3,689</td><td class="num">48/13</td><td class="num">3,689</td><td class="num">0</td><td class="num">0.0e+00</td><td class="num">0</td><td><span class="badge">PASS</span></td></tr></tbody></table></div>
+  <p class="note">"Not reached that moved" is the count of persons outside the rule whose V changed by more than numerical noise.
+  It is 0 in all three; the largest such change is 2.1e-14 utility.</p>
+</section>
+
+<section>
+  <h2>Welfare</h2>
+  <p>Yen per person-day. "Reached" means: everyone for later closing, the 249 drivers aged 75+ for the licence rule,
+  and the 2,623 workers for the work-start rule. Persons infeasible in either run are counted, not averaged.</p>
+  <div class="tablebox"><table><thead><tr><th>Rule</th><th>reaches</th><th class="num">persons reached</th><th class="num">mean</th><th class="num">median</th><th class="num">p10 to p90</th><th class="num">gain / lose %</th><th class="num">mean over all 6,312</th></tr></thead><tbody><tr><td><b>Shops close 2 h later</b></td><td>everyone (shop hours)</td><td class="num">6,312</td><td class="num">+2.5</td><td class="num">+1.8</td><td class="num">0 to 5</td><td class="num">99.7 / 0.0</td><td class="num">+2.5</td></tr><tr><td><b>Drivers aged 75+ give up the car</b></td><td>drivers aged 75+ (car removed)</td><td class="num">249</td><td class="num">−214.6</td><td class="num">−201.7</td><td class="num">−331 to −63</td><td class="num">0.0 / 100.0</td><td class="num">−8.5</td></tr><tr><td><b>Work starts 60 min later</b></td><td>workers (start and end +60 min)</td><td class="num">2,623</td><td class="num">−588.7</td><td class="num">−491.7</td><td class="num">−1,348 to −4</td><td class="num">9.8 / 90.2</td><td class="num">−240.2</td></tr></tbody></table></div>
+  <ul>
+    <li>Later closing helps 99.7% of persons a little. Car households gain more (+3.5 yen against +0.8), and the gain is largest in the
+      centre and its neighbouring areas.</li>
+    <li>The licence rule costs each reached driver about 215 yen a day (median 202).
+      Only 2 of them are workers.</li>
+    <li>The work-start rule costs 90% of workers, on average 589 yen a day. 10% gain. 48 workers lose
+      every feasible day and 13 gain one.</li>
+  </ul>
+  <h3>By group</h3>
+  <div class="tablebox"><table><thead><tr><th>Rule</th><th>group</th><th class="num">mean</th><th class="num">median</th><th class="num">gain %</th><th class="num">lose %</th></tr></thead><tbody><tr><td>Shops close 2 h later</td><td>workers</td><td class="num">+2.3</td><td class="num">+1.6</td><td class="num">99.3</td><td class="num">0.0</td></tr><tr><td></td><td>non-workers</td><td class="num">+2.7</td><td class="num">+1.9</td><td class="num">100.0</td><td class="num">0.0</td></tr><tr><td></td><td>car in household</td><td class="num">+3.5</td><td class="num">+2.8</td><td class="num">99.6</td><td class="num">0.0</td></tr><tr><td></td><td>no car</td><td class="num">+0.8</td><td class="num">+0.5</td><td class="num">99.9</td><td class="num">0.0</td></tr><tr><td>Drivers aged 75+ give up the car</td><td>workers</td><td class="num">−0.7</td><td class="num">+0.0</td><td class="num">0.0</td><td class="num">0.1</td></tr><tr><td></td><td>non-workers</td><td class="num">−14.0</td><td class="num">+0.0</td><td class="num">0.0</td><td class="num">6.7</td></tr><tr><td></td><td>car in household</td><td class="num">−13.1</td><td class="num">+0.0</td><td class="num">0.0</td><td class="num">6.1</td></tr><tr><td></td><td>no car</td><td class="num">+0.0</td><td class="num">+0.0</td><td class="num">0.0</td><td class="num">0.0</td></tr><tr><td>Work starts 60 min later</td><td>workers</td><td class="num">−588.7</td><td class="num">−491.7</td><td class="num">9.8</td><td class="num">90.2</td></tr><tr><td></td><td>non-workers</td><td class="num">+0.0</td><td class="num">+0.0</td><td class="num">0.0</td><td class="num">0.0</td></tr><tr><td></td><td>car in household</td><td class="num">−252.8</td><td class="num">+0.0</td><td class="num">4.1</td><td class="num">40.5</td></tr><tr><td></td><td>no car</td><td class="num">−216.9</td><td class="num">+0.0</td><td class="num">3.8</td><td class="num">30.0</td></tr></tbody></table></div>
+  <h3>By home area, mean yen</h3>
+  <div class="tablebox"><table><thead><tr><th>home area (B zone)</th><th class="num">Shops close 2 h later</th><th class="num">Drivers aged 75+ give up the car</th><th class="num">Work starts 60 min later</th></tr></thead><tbody><tr><td>1 (centre)</td><td class="num">+3.7</td><td class="num">−14.4</td><td class="num">−162.8</td></tr><tr><td>2</td><td class="num">+3.1</td><td class="num">−14.9</td><td class="num">−179.6</td></tr><tr><td>3</td><td class="num">+5.1</td><td class="num">−15.7</td><td class="num">−233.1</td></tr><tr><td>4</td><td class="num">+3.7</td><td class="num">−11.6</td><td class="num">−177.8</td></tr><tr><td>5</td><td class="num">+2.0</td><td class="num">−1.5</td><td class="num">−271.5</td></tr><tr><td>6</td><td class="num">+2.2</td><td class="num">−4.1</td><td class="num">−254.6</td></tr><tr><td>7</td><td class="num">+1.0</td><td class="num">−7.5</td><td class="num">−152.4</td></tr><tr><td>8</td><td class="num">+1.6</td><td class="num">−3.0</td><td class="num">−301.5</td></tr><tr><td>9</td><td class="num">+1.7</td><td class="num">−10.5</td><td class="num">−197.3</td></tr><tr><td>10</td><td class="num">+0.5</td><td class="num">−7.6</td><td class="num">−83.2</td></tr><tr><td>11</td><td class="num">+0.9</td><td class="num">−7.1</td><td class="num">−216.4</td></tr><tr><td>12</td><td class="num">+0.6</td><td class="num">−4.0</td><td class="num">−126.3</td></tr><tr class="hl"><td>13 (external)</td><td class="num">+0.3</td><td class="num">+0.0</td><td class="num">−1,346.7</td></tr></tbody></table></div>
+  <p class="note">Area 13 is outside the city. Its residents lose most under the work-start rule (−1,347 yen
+  on average, 97% lose); why has not been checked.</p>
+  <h3>Work +60: workers by car and base work start</h3>
+  <div class="tablebox"><table><thead><tr><th>car</th><th>base work start</th><th class="num">workers</th><th class="num">mean</th><th class="num">median</th></tr></thead><tbody><tr><td>no car</td><td>before 07:30</td><td class="num">83</td><td class="num">−273</td><td class="num">−336</td></tr><tr><td>no car</td><td>07:30-08:29</td><td class="num">326</td><td class="num">−662</td><td class="num">−468</td></tr><tr><td>no car</td><td>08:30-09:29</td><td class="num">247</td><td class="num">−643</td><td class="num">−427</td></tr><tr><td>no car</td><td>09:30 or later</td><td class="num">87</td><td class="num">−910</td><td class="num">−785</td></tr><tr><td>car</td><td>before 07:30</td><td class="num">143</td><td class="num">−338</td><td class="num">−326</td></tr><tr><td>car</td><td>07:30-08:29</td><td class="num">801</td><td class="num">−677</td><td class="num">−597</td></tr><tr><td>car</td><td>08:30-09:29</td><td class="num">669</td><td class="num">−443</td><td class="num">−352</td></tr><tr><td>car</td><td>09:30 or later</td><td class="num">186</td><td class="num">−714</td><td class="num">−652</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Behaviour</h2>
+  <p>Change against base. Shares in percentage points; exact expectations over the persons feasible in both runs.</p>
+  <div class="tablebox"><table><thead><tr><th>indicator</th><th class="num">base</th><th class="num">Shops close 2 h later</th><th class="num">Drivers aged 75+ give up the car</th><th class="num">Work starts 60 min later</th></tr></thead><tbody><tr><td>trips per person-day</td><td class="num">1.552</td><td class="num">+0.011</td><td class="num">−0.034</td><td class="num">−0.002</td></tr><tr><td>trips per worker-day</td><td class="num">2.186</td><td class="num">+0.008</td><td class="num">−0.000</td><td class="num">+0.005</td></tr><tr><td>trips per non-worker-day</td><td class="num">1.107</td><td class="num">+0.013</td><td class="num">−0.058</td><td class="num">+0.000</td></tr><tr><td>travel minutes per day</td><td class="num">248.69</td><td class="num">+0.16</td><td class="num">−0.52</td><td class="num">−3.38</td></tr><tr><td>car driver share (%)</td><td class="num">53.47</td><td class="num">+0.17</td><td class="num">−1.47</td><td class="num">+2.24</td></tr><tr><td>car passenger share (%)</td><td class="num">14.70</td><td class="num">−0.02</td><td class="num">+0.50</td><td class="num">+2.53</td></tr><tr><td>train share (%)</td><td class="num">14.55</td><td class="num">−0.11</td><td class="num">+0.38</td><td class="num">−4.96</td></tr><tr><td>bus share (%)</td><td class="num">0.70</td><td class="num">−0.00</td><td class="num">+0.02</td><td class="num">+0.19</td></tr><tr><td>walk share (%)</td><td class="num">8.86</td><td class="num">−0.02</td><td class="num">+0.31</td><td class="num">+0.06</td></tr><tr><td>bicycle share (%)</td><td class="num">7.71</td><td class="num">−0.02</td><td class="num">+0.26</td><td class="num">−0.06</td></tr><tr><td>shopping trips per day</td><td class="num">0.206</td><td class="num">+0.006</td><td class="num">−0.010</td><td class="num">+0.002</td></tr><tr><td>shopping stay (min)</td><td class="num">18.45</td><td class="num">+0.45</td><td class="num">−0.87</td><td class="num">+0.09</td></tr><tr><td>shopping in the centre (%)</td><td class="num">27.69</td><td class="num">−0.29</td><td class="num">+0.03</td><td class="num">−0.07</td></tr><tr><td>shopping outside the city (%)</td><td class="num">5.53</td><td class="num">−0.16</td><td class="num">+0.29</td><td class="num">+0.44</td></tr><tr><td>leisure trips per day</td><td class="num">0.242</td><td class="num">+0.001</td><td class="num">−0.011</td><td class="num">+0.004</td></tr><tr><td>leisure stay (min)</td><td class="num">45.34</td><td class="num">+0.16</td><td class="num">−1.96</td><td class="num">+0.17</td></tr><tr><td>leisure in the centre (%)</td><td class="num">36.47</td><td class="num">+0.02</td><td class="num">+0.04</td><td class="num">−0.30</td></tr><tr><td>leisure outside the city (%)</td><td class="num">12.33</td><td class="num">−0.03</td><td class="num">+0.51</td><td class="num">+0.82</td></tr></tbody></table></div>
+  <ul>
+    <li><b>Later closing</b>: small changes. Shopping stays get longer (+0.45 min), slightly less shopping in the centre, slightly more by car.</li>
+    <li><b>Licence 75</b>: car driver share −1.5 pt, car passenger +0.5, train, walk and bicycle up. Non-workers make fewer trips
+      (−0.06 per day) and shorter shopping and leisure stays.</li>
+    <li><b>Work +60</b>: train −5.0 pt, car driver +2.2, car passenger +2.5. The next section explains the train drop.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Why work +60 moves commuters off the train</h2>
+  <p>On the round 1 estimate this rule moved the train share by −0.4 pt; here it moves it by −5.0. Each suspect below was tested at
+  fixed θ with the reading written down before the run (the reading files are listed at the end).</p>
+  <div class="tablebox"><table><thead><tr><th>Suspect</th><th>How it was tested</th><th>What it showed</th><th>Verdict</th></tr></thead><tbody><tr><td>Closed train steps at the later time</td><td>timetable lookup on the base commute trips</td><td>7.7% of morning and 15% of evening commute trains meet a closed 15-min step an hour later; OD pairs with no closed step 06:00-22:00 still keep only 58% of train commuters</td><td>not alone</td></tr><tr><td>Evening home rates</td><td>fixed-theta run with home_tod 5pm to 10pm flat at their mean (0.0151); base and work +60</td><td>train share change −4.00 pt against −4.96; worker train trips kept 62% against 61%</td><td>small part (about a fifth)</td></tr><tr><td>Commuter pass rule</td><td>code: the commute class reads origin and target (home to work, work to home), not the clock</td><td>a shifted trip stays a commute trip</td><td>ruled out</td></tr><tr><td>One work-start window</td><td>run output by base work start hour</td><td>41-58% of train commuter-days kept in every start hour</td><td>ruled out</td></tr><tr class="hl"><td>The PT timetable at the later times</td><td>fixed-theta run of work +60 with the whole PT timetable (closed steps and departure-step times, train and bus) shifted 60 min, so every worker meets the base service</td><td>workers' train share 22.0% base, 13.5% work +60, 19.2% with the shifted timetable; about −1.6 pt on the whole sample against −4.96</td><td><b>main cause, about two thirds</b></td></tr></tbody></table></div>
+  <h3>Workers' train trips by hour</h3>
+  <div class="chart"><svg viewBox="0 0 760 300" role="img" aria-label="Workers' train trips by hour"><line class="grid" x1="52" x2="640" y1="264.0" y2="264.0"/><text class="tick" x="44" y="268.0" text-anchor="end">0</text><line class="grid" x1="52" x2="640" y1="202.0" y2="202.0"/><text class="tick" x="44" y="206.0" text-anchor="end">100</text><line class="grid" x1="52" x2="640" y1="140.0" y2="140.0"/><text class="tick" x="44" y="144.0" text-anchor="end">200</text><line class="grid" x1="52" x2="640" y1="78.0" y2="78.0"/><text class="tick" x="44" y="82.0" text-anchor="end">300</text><line class="grid" x1="52" x2="640" y1="16.0" y2="16.0"/><text class="tick" x="44" y="20.0" text-anchor="end">400</text><text class="tick" x="52.0" y="282" text-anchor="middle">05:00</text><text class="tick" x="117.3" y="282" text-anchor="middle">07:00</text><text class="tick" x="182.7" y="282" text-anchor="middle">09:00</text><text class="tick" x="248.0" y="282" text-anchor="middle">11:00</text><text class="tick" x="313.3" y="282" text-anchor="middle">13:00</text><text class="tick" x="378.7" y="282" text-anchor="middle">15:00</text><text class="tick" x="444.0" y="282" text-anchor="middle">17:00</text><text class="tick" x="509.3" y="282" text-anchor="middle">19:00</text><text class="tick" x="574.7" y="282" text-anchor="middle">21:00</text><text class="tick" x="640.0" y="282" text-anchor="middle">23:00</text><text class="tick" x="52" y="12" text-anchor="start">trips per hour</text><polyline class="line s-base" points="52.0,255.6 84.7,177.4 117.3,43.2 150.0,215.2 182.7,250.1 215.3,258.3 248.0,251.7 280.7,256.4 313.3,259.0 346.0,257.9 378.7,251.4 411.3,219.1 444.0,161.8 476.7,178.3 509.3,207.7 542.0,232.4 574.7,248.8 607.3,255.1 640.0,263.6"/><circle class="hit" cx="52.0" cy="255.6" r="9"><title>base, 05:00 to 06:00: 14 trips</title></circle><circle class="dot s-base" cx="52.0" cy="255.6" r="3"/><circle class="hit" cx="84.7" cy="177.4" r="9"><title>base, 06:00 to 07:00: 140 trips</title></circle><circle class="dot s-base" cx="84.7" cy="177.4" r="3"/><circle class="hit" cx="117.3" cy="43.2" r="9"><title>base, 07:00 to 08:00: 356 trips</title></circle><circle class="dot s-base" cx="117.3" cy="43.2" r="3"/><circle class="hit" cx="150.0" cy="215.2" r="9"><title>base, 08:00 to 09:00: 79 trips</title></circle><circle class="dot s-base" cx="150.0" cy="215.2" r="3"/><circle class="hit" cx="182.7" cy="250.1" r="9"><title>base, 09:00 to 10:00: 22 trips</title></circle><circle class="dot s-base" cx="182.7" cy="250.1" r="3"/><circle class="hit" cx="215.3" cy="258.3" r="9"><title>base, 10:00 to 11:00: 9 trips</title></circle><circle class="dot s-base" cx="215.3" cy="258.3" r="3"/><circle class="hit" cx="248.0" cy="251.7" r="9"><title>base, 11:00 to 12:00: 20 trips</title></circle><circle class="dot s-base" cx="248.0" cy="251.7" r="3"/><circle class="hit" cx="280.7" cy="256.4" r="9"><title>base, 12:00 to 13:00: 12 trips</title></circle><circle class="dot s-base" cx="280.7" cy="256.4" r="3"/><circle class="hit" cx="313.3" cy="259.0" r="9"><title>base, 13:00 to 14:00: 8 trips</title></circle><circle class="dot s-base" cx="313.3" cy="259.0" r="3"/><circle class="hit" cx="346.0" cy="257.9" r="9"><title>base, 14:00 to 15:00: 10 trips</title></circle><circle class="dot s-base" cx="346.0" cy="257.9" r="3"/><circle class="hit" cx="378.7" cy="251.4" r="9"><title>base, 15:00 to 16:00: 20 trips</title></circle><circle class="dot s-base" cx="378.7" cy="251.4" r="3"/><circle class="hit" cx="411.3" cy="219.1" r="9"><title>base, 16:00 to 17:00: 72 trips</title></circle><circle class="dot s-base" cx="411.3" cy="219.1" r="3"/><circle class="hit" cx="444.0" cy="161.8" r="9"><title>base, 17:00 to 18:00: 165 trips</title></circle><circle class="dot s-base" cx="444.0" cy="161.8" r="3"/><circle class="hit" cx="476.7" cy="178.3" r="9"><title>base, 18:00 to 19:00: 138 trips</title></circle><circle class="dot s-base" cx="476.7" cy="178.3" r="3"/><circle class="hit" cx="509.3" cy="207.7" r="9"><title>base, 19:00 to 20:00: 91 trips</title></circle><circle class="dot s-base" cx="509.3" cy="207.7" r="3"/><circle class="hit" cx="542.0" cy="232.4" r="9"><title>base, 20:00 to 21:00: 51 trips</title></circle><circle class="dot s-base" cx="542.0" cy="232.4" r="3"/><circle class="hit" cx="574.7" cy="248.8" r="9"><title>base, 21:00 to 22:00: 24 trips</title></circle><circle class="dot s-base" cx="574.7" cy="248.8" r="3"/><circle class="hit" cx="607.3" cy="255.1" r="9"><title>base, 22:00 to 23:00: 14 trips</title></circle><circle class="dot s-base" cx="607.3" cy="255.1" r="3"/><circle class="hit" cx="640.0" cy="263.6" r="9"><title>base, 23:00 to 24:00: 1 trips</title></circle><circle class="dot s-base" cx="640.0" cy="263.6" r="3"/><polyline class="line s-w60" points="52.0,263.4 84.7,255.7 117.3,194.8 150.0,147.0 182.7,235.0 215.3,255.9 248.0,260.0 280.7,256.2 313.3,258.1 346.0,260.8 378.7,258.3 411.3,253.4 444.0,235.3 476.7,196.1 509.3,210.3 542.0,237.0 574.7,250.8 607.3,254.9 640.0,263.3"/><circle class="hit" cx="52.0" cy="263.4" r="9"><title>work +60, 05:00 to 06:00: 1 trips</title></circle><circle class="dot s-w60" cx="52.0" cy="263.4" r="3"/><circle class="hit" cx="84.7" cy="255.7" r="9"><title>work +60, 06:00 to 07:00: 13 trips</title></circle><circle class="dot s-w60" cx="84.7" cy="255.7" r="3"/><circle class="hit" cx="117.3" cy="194.8" r="9"><title>work +60, 07:00 to 08:00: 112 trips</title></circle><circle class="dot s-w60" cx="117.3" cy="194.8" r="3"/><circle class="hit" cx="150.0" cy="147.0" r="9"><title>work +60, 08:00 to 09:00: 189 trips</title></circle><circle class="dot s-w60" cx="150.0" cy="147.0" r="3"/><circle class="hit" cx="182.7" cy="235.0" r="9"><title>work +60, 09:00 to 10:00: 47 trips</title></circle><circle class="dot s-w60" cx="182.7" cy="235.0" r="3"/><circle class="hit" cx="215.3" cy="255.9" r="9"><title>work +60, 10:00 to 11:00: 13 trips</title></circle><circle class="dot s-w60" cx="215.3" cy="255.9" r="3"/><circle class="hit" cx="248.0" cy="260.0" r="9"><title>work +60, 11:00 to 12:00: 6 trips</title></circle><circle class="dot s-w60" cx="248.0" cy="260.0" r="3"/><circle class="hit" cx="280.7" cy="256.2" r="9"><title>work +60, 12:00 to 13:00: 13 trips</title></circle><circle class="dot s-w60" cx="280.7" cy="256.2" r="3"/><circle class="hit" cx="313.3" cy="258.1" r="9"><title>work +60, 13:00 to 14:00: 9 trips</title></circle><circle class="dot s-w60" cx="313.3" cy="258.1" r="3"/><circle class="hit" cx="346.0" cy="260.8" r="9"><title>work +60, 14:00 to 15:00: 5 trips</title></circle><circle class="dot s-w60" cx="346.0" cy="260.8" r="3"/><circle class="hit" cx="378.7" cy="258.3" r="9"><title>work +60, 15:00 to 16:00: 9 trips</title></circle><circle class="dot s-w60" cx="378.7" cy="258.3" r="3"/><circle class="hit" cx="411.3" cy="253.4" r="9"><title>work +60, 16:00 to 17:00: 17 trips</title></circle><circle class="dot s-w60" cx="411.3" cy="253.4" r="3"/><circle class="hit" cx="444.0" cy="235.3" r="9"><title>work +60, 17:00 to 18:00: 46 trips</title></circle><circle class="dot s-w60" cx="444.0" cy="235.3" r="3"/><circle class="hit" cx="476.7" cy="196.1" r="9"><title>work +60, 18:00 to 19:00: 110 trips</title></circle><circle class="dot s-w60" cx="476.7" cy="196.1" r="3"/><circle class="hit" cx="509.3" cy="210.3" r="9"><title>work +60, 19:00 to 20:00: 87 trips</title></circle><circle class="dot s-w60" cx="509.3" cy="210.3" r="3"/><circle class="hit" cx="542.0" cy="237.0" r="9"><title>work +60, 20:00 to 21:00: 44 trips</title></circle><circle class="dot s-w60" cx="542.0" cy="237.0" r="3"/><circle class="hit" cx="574.7" cy="250.8" r="9"><title>work +60, 21:00 to 22:00: 21 trips</title></circle><circle class="dot s-w60" cx="574.7" cy="250.8" r="3"/><circle class="hit" cx="607.3" cy="254.9" r="9"><title>work +60, 22:00 to 23:00: 15 trips</title></circle><circle class="dot s-w60" cx="607.3" cy="254.9" r="3"/><circle class="hit" cx="640.0" cy="263.3" r="9"><title>work +60, 23:00 to 24:00: 1 trips</title></circle><circle class="dot s-w60" cx="640.0" cy="263.3" r="3"/><polyline class="line s-tt" points="52.0,264.0 84.7,253.2 117.3,180.3 150.0,88.7 182.7,218.0 215.3,251.5 248.0,259.9 280.7,254.2 313.3,256.3 346.0,258.8 378.7,257.5 411.3,252.0 444.0,225.3 476.7,175.5 509.3,183.4 542.0,219.3 574.7,243.0 607.3,247.4 640.0,263.2"/><circle class="hit" cx="52.0" cy="264.0" r="9"><title>work +60, timetable shifted, 05:00 to 06:00: 0 trips</title></circle><circle class="dot s-tt" cx="52.0" cy="264.0" r="3"/><circle class="hit" cx="84.7" cy="253.2" r="9"><title>work +60, timetable shifted, 06:00 to 07:00: 17 trips</title></circle><circle class="dot s-tt" cx="84.7" cy="253.2" r="3"/><circle class="hit" cx="117.3" cy="180.3" r="9"><title>work +60, timetable shifted, 07:00 to 08:00: 135 trips</title></circle><circle class="dot s-tt" cx="117.3" cy="180.3" r="3"/><circle class="hit" cx="150.0" cy="88.7" r="9"><title>work +60, timetable shifted, 08:00 to 09:00: 283 trips</title></circle><circle class="dot s-tt" cx="150.0" cy="88.7" r="3"/><circle class="hit" cx="182.7" cy="218.0" r="9"><title>work +60, timetable shifted, 09:00 to 10:00: 74 trips</title></circle><circle class="dot s-tt" cx="182.7" cy="218.0" r="3"/><circle class="hit" cx="215.3" cy="251.5" r="9"><title>work +60, timetable shifted, 10:00 to 11:00: 20 trips</title></circle><circle class="dot s-tt" cx="215.3" cy="251.5" r="3"/><circle class="hit" cx="248.0" cy="259.9" r="9"><title>work +60, timetable shifted, 11:00 to 12:00: 7 trips</title></circle><circle class="dot s-tt" cx="248.0" cy="259.9" r="3"/><circle class="hit" cx="280.7" cy="254.2" r="9"><title>work +60, timetable shifted, 12:00 to 13:00: 16 trips</title></circle><circle class="dot s-tt" cx="280.7" cy="254.2" r="3"/><circle class="hit" cx="313.3" cy="256.3" r="9"><title>work +60, timetable shifted, 13:00 to 14:00: 12 trips</title></circle><circle class="dot s-tt" cx="313.3" cy="256.3" r="3"/><circle class="hit" cx="346.0" cy="258.8" r="9"><title>work +60, timetable shifted, 14:00 to 15:00: 8 trips</title></circle><circle class="dot s-tt" cx="346.0" cy="258.8" r="3"/><circle class="hit" cx="378.7" cy="257.5" r="9"><title>work +60, timetable shifted, 15:00 to 16:00: 11 trips</title></circle><circle class="dot s-tt" cx="378.7" cy="257.5" r="3"/><circle class="hit" cx="411.3" cy="252.0" r="9"><title>work +60, timetable shifted, 16:00 to 17:00: 19 trips</title></circle><circle class="dot s-tt" cx="411.3" cy="252.0" r="3"/><circle class="hit" cx="444.0" cy="225.3" r="9"><title>work +60, timetable shifted, 17:00 to 18:00: 62 trips</title></circle><circle class="dot s-tt" cx="444.0" cy="225.3" r="3"/><circle class="hit" cx="476.7" cy="175.5" r="9"><title>work +60, timetable shifted, 18:00 to 19:00: 143 trips</title></circle><circle class="dot s-tt" cx="476.7" cy="175.5" r="3"/><circle class="hit" cx="509.3" cy="183.4" r="9"><title>work +60, timetable shifted, 19:00 to 20:00: 130 trips</title></circle><circle class="dot s-tt" cx="509.3" cy="183.4" r="3"/><circle class="hit" cx="542.0" cy="219.3" r="9"><title>work +60, timetable shifted, 20:00 to 21:00: 72 trips</title></circle><circle class="dot s-tt" cx="542.0" cy="219.3" r="3"/><circle class="hit" cx="574.7" cy="243.0" r="9"><title>work +60, timetable shifted, 21:00 to 22:00: 34 trips</title></circle><circle class="dot s-tt" cx="574.7" cy="243.0" r="3"/><circle class="hit" cx="607.3" cy="247.4" r="9"><title>work +60, timetable shifted, 22:00 to 23:00: 27 trips</title></circle><circle class="dot s-tt" cx="607.3" cy="247.4" r="3"/><circle class="hit" cx="640.0" cy="263.2" r="9"><title>work +60, timetable shifted, 23:00 to 24:00: 1 trips</title></circle><circle class="dot s-tt" cx="640.0" cy="263.2" r="3"/><text class="tick strong" x="125.3" y="35.2">base</text><text class="tick strong" x="158.0" y="80.7">work +60, timetable shifted</text><text class="tick strong" x="158.0" y="139.0">work +60</text></svg></div>
+  <div class="legend"><span><i class="k-base"></i>base</span><span><i class="k-w60"></i>work +60</span><span><i class="k-tt"></i>work +60, timetable shifted 60 min</span></div>
+  <p class="note">Exact expected trips by departure hour, workers only. Under work +60 the morning and evening peaks move an hour
+  and shrink. With the timetable shifted along with the day they move and mostly keep their size.</p>
+  <h3>Workers' trips by mode, whole day</h3>
+  <div class="tablebox"><table><thead><tr><th>mode</th><th class="num">base</th><th class="num">work +60</th><th class="num">work +60, timetable shifted</th><th class="num">base %</th><th class="num">work +60 %</th><th class="num">shifted %</th></tr></thead><tbody><tr><td>car driver</td><td class="num">2,768</td><td class="num">2,951</td><td class="num">2,821</td><td class="num">48.9</td><td class="num">52.7</td><td class="num">50.5</td></tr><tr><td>car passenger</td><td class="num">765</td><td class="num">1,000</td><td class="num">833</td><td class="num">13.5</td><td class="num">17.9</td><td class="num">14.9</td></tr><tr><td>train</td><td class="num">1,247</td><td class="num">757</td><td class="num">1,072</td><td class="num">22.0</td><td class="num">13.5</td><td class="num">19.2</td></tr><tr><td>bus</td><td class="num">49</td><td class="num">67</td><td class="num">50</td><td class="num">0.9</td><td class="num">1.2</td><td class="num">0.9</td></tr><tr><td>bicycle</td><td class="num">384</td><td class="num">373</td><td class="num">365</td><td class="num">6.8</td><td class="num">6.7</td><td class="num">6.5</td></tr><tr><td>walk</td><td class="num">449</td><td class="num">449</td><td class="num">446</td><td class="num">7.9</td><td class="num">8.0</td><td class="num">8.0</td></tr></tbody></table></div>
+  <div class="callout ok">
+    <b>Reading</b>
+    <p>About two thirds of the train drop comes from the PT service an hour later being worse for these commutes: the timetable
+    shifted with the day keeps 86% of workers' train trips, against 61% with the real timetable. Morning and evening trips recover
+    alike (88% and 84% kept). Closed steps are only part of it; the rest is the departure-step travel times and how arrivals fit the
+    fixed work start. Which of those matters most has not been separated. The remaining third is the day's position on the clock,
+    of which the evening home rates are about a fifth of the whole.</p>
+  </div>
+  <div class="callout">
+    <b>Caveat</b>
+    <p>The timetable is from 2021 to 2025; the survey is from 2012 and 2014. The shifted-timetable run gives non-workers the shifted
+    service too, so its whole-sample shares mix two changes; the comparison uses workers only.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Accessibility at base</h2>
+  <p>Each person's V(x₀) in yen, against the median non-worker with a car. Thin line: p10 to p90; box: p25 to p75; tick: median.</p>
+  <div class="chart"><svg viewBox="0 0 760 192" role="img" aria-label="Accessibility by kind of person"><line class="grid" x1="170.0" x2="170.0" y1="20" y2="168"/><text class="tick" x="170.0" y="184" text-anchor="middle">−3,000</text><line class="grid" x1="250.0" x2="250.0" y1="20" y2="168"/><text class="tick" x="250.0" y="184" text-anchor="middle">−2,500</text><line class="grid" x1="330.0" x2="330.0" y1="20" y2="168"/><text class="tick" x="330.0" y="184" text-anchor="middle">−2,000</text><line class="grid" x1="410.0" x2="410.0" y1="20" y2="168"/><text class="tick" x="410.0" y="184" text-anchor="middle">−1,500</text><line class="grid" x1="490.0" x2="490.0" y1="20" y2="168"/><text class="tick" x="490.0" y="184" text-anchor="middle">−1,000</text><line class="grid" x1="570.0" x2="570.0" y1="20" y2="168"/><text class="tick" x="570.0" y="184" text-anchor="middle">−500</text><line class="grid" x1="650.0" x2="650.0" y1="20" y2="168"/><text class="tick" x="650.0" y="184" text-anchor="middle">0</text><line class="grid" x1="730.0" x2="730.0" y1="20" y2="168"/><text class="tick" x="730.0" y="184" text-anchor="middle">500</text><line class="zero" x1="650.0" x2="650.0" y1="16" y2="168"/><text class="tick" x="654.0" y="14">0 = median non-worker with a car</text><g><title>non-worker, car: p10 −209, p25 −141, median 0, p75 164, p90 183 yen</title><rect class="hit" x="170" y="26.0" width="560" height="34"/><line class="whisk" x1="616.6" x2="679.3" y1="43.0" y2="43.0"/><rect class="iqr" x="627.4" y="36.0" width="48.8" height="14" rx="3"/><line class="med" x1="650.0" x2="650.0" y1="33.0" y2="53.0"/></g><text class="tick strong" x="160" y="47.0" text-anchor="end">non-worker, car</text><g><title>non-worker, no car: p10 −310, p25 −297, median −259, p75 −148, p90 −143 yen</title><rect class="hit" x="170" y="60.0" width="560" height="34"/><line class="whisk" x1="600.4" x2="627.1" y1="77.0" y2="77.0"/><rect class="iqr" x="602.5" y="70.0" width="23.8" height="14" rx="3"/><line class="med" x1="608.6" x2="608.6" y1="67.0" y2="87.0"/></g><text class="tick strong" x="160" y="81.0" text-anchor="end">non-worker, no car</text><g><title>worker, car: p10 −2,629, p25 −1,676, median −1,111, p75 −579, p90 −148 yen</title><rect class="hit" x="170" y="94.0" width="560" height="34"/><line class="whisk" x1="229.4" x2="626.3" y1="111.0" y2="111.0"/><rect class="iqr" x="381.8" y="104.0" width="175.5" height="14" rx="3"/><line class="med" x1="472.2" x2="472.2" y1="101.0" y2="121.0"/></g><text class="tick strong" x="160" y="115.0" text-anchor="end">worker, car</text><g><title>worker, no car: p10 −2,942, p25 −2,042, median −1,434, p75 −937, p90 −309 yen</title><rect class="hit" x="170" y="128.0" width="560" height="34"/><line class="whisk" x1="179.3" x2="600.6" y1="145.0" y2="145.0"/><rect class="iqr" x="323.3" y="138.0" width="176.8" height="14" rx="3"/><line class="med" x1="420.6" x2="420.6" y1="135.0" y2="155.0"/></g><text class="tick strong" x="160" y="149.0" text-anchor="end">worker, no car</text></svg></div>
+  <div class="tablebox"><table><thead><tr><th>kind of person</th><th class="num">persons</th><th class="num">p10</th><th class="num">p25</th><th class="num">median</th><th class="num">p75</th><th class="num">p90</th></tr></thead><tbody><tr><td>non-worker, car</td><td class="num">2,234</td><td class="num">−209</td><td class="num">−141</td><td class="num">0</td><td class="num">164</td><td class="num">183</td></tr><tr><td>non-worker, no car</td><td class="num">1,455</td><td class="num">−310</td><td class="num">−297</td><td class="num">−259</td><td class="num">−148</td><td class="num">−143</td></tr><tr><td>worker, car</td><td class="num">1,836</td><td class="num">−2,629</td><td class="num">−1,676</td><td class="num">−1,111</td><td class="num">−579</td><td class="num">−148</td></tr><tr><td>worker, no car</td><td class="num">754</td><td class="num">−2,942</td><td class="num">−2,042</td><td class="num">−1,434</td><td class="num">−937</td><td class="num">−309</td></tr></tbody></table></div>
+  <ul>
+    <li>Without a car, accessibility is about 260 yen lower for non-workers and about 320 yen lower for workers, at the median.</li>
+    <li>Among workers, it falls with a later work start: for workers with a car, median −908
+      yen for a 07:30-08:29 start and −1,992 yen for 09:30 or later.</li>
+    <li>Compare within workers or within non-workers. The work episode carries no utility, so the gap between the two is not a pure
+      accessibility difference. The 33 persons with no feasible day are left out.</li>
+  </ul>
+  <h3>Workers by car and work start</h3>
+  <div class="tablebox"><table><thead><tr><th>car</th><th>work start</th><th class="num">workers</th><th class="num">p25</th><th class="num">median</th><th class="num">p75</th></tr></thead><tbody><tr><td>no car</td><td>before 07:30</td><td class="num">84</td><td class="num">−1,613</td><td class="num">−815</td><td class="num">−108</td></tr><tr><td>no car</td><td>07:30-08:29</td><td class="num">327</td><td class="num">−1,766</td><td class="num">−1,206</td><td class="num">−804</td></tr><tr><td>no car</td><td>08:30-09:29</td><td class="num">249</td><td class="num">−2,056</td><td class="num">−1,554</td><td class="num">−1,205</td></tr><tr><td>no car</td><td>09:30 or later</td><td class="num">94</td><td class="num">−3,527</td><td class="num">−2,394</td><td class="num">−1,861</td></tr><tr><td>car</td><td>before 07:30</td><td class="num">147</td><td class="num">−1,622</td><td class="num">−1,022</td><td class="num">−451</td></tr><tr><td>car</td><td>07:30-08:29</td><td class="num">812</td><td class="num">−1,451</td><td class="num">−908</td><td class="num">−407</td></tr><tr><td>car</td><td>08:30-09:29</td><td class="num">676</td><td class="num">−1,625</td><td class="num">−1,172</td><td class="num">−705</td></tr><tr><td>car</td><td>09:30 or later</td><td class="num">201</td><td class="num">−2,889</td><td class="num">−1,992</td><td class="num">−1,250</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Open</h2>
+  <ul>
+    <li>Work +60: which part of the timetable carries the drop (closed steps, departure-step times, arrival against the work start);
+      one more run separates them.</li>
+    <li>Work +60: the remaining third of the drop beyond the evening home rates, and what carries the 589 yen loss per worker-day
+      (morning, evening or the timetable). A single-person breakdown by term answers both.</li>
+    <li>Residents outside the city (area 13) lose most under work +60; not yet looked at.</li>
+    <li>The licence rule was flagged because it depended on the sign of the PT time coefficient. In this estimate it is negative
+      (−0.0229, robust t −4.4), so the condition behind that flag no longer holds.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Files</h2>
+  <div class="files">
+    <span>results/policy/runB_section7_20261113/ (run.sh, run.log, base, late_close120, licence75, work60, analysis/)</span>
+    <span>results/policy/runB_section7_20261113/analysis/section7/ (tables and section7_tables.py)</span>
+    <span>results/policy/runB_homeflat_check_20261113/READING.md (evening home rates)</span>
+    <span>results/policy/runB_ttshift_check_20261113/READING.md (shifted timetable)</span>
+    <span>data/network/scenarios/manifest.json (scenario inputs)</span>
+  </div>
+</section>
+</main>
+
+</body>
+</html>
