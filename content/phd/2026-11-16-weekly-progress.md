@@ -29,6 +29,8 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 
 ## 2. Synthetic experiments (Paper A, Section 5)
 
+**Results deck (PDF, 23 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
+
 ### The setup
 
 **The grid replaces the data, not the code.** The synthetic data pass through the case study's estimator unchanged: the same graphs, masks, gradient and optimizer.
@@ -347,7 +349,7 @@ flowchart TB
 ### Done, in the order it happened
 
 1. **Robust standard errors and the second-order check at the 11 November estimate (12 November).** All eigenvalues positive, Newton decrement 1.4e-8; 55 of 76 parameters significant; cost robust t -11.9.
-2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and an internal results deck.
+2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and a [results deck](/slides/paper-a-results/files/paper_a_results_20261114.pdf).
 3. **Policy simulation, in the case study of Section 6 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; a [report page](/ddcm/policy_20261113.html).
 4. **The work +60 train drop traced (13 November):** about two thirds the timetable not moving with the day, about a fifth the evening home rates.
 5. **Decisions on Paper A (13 to 14 November):**
