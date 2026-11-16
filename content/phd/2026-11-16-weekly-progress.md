@@ -291,14 +291,9 @@ flowchart LR
 
 Stage 0 is the main lane now (in the order 0A, 0D, 0C, 0B, by early January), with game theory and ISTTT alongside it. Stages 1-4 follow from mid-January, Stages 1 and 3 first because Paper A uses them most. Lessons are written for Stage 0, optimal transport and game theory; Stages 1-4 have readings and gates, and their lessons are written before each block starts.
 
-### The mind map: why the pieces belong together
+### The mind map: which stage feeds which target
 
-**Much of the PhD is one move made in different places:** take a hard maximum, add noise or entropy, and get a smooth **log-sum**. Its gradient is a **softmax**; its dual is a problem with **prices or potentials**; letting the noise go to zero gives back the hard problem.
-- In **DDCM**, the move gives logit choice and the value function.
-- In **optimal transport**, it gives entropic transport and Sinkhorn.
-- In **game theory**, it gives logit dynamics and a Gibbs long-run distribution that selects a convention.
-
-Graphs give the structure the move runs on, Markov chains and ODEs give the dynamics, and estimation theory gives the parameters.
+The roadmap says what to read in which order; the map shows which stages each of the three targets draws on. For game theory only the prerequisites are drawn; how it connects to the research comes later.
 
 ```mermaid
 flowchart TB
@@ -321,43 +316,25 @@ flowchart TB
   end
   A0 --> B0
   A0 --> S1
-  B0 -->|"log-sum = conjugate of entropy"| S3
-  B0 -->|"LP duality"| S4
-  C0 -->|"DAGs, paths"| S4
-  D0 -->|"policy-induced chains"| S3
+  B0 --> S3
+  B0 --> S4
+  C0 --> S4
+  D0 --> S3
   S1 --> S2
-  S2 -->|"solver for the likelihood"| PA
-  S1 -->|"SEs, identification"| PA
-  S3 -->|"value = log-sum over paths"| PA
-  C0 -->|"bijection preserves the sum"| PA
-  S4 -->|"time-expanded graph"| PA
-  B0 -->|"Kantorovich dual"| OT
-  S4 -->|"transport = min-cost flow"| OT
-  S3 -->|"DDCM duality, recursive logit"| OT
-  D0 -->|"Schrödinger bridges, gradient flows"| OT
-  B0 -->|"logit = entropic best reply;<br/>potential games = KKT"| GT
-  D0 -->|"stationary laws, tree theorem"| GT
-  C0 -->|"spanning trees"| GT
-  S3 -->|"logit choice rule"| GT
-  S4 -->|"Wardrop as potential game"| GT
-  PA -.->|"constraints between people<br/>(a later direction)"| GT
-  OT -.->|"matching markets"| GT
+  S2 --> PA
+  S1 --> PA
+  S3 --> PA
+  C0 --> PA
+  S4 --> PA
+  B0 --> OT
+  S4 --> OT
+  S3 --> OT
+  D0 --> OT
+  B0 --> GT
+  D0 --> GT
+  C0 --> GT
+  S3 --> GT
 ```
-
-**Eight threads**, each traced from a basic chapter to where it returns. Links marked *(my reading)* are interpretations not yet checked against the papers.
-
-| Thread | In the basics | In Paper A and DDCM | In optimal transport | In game theory |
-|---|---|---|---|---|
-| **1. Max + noise = log-sum, gradient = softmax** | the log-sum and negative entropy are a conjugate pair (0B) | Gumbel noise gives logit; the value at a node is the log-sum over all feasible paths from it | the entropic plan is a Gibbs kernel; every Sinkhorn update is a log-sum | the logit reply is an entropy-regularised best reply; the long-run law under logit revision is Gibbs |
-| **2. Duality and prices** | Lagrange multipliers as shadow prices; KKT; complementary slackness | the Bellman value as a potential on the state graph *(my reading)*; the duality inside DDCM (Chiong, Galichon and Shum) | the Kantorovich dual: mass moves only where the potentials add up to the cost | in a potential game, Nash equilibria are KKT points; Wardrop |
-| **3. Potentials** | the gradient of the log-sum gives choice probabilities | value differences drive choice | Brenier's map is the gradient of a convex potential | the potential is a Lyapunov function, and under noise the energy of a Gibbs law; Beckmann's potential for traffic |
-| **4. Graphs, paths, trees** | DAGs, bijections, matchings, equivalence classes (0C) | the time-expanded day graph; Theorem 1 is a bijection between path sets that preserves the log-sum | the assignment problem; recursive logit as a smoothed shortest path *(my reading)* | the Markov chain tree theorem sums over spanning trees; resistances as shortest paths |
-| **5. Markov chains, long-run laws** | random walks, stationary distributions (0D) | a policy turns the decision problem into a chain on states; recursive logit is an absorbing chain | Schrödinger bridges | stochastic stability is a statement about the stationary law of the population process |
-| **6. Fixed points, dynamics, stability** | ODEs, linearisation, Lyapunov (0D) | backward induction on a finite horizon needs no contraction; a trust region judges when a local model can be believed | Sinkhorn as alternating fixed-point updates; gradient flows | Nash as a fixed point; mean dynamics; ESS |
-| **7. Noise as a dial** | $\varepsilon\log\sum e^{w/\varepsilon}$ is within $\varepsilon\log n$ of the max | the logit scale; zero noise is deterministic utility maximisation | entropic $\varepsilon$; zero is exact transport | small noise held for infinite time selects one convention, which no deterministic analysis can: the order of limits matters |
-| **8. Estimation** | probability, densities (0A) | MLE, sandwich standard errors, the nested fixed point on the shared graph | estimating transport from samples | not on the path yet *(my suggestion: estimating learning models from data)* |
-
-**Where the targets meet** *(my reading)*: Paper A and game theory through constraints between household members, a game; optimal transport and game theory through matching markets; optimal transport and Paper A through reading dynamic discrete choice as transport, which the last optimal transport lessons test.
 
 ### In progress
 
