@@ -29,7 +29,7 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 
 ## 2. Synthetic experiments (Paper A, Section 5)
 
-**Results deck (PDF, 23 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
+**Results deck (PDF, 22 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
 
 ### The setup
 
