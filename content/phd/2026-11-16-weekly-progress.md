@@ -244,14 +244,14 @@ The stages name the **content**; the learning order above sets when each is done
 
 ```mermaid
 flowchart LR
-  S0["0. Core maths<br/>MML Part I, Boyd 2-5,<br/>proofs and discrete maths,<br/>Markov chains and ODEs"] --> S1["1. Statistics and estimation"]
-  S1 --> S2["2. Numerical optimisation"]
-  S1 --> S3["3. Discrete choice, DP and DDCM"]
-  S3 --> S4["4. Networks"]
+  S0["Stage 0: Core maths<br/>MML Part I, Boyd 2-5,<br/>proofs and discrete maths,<br/>Markov chains and ODEs"] --> S1["Stage 1: Statistics and estimation"]
+  S1 --> S2["Stage 2: Numerical optimisation"]
+  S1 --> S3["Stage 3: Discrete choice, DP and DDCM"]
+  S3 --> S4["Stage 4: Networks"]
   S0 --> S4
-  S4 --> S5["5. Optimal transport"]
+  S4 --> S5["Stage 5: Optimal transport"]
   S3 --> S5
-  S3 --> S6["6. Game theory and evolutionary dynamics"]
+  S3 --> S6["Stage 6: Game theory and evolutionary dynamics"]
   S0 --> S6
 ```
 
