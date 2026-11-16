@@ -238,6 +238,26 @@ The learning material was reorganised on 14 November into **one order**, with th
 - **Optimal transport** is on hold as a whole path; its convex-conjugate and entropic lessons return as companions to convex optimisation and to ISTTT.
 - About 20-23 hours a week, spread over every day.
 
+### The schedule, week by week (to 15 January)
+
+Two blocks a day: one on the Stage 0 lane, one on the side lane. Game theory runs **in parallel** with Stage 0 from the first day; its population-dynamics lessons start only once the foundations they use are done (0A for potential games, 0D for the dynamics).
+
+| Week | Dates | Stage 0 lane (main) | Side lane | Hours |
+|---|---|---|---|---:|
+| 0 | 14-15 Nov | 0A: linear algebra (MML ch. 2) | game theory: Tadelis ch. 1-2 (skim), start ch. 3 (normal-form games) | 6 |
+| 1 | 16-22 Nov | 0A: analytic geometry, matrix decompositions, vector calculus (MML ch. 3-5) | game theory: Tadelis ch. 3-5 (normal form, dominance, Nash equilibrium) | 23 |
+| 2 | 23-29 Nov | 0A: probability, continuous optimisation (MML ch. 6-7), **0A done**; 0D: random walks, stationary distributions and the tree theorem | game theory: Tadelis ch. 6 (mixed strategies), then population and potential games; ISTTT: first reading | 23 |
+| 3 | 30 Nov-6 Dec | 0D: ODEs, stability, Lyapunov functions, **0D done** | game theory: revision protocols and mean dynamics; imitation, best-response and logit dynamics; ESS; learning rules; stochastic stability and the tree formula. ISTTT: two readings | 22 |
+| 4 | 7-11 Dec | paused for the camp | game theory: selection, speed and path dependence (the target); the deck; dry runs | 14 |
+| **camp** | **Sat 12 Dec** | | **present Young's stochastic adaptive dynamics** | |
+| 5 | 14-20 Dec | 0C: proofs, functions and induction, DAGs and equivalence relations, matchings, **0C done**; 0B: convex sets | ISTTT: readings on generalised entropy and Fenchel-Young losses | 22 |
+| 6 | 21-27 Dec | 0B: convex functions and the conjugate (with the optimal transport conjugate lessons), convex problems | ISTTT: readings; **novelty first check** | 22 |
+| 7 | 28 Dec-3 Jan | 0B: duality and KKT, the log-sum and entropy pair, smoothing; **Stage 0 exit check, Stage 0 done** | ISTTT: the one-page claim; **decision: proof route or latent-constraint fallback** | 14 |
+| 8 | 4-10 Jan | (Stage 0 finished) | ISTTT as the main lane: entropic transport, perturbed utility and regularised transport, the proof or a counterexample with a numerical check | 22 |
+| 9 | 11-15 Jan | | ISTTT: **write the extended abstract**, internal read | 13 |
+
+About 180 hours in total, 20-23 a week at the peak. If a week slips, the skim items go first; the target lessons before the camp and the last two ISTTT weeks are never dropped. From 16 January the main lane moves on to Stages 1, 3, 2 and 4, with the rest of optimal transport and of Tadelis alongside.
+
 ### The roadmap
 
 The stages name the **content**; the learning order above sets when each is done. Each stage names the chapters to read and ends with a **gate**: derive the stage's key results on blank paper, without notes. Deep, not complete: one main book per topic, and only the sections named. The day counts are rough guesses, not measurements.
