@@ -295,6 +295,8 @@ Stage 0 is the main lane now (in the order 0A, 0D, 0C, 0B, by early January), wi
 
 The roadmap says what to read in which order; the map shows which stages each of the three targets draws on. For game theory only the prerequisites are drawn; how it connects to the research comes later.
 
+*The map was drafted with the help of Claude (Anthropic) and is a study aid, not a finding.*
+
 ```mermaid
 flowchart TB
   subgraph BASICS["Stage 0: core maths"]
