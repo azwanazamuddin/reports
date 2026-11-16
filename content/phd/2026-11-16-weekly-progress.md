@@ -19,8 +19,8 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 | Part | Question | Status |
 |---|---|---|
 | Synthetic experiments (Paper A, Section 5) | Is sharing one graph affordable, is the estimator trustworthy, and what is lost without constraints? | all runs done |
-| Case study estimate (Section 6) | The model with each person's own constraints, on the Higashihiroshima survey | converged, robust standard errors, simulated against the diary |
-| Policy simulation (Section 7) | One policy per kind of constraint: who it reaches, welfare, accessibility | three scenarios run, direction checks pass |
+| Case study, estimate (Section 6) | The model with each person's own constraints, on the Higashihiroshima survey | converged, robust standard errors, simulated against the diary |
+| Case study, policy simulation (Section 6) | One policy per kind of constraint: who it reaches, welfare, accessibility | three scenarios run, direction checks pass |
 
 - **Synthetic:** without constraints, 60% of the days the model proposes are impossible for the person; the missing rules are absorbed into the parameters (cost even changes sign), the bias does not shrink with more data, and a policy on a missing rule gets a predicted response of exactly zero.
 - **Estimate:** cost negative and clearly identified (robust t -11.9), every travel time coefficient negative, value of time 24 yen per minute by car and 10 by public transport.
@@ -136,7 +136,7 @@ Fitted on 1,000 persons, tested on 1,970 persons never used in fitting.
 
 The nine small checks of the implementation (Section 4) all pass. They stay in the technical report, not in the manuscript.
 
-## 3. The case study estimate (Section 6)
+## 3. The case study: estimate (Section 6)
 
 The estimate is the one reported on 11 November ([estimation report](/ddcm/estimate_20261111.html)). New since then: **robust standard errors and the second-order check at the estimate** (12 November), which the 11 November post was updated with.
 
@@ -168,7 +168,7 @@ The estimate is the one reported on 11 November ([estimation report](/ddcm/estim
 - **Largest gap: workers as car passengers**, 294 simulated per 1,000 worker-days against 178 as the model encodes the diary (80 in the raw diary).
 - Too many simulated returns home just before midnight (the model day ends at home at 24:00), and shopping too late in the evening.
 
-## 4. Policy simulation (Section 7)
+## 4. The case study: policy simulation (Section 6)
 
 $\theta$ frozen at the 11 November estimate; full sample (6,312 persons, 33 with no feasible day); exact model expectations; 1 utility unit = 451 yen ($1/\lvert\beta_{\text{cost}}\rvert$). The base run reproduces the estimation's log-likelihood exactly. [Full policy report](/ddcm/policy_20261113.html).
 
@@ -349,7 +349,7 @@ flowchart TB
 
 1. **Robust standard errors and the second-order check at the 11 November estimate (12 November).** All eigenvalues positive, Newton decrement 1.4e-8; 55 of 76 parameters significant; cost robust t -11.9.
 2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and an internal results deck.
-3. **Policy simulation, Section 7 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; a [report page](/ddcm/policy_20261113.html).
+3. **Policy simulation, in the case study of Section 6 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; a [report page](/ddcm/policy_20261113.html).
 4. **The work +60 train drop traced (13 November):** about two thirds the timetable not moving with the day, about a fifth the evening home rates.
 5. **Decisions on Paper A (13 to 14 November):**
    - the comparison with and without constraints is synthetic only; the case study estimates the model with constraints alone;
@@ -373,7 +373,7 @@ flowchart TB
 ### To do
 
 1. **Write Section 5** of the manuscript from the results, in the model's terms.
-2. **Move Section 6 of the manuscript to the 11 November estimate** (parameters with robust standard errors, fit figures, computation); it still reports the earlier estimate.
+2. **Move Section 6 of the manuscript to the 11 November estimate** (parameters with robust standard errors, fit figures, computation) and add the policy simulation to it; it still reports the earlier estimate.
 3. **Work +60:** separate the timetable parts (one run of about an hour); find what carries the 589 yen loss per worker-day and the remaining third of the train drop; look at residents outside the city, who lose most (-1,347 yen, 97% lose).
 4. **Recovery with standard errors on the bus-timetable grid**, if the two synthetic worlds should match.
 5. **Workers' car passenger trips** (294 against 178 as encoded): decide whether workers need their own passenger constant, tested at a fixed $\theta$ before any run.
