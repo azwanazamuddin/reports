@@ -3,7 +3,7 @@ title: "Weekly progress: 12 to 16 November (half week)"
 type: report
 status: draft
 created: 2026-11-15
-updated: 2026-11-15
+updated: 2026-11-17
 tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper-a, learning, game-theory, isttt]
 ---
 
@@ -29,7 +29,7 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 
 ## 2. Synthetic experiments (Paper A, Section 5)
 
-**Results deck (PDF, 22 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
+**Results deck (PDF, 23 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
 
 ### The setup
 
@@ -203,6 +203,19 @@ $\theta$ frozen at the 11 November estimate; full sample (6,312 persons, 33 with
 
 Workers' accessibility falls with a later work start (workers with a car: -908 for a start at 07:30-08:29, -1,992 for 09:30 or later). Compare only within workers or within non-workers: the work episode itself carries no utility.
 
+### Accessibility on the map
+
+![Accessibility by home zone, base and three policies](figures/paperA_s6_20261117_logsum_maps.png)
+
+The logsum $V(x_0)$ of each person's day, by home zone, in yen per person-day (added 17 November).
+
+- **(a) Base:** highest around the central station (Saijo); up to about 300 yen lower at the edges, for a person of the same kind. Each person is read against the median person of the same kind (worker or not, car or not), so the map shows where a person lives, not who lives there.
+- **(b) Late close:** every zone gains, most in the centre (up to 8 yen).
+- **(c) Licence 75:** the mean over all residents, so the zone's burden; losses spread over the city, where drivers aged 75+ live.
+- **(d) Work +60:** the mean over workers; every zone loses, 360 to 940 yen per worker.
+
+Grey: fewer than 10 persons. The 129 persons living in reference zones outside the city count in the totals but are not drawn. Lines and dots: rail and stations.
+
 ### Work +60: train use falls because the timetable stays
 
 Workers start an hour later, but the train timetable does not move with them. Their trips now fall at times with fewer or slower trains, and arrivals no longer fit the work start as well, so some of them switch to the car. This is the timetable acting as a constraint, together with the work-start anchor.
@@ -354,6 +367,7 @@ flowchart TB
    - the policy scope is three rules, one per kind of constraint, with welfare and accessibility.
 6. **Code committed:** commute cost paid by the employer (the code the estimate ran with), the memory guard that protects the estimation, and optional BRT in the policy scenarios.
 7. **Learning roadmap established (14 November):** one order, used as the main guide and kept flexible, with two deadlines; the ISTTT track set up.
+8. **Accessibility maps (17 November):** the logsum by home zone at the base and its change under each policy, from the saved policy runs; in this post and the results deck, and ready as a figure for Section 6.
 
 ### Doing
 
