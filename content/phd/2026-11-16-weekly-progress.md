@@ -24,12 +24,12 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 
 - **Synthetic:** without constraints, 60% of the days the model proposes are impossible for the person; the missing rules are absorbed into the parameters (cost even changes sign), the bias does not shrink with more data, and a policy on a missing rule gets a predicted response of exactly zero.
 - **Estimate:** cost negative and clearly identified (robust t -11.9), every travel time coefficient negative, value of time 24 yen per minute by car and 10 by public transport.
-- **Policy:** shops closing 2 hours later +2.5 yen per person-day for everyone; drivers aged 75+ giving up the car -215 yen for the 249 persons it reaches; work starting 60 minutes later -589 yen per worker-day. Under the work-start rule train use falls, mostly because the timetable does not move with the day.
+- **Policy:** shops closing 2 hours later +2.5 yen per person-day for everyone; drivers aged 75+ giving up the car -215 yen for the 249 persons it reaches; work starting 60 minutes later -589 yen per worker-day.
 - **Learning (in progress):** the roadmap is established as the main guide, kept flexible, with two deadlines (game theory study camp, 12 December; ISTTT extended abstract, 15 January).
 
 ## 2. Synthetic experiments (Paper A, Section 5)
 
-**Results deck (PDF, 23 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
+**Results deck (PDF, 22 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
 
 ### The setup
 
@@ -207,27 +207,15 @@ Workers' accessibility falls with a later work start (workers with a car: -908 f
 
 ![Accessibility by home zone, base and three policies](figures/paperA_s6_20261117_logsum_maps.png)
 
-The logsum $V(x_0)$ of each person's day, by home zone, in yen per person-day (added 17 November).
+Accessibility is the logsum $V(x_0)$: the value of a person's whole day at the estimated parameters (added 17 November).
 
-- **(a) Base:** highest around the central station (Saijo); up to about 300 yen lower at the edges, for a person of the same kind. Each person is read against the median person of the same kind (worker or not, car or not), so the map shows where a person lives, not who lives there.
+- **(a) Base:** the logsum of one non-worker with a car living in each zone, shown as it is. A non-worker's logsum depends on the home zone alone, so every such resident of a zone has the same value and the map needs no averaging. It is highest around the central station (Saijo) and falls towards the edges.
+- **(b) to (d):** the change from the base, in yen per person-day (utility divided by $\lvert\beta_{\text{cost}}\rvert$, 451 yen per unit).
 - **(b) Late close:** every zone gains, most in the centre (up to 8 yen).
 - **(c) Licence 75:** the mean over all residents, so the zone's burden; losses spread over the city, where drivers aged 75+ live.
 - **(d) Work +60:** the mean over workers; every zone loses, 360 to 940 yen per worker.
 
-Grey: fewer than 10 persons. The 129 persons living in reference zones outside the city count in the totals but are not drawn. Lines and dots: rail and stations.
-
-### Work +60: train use falls because the timetable stays
-
-Workers start an hour later, but the train timetable does not move with them. Their trips now fall at times with fewer or slower trains, and arrivals no longer fit the work start as well, so some of them switch to the car. This is the timetable acting as a constraint, together with the work-start anchor.
-
-| Workers' train share | Base | Work +60, timetable as it is | Work +60, timetable shifted 60 min too |
-|---|---:|---:|---:|
-| | 22.0% | 13.5% | 19.2% |
-
-- About two thirds of the drop comes from the timetable staying where it is; morning and evening trips alike. Most of the rest is the clock position of the day against the time-of-day rates (the evening home rates are about a fifth).
-- Other explanations were checked at a fixed $\theta$ and play no large part (the commuter pass rule, any single work-start hour).
-- **Assumption of the scenario:** the timetable does not change. If operators shifted their services with the working day, the drop would be closer to the shifted column.
-- **Caveat:** the timetable is from 2021-2025, the survey from 2012/2014.
+Grey: in (a) no non-worker with a car lives there; in (b) to (d) fewer than 10 persons. The 129 persons living in reference zones outside the city count in the totals but are not drawn. Lines and dots: rail and stations.
 
 ## 5. Learning
 
@@ -359,15 +347,14 @@ flowchart TB
 1. **Robust standard errors and the second-order check at the 11 November estimate (12 November).** All eigenvalues positive, Newton decrement 1.4e-8; 55 of 76 parameters significant; cost robust t -11.9.
 2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and a [results deck](/slides/paper-a-results/files/paper_a_results_20261114.pdf).
 3. **Policy simulation, in the case study of Section 6 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; a [report page](/ddcm/policy_20261113.html).
-4. **The work +60 train drop explained (13 November):** about two thirds the timetable not moving with the day, about a fifth the evening home rates.
-5. **Decisions on Paper A (13 to 14 November):**
+4. **Decisions on Paper A (13 to 14 November):**
    - the comparison with and without constraints is synthetic only; the case study estimates the model with constraints alone;
    - the small implementation checks go to the technical report, not the manuscript; Section 5 leads with cost;
    - the per-class prism restriction is presented as the standard restriction to reachable states, mentioned once, not as a contribution;
    - the policy scope is three rules, one per kind of constraint, with welfare and accessibility.
-6. **Code committed:** commute cost paid by the employer (the code the estimate ran with), the memory guard that protects the estimation, and optional BRT in the policy scenarios.
-7. **Learning roadmap established (14 November):** one order, used as the main guide and kept flexible, with two deadlines; the ISTTT track set up.
-8. **Accessibility maps (17 November):** the logsum by home zone at the base and its change under each policy, from the saved policy runs; in this post and the results deck, and ready as a figure for Section 6.
+5. **Code committed:** commute cost paid by the employer (the code the estimate ran with), the memory guard that protects the estimation, and optional BRT in the policy scenarios.
+6. **Learning roadmap established (14 November):** one order, used as the main guide and kept flexible, with two deadlines; the ISTTT track set up.
+7. **Accessibility maps (17 November):** the logsum by home zone at the base and its change under each policy, from the saved policy runs; in this post and the results deck, and ready as a figure for Section 6.
 
 ### Doing
 
@@ -375,7 +362,6 @@ flowchart TB
 
 ### Error
 
-- **A wrong first conclusion on the work +60 train drop.** I first concluded "not the timetable" from a check of closed train steps alone. The run with the timetable shifted along with the day showed that was wrong. Corrected in the policy report.
 - **Three identification problems in the synthetic world**, found on the way to recovery and fixed in the world, not in the estimator: shop time knots with no open shop, a knot with no shopping at all, and collinear zone sizes.
 - **One of the small implementation checks was rebuilt:** it now compares equal feature sums between the layered graph and the chains.
 - **Recovery standard errors come from the grid before the bus timetable** (see Section 2). Not an error in the results, but a mismatch between the two worlds; either rerun with standard errors on the timetable grid (about 10 minutes) or state it.
@@ -384,7 +370,7 @@ flowchart TB
 
 1. **Write Section 5** of the manuscript from the results, in the model's terms.
 2. **Move Section 6 of the manuscript to the 11 November estimate** (parameters with robust standard errors, fit figures, computation) and add the policy simulation to it; it still reports the earlier estimate.
-3. **Work +60:** separate the timetable parts (one run of about an hour); find what carries the 589 yen loss per worker-day and the remaining third of the train drop; look at residents outside the city, who lose most (-1,347 yen, 97% lose).
+3. **Work +60:** find what carries the 589 yen loss per worker-day; look at residents outside the city, who lose most (-1,347 yen, 97% lose).
 4. **Recovery with standard errors on the bus-timetable grid**, if the two synthetic worlds should match.
 5. **Workers' car passenger trips** (294 against 178 as encoded): decide whether workers need their own passenger constant, tested at a fixed $\theta$ before any run.
 6. Learning, week 1: MML chapters 3-5 and Tadelis chapters 3-5, with their gates.
