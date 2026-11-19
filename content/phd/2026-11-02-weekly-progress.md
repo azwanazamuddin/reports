@@ -15,16 +15,7 @@ tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
 
-## 1. Planned
-
-The plan for this week was to **finish the new formulation of Paper A**: the formal section rewritten on the
-backbone settled on 28 October (a day as a dynamic programme whose state graph is a weighted decision diagram), with
-the main theorem, its corollaries and the new results on live attributes, dead memory and the shift merge.
-
-**Status: not finished today.** The backbone, the main theorem and its positioning against the literature are done;
-the rewrite of the formal section in the manuscript is not. **Target: before this week's zemi.**
-
-## 2. Done
+## What happened
 
 ### The latest estimate
 
@@ -65,36 +56,3 @@ the edge chunk inside the Hessian, now capped), and **canonical states** halved 
 Leave out short pick-up/drop-off and hospital stops, recover short shopping and leisure stops, and forbid a tour that
 leaves home and comes back with nothing done. All gates passed (likelihood unchanged with the switches off; analytic
 against numerical gradient, ratio 1.0000).
-
-## 3. Ongoing
-
-- **Formulation**: rewriting the formal section of the manuscript in the decision-diagram language; replacing the
-  model-minimisation remark; adding the live-attribute and shift-merge statements.
-- **Paper writing**: the case-study section from the final estimate, with its gaps written as limitations; the
-  experiments section after the pilot.
-- **Live region**: the prototype into the production objective and gradient.
-
-## 4. Evaluate
-
-- **The equations need more time to learn.** The theorems are checked, but being able to explain each step
-  (bijections, the log-sum, the moment generating function, the reductions) is still in progress, through the
-  learning series and the deck.
-- **Respecify the estimation again?** The estimate fits totals well, but three gaps are hidden behind matching
-  totals:
-  1. *Duration*: simulated shopping and leisure last about the same whatever the start hour; in the diary they
-     shorten with it. The case study has no duration in the state.
-  2. *Chaining*: too many starts from another activity, too few from home.
-  3. *Empty home-to-home trips*: mostly short stops lost between 15-minute slots.
-
-  The first respecification addresses the third. A further one (duration with satiation) would address the first but reverses the
-  28 October choice to keep duration only in the general formulation. **To decide.**
-
-## 5. Next steps
-
-1. **Finalise Paper A's formulation** before the zemi: the formal section, the new statements, and a check that the
-   final specification is linear in θ (the Remark and the gradient as flows need it).
-2. **New estimation?** For Paper A, the current estimate is enough (its claim is exact computation under
-   constraints, not the best behavioural model). The first can run in parallel in under a day; the further one needs a
-   decision first.
-3. The experiments pilot on synthetic networks, then the case-study section.
-4. The live-region gate (same likelihood and gradient, timing through the worker pool).

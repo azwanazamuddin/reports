@@ -114,13 +114,3 @@ Convex analysis and duality are learned when OT needs them. The link to my model
 The material is a guide, a knowledge map, foundation and OT notes, and a 35-step reading curriculum with the sections to read.
 
 **Working assumption.** I am still learning this, so I make no claim yet about how OT connects to my work. My assumption is that OT is related to the models I use (logit, DDCM, recursive logit and perturbed utility) through entropy and duality. Testing that assumption is the last phase of the learning, after OT itself.
-
-## 7. Next steps
-
-1. Run L1 and L2, with the expected reading of each written before it runs.
-2. Choose (a) or (b), then code it with tests and a gradient check, and estimate after approval.
-3. While that runs:
-   - why the canonical graph encodes 11 more observed steps;
-   - parking-off and fare-off checks at the new estimate;
-   - the same-zone walk time sensitivity run.
-4. Learning, continuing: phases 1 to 3 of the reading curriculum (the OT problem, the conjugate, duality).

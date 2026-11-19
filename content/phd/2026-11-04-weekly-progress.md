@@ -17,7 +17,7 @@ tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
 
-## 1. Done
+## 1. Paper A and the estimate
 
 ### The constraint formulation
 
@@ -45,7 +45,7 @@ a population whose constraints differ person by person.
 - **Section 6, case study, estimation part:** the latest estimate is the one the paper uses (next section). Its parameter and fit tables and its figures are now in the section; the comparison with and without
   constraints has not been run.
 
-### Estimation reports
+### The latest estimate
 
 The latest estimate finished after the 30 October estimate and replaces it. It changes three things and adds no parameter: no empty tours, short stops kept, and unmodelled purposes left out. Its simulation now matches the diary's tours per day, days with no tour and trips from home to shopping, and the empty home-to-home loops are gone. There is no re-estimation: this estimate stands.
 
@@ -116,24 +116,3 @@ no mask and no embedding exist, and an exact representation is the product graph
 
 **Borrowed, established, new.** Mapping one model into another is borrowed, and so is the mask in the Bellman sum. The path bijection for one person and one bound is established (Tran, Mai and Hoang). This paper adds the extension to a population on one
 shared graph, with a condition that can be checked, equal likelihood and gradient for every $\theta$, and the cost of each kind of constraint. The proof of Corollary 5 (ii) is reasoned and has not been machine-checked.
-
-## 3. Doing
-
-- **Section 5:** the numerical experiments, from the design above. A 60-person agreement gate exists; the rest had not started at the 5 November handoff, and nothing is running.
-- **Discussion and conclusion:** Sections 8 and 9 in the current numbering.
-
-## 4. To do
-
-- **Review the full paper with Sensei.**
-- **Section 7, accessibility and welfare:** three policies at the frozen estimate, one per kind of constraint (later shop closing, shifted work start, older
-  drivers giving up their licence). Not yet run.
-- **Where to go next.** Since Paper A is very close to Tien Mai's work, going to their lab could be an option besides Rui's lab. Their focus is more on MDP
-  formulation, which I think will help the constraint heterogeneity formulation in the future.
-- **Prepare the next works on ISTTT:** latent constraints, another entropy inside this approach, or the coupling constraint.
-
-## 5. Error
-
-**Destination zones still differ between simulated and observed.** Totals match, but where people go does not, and the latest estimate did not change this: simulated days spread over more zones and concentrate less in the most visited ones. Part of this may be sampling noise, since shopping and leisure arrivals are few per zone; the two have not been separated.
-
-- **Other gaps from the latest estimate:** chaining after the first stop, stop durations (simulated shopping stops too long), too much activity late in the evening, and a public transport time coefficient that was still positive at that time. The requirement that each day ends at home may link to the late evening; that is a reading, not a test.
-- **Do we need to readjust the specification again?** I think we need to set out the limitations we have, especially regarding the data. A further respecification (duration in utility) is parked.
