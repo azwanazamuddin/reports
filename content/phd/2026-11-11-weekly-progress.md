@@ -13,7 +13,7 @@ tags: [phd, weekly, estimation, public-transport, work-duration, optimal-transpo
 > Every number comes from a run log or a script output. Checks still running are marked as such; their readings were written before they ran.
 
 > [!note] Case study numbers kept internal (19 November)
-> While Paper A is under review, the estimates, standard errors, values of time, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. The reasoning and the decisions stay.
+> While the Part B paper is under review, the estimates, standard errors, values of time, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. The reasoning and the decisions stay.
 
 ## 1. In short
 

@@ -1,5 +1,5 @@
 ---
-title: "Paper A: the deck, and what stands behind it"
+title: "Part B paper: the deck, and what stands behind it"
 type: report
 status: draft
 created: 2026-10-13
@@ -16,7 +16,7 @@ were built, and what is still open.
 > it has been taken to a supervisor session. It will be restated. Where this page and the working
 > documents disagree, the working documents win.
 
-## What Paper A is about
+## What the Part B paper is about
 
 A day is assembled out of what is possible, not only out of what is wanted, and what is possible
 differs from person to person. A model that cannot carry that difference **reads constraint as
@@ -56,7 +56,7 @@ computation; and the speed comparison against Västberg stays deleted, because i
 
 ## The deck
 
-42 slides, down from 60. It frames Paper A as a constraint-heterogeneity paper and is built for a
+42 slides, down from 60. It frames the Part B paper as a constraint-heterogeneity paper and is built for a
 working session, not a talk. The last full layout check was clean: 0 of 42 slides clipped or running
 under the footer. A PDF export of the same 42 slides exists alongside the source.
 
@@ -65,7 +65,7 @@ under the footer. A PDF export of the same 42 slides exists alongside the source
 | 1 · Why reframe (5 slides) | a day is built from what is possible, that differs by person, and a model that cannot carry it reads constraint as preference |
 | 2 · Where we sit (18 slides) | the standard model, then the same model as a perturbed-utility problem, then the **two slots** (perturbation and domain), then the gap against Oyama and Hato and against Yao and Zhang |
 | 3 · Embedding constraints (5 slides) | classify a constraint by what it reads, build versus mask, one sweep per distinct mask, with the concessions |
-| 4 · Paper A (5 slides) | the nine-section outline, each section broken into points |
+| 4 · Part B paper (5 slides) | the nine-section outline, each section broken into points |
 | 5 · Where it leads (2 slides) | two directions: coupling, and the feasible set as a measure |
 
 ### Main decisions
@@ -107,7 +107,7 @@ document lacks.
 ## Evidence caveats
 
 > [!warning] Before quoting anything from the case study
-> The deck has **no measured figures** on its slides. The case-study numbers in the Paper A outline
+> The deck has **no measured figures** on its slides. The case-study numbers in the Part B paper outline
 > come from the draft and were not re-verified.
 
 - **The case study is not current.** An earlier 38-parameter specification was estimated on 7,468

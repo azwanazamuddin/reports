@@ -20,24 +20,24 @@ which of those differences genuinely need their own computation. The full framin
 ## Reports and decks, newest first
 
 - **Living page** · [Learning plan: schedule and roadmap](/phd/learning-plan). The current study schedule to the game theory camp (12 Dec) and the ISTTT abstract (15 Jan), and the full roadmap.
-- **19 Nov 2026** · [Weekly progress: 12 to 19 November](/phd/2026-11-19-weekly-progress). Paper A's full draft (v1) finished and sent for supervisor review; case study numbers now kept internal while it is under review; learning: linear algebra, the Paper A proofs pulled forward for the review, game theory, and the ISTTT question.
-- **16 Nov 2026** · [Weekly progress: 12 to 17 November (half week)](/phd/2026-11-16-weekly-progress). Every Paper A run finished: synthetic experiments (cost, recovery, what is lost without constraints), the case study estimate with robust standard errors, and the policy simulation of three constraint policies; one learning order towards the game theory study camp and ISTTT.
+- **19 Nov 2026** · [Weekly progress: 12 to 19 November](/phd/2026-11-19-weekly-progress). The Part B paper's full draft (v1) finished and sent for supervisor review; case study numbers now kept internal while it is under review; learning: linear algebra, the Part B paper proofs pulled forward for the review, game theory, and the ISTTT question.
+- **16 Nov 2026** · [Weekly progress: 12 to 17 November (half week)](/phd/2026-11-16-weekly-progress). Every Part B paper run finished: synthetic experiments (cost, recovery, what is lost without constraints), the case study estimate with robust standard errors, and the policy simulation of three constraint policies; one learning order towards the game theory study camp and ISTTT.
 - **11 Nov 2026** · [Weekly progress: 5 to 11 November](/phd/2026-11-11-weekly-progress). Positive public transport time traced to free overtime at work and fixed; the remaining positive cost traced to commutes charged money the employer pays; the model change, checked exactly and estimated: cost now negative and significant; optimal transport learning.
 - **9 Nov 2026** · [Weekly progress: 5 to 9 November (half week)](/phd/2026-11-09-weekly-progress). Why the public transport time coefficient is positive: the data checked, the passenger switch, and free overtime at work; optimal transport learning.
-- **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Paper A progress deck](/slides/paper-a-progress/),
+- **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Part B paper progress deck](/slides/paper-a-progress/),
   the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down.
-- **2 Nov 2026** · [Weekly progress: 26 October to 2 November](/phd/2026-11-02-weekly-progress). The week before: the 30 October estimate, and Paper A's main theorem settled.
+- **2 Nov 2026** · [Weekly progress: 26 October to 2 November](/phd/2026-11-02-weekly-progress). The week before: the 30 October estimate, and the Part B paper's main theorem settled.
 - **23 Oct 2026** · [[2026-10-23-sip-seminar|SIP seminar: the deck, the handouts, and how they were made]].
   The [stakeholder talk](/slides/sip-seminar/) with the first full-sample results, a BRT test and
   city-wide policies, with the PDF and the English and Japanese handouts.
-- **13 Oct 2026** · [[2026-10-13-paper-a-deck|Paper A: the deck, and what stands behind it]]. The
+- **13 Oct 2026** · [[2026-10-13-paper-a-deck|Part B paper: the deck, and what stands behind it]]. The
   [42-slide deck](/slides/constraint-framing/) for the supervisor working session, and this page's
   record of the decisions behind it, the corrections made while building it, and what is still open.
 - **13 Oct 2026** · [[2026-10-13-gradient-speedup|Why the estimator got faster: how the gradient is managed]].
   A 16.7× speed-up with identical results, compared with the old CUDA runs, the defects found on the
   way, and the cost of the first full-sample run. It contains no estimation result yet.
 - **29 Sep 2026** · [hEART 2026 talk](/slides/heart/), Paris. *Reachability-Based Sparse Computation for
-  Activity-Based Dynamic Discrete Choice Models*: the computational framing of Paper A, before the
+  Activity-Based Dynamic Discrete Choice Models*: the computational framing of the Part B paper, before the
   1 October literature run turned it into a constraint-heterogeneity paper.
 - **28 Sep 2026** · [MATSim User Meeting 2026 talk](/slides/matsim-um/), Paris. *A Reachability-Pruned
   Activity-Based Demand Model for MATSim*: the model as a demand generator for MATSim, and how plans

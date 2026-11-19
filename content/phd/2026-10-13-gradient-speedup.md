@@ -329,7 +329,7 @@ does. **Nothing is claimed about convergence until then.**
 
 ## Where this sits
 
-- It is the computation behind the case study in [[2026-10-13-paper-a-deck|the Paper A deck notes]]:
+- It is the computation behind the case study in [[2026-10-13-paper-a-deck|the Part B paper deck notes]]:
   the case study has to run at full sample before it can show anything.
 - The platform changed during this work. The Master's thesis was built GPU-first
   ([[02-exact-tensor-computation|the tensor implementation]]); the CUDA code paths were deleted on

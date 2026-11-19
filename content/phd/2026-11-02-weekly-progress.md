@@ -7,10 +7,10 @@ updated: 2026-11-19
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
-**[Open the Paper A deck](/slides/paper-a-progress/)** (current version; it had 43 slides when this was written)
+**[Open the Part B paper deck](/slides/paper-a-progress/)** (current version; it had 43 slides when this was written)
 
 > [!note] Case study numbers kept internal (19 November)
-> While Paper A is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
+> While the Part B paper is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
 
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
@@ -24,7 +24,7 @@ The re-specified model was estimated on the full diary sample and **converged on
 Two engineering fixes made the run possible: the exact Hessian had rebooted the machine on 28 October (the cause was
 the edge chunk inside the Hessian, now capped), and **canonical states** halved the graph (below).
 
-### Paper A: outline and formulation progress
+### Part B paper: outline and formulation progress
 
 - **Backbone settled (28 Oct).** The preference side (recursive logit, likelihood, gradient) is established and not
   claimed; the contribution is the domain side: how many people's feasible days are held on one graph without

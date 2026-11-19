@@ -13,7 +13,7 @@ tags: [phd, weekly, estimation, public-transport, optimal-transport]
 > The review of the estimation is still going on. Every number comes from a run log or a script output. Readings marked as such are not yet tested.
 
 > [!note] Case study numbers kept internal (19 November)
-> While Paper A is under review, coefficient values and other estimation results of the case study are kept in internal notes and are no longer shown here. The reasoning stays.
+> While the Part B paper is under review, coefficient values and other estimation results of the case study are kept in internal notes and are no longer shown here. The reasoning stays.
 
 ## 1. The estimation, in short
 

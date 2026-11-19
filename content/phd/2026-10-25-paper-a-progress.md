@@ -1,5 +1,5 @@
 ---
-title: "Paper A progress: where the manuscript stands"
+title: "Part B paper progress: where the manuscript stands"
 type: report
 status: draft
 draft: true
@@ -8,7 +8,7 @@ updated: 2026-10-27
 tags: [phd, paper-a, constraint-heterogeneity, manuscript]
 ---
 
-Paper A is the foundation of the PhD and becomes thesis Chapter 4. This page records where the
+The Part B paper is the foundation of the PhD and becomes thesis Chapter 4. This page records where the
 manuscript stands on 25 October 2026. It replaces nothing: [[2026-10-13-paper-a-deck|the 13 October
 page]] keeps the history of how the framing changed. The argument is presented in full in the
 [[2026-10-25-phd-framework|PhD framework deck]], Part 2.
@@ -31,7 +31,7 @@ page]] keeps the history of how the framing changed. The argument is presented i
    it, at a cost that grows with the kinds of constraint and not with the number of people, accessibility
    and welfare per person become readable.
 
-## What is not Paper A's
+## What is not the Part B paper's
 
 The paper builds on these and credits them:
 
@@ -43,7 +43,7 @@ The paper builds on these and credits them:
 | Domain and objective, the feasible-set slot | Yao and Zhang (2026) |
 | Accessibility as the value of the day, conditional on home and work | Naqavi et al. (2023) |
 
-The relation to constrained MDPs (Altman 1999, expected-cost constraints) is **open, to discuss**: Paper A
+The relation to constrained MDPs (Altman 1999, expected-cost constraints) is **open, to discuss**: The Part B paper
 restricts the domain, and whether the two connect is undecided.
 
 Two boundaries were checked on 25 October (provisional, from abstracts):
@@ -53,9 +53,9 @@ Two boundaries were checked on 25 October (provisional, from abstracts):
   is therefore the motivation, not the novelty. The novelty is doing it exactly and affordably in a whole-day
   dynamic model.
 - **Naqavi et al. (2023), read in full**, already compute the value of the day per person for every
-  workplace zone and value a car per person. Paper A is not redundant with it: Paper A is about what the
+  workplace zone and value a car per person. The Part B paper is not redundant with it: The Part B paper is about what the
   heterogeneity costs and how to classify it. Their own footnote on the cost of computing every zone
-  supports Paper A's affordability problem. Paper A's welfare section must not repeat their exercise.
+  supports the Part B paper's affordability problem. The Part B paper's welfare section must not repeat their exercise.
 
 ## Manuscript status, section by section
 

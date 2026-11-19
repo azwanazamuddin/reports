@@ -71,7 +71,7 @@ Taken from the session handoff, 20 to 23 October.
   change**, with accessibility being the value of everything a person could do, in yen.
 - **Position.** The position is managing constraint heterogeneity properly. The shared maps and personal
   masks are the means, not the position. A frontier slide and a "what is new here, and what is not" slide
-  mirror Paper A's list of claims it must not make.
+  mirror the Part B paper's list of claims it must not make.
 - **Speaker notes** on every main slide carry a running clock, click markers and "if asked" answers with
   sources. The timed talk came to 24:45.
 - **Results** were filled in the night before the talk from the final estimate of 22 October and its
@@ -88,4 +88,4 @@ Taken from the session handoff, 20 to 23 October.
 - The shopping misfit and "the BRT is only a time change" are both specification items for that
   round, together with a closed loop with MATSim (lanes, congestion, the full population).
 - The talk's second take-home, that every person keeps their own constraints, is the subject of
-  Paper A.
+  The Part B paper.

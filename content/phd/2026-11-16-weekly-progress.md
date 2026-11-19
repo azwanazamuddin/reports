@@ -13,25 +13,25 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 > Every number comes from a run log or a script output. Every run reported here is finished. **Update 17 November:** the manuscript is now a full draft (v1), Section 7 below.
 
 > [!note] Case study numbers kept internal (19 November)
-> While Paper A is under review, the case study's estimates, policy results, accessibility map and the results deck are kept in internal notes and are no longer shown here. The synthetic (toy) results in Section 2 stay public.
+> While the Part B paper is under review, the case study's estimates, policy results, accessibility map and the results deck are kept in internal notes and are no longer shown here. The synthetic (toy) results in Section 2 stay public.
 
 ## 1. In short
 
-**Every run planned for Paper A is now finished.** The three parts are:
+**Every run planned for the Part B paper is now finished.** The three parts are:
 
 | Part | Question | Status |
 |---|---|---|
-| Synthetic experiments (Paper A, Section 5) | Is sharing one graph affordable, is the estimator trustworthy, and what is lost without constraints? | all runs done |
+| Synthetic experiments (Part B paper, Section 5) | Is sharing one graph affordable, is the estimator trustworthy, and what is lost without constraints? | all runs done |
 | Case study, estimate (Section 6) | The model with each person's own constraints, on the Higashihiroshima survey | converged, robust standard errors, simulated against the diary |
 | Case study, policy simulation (Section 6) | One policy per kind of constraint: who it reaches, welfare, accessibility | three scenarios run, direction checks pass |
 
 - **Synthetic:** without constraints, 60% of the days the model proposes are impossible for the person; the missing rules are absorbed into the parameters (cost even changes sign), the bias does not shrink with more data, and a policy on a missing rule gets a predicted response of exactly zero.
 - **Estimate:** converged with robust standard errors; cost negative and clearly identified, every travel time coefficient negative, values of time in the range of the national guideline values.
 - **Policy:** three scenarios, one per kind of constraint; each moves only the persons it reaches, in the expected direction.
-- **Manuscript (17 November):** the whole of Paper A is written as a first full version (v1): abstract, seven sections and the proofs.
+- **Manuscript (17 November):** the whole of the Part B paper is written as a first full version (v1): abstract, seven sections and the proofs.
 - **Learning (in progress):** the roadmap is established as the main guide, kept flexible, with two deadlines (game theory study camp, 12 December; ISTTT extended abstract, 15 January).
 
-## 2. Synthetic experiments (Paper A, Section 5)
+## 2. Synthetic experiments (Part B paper, Section 5)
 
 
 ### The setup
@@ -173,7 +173,7 @@ $\theta$ frozen at the 11 November estimate, full sample, exact model expectatio
 
 - **In progress:** linear algebra (MML chapter 2), with a section-by-section reading companion and a learn-guide deck.
 
-## 6. Paper A manuscript: full draft v1 (16 to 17 November)
+## 6. Part B paper manuscript: full draft v1 (16 to 17 November)
 
 The whole manuscript now exists as a first full version, written from the results above and reviewed section by section. It runs to 42 pages in the journal's single-column preprint layout (about 9,600 words of main text, 7 figures, 7 tables), with no placeholders left.
 

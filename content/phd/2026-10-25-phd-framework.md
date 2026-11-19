@@ -1,5 +1,5 @@
 ---
-title: "The PhD framework and Paper A: the lab seminar deck"
+title: "The PhD framework and the Part B paper: the lab seminar deck"
 type: report
 status: draft
 draft: true
@@ -9,7 +9,7 @@ tags: [phd, plan, paper-a, slides, constraint-heterogeneity]
 ---
 
 **[Open the deck](/slides/phd-framework/)**, made for Prof. Chikaraishi and the lab seminar. It sets out
-the whole PhD first, then Paper A in full, then the plan for the later papers. The last section,
+the whole PhD first, then the Part B paper in full, then the plan for the later papers. The last section,
 "Working notes", is the author's own planning (workflow, reading, schedule, open decisions).
 
 > [!warning] A plan, not a result
@@ -22,7 +22,7 @@ the whole PhD first, then Paper A in full, then the plan for the later papers. T
 | Part | What it covers |
 |---|---|
 | 1 · The PhD research | people face different constraints; if ignored, they are read as preferences; the research question; five papers and how they connect; urban transformation as the long-term objective; the value of a constraint; perturbed utility as the lens across the papers |
-| 2 · Paper A | the model, value and likelihood, the two parts of every choice, four kinds of constraint (capability in two forms), what each costs, one sweep, five propositions, experiments, case study |
+| 2 · Part B paper | the model, value and likelihood, the two parts of every choice, four kinds of constraint (capability in two forms), what each costs, one sweep, five propositions, experiments, case study |
 | 3 · Next plan | Papers B, C, D and E, and how they make the thesis chapters |
 
 Then references, and the working notes.
@@ -33,7 +33,7 @@ Then references, and the working notes.
 ignores the difference reads "could not" as "did not want to". That consequence is well known: Manski
 (1977), Swait and Ben-Akiva (1987) and Scott and He (2012) already separate constraint from preference.
 What is not yet done is doing it **exactly and affordably in a whole-day dynamic discrete choice model**,
-for a whole population. That is Paper A.
+for a whole population. That is the Part B paper (A in the plan below).
 
 ## Five papers, joined by gaps
 
@@ -106,8 +106,8 @@ the household's.
 
 - Paper E as a fifth paper, or part of Paper B.
 - Whether the survey records length of residence or a recent move.
-- The relation of Paper A to constrained MDPs.
-- Paper A's objectives and its experiment ranges.
+- The relation of the Part B paper to constrained MDPs.
+- The Part B paper's objectives and its experiment ranges.
 
-Paper A's own state is on [[2026-10-25-paper-a-progress|its progress page]]. The results that motivate
+The Part B paper's own state is on [[2026-10-25-paper-a-progress|its progress page]]. The results that motivate
 the policy side are in the [[2026-10-23-sip-seminar|SIP seminar deck]].

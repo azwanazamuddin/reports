@@ -7,17 +7,17 @@ updated: 2026-11-19
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
-**[Open the Paper A progress deck](/slides/paper-a-progress/)** (42 slides, 5 November) ·
+**[Open the Part B paper progress deck](/slides/paper-a-progress/)** (42 slides, 5 November) ·
 [learning deck](/slides/paper-a-learning/)
 
 
 > [!note] Case study numbers kept internal (19 November)
-> While Paper A is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
+> While the Part B paper is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
 
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
 
-## 1. Paper A and the estimate
+## 1. Part B paper and the estimate
 
 ### The constraint formulation
 

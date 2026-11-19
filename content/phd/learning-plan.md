@@ -18,7 +18,7 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 
 ## How the plan works
 
-- **What to study:** before a deadline, only what that deadline needs, chosen backward from the target (the camp presentation, the ISTTT question, Paper A's proofs). The rest of the basics is studied after 15 January, in book order.
+- **What to study:** before a deadline, only what that deadline needs, chosen backward from the target (the camp presentation, the ISTTT question, the Part B paper's proofs). The rest of the basics is studied after 15 January, in book order.
 - **In what order:**
 
 | Situation | Order |
@@ -28,10 +28,10 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 | nothing is waiting | book order, after 15 January |
 
 - **Checks:** each block ends with a gate: derive the key results on blank paper, without notes.
-- **Running examples from my own work:** Paper A's small example (one shared network, a mask, the main theorem checked by hand) and a four-day example for the ISTTT question.
+- **Running examples from my own work:** the Part B paper's small example (one shared network, a mask, the main theorem checked by hand) and a four-day example for the ISTTT question.
 - About 20 hours a week; about 177 hours to 15 January.
 
-*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule above; 19 November, Paper A's proofs moved forward for the supervisor's review.
+*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule above; 19 November, the Part B paper's proofs moved forward for the supervisor's review.
 
 ## The schedule, week by week
 
@@ -40,7 +40,7 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 | Week | Dates | Basics | Alongside | Hours |
 |---|---|---|---|---:|
 | 0 | 14-15 Nov | linear algebra (MML ch. 2) | | 6 |
-| 1 | 16-22 Nov | finish linear algebra ch. 2; determinants, eigenvalues and eigendecomposition (MML ch. 4, parts) | game theory: Tadelis ch. 3-4 (normal-form games, dominance); **Paper A's proofs, explain level, for the supervisor's review** | 20 |
+| 1 | 16-22 Nov | finish linear algebra ch. 2; determinants, eigenvalues and eigendecomposition (MML ch. 4, parts) | game theory: Tadelis ch. 3-4 (normal-form games, dominance); **the Part B paper's proofs, explain level, for the supervisor's review** | 20 |
 | 2 | 23-29 Nov | probability (MML ch. 6, parts); random walks, stationary distributions and the tree theorem; gradients and Jacobians (MML ch. 5, parts) | game theory: Tadelis ch. 5-6 (Nash equilibrium, mixed strategies) | 23 |
 | 3 | 30 Nov-6 Dec | differential equations, stability, Lyapunov functions | game theory: population and potential games, revision protocols and mean dynamics, imitation, best response and logit dynamics, evolutionary stability, learning rules (skim), stochastic stability and the tree formula | 23 |
 | 4 | 7-11 Dec | (paused) | game theory: selection, speed and path dependence (the target); the presentation; dry runs | 14 |
@@ -50,15 +50,15 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 
 | Week | Dates | Basics | Alongside | Hours |
 |---|---|---|---|---:|
-| 5 | 14-20 Dec | Lagrange multipliers and convexity; inner products; what a proof is; functions and induction; convex sets | ISTTT readings: McFadden and Fosgerau 2012, Caplin, Dean and Leahy 2019, Feng, Li and Wang 2017; **derive Paper A's main theorem on blank paper**; three small numerical checks | 23 |
+| 5 | 14-20 Dec | Lagrange multipliers and convexity; inner products; what a proof is; functions and induction; convex sets | ISTTT readings: McFadden and Fosgerau 2012, Caplin, Dean and Leahy 2019, Feng, Li and Wang 2017; **derive the Part B paper's main theorem on blank paper**; three small numerical checks | 23 |
 | 6 | 21-27 Dec | convex functions and the convex conjugate; convex problems (skim) | ISTTT readings: Fenchel-Young losses (Blondel et al. 2020), Chikaraishi and Nakayama 2016; the chain rule of entropy; **first novelty check** | 22 |
-| 7 | 28 Dec-3 Jan | duality and KKT; the log-sum and entropy pair; smoothing; directed graphs and equivalence relations (with Paper A's two reductions as worked cases) | ISTTT: Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; **the one-page claim and the decision on the direction** | 18.5 |
+| 7 | 28 Dec-3 Jan | duality and KKT; the log-sum and entropy pair; smoothing; directed graphs and equivalence relations (with the Part B paper's two reductions as worked cases) | ISTTT: Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; **the one-page claim and the decision on the direction** | 18.5 |
 | 8 | 4-10 Jan | | ISTTT as the main lane: optimal transport and its entropic form, perturbed utility and regularised transport; **the proof or a counterexample, with a numerical check** | 22 |
 | 9 | 11-15 Jan | | ISTTT: **write the extended abstract**, internal read | 13 |
 
 ### Phase III: from 16 January
 
-The basics skipped before the deadlines come first. Then the roadmap stages below in the order 1, 3, 2, 4, with Paper A's proofs derived again in full alongside Stage 3. About 39-44 study days at 20 hours a week, to about June 2027.
+The basics skipped before the deadlines come first. Then the roadmap stages below in the order 1, 3, 2, 4, with the Part B paper's proofs derived again in full alongside Stage 3. About 39-44 study days at 20 hours a week, to about June 2027.
 
 ## The roadmap
 
@@ -110,7 +110,7 @@ flowchart TB
     S4["4 network flows<br/>shortest paths,<br/>min-cost flow, duals"]
   end
   subgraph TARGETS["The targets"]
-    PA["Paper A<br/>one shared network for<br/>different constraints"]
+    PA["Part B paper<br/>one shared network for<br/>different constraints"]
     IS["ISTTT<br/>constraint zeros and<br/>preference zeros"]
     GT["Game theory camp<br/>stochastic adaptive<br/>dynamics"]
   end
