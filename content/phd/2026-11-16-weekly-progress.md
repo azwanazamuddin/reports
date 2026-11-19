@@ -1,16 +1,19 @@
 ---
-title: "Weekly progress: 12 to 16 November (half week)"
+title: "Weekly progress: 12 to 17 November (half week)"
 type: report
 status: draft
 created: 2026-11-15
-updated: 2026-11-17
-tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper-a, learning, game-theory, isttt]
+updated: 2026-11-19
+tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper-a, manuscript, learning, game-theory, isttt]
 ---
 
 **Half-week post.** It follows the [weekly post of 11 November](/phd/2026-11-11-weekly-progress), which ended with the new estimate converged and cost negative. The full weekly post follows on Wednesday.
 
 > [!warning] Work in progress
-> Every number comes from a run log or a script output. Every run reported here is finished; the manuscript text for these results is not written yet.
+> Every number comes from a run log or a script output. Every run reported here is finished. **Update 17 November:** the manuscript is now a full draft (v1), Section 7 below.
+
+> [!note] Case study numbers kept internal (19 November)
+> While Paper A is under review, the case study's estimates, policy results, accessibility map and the results deck are kept in internal notes and are no longer shown here. The synthetic (toy) results in Section 2 stay public.
 
 ## 1. In short
 
@@ -23,13 +26,13 @@ tags: [phd, weekly, estimation, simulation, policy, synthetic-experiments, paper
 | Case study, policy simulation (Section 6) | One policy per kind of constraint: who it reaches, welfare, accessibility | three scenarios run, direction checks pass |
 
 - **Synthetic:** without constraints, 60% of the days the model proposes are impossible for the person; the missing rules are absorbed into the parameters (cost even changes sign), the bias does not shrink with more data, and a policy on a missing rule gets a predicted response of exactly zero.
-- **Estimate:** cost negative and clearly identified (robust t -11.9), every travel time coefficient negative, value of time 24 yen per minute by car and 10 by public transport.
-- **Policy:** shops closing 2 hours later +2.5 yen per person-day for everyone; drivers aged 75+ giving up the car -215 yen for the 249 persons it reaches; work starting 60 minutes later -589 yen per worker-day.
+- **Estimate:** converged with robust standard errors; cost negative and clearly identified, every travel time coefficient negative, values of time in the range of the national guideline values.
+- **Policy:** three scenarios, one per kind of constraint; each moves only the persons it reaches, in the expected direction.
+- **Manuscript (17 November):** the whole of Paper A is written as a first full version (v1): abstract, seven sections and the proofs.
 - **Learning (in progress):** the roadmap is established as the main guide, kept flexible, with two deadlines (game theory study camp, 12 December; ISTTT extended abstract, 15 January).
 
 ## 2. Synthetic experiments (Paper A, Section 5)
 
-**Results deck (PDF, 22 slides):** [Paper A, results of Sections 5 and 6](/slides/paper-a-results/files/paper_a_results_20261114.pdf). It covers this section and the next two.
 
 ### The setup
 
@@ -140,82 +143,29 @@ The nine small checks of the implementation (Section 4) all pass. They stay in t
 
 ## 3. The case study: estimate (Section 6)
 
-The estimate is the one reported on 11 November ([estimation report](/ddcm/estimate_20261111.html)). New since then: **robust standard errors and the second-order check at the estimate** (12 November), which the 11 November post was updated with.
+The estimate is the one reported on 11 November. New since then: **robust standard errors and the second-order check at the estimate** (12 November).
 
-| | |
-|---|---|
-| Persons scored | 6,243 |
-| Observed decisions | 361,167 |
-| Free parameters | 76 |
-| Log-likelihood | -34,414.82 |
-| Significant at 5% (robust) | 55 of 76 (50 with BHHH) |
-
-- **Converged:** projected gradient 1.3e-6. The exact Hessian at the estimate has all 76 eigenvalues positive (smallest 13.5) and a Newton decrement of 1.4e-8.
+- **Converged:** the exact Hessian at the estimate has all eigenvalues positive and a Newton decrement near zero, so it is a maximum.
+- **Signs:** cost negative and clearly identified; every travel time coefficient negative; values of time for non-commute trips in the range of the MLIT private-trip values.
 - **Computation:** 4 shared graphs, 872 evaluation groups, 432 s per evaluation on 24 processes.
 
-| Parameter | Estimate | Robust t | | Mode | Value of time, yen/min | 95% interval |
-|---|---:|---:|---|---|---:|---|
-| Car time, per min | -0.0534 | -10.6 | | Car | 24.1 | 17.3 to 30.9 |
-| Public transport time | -0.0229 | -4.4 | | Public transport | 10.3 | 5.2 to 15.4 |
-| Walk time | -0.0684 | -11.0 | | Walk | 30.8 | 23.3 to 38.3 |
-| Bicycle time | -0.0563 | -10.0 | | Bicycle | 25.4 | 18.8 to 32.0 |
-| Cost, per yen | -0.0022 | -11.9 | | | | |
+**Simulation with the estimated parameters against the diary:** work and home start times and time at home and at work fit closely, and workers' public transport commute fits, out and home. The largest gap is workers as car passengers; there are also too many simulated returns home just before midnight (the model day ends at home at 24:00), and shopping too late in the evening.
 
-- The values of time lie in the range of the MLIT private-trip values (15.2 yen per minute per person, rail manual 2012). Commutes carry no cost in this model, so these are values for non-commute trips.
-- One parameter drops below 5% with robust errors: the bus constant for trips outside the city (robust t 1.9).
-- Weak directions in the Hessian: public transport time with the 3 pm rates; home and leisure at 9 pm against 10 pm; the afternoon home rates.
+## 4. The case study: policy simulation (analysis)
 
-**Simulation with the estimated parameters against the diary** (details and figures in the 11 November post and the [full observed vs simulated report](/ddcm/obs_vs_sim_20261111.html)):
-- Work and home start times and time at home and at work fit closely; workers' public transport commute fits, out and home.
-- **Largest gap: workers as car passengers**, 294 simulated per 1,000 worker-days against 178 as the model encodes the diary (80 in the raw diary).
-- Too many simulated returns home just before midnight (the model day ends at home at 24:00), and shopping too late in the evening.
+> [!note] Update 17 November
+> The policy runs are kept as analysis. In the manuscript the case study is the estimate and accessibility; the three changes appear only as a short illustration of how accessibility responds when one constraint of each kind changes (Section 7 below).
 
-## 4. The case study: policy simulation (Section 6)
+$\theta$ frozen at the 11 November estimate, full sample, exact model expectations. The base run reproduces the estimation's log-likelihood exactly.
 
-$\theta$ frozen at the 11 November estimate; full sample (6,312 persons, 33 with no feasible day); exact model expectations; 1 utility unit = 451 yen ($1/\lvert\beta_{\text{cost}}\rvert$). The base run reproduces the estimation's log-likelihood exactly. [Full policy report](/ddcm/policy_20261113.html).
-
-**One policy per kind of constraint:**
-
-| Policy (kind of constraint) | Reaches | Mean change, yen per person-day | Median | Lose | Direction check |
-|---|---|---:|---:|---|---|
-| Shops close 2 h later (institutional) | everyone | **+2.5** | +1.8 | 0% (99.7% gain) | pass |
-| Drivers aged 75+ give up the car (means) | 249 persons (2 workers) | **-215** | -202 | 100% | pass |
-| Work starts 60 min later (anchor) | 2,623 workers | **-589** | -492 | 90% (10% gain) | pass |
+| Policy | Kind of constraint | Reaches | Direction check |
+|---|---|---|---|
+| Shops close 2 h later | institutional | everyone | pass |
+| Drivers aged 75+ give up the car | means | drivers aged 75+ | pass |
+| Work starts 60 min later | anchor | workers | pass |
 
 - **Each rule moves only the persons it reaches.** The others move by at most 2e-14.
-- Work +60: 48 workers lose every feasible day and 13 gain one.
-
-**Behaviour** (change against the base, percentage points of trips):
-
-| Policy | What moves |
-|---|---|
-| Shops 2 h later | small: shopping stays +0.45 min, shopping in the centre -0.29 pt |
-| Licence 75 | car driver -1.5 pt, car passenger +0.5 pt, bicycle, walk and train up a little; non-workers -0.06 trips per day |
-| Work +60 | **train -5.0 pt**, car driver +2.2 pt, car passenger +2.5 pt |
-
-**Accessibility at the base** ($V(x_0)$ in yen, medians, against the median non-worker with a car):
-
-| Group | Median |
-|---|---:|
-| Non-worker, no car | -259 |
-| Worker, car | -1,111 |
-| Worker, no car | -1,434 |
-
-Workers' accessibility falls with a later work start (workers with a car: -908 for a start at 07:30-08:29, -1,992 for 09:30 or later). Compare only within workers or within non-workers: the work episode itself carries no utility.
-
-### Accessibility on the map
-
-![Accessibility by home zone, base and three policies](figures/paperA_s6_20261117_logsum_maps.png)
-
-Accessibility is the logsum $V(x_0)$: the value of a person's whole day at the estimated parameters (added 17 November).
-
-- **(a) Base:** the logsum of one non-worker with a car living in each zone, shown as it is. A non-worker's logsum depends on the home zone alone, so every such resident of a zone has the same value and the map needs no averaging. It is highest around the central station (Saijo) and falls towards the edges.
-- **(b) to (d):** the change from the base, in yen per person-day (utility divided by $\lvert\beta_{\text{cost}}\rvert$, 451 yen per unit).
-- **(b) Late close:** every zone gains, most in the centre (up to 8 yen).
-- **(c) Licence 75:** the mean over all residents, so the zone's burden; losses spread over the city, where drivers aged 75+ live.
-- **(d) Work +60:** the mean over workers; every zone loses, 360 to 940 yen per worker.
-
-Grey: in (a) no non-worker with a car lives there; in (b) to (d) fewer than 10 persons. The 129 persons living in reference zones outside the city count in the totals but are not drawn. Lines and dots: rail and stations.
+- **Accessibility** is the logsum $V(x_0)$, the value of a person's whole day at the estimated parameters, mapped by home zone at the base and as the change under each policy (added 17 November; kept internal while the paper is under review).
 
 ## 5. Learning
 
@@ -340,13 +290,13 @@ flowchart TB
 
 - **Linear algebra (first lesson, MML chapter 2):** reading, with a section-by-section reading companion (what to look for, what is confusing, what can be read fast, checks before moving on) and a learn-guide deck that works the book's own examples one step per slide.
 
-## 6. Status
+## 6. Status (until 16 November)
 
 ### Done, in the order it happened
 
-1. **Robust standard errors and the second-order check at the 11 November estimate (12 November).** All eigenvalues positive, Newton decrement 1.4e-8; 55 of 76 parameters significant; cost robust t -11.9.
-2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and a [results deck](/slides/paper-a-results/files/paper_a_results_20261114.pdf).
-3. **Policy simulation, in the case study of Section 6 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; a [report page](/ddcm/policy_20261113.html).
+1. **Robust standard errors and the second-order check at the 11 November estimate (12 November).** All eigenvalues positive; cost clearly identified.
+2. **Synthetic experiments, Section 5 (11 to 14 November).** Cost, recovery, the comparison with and without constraints (stages 1 and 2), absorption, bias against sample size and policy response; all through the production estimator. A technical report (18 pages), the paper's figures (made from saved results only), and a results deck (internal).
+3. **Policy simulation, in the case study of Section 6 (13 November).** Three scenarios at the full sample, direction checks pass, welfare by who is reached, accessibility at the base; an internal report page.
 4. **Decisions on Paper A (13 to 14 November):**
    - the comparison with and without constraints is synthetic only; the case study estimates the model with constraints alone;
    - the small implementation checks go to the technical report, not the manuscript; Section 5 leads with cost;
@@ -354,7 +304,7 @@ flowchart TB
    - the policy scope is three rules, one per kind of constraint, with welfare and accessibility.
 5. **Code committed:** commute cost paid by the employer (the code the estimate ran with), the memory guard that protects the estimation, and optional BRT in the policy scenarios.
 6. **Learning roadmap established (14 November):** one order, used as the main guide and kept flexible, with two deadlines; the ISTTT track set up.
-7. **Accessibility maps (17 November):** the logsum by home zone at the base and its change under each policy, from the saved policy runs; in this post and the results deck, and ready as a figure for Section 6.
+7. **Accessibility maps (17 November):** the logsum by home zone at the base and its change under each policy, from the saved policy runs; ready as a figure for Section 6 (internal).
 
 ### Doing
 
@@ -370,7 +320,46 @@ flowchart TB
 
 1. **Write Section 5** of the manuscript from the results, in the model's terms.
 2. **Move Section 6 of the manuscript to the 11 November estimate** (parameters with robust standard errors, fit figures, computation) and add the policy simulation to it; it still reports the earlier estimate.
-3. **Work +60:** find what carries the 589 yen loss per worker-day; look at residents outside the city, who lose most (-1,347 yen, 97% lose).
+3. **Work +60:** find what carries workers' loss, and look at residents outside the city, who lose most.
 4. **Recovery with standard errors on the bus-timetable grid**, if the two synthetic worlds should match.
-5. **Workers' car passenger trips** (294 against 178 as encoded): decide whether workers need their own passenger constant, tested at a fixed $\theta$ before any run.
+5. **Workers' car passenger trips:** decide whether workers need their own passenger constant, tested at a fixed $\theta$ before any run.
 6. Learning, week 1: MML chapters 3-5 and Tadelis chapters 3-5, with their gates.
+
+## 7. Paper A manuscript: full draft v1 (16 to 17 November)
+
+The whole manuscript now exists as a first full version, written from the results above and reviewed section by section. It runs to 42 pages in the journal's single-column preprint layout (about 9,600 words of main text, 7 figures, 7 tables), with no placeholders left.
+
+| Part | What changed |
+|---|---|
+| Abstract | written (222 words, the journal allows 250), built around the one claim: persons whose constraints differ can share one computation without losing any of them |
+| 1 Introduction | frozen as v1 on 16 November |
+| 2 Literature review | rewritten as one story without subsections (constraints in activity-based models, then dynamic discrete choice, then the three ways applied models pay for constraints that differ, then constraint versus preference); 5 pages down to 3 |
+| 3 Model | state, action, transition and utility written as formulas; "choice probabilities" instead of "policy"; the classification of constraints as one table, with where each kind is used |
+| 4 Heterogeneous constraints on a shared graph | seven subsections down to four, built around the embedding theorem; a figure of the theorem (one person's graph mapped into the shared graph by a mask) and a figure that summarises which result allows which step of the computation; 10 pages down to 8 |
+| 5 Numerical experiments | written from the synthetic results (cost, recovery, what is lost without constraints) |
+| 6 Case study | the 11 November estimate with the application's utility function written out, the sample at each stage, the fit against the diary, and accessibility by home zone |
+| 7 Discussion | written: what generalises, limits (anchors treated as constraints, as in time geography), further work |
+| Appendix | the proofs rewritten with the mathematics shown step by step; the second appendix removed |
+
+**Decisions this week:**
+- **No policy simulation section.** The case study is the estimate and accessibility; how accessibility responds when one constraint of each kind changes is a short illustration inside it.
+- **Fewer figures in the results:** 14 down to 7 in the main text; the rest go to supplementary material.
+- **Anchors are constraints, not preferences,** following time geography (an employer's hours as a coupling constraint, fixed activities as pegs); how fixed they are is stated as an assumption.
+- Every mathematical symbol is defined where it first appears; the manuscript was checked against the journal's guide for authors (no length limit; abstract at most 250 words; highlights and the end-of-paper declarations still to write).
+
+**A learning note on the proofs** goes through every proof of the appendix line by line, with what would break each step and a check by hand on a small example.
+
+## 8. Status
+
+### Done since 16 November
+
+1. **Manuscript v1:** Sections 1 to 4 frozen one by one after review, then Sections 5 to 7, the abstract and the proofs written; the whole frozen as v1 on 17 November.
+2. **Case study figures and tables rebuilt from the 11 November estimate** (aggregates only); the base accessibility map made its own figure.
+
+### To do
+
+1. Highlights (3 to 5, at most 85 characters each) and the declarations at the end of the paper (acknowledgements, author contributions, funding, use of generative AI, data).
+2. Supplementary material for the figures taken out of the main text.
+3. One page of the case study still holds only figures and a table; one figure moves to an appendix.
+4. Match the persons of the comparison with the diary to those in the likelihood, person by person.
+5. Learning, week 1: MML chapters 3-5 and Tadelis chapters 3-5, with their gates.

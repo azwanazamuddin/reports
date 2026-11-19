@@ -22,11 +22,13 @@ actually requires.
 
 ## Reports and decks, newest first
 
-- **11 Nov 2026** · [Weekly progress: 5 to 11 November](/phd/2026-11-11-weekly-progress). Positive public transport time traced to free overtime at work and fixed; the remaining positive cost traced to commutes charged money the employer pays; the model change, checked exactly and estimated: cost now negative (t -19.2); optimal transport learning. Report pages for the [10 November](/ddcm/estimate_20261110.html) and [11 November](/ddcm/estimate_20261111.html) estimates.
+- **19 Nov 2026** · [Weekly progress: 12 to 19 November](/phd/2026-11-19-weekly-progress). Paper A's full draft (v1) finished and sent for supervisor review; case study numbers now kept internal while it is under review; learning: linear algebra, the Paper A proofs pulled forward for the review, game theory, and the ISTTT question.
+- **16 Nov 2026** · [Weekly progress: 12 to 17 November (half week)](/phd/2026-11-16-weekly-progress). Every Paper A run finished: synthetic experiments (cost, recovery, what is lost without constraints), the case study estimate with robust standard errors, and the policy simulation of three constraint policies; one learning order towards the game theory study camp and ISTTT.
+- **11 Nov 2026** · [Weekly progress: 5 to 11 November](/phd/2026-11-11-weekly-progress). Positive public transport time traced to free overtime at work and fixed; the remaining positive cost traced to commutes charged money the employer pays; the model change, checked exactly and estimated: cost now negative and significant; optimal transport learning.
 - **9 Nov 2026** · [Weekly progress: 5 to 9 November (half week)](/phd/2026-11-09-weekly-progress). Why the public transport time coefficient is positive: the data checked, the passenger switch, and free overtime at work; optimal transport learning.
 - **5 Nov 2026** · [Weekly progress: Theorem 1, the latest estimate, what is next](/phd/2026-11-04-weekly-progress). With the [Paper A progress deck](/slides/paper-a-progress/),
-  the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down, and the [full estimation report](/ddcm/round1_estimation_report_20261103.html).
-- **2 Nov 2026** · [Weekly progress: 26 October to 2 November](/phd/2026-11-02-weekly-progress). The week before, with the [final estimation report of 30 October](/ddcm/final_estimation_report_20261030.html).
+  the [learning deck](/slides/paper-a-learning/) on how Theorem 1 breaks down.
+- **2 Nov 2026** · [Weekly progress: 26 October to 2 November](/phd/2026-11-02-weekly-progress). The week before: the 30 October estimate, and Paper A's main theorem settled.
 - **23 Oct 2026** · [SIP seminar](/slides/sip-seminar/). The stakeholder talk with the first full-sample
   results. [PDF, handouts and how it was made](/phd/2026-10-23-sip-seminar/).
 - **13 Oct 2026** · [Paper A: the deck](/slides/constraint-framing/). 42 slides for the supervisor working

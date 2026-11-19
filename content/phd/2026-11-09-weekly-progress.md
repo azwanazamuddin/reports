@@ -3,7 +3,7 @@ title: "Weekly progress: 5 to 9 November (half week)"
 type: report
 status: draft
 created: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-19
 tags: [phd, weekly, estimation, public-transport, optimal-transport]
 ---
 
@@ -11,6 +11,9 @@ tags: [phd, weekly, estimation, public-transport, optimal-transport]
 
 > [!warning] Work in progress
 > The review of the estimation is still going on. Every number comes from a run log or a script output. Readings marked as such are not yet tested.
+
+> [!note] Case study numbers kept internal (19 November)
+> While Paper A is under review, coefficient values and other estimation results of the case study are kept in internal notes and are no longer shown here. The reasoning stays.
 
 ## 1. The estimation, in short
 
@@ -25,7 +28,7 @@ The review then found two misfits specific to public transport, and these explai
 
 ## 2. Starting point
 
-The latest estimate, reported last Thursday, had a **public transport time coefficient of +0.028**, with car time fixed at -0.0133. A positive value means a longer public transport trip
+The latest estimate, reported last Thursday, had a **positive public transport time coefficient**, with car time fixed. A positive value means a longer public transport trip
 makes the trip more attractive, which no reviewer will accept.
 
 ## 3. First suspicion: the public transport data
@@ -47,29 +50,26 @@ makes the trip more attractive, which no reviewer will accept.
   - the survey is from 2012/2014 and the timetable from 2021-2025.
 
 **Is the wait assumption the cause?** No, and it is already settled.
-- In a trip-level mode choice model, public transport time is negative under every wait treatment we tried (-0.012 to -0.040 per minute). This includes capped, uncapped and separate wait terms.
+- In a trip-level mode choice model, public transport time is negative under every wait treatment we tried. This includes capped, uncapped and separate wait terms.
 - **Decision:** the wait sits inside public transport time, with one time coefficient and no separate wait parameter.
 - **It is implemented:** $T(t)=EA(t)-t$, the time from the step $t$ to the earliest arrival in the timetable, so the wait is whatever the timetable gives at that clock.
 - The old fixed waits (5 and 10 minutes) are gone, and public transport is offered only at steps with a departure.
 
-**Result.** With the timetable in place, the full run of 6 November gave public transport time **+0.0072**, and cost turned slightly positive, **+0.00012**. Car time was now free and came out at -0.0412.
+**Result.** With the timetable in place, the full run of 6 November still gave a positive public transport time coefficient, and cost turned slightly positive. Car time was now free and came out negative.
 The run was stopped the same afternoon, because the signs stayed positive and the parameters had stopped moving. So the data were not the cause.
 
 ## 4. Second suspicion: how public transport is used
 
 **Public transport out, car passenger home.**
-- The model sends people out by public transport and brings them home as car passengers on 20-29% of public transport days. The diary does this on 1.5%.
+- The model sends people out by public transport and brings them home as car passengers far more often than the diary does.
 - A ride home needs no timetable, so it is a cheap way out of a public transport tour.
 - **Decision:** forbid this switch inside a tour, and leave out the few diary persons who make it.
 
 **Why cost and time pull against each other.**
-- A car passenger pays fuel, copied from the car, and fuel grows with car distance. So in the data, **cost moves almost exactly with car time** (correlation 0.97). One yen is worth about one tenth of a car minute.
+- A car passenger pays fuel, copied from the car, and fuel grows with car distance. So in the data, **cost moves almost exactly with car time**.
 - The model therefore has two nearly equal handles for "how bad is travelling": the time coefficients and the cost coefficient. Pushing on one releases the other:
 
-| Change, at the stopped run's best point | Public transport time | Cost |
-|---|---:|---:|
-| Forbid the switch | about 0 | about +0.0005 |
-| Also make passengers pay no fuel | about +0.018 | about -0.0013 |
+- Forbidding the switch brings public transport time to about zero but leaves cost positive; also making passengers pay no fuel turns cost negative but pushes public transport time back up.
 
 - Fixing one sign breaks the other. These are rough shifts from one Newton step, not estimates. They show that the two coefficients sit on one ridge, and only a full estimation can settle where.
 
@@ -80,22 +80,13 @@ Run A, with the switch forbidden, is coded and checked, but not launched.
 **What the audit found today.**
 - In the model, a worker arrives at work and jumps ahead by the work duration. The duration is read from the same diary day.
 - After that, the model still lets the worker **stay at work, at utility 0**. The diary can never show this extra stay, because its duration is the observed one.
-- The model uses this option a lot. Simulated overtime appears on **82%** of worker-days at the start point, and on **51%** at the stopped run's best point.
+- The model uses this option a lot: simulated overtime appears on most worker-days at the start point, and on about half at the stopped run's best point.
 
 **Why this lifts every mode, not only public transport.**
 - The model can make leaving work on time more likely by raising the value of every other minute: every activity rate, and every travel minute with it.
 - For non-workers, such a joint rise changes nothing, because everyone has the same day length. For workers it changes the balance against work at 0.
-- That is what the run did. The log-likelihood rose by 2,178, while all of these rose together:
-
-| Per minute, start point to stopped run's best point | Change |
-|---|---:|
-| Activity rates (average) | +0.040 |
-| Car (time + cost, with cost at about 10 yen per minute) | +0.033 |
-| Public transport | +0.039 |
-| Walk | +0.041 |
-| Bike | +0.040 |
-
-- **Public transport and cost crossed zero only because they started closest to it.** Walk went from -0.067 to -0.027 and bike from -0.059 to -0.021, both pulled the same way.
+- That is what the run did: the log-likelihood rose while every activity rate and every mode's travel coefficient rose together, by about the same amount per minute.
+- **Public transport and cost crossed zero only because they started closest to it.** Walk and bike were pulled the same way, and stayed negative only because they started further from zero.
 
 **The same structure is in Västberg et al. (2020).** McCarthy, Karlström and Västberg (2025) instead give work its own utility rate and let the model choose the duration.
 

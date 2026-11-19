@@ -3,13 +3,16 @@ title: "Weekly progress: Theorem 1, the latest estimate, what is next"
 type: report
 status: draft
 created: 2026-11-04
-updated: 2026-11-05
+updated: 2026-11-19
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
 **[Open the Paper A progress deck](/slides/paper-a-progress/)** (42 slides, 5 November) ·
-[learning deck](/slides/paper-a-learning/) ·
-[full estimation report](/ddcm/round1_estimation_report_20261103.html)
+[learning deck](/slides/paper-a-learning/)
+
+
+> [!note] Case study numbers kept internal (19 November)
+> While Paper A is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
 
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
@@ -44,28 +47,12 @@ a population whose constraints differ person by person.
 
 ### Estimation reports
 
-**[Full estimation report, latest estimate](/ddcm/round1_estimation_report_20261103.html)**. All validation is now on this one page; sections 11 and 12 give the distributions and averages in the form of Västberg et al. (2020).
-
-The latest estimate finished after the 30 October estimate and replaces it. It changes three things and adds no parameter: no empty tours, short stops
-kept, and unmodelled purposes left out. It has 6,299 scored persons and 76 free parameters, 69 of them significant with robust standard
-errors. The log-likelihoods of the two runs are **not comparable**, because the persons and the encoding differ, so each run is compared with
-its own diary.
-
-| Per person-day, or trips per day | 30 Oct, observed | 30 Oct, simulated | Latest, observed | Latest, simulated |
-|---|---:|---:|---:|---:|
-| Tours per person-day | 0.677 | 0.587 | 0.696 | **0.696** |
-| Share of days with no tour | 0.352 | 0.421 | 0.341 | **0.350** |
-| Home to home, empty loop | 606 | 1,161 | 0 | **0** |
-| Home to shopping | 748 | 442 | 752 | **764** |
-| Leisure to home | 879 | 863 | 912 | 1,158 |
-
-There is no re-estimation: this estimate stands. Its log-likelihood is -39,095.94 on 366,470 steps.
+The latest estimate finished after the 30 October estimate and replaces it. It changes three things and adds no parameter: no empty tours, short stops kept, and unmodelled purposes left out. Its simulation now matches the diary's tours per day, days with no tour and trips from home to shopping, and the empty home-to-home loops are gone. There is no re-estimation: this estimate stands.
 
 Class pruning (sweeping only the states a class can be in) is also on master: on the full sample the likelihood is unchanged and the gradient
 agrees within 3.6e-15, at about 2.0× per evaluation. That is per evaluation and not per run, because phase 1 and the Hessian do not gain.
 
-The gate also traced the states the origin cannot reach: 34 of 6,307 persons, 0.34% of the observed steps. For 25 of the 34 the first such step is the first step of the day, and
-31 are workers. "Days not starting at home" is a reading, not proven.
+The gate also traced the few persons whose observed steps the origin cannot reach (a fraction of a percent of the steps). "Days not starting at home" is a reading, not proven.
 
 ### Section 5 design: numerical experiments and validation
 
@@ -146,16 +133,7 @@ shared graph, with a condition that can be checked, equal likelihood and gradien
 
 ## 5. Error
 
-**Destination zones still differ between simulated and observed.** Totals match, but where people go does not, and the latest estimate did not change this.
+**Destination zones still differ between simulated and observed.** Totals match, but where people go does not, and the latest estimate did not change this: simulated days spread over more zones and concentrate less in the most visited ones. Part of this may be sampling noise, since shopping and leisure arrivals are few per zone; the two have not been separated.
 
-| All persons | Dissimilarity, 30 Oct | Dissimilarity, latest | Correlation of log arrivals, latest | Zones per simulated day, against the diary |
-|---|---:|---:|---:|---:|
-| Shopping arrivals by zone | 26.2% | 27.6% | 0.74 | 84 against 68 |
-| Leisure arrivals by zone | 30.5% | 30.4% | 0.72 | 124 against 114 |
-
-Simulated days spread over more zones and concentrate less in the top ten. Part of this may be sampling noise, since there are only about 1,400 shopping and 1,600 leisure
-arrivals across the zones; the two have not been separated. Dissimilarity is computed for this post from the data in the published report.
-
-- **Other gaps from the latest estimate:** chaining after the first stop, stop durations (non-worker shopping median 60 simulated against 30 observed; worker shopping mean 75 against 44), late evening (shopping starts after 21:00 are 7.7% against 0.7%,
-  leisure 3.9% against 0.8%, returns home 19.6% against 11.6%), and a public transport time coefficient that is still positive (+0.028). The requirement that each day ends at home may link to the late evening; that is a reading, not a test.
+- **Other gaps from the latest estimate:** chaining after the first stop, stop durations (simulated shopping stops too long), too much activity late in the evening, and a public transport time coefficient that was still positive at that time. The requirement that each day ends at home may link to the late evening; that is a reading, not a test.
 - **Do we need to readjust the specification again?** I think we need to set out the limitations we have, especially regarding the data. A further respecification (duration in utility) is parked.

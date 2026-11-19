@@ -3,13 +3,14 @@ title: "Weekly progress: 26 October to 2 November"
 type: report
 status: draft
 created: 2026-11-02
-updated: 2026-11-05
+updated: 2026-11-19
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
-**[Open the Paper A deck](/slides/paper-a-progress/)** (current version; it had 43 slides when this was written) ·
-[final estimation report](/ddcm/final_estimation_report_20261030.html) ·
-[distribution figures](/ddcm/behavioral_validation_20261030.html)
+**[Open the Paper A deck](/slides/paper-a-progress/)** (current version; it had 43 slides when this was written)
+
+> [!note] Case study numbers kept internal (19 November)
+> While Paper A is under review, the estimates, fit figures and the estimation reports of the case study are kept in internal notes and are no longer shown here. Synthetic (toy) results stay public.
 
 > [!warning] Working material
 > The manuscript is not submitted. Every number comes from a run log, a sidecar or a script output.
@@ -27,23 +28,7 @@ the rewrite of the formal section in the manuscript is not. **Target: before thi
 
 ### The latest estimate
 
-The re-specified model was estimated on all 9,077 diary files and **converged on 30 October**.
-
-| Item | Value |
-|---|---|
-| Final log-likelihood | −42,462.12 on 6,487 persons, 376,773 scored steps |
-| Parameters | 84, of which 76 free; 66 significant at 5% with robust standard errors |
-| Convergence | 13 evaluations, trust-region Newton, exact positive definite Hessian |
-| Wall time | about 8.3 hours, launch to standard errors |
-
-The simulation reproduces the diary at about the level Västberg et al. (2020) report:
-
-| Quantity | Diary | Simulated |
-|---|---|---|
-| Mode share car / train / walk / bicycle / bus (%) | 69.3 / 13.5 / 8.8 / 7.4 / 1.0 | 69.5 / 14.4 / 8.1 / 7.1 / 1.0 |
-| Time share home / work / leisure / shopping (%) | 72.5 / 21.5 / 4.1 / 1.9 | 73.0 / 21.1 / 4.3 / 1.6 |
-| Tours per person-day | 0.752 | 0.736 |
-| Work start (mean) | 8.34 h | 8.53 h |
+The re-specified model was estimated on the full diary sample and **converged on 30 October** (trust-region Newton, exact positive definite Hessian, robust standard errors). The simulation reproduces the diary's mode shares, time shares, tours and work start times at about the level Västberg et al. (2020) report.
 
 Two engineering fixes made the run possible: the exact Hessian had rebooted the machine on 28 October (the cause was
 the edge chunk inside the Hessian, now capped), and **canonical states** halved the graph (below).
