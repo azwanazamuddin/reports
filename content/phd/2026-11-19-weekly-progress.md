@@ -72,21 +72,3 @@ About 177 hours to 15 January, about 20 a week.
 **One finding from the proofs.** The induction that proves the main theorem (backward from the end of the day) is the same induction that proves the chain rule of Shannon entropy over paths. It does not go through for Tsallis entropy, because the weights become $p_i^{\alpha}$ instead of $p_i$. This links the Paper A proofs to the ISTTT question, and is now the running example in both lanes. It is my reading, not yet a result.
 
 **ISTTT, candidate hypothesis (17 November).** Recursive perturbed utility is invariant to how the day is staged only under Shannon entropy. It is open, and is decided with the other four at the gates on 27 December and 3 January.
-
-## 4. Status
-
-### Done
-1. Manuscript v1 frozen (17 November) and pushed to Overleaf with the completed case study section (18 November); under supervisor review.
-2. Public and internal material separated: case study results moved to internal notes; earlier posts edited.
-3. Learning schedule revised (16 November) and its rule settled (18 November); the Paper A proof notes placed in it.
-4. Game theory chapters 1-2: reading guide and deck.
-5. ISTTT call format checked.
-
-### Doing
-- Linear algebra, MML chapter 2 (§2.7).
-- The Paper A proofs, at the explain level, for the review.
-
-### To do
-1. Week 1: finish MML chapter 2, the camp part of chapter 4, Tadelis chapters 3-4, with their gates.
-2. The manuscript items in Section 2, after the review.
-3. Workers' car passenger trips: decide whether workers need their own passenger constant, tested at a fixed $\theta$ before any run.
