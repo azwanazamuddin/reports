@@ -7,8 +7,7 @@ updated: 2026-11-19
 tags: [phd, paper-a, weekly, estimation, constraint-heterogeneity]
 ---
 
-**[Open the Part B paper progress deck](/slides/paper-a-progress/)** (42 slides, 5 November) ·
-[learning deck](/slides/paper-a-learning/)
+**[Open the Part B paper progress deck](/slides/paper-a-progress/)** (42 slides, 5 November)
 
 
 > [!note] Case study numbers kept internal (19 November)
@@ -66,7 +65,7 @@ Three experiments validate the constraint formulation on synthetic grids. The th
 
 ## 2. Learning: how Theorem 1 breaks down
 
-**[Open the learning deck](/slides/paper-a-learning/)**
+*The learning deck that was linked here has been withdrawn while the Part B paper is under review.*
 
 This week also went into taking Theorem 1 apart: where each piece comes from, what the log-sum changes, and how each corollary follows. The route ran from the basics
 (functions and bijections, the Gumbel log-sum, recursive logit, the day as a dynamic programme) to the theorem, its proof, and then the corollaries one at a time, with a small toy worked by hand.
