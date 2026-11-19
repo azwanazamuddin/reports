@@ -169,7 +169,7 @@ $\theta$ frozen at the 11 November estimate, full sample, exact model expectatio
 
 ## 5. Learning
 
-**Status: in progress.** On 14 November the learning was reorganised into one order (the mathematical foundations as the main lane, the roadmap stages 0-6 as the content), with two deadlines: the game theory study camp (Sat 12 December) and the ISTTT extended abstract (Fri 15 January). The schedule was revised again on 16 and 18 November; the current version is in the [19 November post](/phd/2026-11-19-weekly-progress).
+**Status: in progress.** On 14 November the learning was reorganised into one order (the mathematical foundations as the main lane, the roadmap stages 0-6 as the content), with two deadlines: the game theory study camp (Sat 12 December) and the ISTTT extended abstract (Fri 15 January). The schedule and the full roadmap that this post showed are now kept, up to date, on the [Learning plan](/phd/learning-plan) page (revised again on 16 and 18 November).
 
 - **In progress:** linear algebra (MML chapter 2), with a section-by-section reading companion and a learn-guide deck.
 
