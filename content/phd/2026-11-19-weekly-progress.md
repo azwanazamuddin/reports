@@ -37,7 +37,7 @@ tags: [phd, weekly, paper-a, manuscript, learning, game-theory, isttt]
 
 ## 3. Learning
 
-**Status: in progress, week 1 of 9 before the ISTTT deadline.**
+**Status: in progress, week 1 of 9 before the ISTTT deadline.** The full schedule and roadmap: [Learning plan](/phd/learning-plan) (a living page).
 
 ### How the learning is organised now
 

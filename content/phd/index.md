@@ -19,6 +19,7 @@ which of those differences genuinely need their own computation. The full framin
 
 ## Reports and decks, newest first
 
+- **Living page** · [Learning plan: schedule and roadmap](/phd/learning-plan). The current study schedule to the game theory camp (12 Dec) and the ISTTT abstract (15 Jan), and the full roadmap.
 - **19 Nov 2026** · [Weekly progress: 12 to 19 November](/phd/2026-11-19-weekly-progress). Paper A's full draft (v1) finished and sent for supervisor review; case study numbers now kept internal while it is under review; learning: linear algebra, the Paper A proofs pulled forward for the review, game theory, and the ISTTT question.
 - **16 Nov 2026** · [Weekly progress: 12 to 17 November (half week)](/phd/2026-11-16-weekly-progress). Every Paper A run finished: synthetic experiments (cost, recovery, what is lost without constraints), the case study estimate with robust standard errors, and the policy simulation of three constraint policies; one learning order towards the game theory study camp and ISTTT.
 - **11 Nov 2026** · [Weekly progress: 5 to 11 November](/phd/2026-11-11-weekly-progress). Positive public transport time traced to free overtime at work and fixed; the remaining positive cost traced to commutes charged money the employer pays; the model change, checked exactly and estimated: cost now negative and significant; optimal transport learning.
