@@ -3,7 +3,7 @@ title: "Learning plan: schedule and roadmap"
 type: report
 status: living page
 created: 2026-11-19
-updated: 2026-11-19
+updated: 2026-11-20
 tags: [phd, learning, roadmap, game-theory, isttt]
 ---
 
@@ -28,10 +28,10 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 | nothing is waiting | book order, after 15 January |
 
 - **Checks:** each block ends with a gate: derive the key results on blank paper, without notes.
-- **Running examples from my own work:** the Part B paper's small example (one shared network, a mask, the main theorem checked by hand) and a four-day example for the ISTTT question.
-- About 20 hours a week; about 177 hours to 15 January.
+- **Running examples from my own work:** the Part B paper's small example (one shared network, a mask, the main theorem checked by hand) and a four-option example for the ISTTT question.
+- About 20 hours a week; about 181 hours to 15 January.
 
-*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule above; 19 November, the Part B paper's proofs moved forward for the supervisor's review.
+*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule above; 19 November, the Part B paper's proofs moved forward for the supervisor's review; 20 November, Wilson's *Entropy in urban and regional modelling* (1970) added as the classic background on entropy for the ISTTT question.
 
 ## The schedule, week by week
 
@@ -41,7 +41,7 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 |---|---|---|---|---:|
 | 0 | 14-15 Nov | linear algebra (MML ch. 2) | | 6 |
 | 1 | 16-22 Nov | finish linear algebra ch. 2; determinants, eigenvalues and eigendecomposition (MML ch. 4, parts) | game theory: Tadelis ch. 3-4 (normal-form games, dominance); **the Part B paper's proofs, explain level, for the supervisor's review** | 20 |
-| 2 | 23-29 Nov | probability (MML ch. 6, parts); random walks, stationary distributions and the tree theorem; gradients and Jacobians (MML ch. 5, parts) | game theory: Tadelis ch. 5-6 (Nash equilibrium, mixed strategies) | 23 |
+| 2 | 23-29 Nov | probability (MML ch. 6, parts); random walks, stationary distributions and the tree theorem; gradients and Jacobians (MML ch. 5, parts) | game theory: Tadelis ch. 5-6 (Nash equilibrium, mixed strategies); ISTTT, idea level: Wilson 1970 ch. 1 and Appendix 1 (what entropy is; why Shannon's measure is unique) | 23 |
 | 3 | 30 Nov-6 Dec | differential equations, stability, Lyapunov functions | game theory: population and potential games, revision protocols and mean dynamics, imitation, best response and logit dynamics, evolutionary stability, learning rules (skim), stochastic stability and the tree formula | 23 |
 | 4 | 7-11 Dec | (paused) | game theory: selection, speed and path dependence (the target); the presentation; dry runs | 14 |
 | **camp** | **Sat 12 Dec** | | **present** | |
@@ -51,8 +51,8 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 | Week | Dates | Basics | Alongside | Hours |
 |---|---|---|---|---:|
 | 5 | 14-20 Dec | Lagrange multipliers and convexity; inner products; what a proof is; functions and induction; convex sets | ISTTT readings: McFadden and Fosgerau 2012, Caplin, Dean and Leahy 2019, Feng, Li and Wang 2017; **derive the Part B paper's main theorem on blank paper**; three small numerical checks | 23 |
-| 6 | 21-27 Dec | convex functions and the convex conjugate; convex problems (skim) | ISTTT readings: Fenchel-Young losses (Blondel et al. 2020), Chikaraishi and Nakayama 2016; the chain rule of entropy; **first novelty check** | 22 |
-| 7 | 28 Dec-3 Jan | duality and KKT; the log-sum and entropy pair; smoothing; directed graphs and equivalence relations (with the Part B paper's two reductions as worked cases) | ISTTT: Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; **the one-page claim and the decision on the direction** | 18.5 |
+| 6 | 21-27 Dec | convex functions and the convex conjugate; convex problems (skim) | ISTTT readings: Fenchel-Young losses (Blondel et al. 2020), Chikaraishi and Nakayama 2016, with Wilson 1970 ch. 2 (the gravity model, mode and route split from entropy); the chain rule of entropy; **first novelty check** | 24 |
+| 7 | 28 Dec-3 Jan | duality and KKT; the log-sum and entropy pair; smoothing; directed graphs and equivalence relations (with the Part B paper's two reductions as worked cases) | ISTTT: Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; Wilson 1970 ch. 5-6 (policy and capacity constraints; entropy and utility); **the one-page claim and the decision on the direction** | 20.5 |
 | 8 | 4-10 Jan | | ISTTT as the main lane: optimal transport and its entropic form, perturbed utility and regularised transport; **the proof or a counterexample, with a numerical check** | 22 |
 | 9 | 11-15 Jan | | ISTTT: **write the extended abstract**, internal read | 13 |
 
@@ -89,6 +89,7 @@ flowchart LR
 | **4** | graphs and network flows: shortest paths, min-cost flow, the transportation problem | Ahuja, Magnanti and Orlin, *Network Flows* | 3-4 |
 | **5** | optimal transport, up to its links with DDCM, recursive logit and perturbed utility | a 27-lesson path (Peyré and Cuturi, Santambrogio, Chewi et al., and others) | 10-12 |
 | **6** | game theory, up to stochastic adaptive dynamics | Tadelis, *Game Theory: An Introduction*; Sandholm 2015; Durlauf and Blume 2010 | 10 |
+| alongside | entropy in transport, the classic (for the ISTTT question) | Wilson, *Entropy in Urban and Regional Modelling* (1970): ch. 1-2, 5-6 and Appendix 1 before 15 January; the rest later | (in the ISTTT weeks) |
 | | **total** | | **52-60** |
 
 ### Which stage feeds which target
