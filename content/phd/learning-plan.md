@@ -3,7 +3,7 @@ title: "Learning plan: schedule and roadmap"
 type: report
 status: living page
 created: 2026-11-19
-updated: 2026-11-20
+updated: 2026-11-25
 tags: [phd, learning, roadmap, game-theory, isttt]
 ---
 
@@ -14,51 +14,50 @@ tags: [phd, learning, roadmap, game-theory, isttt]
 | | Date | Target |
 |---|---|---|
 | Game theory study camp | **Sat 12 December 2026** | present and fully understand Young's "stochastic adaptive dynamics" (Durlauf and Blume 2010, pp. 325-332) |
-| ISTTT extended abstract | **Fri 15 January 2027** | constraints versus preferences in perturbed utility: where do the zeros of a dynamic choice model come from? (2,000-3,000 words, at most 6 pages) |
+| ISTTT extended abstract | **Fri 15 January 2027** | constraints versus preferences in perturbed utility: can a constraint be built into a generalised entropy or a convex choice problem without breaking the log-sum and its welfare reading, and where do the zeros of a dynamic choice model come from? (2,000-3,000 words, at most 6 pages) |
 
 ## How the plan works
 
-- **What to study:** before a deadline, only what that deadline needs, chosen backward from the target (the camp presentation, the ISTTT question, the Part B paper's proofs). The rest of the basics is studied after 15 January, in book order.
-- **In what order:**
+- **What to study:** before a deadline, only what that deadline needs, chosen backward from the target (the camp presentation, the ISTTT question, the Part B paper's proofs).
+- **Concept units lead; maths comes in as "math stops".** Each week is organised by concept units: one idea to understand (for example Nash and mixed strategies, entropy as counting, choice as a convex programme), each with one driving text (Tadelis, Sandholm, Young, Wilson, the ISTTT readings, the Part B paper). I read the driving text first. When it uses maths I do not have yet, I stop at that page, learn the minimum that page needs (15 minutes to 2 hours), and go back to the text. The same topic can be pulled again later at more depth.
+- **Concepts deep, procedures light:** ideas used for years (entropy, multipliers as prices, the log-sum, stationary distributions, stability) are studied until they are obvious; procedures a computer does are worked once by hand.
+- **Who waits sets the depth:** when someone is waiting (a review, a meeting), learn to explain it first and derive it later.
+- **Checks:** each unit ends with a gate: derive the key results on blank paper, without notes. Every math stop is logged, together with what a unit did not need, so the gaps can be filled after 15 January.
+- **Running examples from my own work:** the Part B paper's small example (one shared network, a mask, the main theorem checked by hand), a four-option example for the ISTTT question, and Young's two-strategy coordination game for the camp.
+- About 20-23 hours a week; about 180 hours to 15 January.
 
-| Situation | Order |
-|---|---|
-| there is time until the target | basics first |
-| someone is waiting now (a review, a meeting) | learn to explain it first, derive it later |
-| nothing is waiting | book order, after 15 January |
-
-- **Checks:** each block ends with a gate: derive the key results on blank paper, without notes.
-- **Running examples from my own work:** the Part B paper's small example (one shared network, a mask, the main theorem checked by hand) and a four-option example for the ISTTT question.
-- About 20 hours a week; about 181 hours to 15 January.
-
-*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule above; 19 November, the Part B paper's proofs moved forward for the supervisor's review; 20 November, Wilson's *Entropy in urban and regional modelling* (1970) added as the classic background on entropy for the ISTTT question.
+*History:* 14 November, first version (all basics before the targets); 16 November, revised to "only what each deadline needs"; 18 November, the order rule (explain first when someone waits); 19 November, the Part B paper's proofs moved forward for the supervisor's review; 20 November, Wilson's *Entropy in urban and regional modelling* (1970) added as the classic background on entropy for the ISTTT question, and the whole plan reorganised into concept units with math stops; 24 November, week 1 slipped (a holiday and the revision of the Part B paper after the supervisor's review), so some camp material moved to week 3 and a few lower-priority items were cut (two skim chapters dropped, one reading moved to the ISTTT weeks, two maths topics moved after 15 January).
 
 ## The schedule, week by week
 
 ### Phase I: to the game theory camp
 
-| Week | Dates | Basics | Alongside | Hours |
+The chain behind Young's entry: strategic reasoning (Nash, mixed strategies) → populations and how they move → logit choice as a dynamic → noise and the long run → selection, speed and path dependence.
+
+| Week | Dates | Concept units (driving texts) | Maths pulled in at the page | Hours |
 |---|---|---|---|---:|
-| 0 | 14-15 Nov | linear algebra (MML ch. 2) | | 6 |
-| 1 | 16-22 Nov | finish linear algebra ch. 2; determinants, eigenvalues and eigendecomposition (MML ch. 4, parts) | game theory: Tadelis ch. 3-4 (normal-form games, dominance); **the Part B paper's proofs, explain level, for the supervisor's review** | 20 |
-| 2 | 23-29 Nov | probability (MML ch. 6, parts); random walks, stationary distributions and the tree theorem; gradients and Jacobians (MML ch. 5, parts) | game theory: Tadelis ch. 5-6 (Nash equilibrium, mixed strategies); ISTTT, idea level: Wilson 1970 ch. 1 and Appendix 1 (what entropy is; why Shannon's measure is unique) | 23 |
-| 3 | 30 Nov-6 Dec | differential equations, stability, Lyapunov functions | game theory: population and potential games, revision protocols and mean dynamics, imitation, best response and logit dynamics, evolutionary stability, learning rules (skim), stochastic stability and the tree formula | 23 |
-| 4 | 7-11 Dec | (paused) | game theory: selection, speed and path dependence (the target); the presentation; dry runs | 14 |
-| **camp** | **Sat 12 Dec** | | **present** | |
+| 0 | 14-15 Nov | | linear algebra (MML ch. 2) | 6 |
+| 1 | 16-22 Nov | finish linear algebra ch. 2; **the Part B paper's proofs, explain level, for the supervisor's review**; game theory: Tadelis ch. 1-2 (skim with the deck), ch. 3-4 (normal-form games, dominance) | | 20 |
+| 2 | 24-29 Nov (Mon 23 holiday; Part B paper revision) | game theory: finish Tadelis ch. 4; ch. 5-6 (Nash equilibrium, mixed strategies); population games and potential games (Sandholm) | probability: the basic rules (MML ch. 6, part) | about 15 |
+| 3 | 30 Nov-6 Dec | revision protocols and mean dynamics; evolutionary stability (skim); logit dynamics, read together with **Wilson 1970 ch. 1 and Appendix 1** (entropy as counting; maximising entropy gives the logit); stochastic stability and the tree formula; first draft of the camp slides | flows on the line and Lyapunov functions; Markov chains, gambler's ruin, random walks on graphs; stationary distributions and the tree formula; Lagrange with one constraint (at Wilson's eq. 1.6) | 23 |
+| 4 | 7-11 Dec | selection, speed and path dependence (the target); the slides; dry runs | absorbing chains (waiting times); Pólya's urn (path dependence) | 14 |
+| **camp** | **Sat 12 Dec** | **present** | | |
 
 ### Phase II: to the ISTTT abstract
 
-| Week | Dates | Basics | Alongside | Hours |
+The chain behind the ISTTT question: entropy (counting, least bias) → choice as a convex programme (perturbed utility) → splitting a choice into steps as induction on a network → the consumer surplus as the conjugate of entropy, and zeros from preferences → constraints with prices → regularised optimal transport and where zeros come from.
+
+| Week | Dates | Concept units (driving texts) | Maths pulled in at the page | Hours |
 |---|---|---|---|---:|
-| 5 | 14-20 Dec | Lagrange multipliers and convexity; inner products; what a proof is; functions and induction; convex sets | ISTTT readings: McFadden and Fosgerau 2012, Caplin, Dean and Leahy 2019, Feng, Li and Wang 2017; **derive the Part B paper's main theorem on blank paper**; three small numerical checks | 23 |
-| 6 | 21-27 Dec | convex functions and the convex conjugate; convex problems (skim) | ISTTT readings: Fenchel-Young losses (Blondel et al. 2020), Chikaraishi and Nakayama 2016, with Wilson 1970 ch. 2 (the gravity model, mode and route split from entropy); the chain rule of entropy; **first novelty check** | 24 |
-| 7 | 28 Dec-3 Jan | duality and KKT; the log-sum and entropy pair; smoothing; directed graphs and equivalence relations (with the Part B paper's two reductions as worked cases) | ISTTT: Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; Wilson 1970 ch. 5-6 (policy and capacity constraints; entropy and utility); **the one-page claim and the decision on the direction** | 20.5 |
-| 8 | 4-10 Jan | | ISTTT as the main lane: optimal transport and its entropic form, perturbed utility and regularised transport; **the proof or a counterexample, with a numerical check** | 22 |
-| 9 | 11-15 Jan | | ISTTT: **write the extended abstract**, internal read | 13 |
+| 5 | 14-20 Dec | choice as a convex programme: McFadden and Fosgerau 2012, Caplin, Dean and Leahy 2019, Feng, Li and Wang 2017; **derive the Part B paper's main theorem on blank paper**; three small numerical checks | Lagrange with several and inequality constraints; convex functions; convex sets and the simplex; what a proof is; bijections and induction | 23 |
+| 6 | 21-27 Dec | the surplus as the conjugate of entropy, zeros from preferences: Fenchel-Young losses (Blondel et al. 2020), Chikaraishi and Nakayama 2016, the chain rule of entropy (Cover and Thomas ch. 2), Wilson 1970 ch. 2; **first novelty check** | the convex conjugate; subgradients, kinks and flats, where zeros come from | 22 |
+| 7 | 28 Dec-3 Jan | constraints with prices: Wilson 1970 ch. 5-6 (policy and capacity constraints; entropy and utility), Chiong, Galichon and Shum 2016, Caplin, Dean and Leahy 2022; **the one-page claim and the decision on the direction** | duality, KKT and sensitivity; the log-sum and entropy pair; smoothing and Fenchel duality; directed graphs and equivalence relations (with the Part B paper's two reductions as worked cases) | 20.5 |
+| 8 | 4-10 Jan | regularised optimal transport and where zeros come from: optimal transport and its entropic form, perturbed utility and regularised transport, Fosgerau 2022, Yao and Zhang; **the proof or a counterexample, with a numerical check** | the transport dual | 22 |
+| 9 | 11-15 Jan | **write the extended abstract**, internal read | | 13 |
 
 ### Phase III: from 16 January
 
-The basics skipped before the deadlines come first. Then the roadmap stages below in the order 1, 3, 2, 4, with the Part B paper's proofs derived again in full alongside Stage 3. About 39-44 study days at 20 hours a week, to about June 2027.
+First a half-day gap check: for every math stop taken, did the short version hold up in later units? Only the gaps it finds are filled. Then the rest of the roadmap, also as concept units, in this order: estimation (why the estimates and their standard errors can be trusted); dynamic discrete choice from the Bellman equation to Rust, with **the Part B paper's proofs derived again in full**; how the estimator's solver works; networks and flows; the rest of optimal transport; the rest of game theory. About 39-44 study days at 20 hours a week, to about June 2027.
 
 ## The roadmap
 
